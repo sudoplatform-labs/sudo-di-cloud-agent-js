@@ -14,13 +14,13 @@
     "noImplicitThis": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "outDir": "./dist",
+    "outDir": "./lib",
     "rootDir": "./client",
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": false,
     "target": "ES2018",
-    "tsBuildInfoFile": "./dist/.tsbuildinfo"
+    "tsBuildInfoFile": "./lib/.tsbuildinfo"
   },
   "references": [],
   "include": ["client"]

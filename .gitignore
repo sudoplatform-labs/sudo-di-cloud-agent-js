@@ -1,8 +1,13 @@
 # Ignore build directory where we will create temporary working spaces 
 build/
-# Don't track client build artifacts 
+# Don't track build artifacts that are used in packaging 
 client/
+lib/
+doc/
+bin/
+
 # Don't track an local tools build area like acapy or von
+# that get created when a developer build is run locally
 src/devel/
 src/logs/
 
@@ -20,4 +25,3 @@ lib/
 
 wwwroot/*.js
 typings
-dist

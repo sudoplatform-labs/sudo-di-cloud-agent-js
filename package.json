@@ -11,7 +11,9 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist/*"
+    "lib",
+    "bin",
+    "doc"
   ],
   "bin": {
     "di-env": "dist/bin/di-env.sh"
@@ -20,24 +22,23 @@
     "check-env": "node -e 'console.log(process.env)' | grep npm",
     "bootstrap": "yarn install --verbose",
     "clean:api": "rm -Rf build",
-    "clean:dist": "rm -Rf dist/",
+    "clean:dist": "rm -Rf lib/ bin/ doc/",
     "clean": "rm -Rf node_modules/ *.js && yarn clean:api && yarn clean:dist",
-    "clean:test-spec": "rm -f client/api_test.spec.ts",
+    "clean:test-specs": "rm -f client/api_test.spec.ts",
     "create-acapy-image": "src/build-acapy-image.sh",
     "create-openapi-spec": "src/generate-open-api-spec.sh",
     "generate-wrappers": "src/generate-typescript-wrappers.sh",
     "lint:prep": "src/remove-lint-disables.sh client",
     "lint": "yarn lint:prep && eslint client --ext ts --fix",
-    "build:docs": "typedoc --mode modules --excludePrivate --readme none --out dist/doc client/*.ts",
-    "build:copyDocs": "cp -R dist/doc client/doc",
-    "build:dist": "tsc -b tsconfig.json && mkdir -p dist/bin && cp src/clientTools/* dist/bin/ ",
+    "build:docs": "typedoc --mode modules --excludePrivate --readme none --out doc client/*.ts",
+    "build:dist": "tsc -b tsconfig.json && mkdir -p bin && cp src/clientTools/* bin/ ",
     "build:lint": "yarn lint && yarn clean:dist && yarn build:dist",
     "build:acapy": "yarn create-acapy-image",
     "build:openapi-spec": "yarn create-openapi-spec",
     "build:add-anonyome-info": "./node_modules/ts-node/dist/bin.js src/add-anonyome-info.ts",
-    "build:wrappers": "yarn generate-wrappers && yarn clean:test-spec && yarn build:lint",
+    "build:wrappers": "yarn generate-wrappers && yarn clean:test-specs && yarn build:lint",
     "test:acapy": "src/test-acapy-image.sh",
-    "build": "yarn audit && yarn build:acapy && yarn build:openapi-spec && yarn build:add-anonyome-info && yarn build:wrappers && yarn build:docs && yarn build:copyDocs"
+    "build": "yarn audit && yarn build:acapy && yarn build:openapi-spec && yarn build:add-anonyome-info && yarn build:wrappers && yarn build:docs"
   },
   "dependencies": {
     "@types/jest": "^26.0.15",
