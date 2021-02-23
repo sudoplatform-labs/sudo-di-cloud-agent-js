@@ -54,7 +54,7 @@ Other options can be seen with `yarn di-env`
 
 The Decentralized Identity Cloud Agent SDK installs local typedoc
 generated, HTML documentation. This will be located in the
-`@sudoplatform/sudo-di-cloud-agent/dist/doc` directory under the
+`@sudoplatform/sudo-di-cloud-agent/doc` directory under the
 relevent node_modules install location.
 
 ## Questions and Support
