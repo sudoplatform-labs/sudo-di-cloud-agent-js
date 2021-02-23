@@ -1,0 +1,23 @@
+# Ignore build directory where we will create temporary working spaces 
+build/
+# Don't track client build artifacts 
+client/
+# Don't track an local tools build area like acapy or von
+src/devel/
+src/logs/
+
+node_modules/
+.DS_Store
+.tsbuildinfo
+coverage
+yarn-error.log
+
+**/\#*\#
+**/*~
+
+*.tgz
+lib/
+
+wwwroot/*.js
+typings
+dist

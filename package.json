@@ -1,0 +1,64 @@
+{
+  "name": "@sudoplatform-labs/sudo-di-cloud-agent",
+  "version": "0.1.0",
+  "description": "Decentralized Identity Cloud Agent SDK",
+  "author": "Anonyome Labs, Inc.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sudoplatform-labs/sudo-di-cloud-agent-js.git"
+  },
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "bin": {
+    "di-env": "dist/bin/di-env.sh"
+  },
+  "scripts": {
+    "check-env": "node -e 'console.log(process.env)' | grep npm",
+    "bootstrap": "yarn install --verbose",
+    "clean:api": "rm -Rf build",
+    "clean:dist": "rm -Rf dist/",
+    "clean": "rm -Rf node_modules/ *.js && yarn clean:api && yarn clean:dist",
+    "clean:test-spec": "rm -f client/api_test.spec.ts",
+    "create-acapy-image": "src/build-acapy-image.sh",
+    "create-openapi-spec": "src/generate-open-api-spec.sh",
+    "generate-wrappers": "src/generate-typescript-wrappers.sh",
+    "lint:prep": "src/remove-lint-disables.sh client",
+    "lint": "yarn lint:prep && eslint client --ext ts --fix",
+    "build:docs": "typedoc --mode modules --excludePrivate --readme none --out dist/doc client/*.ts",
+    "build:copyDocs": "cp -R dist/doc client/doc",
+    "build:dist": "tsc -b tsconfig.json && mkdir -p dist/bin && cp src/clientTools/* dist/bin/ ",
+    "build:lint": "yarn lint && yarn clean:dist && yarn build:dist",
+    "build:acapy": "yarn create-acapy-image",
+    "build:openapi-spec": "yarn create-openapi-spec",
+    "build:add-anonyome-info": "./node_modules/ts-node/dist/bin.js src/add-anonyome-info.ts",
+    "build:wrappers": "yarn generate-wrappers && yarn clean:test-spec && yarn build:lint",
+    "test:acapy": "src/test-acapy-image.sh",
+    "build": "yarn audit && yarn build:acapy && yarn build:openapi-spec && yarn build:add-anonyome-info && yarn build:wrappers && yarn build:docs && yarn build:copyDocs"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.15",
+    "portable-fetch": "^3.0.0",
+    "ts-node": "^9.0.0",
+    "typescript": "~4.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.6",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "prettier": "^2.0.5",
+    "tslint": "^6.1.2",
+    "typedoc": "^0.19.2",
+    "typescript": "~4.0.5"
+  },
+  "resolutions": {
+    "**/node-fetch": "^2.6.1"
+  }
+}
