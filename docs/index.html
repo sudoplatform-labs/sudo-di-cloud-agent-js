@@ -53,7 +53,7 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="index.html">Globals</a>
+					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
 			<h1>@sudoplatform-labs/sudo-di-cloud-agent</h1>
@@ -63,41 +63,577 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
-				<section class="tsd-panel tsd-index-panel">
-					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Modules</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-module"><a href="modules/_api_.html" class="tsd-kind-icon">&quot;api&quot;</a></li>
-								<li class="tsd-kind-module"><a href="modules/_configuration_.html" class="tsd-kind-icon">&quot;configuration&quot;</a></li>
-								<li class="tsd-kind-module"><a href="modules/_index_.html" class="tsd-kind-icon">&quot;index&quot;</a></li>
-							</ul>
-						</section>
-					</div>
-				</section>
-			</section>
+			<div class="tsd-panel tsd-typography">
+				<a href="#sudo-decentralized-identity-cloud-agent-sdk" id="sudo-decentralized-identity-cloud-agent-sdk" style="color: inherit; text-decoration: none;">
+					<h1>Sudo Decentralized Identity Cloud Agent SDK</h1>
+				</a>
+				<a href="#overview" id="overview" style="color: inherit; text-decoration: none;">
+					<h2>Overview</h2>
+				</a>
+				<p>The Decentralized Identity Cloud Agent SDK provides a set of Typescript
+					APIs enabling applications to implement decentralized identity functionality.
+					Decentralized Identity Cloud Agent SDK is based around
+				<a href="https://github.com/hyperledger/aries-cloudagent-python">Hyperledger Aries Cloud Agent Python</a>.</p>
+				<a href="#key-features" id="key-features" style="color: inherit; text-decoration: none;">
+					<h2>Key Features</h2>
+				</a>
+				<ul>
+					<li>Quickly setup and takedown a local Decentralized Identity development
+						environment using docker containers (currently only MacOS)<ul>
+							<li>A running 4 Node Indy Decentralized Ledger</li>
+							<li>A configured and running Decentralized Identity Cloud Agent based on the
+							<a href="https://github.com/hyperledger/aries-cloudagent-python">Hyperledger Aries Cloud Agent Python</a></li>
+						</ul>
+					</li>
+					<li>Typescript SDK wrappers to access all the functionality provided by
+						<a href="https://github.com/hyperledger/aries-cloudagent-python">Hyperledger Aries Cloud Agent Python</a><ul>
+							<li>Ability to create Decentralized Identifiers, Schemas and Credential Definitions on the Local
+							Ledger</li>
+							<li>Ability to Issue, Hold and Verify Credentials based on Credential Definitions</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#version-support" id="version-support" style="color: inherit; text-decoration: none;">
+					<h2>Version Support</h2>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Technology</th>
+							<th>Supported version</th>
+						</tr>
+					</thead>
+				</table>
+				<a href="#integration-instructions" id="integration-instructions" style="color: inherit; text-decoration: none;">
+					<h2>Integration Instructions</h2>
+				</a>
+				<p>To use the Decentralized Identity Cloud Agent SDK in a Web or Node.js project you
+				must add <code>@sudoplatform/sudo-di-cloud-agent</code> as a dependency to your project.</p>
+				<pre><code><span class="hljs-attribute">yarn</span> add <span class="hljs-string">&#x27;<span class="hljs-variable">@sudoplatform</span>/sudo-di-cloud-agent&#x27;</span>
+<span class="hljs-comment"># or</span>
+npm install --save <span class="hljs-string">&#x27;<span class="hljs-variable">@sudoplatform</span>/sudo-di-cloud-agent&#x27;</span>
+</code></pre>
+				<a href="#public-interfaces" id="public-interfaces" style="color: inherit; text-decoration: none;">
+					<h2>Public Interfaces</h2>
+				</a>
+				<a href="#local-development-environment" id="local-development-environment" style="color: inherit; text-decoration: none;">
+					<h3>Local Development Environment</h3>
+				</a>
+				<p>To start and stop a local development environment (currently MacOS only), run the di-env utility.</p>
+				<pre><code>yarn <span class="hljs-built_in">di</span>-env start
+yarn <span class="hljs-built_in">di</span>-env <span class="hljs-meta">down</span>
+</code></pre>
+				<p>Other options can be seen with <code>yarn di-env</code></p>
+				<a href="#sdk-class-and-method-documentation" id="sdk-class-and-method-documentation" style="color: inherit; text-decoration: none;">
+					<h3>SDK Class and Method Documentation</h3>
+				</a>
+				<p>The Decentralized Identity Cloud Agent SDK installs local typedoc
+					generated, HTML documentation. This will be located in the
+					<code>@sudoplatform/sudo-di-cloud-agent/docs</code> directory under the
+				relevent node_modules install location.</p>
+				<a href="#questions-and-support" id="questions-and-support" style="color: inherit; text-decoration: none;">
+					<h2>Questions and Support</h2>
+				</a>
+				<p>File any issues you find on the project&#39;s GitHub repository. Be careful not to share any Personally Identifiable Information (PII) or sensitive account information (API keys, credentials, etc.) when reporting an issue.</p>
+				<p>For general inquiries related to the Sudo Platform, please contact <a href="mailto:partners@sudoplatform.com">partners@sudoplatform.com</a></p>
+			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals current ">
-						<a href="index.html"><em>Globals</em></a>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_api_.html">&quot;api&quot;</a>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/connrecord.html">Conn<wbr>Record</a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_configuration_.html">&quot;configuration&quot;</a>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/did.html">DID</a>
 					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_index_.html">&quot;index&quot;</a>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/didendpointwithtype.html">DIDEndpoint<wbr>With<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/indyproofreqpredspec.html">Indy<wbr>Proof<wbr>Req<wbr>Pred<wbr>Spec</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/prespredspec.html">Pres<wbr>Pred<wbr>Spec</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/v10credentialexchange.html">V10<wbr>Credential<wbr>Exchange</a>
+					</li>
+					<li class=" tsd-kind-namespace">
+						<a href="modules/v10presentationexchange.html">V10<wbr>Presentation<wbr>Exchange</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/actionmenuapi.html" class="tsd-kind-icon">Action<wbr>Menu<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/baseapi.html" class="tsd-kind-icon">BaseAPI</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/basicmessageapi.html" class="tsd-kind-icon">Basicmessage<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/configuration.html" class="tsd-kind-icon">Configuration</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/connectionapi.html" class="tsd-kind-icon">Connection<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/credentialdefinitionapi.html" class="tsd-kind-icon">Credential<wbr>Definition<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/credentialsapi.html" class="tsd-kind-icon">Credentials<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/introductionapi.html" class="tsd-kind-icon">Introduction<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/issuecredentialapi.html" class="tsd-kind-icon">Issue<wbr>Credential<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/ledgerapi.html" class="tsd-kind-icon">Ledger<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/outofbandapi.html" class="tsd-kind-icon">Out<wbr>OfBand<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/presentproofapi.html" class="tsd-kind-icon">Present<wbr>Proof<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/requirederror.html" class="tsd-kind-icon">Required<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/revocationapi.html" class="tsd-kind-icon">Revocation<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/schemaapi.html" class="tsd-kind-icon">Schema<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/serverapi.html" class="tsd-kind-icon">Server<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/trustpingapi.html" class="tsd-kind-icon">Trustping<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/walletapi.html" class="tsd-kind-icon">Wallet<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/amlrecord.html" class="tsd-kind-icon">AMLRecord</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/adminmodules.html" class="tsd-kind-icon">Admin<wbr>Modules</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/adminstatus.html" class="tsd-kind-icon">Admin<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/adminstatusliveliness.html" class="tsd-kind-icon">Admin<wbr>Status<wbr>Liveliness</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/adminstatusreadiness.html" class="tsd-kind-icon">Admin<wbr>Status<wbr>Readiness</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/attachdecorator.html" class="tsd-kind-icon">Attach<wbr>Decorator</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/attachdecoratordata.html" class="tsd-kind-icon">Attach<wbr>Decorator<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/attachdecoratordata1jws.html" class="tsd-kind-icon">Attach<wbr>Decorator<wbr>Data1JWS</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/attachdecoratordatajws.html" class="tsd-kind-icon">Attach<wbr>Decorator<wbr>DataJWS</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/attachdecoratordatajwsheader.html" class="tsd-kind-icon">Attach<wbr>Decorator<wbr>DataJWSHeader</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/attachmentdef.html" class="tsd-kind-icon">Attachment<wbr>Def</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/attributemimetypesresult.html" class="tsd-kind-icon">Attribute<wbr>Mime<wbr>Types<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/clearpendingrevocationsrequest.html" class="tsd-kind-icon">Clear<wbr>Pending<wbr>Revocations<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/configurationparameters.html" class="tsd-kind-icon">Configuration<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/connectioninvitation.html" class="tsd-kind-icon">Connection<wbr>Invitation</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/connectionlist.html" class="tsd-kind-icon">Connection<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/connectionstaticrequest.html" class="tsd-kind-icon">Connection<wbr>Static<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/connectionstaticresult.html" class="tsd-kind-icon">Connection<wbr>Static<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credattrspec.html" class="tsd-kind-icon">Cred<wbr>Attr<wbr>Spec</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credbrief.html" class="tsd-kind-icon">Cred<wbr>Brief</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credbrieflist.html" class="tsd-kind-icon">Cred<wbr>Brief<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credrevrecordresult.html" class="tsd-kind-icon">Cred<wbr>Rev<wbr>Record<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credrevokedresult.html" class="tsd-kind-icon">Cred<wbr>Revoked<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credentialdefinition.html" class="tsd-kind-icon">Credential<wbr>Definition</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credentialdefinitiongetresults.html" class="tsd-kind-icon">Credential<wbr>Definition<wbr>Get<wbr>Results</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credentialdefinitionsendrequest.html" class="tsd-kind-icon">Credential<wbr>Definition<wbr>Send<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credentialdefinitionsendresults.html" class="tsd-kind-icon">Credential<wbr>Definition<wbr>Send<wbr>Results</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credentialdefinitionscreatedresults.html" class="tsd-kind-icon">Credential<wbr>Definitions<wbr>Created<wbr>Results</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/credentialpreview.html" class="tsd-kind-icon">Credential<wbr>Preview</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/didendpoint.html" class="tsd-kind-icon">DIDEndpoint</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/didlist.html" class="tsd-kind-icon">DIDList</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/didresult.html" class="tsd-kind-icon">DIDResult</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/fetchapi.html" class="tsd-kind-icon">FetchAPI</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/fetchargs.html" class="tsd-kind-icon">Fetch<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/indycredinfo.html" class="tsd-kind-icon">Indy<wbr>Cred<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/indycredprecis.html" class="tsd-kind-icon">Indy<wbr>Cred<wbr>Precis</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/indyproofreqattrspec.html" class="tsd-kind-icon">Indy<wbr>Proof<wbr>Req<wbr>Attr<wbr>Spec</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/indyproofreqnonrevoked.html" class="tsd-kind-icon">Indy<wbr>Proof<wbr>Req<wbr>Non<wbr>Revoked</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/indyproofreqpredspecrestrictions.html" class="tsd-kind-icon">Indy<wbr>Proof<wbr>Req<wbr>Pred<wbr>Spec<wbr>Restrictions</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/indyproofrequest.html" class="tsd-kind-icon">Indy<wbr>Proof<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/indyrequestedcredsrequestedattr.html" class="tsd-kind-icon">Indy<wbr>Requested<wbr>Creds<wbr>Requested<wbr>Attr</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/indyrequestedcredsrequestedpred.html" class="tsd-kind-icon">Indy<wbr>Requested<wbr>Creds<wbr>Requested<wbr>Pred</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/invitationconnectiontargetrequest.html" class="tsd-kind-icon">Invitation<wbr>Connection<wbr>Target<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/invitationcreaterequest.html" class="tsd-kind-icon">Invitation<wbr>Create<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/invitationreceiverequest.html" class="tsd-kind-icon">Invitation<wbr>Receive<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/invitationresult.html" class="tsd-kind-icon">Invitation<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/menuform.html" class="tsd-kind-icon">Menu<wbr>Form</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/menuformparam.html" class="tsd-kind-icon">Menu<wbr>Form<wbr>Param</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/menujson.html" class="tsd-kind-icon">Menu<wbr>Json</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/menuoption.html" class="tsd-kind-icon">Menu<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/performrequest.html" class="tsd-kind-icon">Perform<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/pingrequest.html" class="tsd-kind-icon">Ping<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/pingrequestresponse.html" class="tsd-kind-icon">Ping<wbr>Request<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/presattrspec.html" class="tsd-kind-icon">Pres<wbr>Attr<wbr>Spec</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/presentationpreview.html" class="tsd-kind-icon">Presentation<wbr>Preview</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/publishrevocations.html" class="tsd-kind-icon">Publish<wbr>Revocations</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/queryresult.html" class="tsd-kind-icon">Query<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/receiveinvitationrequest.html" class="tsd-kind-icon">Receive<wbr>Invitation<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/revregcreaterequest.html" class="tsd-kind-icon">Rev<wbr>Reg<wbr>Create<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/revregissuedresult.html" class="tsd-kind-icon">Rev<wbr>Reg<wbr>Issued<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/revregresult.html" class="tsd-kind-icon">Rev<wbr>Reg<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/revregupdatetailsfileuri.html" class="tsd-kind-icon">Rev<wbr>Reg<wbr>Update<wbr>Tails<wbr>File<wbr>Uri</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/revregscreated.html" class="tsd-kind-icon">Rev<wbr>Regs<wbr>Created</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/revokerequest.html" class="tsd-kind-icon">Revoke<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/schema.html" class="tsd-kind-icon">Schema</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/schemagetresults.html" class="tsd-kind-icon">Schema<wbr>Get<wbr>Results</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/schemasendrequest.html" class="tsd-kind-icon">Schema<wbr>Send<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/schemasendresults.html" class="tsd-kind-icon">Schema<wbr>Send<wbr>Results</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/schemascreatedresults.html" class="tsd-kind-icon">Schemas<wbr>Created<wbr>Results</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sendmenu.html" class="tsd-kind-icon">Send<wbr>Menu</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sendmessage.html" class="tsd-kind-icon">Send<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/service.html" class="tsd-kind-icon">Service</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/taaaccept.html" class="tsd-kind-icon">TAAAccept</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/taaacceptance.html" class="tsd-kind-icon">TAAAcceptance</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/taainfo.html" class="tsd-kind-icon">TAAInfo</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/taarecord.html" class="tsd-kind-icon">TAARecord</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/taaresult.html" class="tsd-kind-icon">TAAResult</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10credentialcreate.html" class="tsd-kind-icon">V10<wbr>Credential<wbr>Create</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10credentialexchangelistresult.html" class="tsd-kind-icon">V10<wbr>Credential<wbr>Exchange<wbr>List<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10credentialissuerequest.html" class="tsd-kind-icon">V10<wbr>Credential<wbr>Issue<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10credentialofferrequest.html" class="tsd-kind-icon">V10<wbr>Credential<wbr>Offer<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10credentialproblemreportrequest.html" class="tsd-kind-icon">V10<wbr>Credential<wbr>Problem<wbr>Report<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10credentialproposalrequestmand.html" class="tsd-kind-icon">V10<wbr>Credential<wbr>Proposal<wbr>Request<wbr>Mand</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10credentialproposalrequestopt.html" class="tsd-kind-icon">V10<wbr>Credential<wbr>Proposal<wbr>Request<wbr>Opt</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10credentialstorerequest.html" class="tsd-kind-icon">V10<wbr>Credential<wbr>Store<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10presentationcreaterequestrequest.html" class="tsd-kind-icon">V10<wbr>Presentation<wbr>Create<wbr>Request<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10presentationexchangelist.html" class="tsd-kind-icon">V10<wbr>Presentation<wbr>Exchange<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10presentationproposalrequest.html" class="tsd-kind-icon">V10<wbr>Presentation<wbr>Proposal<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10presentationrequest.html" class="tsd-kind-icon">V10<wbr>Presentation<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/v10presentationsendrequestrequest.html" class="tsd-kind-icon">V10<wbr>Presentation<wbr>Send<wbr>Request<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#base_path" class="tsd-kind-icon">BASE_<wbr>PATH</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#actionmenuapifactory" class="tsd-kind-icon">Action<wbr>Menu<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#actionmenuapifetchparamcreator" class="tsd-kind-icon">Action<wbr>Menu<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#actionmenuapifp" class="tsd-kind-icon">Action<wbr>Menu<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#basicmessageapifactory" class="tsd-kind-icon">Basicmessage<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#basicmessageapifetchparamcreator" class="tsd-kind-icon">Basicmessage<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#basicmessageapifp" class="tsd-kind-icon">Basicmessage<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#connectionapifactory" class="tsd-kind-icon">Connection<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#connectionapifetchparamcreator" class="tsd-kind-icon">Connection<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#connectionapifp" class="tsd-kind-icon">Connection<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#credentialdefinitionapifactory" class="tsd-kind-icon">Credential<wbr>Definition<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#credentialdefinitionapifetchparamcreator" class="tsd-kind-icon">Credential<wbr>Definition<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#credentialdefinitionapifp" class="tsd-kind-icon">Credential<wbr>Definition<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#credentialsapifactory" class="tsd-kind-icon">Credentials<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#credentialsapifetchparamcreator" class="tsd-kind-icon">Credentials<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#credentialsapifp" class="tsd-kind-icon">Credentials<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#introductionapifactory" class="tsd-kind-icon">Introduction<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#introductionapifetchparamcreator" class="tsd-kind-icon">Introduction<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#introductionapifp" class="tsd-kind-icon">Introduction<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#issuecredentialapifactory" class="tsd-kind-icon">Issue<wbr>Credential<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#issuecredentialapifetchparamcreator" class="tsd-kind-icon">Issue<wbr>Credential<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#issuecredentialapifp" class="tsd-kind-icon">Issue<wbr>Credential<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#ledgerapifactory" class="tsd-kind-icon">Ledger<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#ledgerapifetchparamcreator" class="tsd-kind-icon">Ledger<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#ledgerapifp" class="tsd-kind-icon">Ledger<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#outofbandapifactory" class="tsd-kind-icon">Out<wbr>OfBand<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#outofbandapifetchparamcreator" class="tsd-kind-icon">Out<wbr>OfBand<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#outofbandapifp" class="tsd-kind-icon">Out<wbr>OfBand<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#presentproofapifactory" class="tsd-kind-icon">Present<wbr>Proof<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#presentproofapifetchparamcreator" class="tsd-kind-icon">Present<wbr>Proof<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#presentproofapifp" class="tsd-kind-icon">Present<wbr>Proof<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#revocationapifactory" class="tsd-kind-icon">Revocation<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#revocationapifetchparamcreator" class="tsd-kind-icon">Revocation<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#revocationapifp" class="tsd-kind-icon">Revocation<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#schemaapifactory" class="tsd-kind-icon">Schema<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#schemaapifetchparamcreator" class="tsd-kind-icon">Schema<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#schemaapifp" class="tsd-kind-icon">Schema<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#serverapifactory" class="tsd-kind-icon">Server<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#serverapifetchparamcreator" class="tsd-kind-icon">Server<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#serverapifp" class="tsd-kind-icon">Server<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#trustpingapifactory" class="tsd-kind-icon">Trustping<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#trustpingapifetchparamcreator" class="tsd-kind-icon">Trustping<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#trustpingapifp" class="tsd-kind-icon">Trustping<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#walletapifactory" class="tsd-kind-icon">Wallet<wbr>Api<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#walletapifetchparamcreator" class="tsd-kind-icon">Wallet<wbr>Api<wbr>Fetch<wbr>Param<wbr>Creator</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#walletapifp" class="tsd-kind-icon">Wallet<wbr>Api<wbr>Fp</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#collection_formats" class="tsd-kind-icon">COLLECTION_<wbr>FORMATS</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -108,16 +644,22 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
 			</ul>
 		</div>
 	</div>

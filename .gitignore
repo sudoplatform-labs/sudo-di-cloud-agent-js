@@ -3,7 +3,7 @@ build/
 # Don't track build artifacts that are used in packaging 
 client/
 lib/
-doc/
+docs/
 bin/
 
 # Don't track an local tools build area like acapy or von
