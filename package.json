@@ -1,6 +1,6 @@
 {
   "name": "@sudoplatform-labs/sudo-di-cloud-agent",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Decentralized Identity Cloud Agent SDK",
   "author": "Anonyome Labs, Inc.",
   "repository": {
@@ -8,21 +8,21 @@
     "url": "https://github.com/sudoplatform-labs/sudo-di-cloud-agent-js.git"
   },
   "license": "Apache-2.0",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "bin",
-    "doc"
+    "docs"
   ],
   "bin": {
-    "di-env": "dist/bin/di-env.sh"
+    "di-env": "bin/di-env.sh"
   },
   "scripts": {
     "check-env": "node -e 'console.log(process.env)' | grep npm",
     "bootstrap": "yarn install --verbose",
     "clean:api": "rm -Rf build",
-    "clean:dist": "rm -Rf lib/ bin/ doc/",
+    "clean:dist": "rm -Rf lib/ bin/ docs/",
     "clean": "rm -Rf node_modules/ *.js && yarn clean:api && yarn clean:dist",
     "clean:test-specs": "rm -f client/api_test.spec.ts",
     "create-acapy-image": "src/build-acapy-image.sh",
@@ -30,7 +30,7 @@
     "generate-wrappers": "src/generate-typescript-wrappers.sh",
     "lint:prep": "src/remove-lint-disables.sh client",
     "lint": "yarn lint:prep && eslint client --ext ts --fix",
-    "build:docs": "typedoc --mode modules --excludePrivate --readme none --out doc client/*.ts",
+    "build:docs": "typedoc --mode modules --excludePrivate --readme none --out docs client/*.ts",
     "build:dist": "tsc -b tsconfig.json && mkdir -p bin && cp src/clientTools/* bin/ ",
     "build:lint": "yarn lint && yarn clean:dist && yarn build:dist",
     "build:acapy": "yarn create-acapy-image",
