@@ -4,18 +4,17 @@
 
 The Decentralized Identity Cloud Agent SDK provides a set of Typescript
 APIs enabling applications to implement decentralized identity functionality.
-Decentralized Identity Cloud Agent SDK is based around
-[Hyperledger Aries Cloud Agent Python](https://github.com/hyperledger/aries-cloudagent-python).
+Decentralized Identity Cloud Agent SDK is based around [Anonyomes fork](https://github.com/anonyome/aries-cloudagent-python)
+of Hyperledger Aries Cloud Agent Python.
 
 ## Key Features
 
 - Quickly setup and takedown a local Decentralized Identity development
   environment using docker containers (currently only MacOS)
   - A running 4 Node Indy Decentralized Ledger
-  - A configured and running Decentralized Identity Cloud Agent based on the
-    [Hyperledger Aries Cloud Agent Python](https://github.com/hyperledger/aries-cloudagent-python)
+  - A configured and running Decentralized Identity Cloud Agent
 - Typescript SDK wrappers to access all the functionality provided by
-  [Hyperledger Aries Cloud Agent Python](https://github.com/hyperledger/aries-cloudagent-python)
+  [Anonyomes fork](https://github.com/anonyome/aries-cloudagent-python) of Hyperledger Aries Cloud Agent Python.
   - Ability to create Decentralized Identifiers, Schemas and Credential Definitions on the Local
     Ledger
   - Ability to Issue, Hold and Verify Credentials based on Credential Definitions
@@ -55,7 +54,8 @@ Other options can be seen with `yarn di-env`
 The Decentralized Identity Cloud Agent SDK installs local typedoc
 generated, HTML documentation. This will be located in the
 `@sudoplatform/sudo-di-cloud-agent/docs` directory under the
-relevent node_modules install location.
+relevent node_modules install location. The latest version of
+documentation can also be found online at [Github](https://sudoplatform-labs.github.io/sudo-di-cloud-agent-js/)
 
 ## Questions and Support
 
