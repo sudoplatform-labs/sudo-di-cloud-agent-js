@@ -1,6 +1,6 @@
 {
   "name": "@sudoplatform-labs/sudo-di-cloud-agent",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Decentralized Identity Cloud Agent SDK",
   "author": "Anonyome Labs, Inc.",
   "repository": {
@@ -20,7 +20,7 @@
   },
   "scripts": {
     "check-env": "node -e 'console.log(process.env)' | grep npm",
-    "bootstrap": "yarn install --verbose",
+    "bootstrap": "yarn install",
     "clean:api": "rm -Rf build",
     "clean:dist": "rm -Rf lib/ bin/ docs/",
     "clean": "rm -Rf node_modules/ *.js && yarn clean:api && yarn clean:dist",
@@ -35,29 +35,37 @@
     "build:lint": "yarn lint && yarn clean:dist && yarn build:dist",
     "build:acapy": "yarn create-acapy-image",
     "build:openapi-spec": "yarn create-openapi-spec",
-    "build:add-anonyome-info": "./node_modules/ts-node/dist/bin.js src/add-anonyome-info.ts",
+    "build:add-company-info": "./node_modules/ts-node/dist/bin.js src/add-company-info.ts",
     "build:wrappers": "yarn generate-wrappers && yarn clean:test-specs && yarn build:lint",
+    "build:operationIds": "./node_modules/ts-node/dist/bin.js src/operationids-merge.ts -i open-api/operationIds.json -s open-api/openapi.json",
     "test:acapy": "src/test-acapy-image.sh",
-    "build": "yarn audit && yarn build:acapy && yarn build:openapi-spec && yarn build:add-anonyome-info && yarn build:wrappers && yarn build:docs"
+    "test:scripts": "jest",
+    "build": "yarn audit && yarn build:acapy && yarn build:openapi-spec && yarn build:add-company-info && yarn test:scripts && yarn build:operationIds && yarn build:wrappers && yarn build:docs"
   },
   "dependencies": {
-    "@types/jest": "^26.0.15",
     "portable-fetch": "^3.0.0",
     "ts-node": "^9.0.0",
     "typescript": "~4.0.5"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.7",
+    "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.6",
+    "@types/yargs": "^16.0.0",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.3",
+    "jest": "^26.6.3",
+    "lodash": "^4.17.21",
     "prettier": "^2.0.5",
+    "ts-jest": "^26.5.2",
     "tslint": "^6.1.2",
     "typedoc": "^0.19.2",
-    "typescript": "~4.0.5"
+    "typescript": "~4.0.5",
+    "yargs": "^16.2.0"
   },
   "resolutions": {
     "**/node-fetch": "^2.6.1",

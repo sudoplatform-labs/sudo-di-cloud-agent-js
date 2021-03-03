@@ -14,6 +14,7 @@ function usage() {
 cd $(dirname $0)
 
 # Establish basic context of where things exist
+ACA_PY_GIT_TAG_DEFAULT=0.500.600
 GIT_BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 ROOT_DIR="${PWD}/.."
 BUILD_DIR="${ROOT_DIR}/build"
@@ -25,7 +26,6 @@ source ${ROOT_DIR}/src/build-functions.sh
 # Global Defaults and Constants
 ##########################################################################################
 ACA_PY_GIT_REPO_DEFAULT="https://github.com/anonyome/aries-cloudagent-python.git"
-ACA_PY_GIT_BRANCH_DEFAULT=${GIT_BRANCH}
 ACA_PY_SRC_DIR="${BUILD_DIR}/aries-cloudagent-python"
 ACA_PY_DOCKER_IMAGE_DEFAULT="sudo-di-cloud-agent"
 
@@ -43,8 +43,8 @@ while getopts ':b:t:r:i:' option; do
   esac
 done
 
-if [ -z $GIT_ACA_PY_BRANCH_OPT ]; then
-  GIT_ACA_PY_BRANCH_OPT=${ACA_PY_GIT_BRANCH_DEFAULT}
+if [ -z $GIT_ACA_PY_TAG_OPT ]; then
+  GIT_ACA_PY_TAG_OPT=${ACA_PY_GIT_TAG_DEFAULT}
 fi
 
 if [ -z $GIT_ACA_PY_REPO_OPT ]; then
