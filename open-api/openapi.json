@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.2.0"
+    "version": "v0.2.1"
   },
   "servers": [
     {
@@ -312,15 +312,15 @@
             "schema": {
               "type": "string",
               "enum": [
+                "error",
+                "abandoned",
+                "request",
+                "response",
+                "invitation",
                 "active",
                 "init",
-                "error",
-                "invitation",
-                "request",
-                "start",
-                "response",
-                "abandoned",
-                "completed"
+                "completed",
+                "start"
               ]
             }
           },
@@ -3428,7 +3428,7 @@
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string",
             "description": "Hint regarding last modification datetime, in ISO-8601 format",
-            "example": "2021-03-03 05:13:20Z"
+            "example": "2021-03-07 23:18:35Z"
           },
           "mime-type": {
             "type": "string",
@@ -3600,7 +3600,7 @@
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string",
             "description": "Time of record creation",
-            "example": "2021-03-03 05:13:20Z"
+            "example": "2021-03-07 23:18:35Z"
           },
           "error_msg": {
             "type": "string",
@@ -3681,7 +3681,7 @@
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string",
             "description": "Time of last record update",
-            "example": "2021-03-03 05:13:20Z"
+            "example": "2021-03-07 23:18:35Z"
           }
         }
       },
@@ -4263,7 +4263,7 @@
             "type": "integer",
             "description": "Earliest epoch of interest for non-revocation proof",
             "format": "int32",
-            "example": 1614748400
+            "example": 1615159115
           },
           "to": {
             "maximum": 18446744073709552000,
@@ -4271,7 +4271,7 @@
             "type": "integer",
             "description": "Latest epoch of interest for non-revocation proof",
             "format": "int32",
-            "example": 1614748400
+            "example": 1615159115
           }
         }
       },
@@ -4420,7 +4420,7 @@
             "type": "integer",
             "description": "Epoch timestamp of interest for non-revocation proof",
             "format": "int32",
-            "example": 1614748400
+            "example": 1615159115
           }
         }
       },
@@ -4441,7 +4441,7 @@
             "type": "integer",
             "description": "Epoch timestamp of interest for non-revocation proof",
             "format": "int32",
-            "example": 1614748400
+            "example": 1615159115
           }
         }
       },
@@ -5215,7 +5215,7 @@
             "minimum": 0,
             "type": "integer",
             "format": "int32",
-            "example": 1614748400
+            "example": 1615159115
           }
         }
       },
@@ -5345,7 +5345,7 @@
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string",
             "description": "Time of record creation",
-            "example": "2021-03-03 05:13:20Z"
+            "example": "2021-03-07 23:18:35Z"
           },
           "credential": {
             "type": "object",
@@ -5458,7 +5458,7 @@
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string",
             "description": "Time of last record update",
-            "example": "2021-03-03 05:13:20Z"
+            "example": "2021-03-07 23:18:35Z"
           }
         }
       },
@@ -5716,7 +5716,7 @@
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string",
             "description": "Time of record creation",
-            "example": "2021-03-03 05:13:20Z"
+            "example": "2021-03-07 23:18:35Z"
           },
           "error_msg": {
             "type": "string",
@@ -5784,7 +5784,7 @@
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string",
             "description": "Time of last record update",
-            "example": "2021-03-03 05:13:20Z"
+            "example": "2021-03-07 23:18:35Z"
           },
           "verified": {
             "type": "string",

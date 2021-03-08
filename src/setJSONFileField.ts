@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import _ from 'lodash';
+import { get, set } from 'lodash';
 
 /**
  * Reads a JSON format file and updates or adds a new object at
@@ -25,13 +25,13 @@ export const setJSONFileField = (
 
   // Print a warning if the field doesn't currently exist but still
   // add it to the object.
-  if (_.get(jsonObject, fieldPath) === undefined) {
+  if (get(jsonObject, fieldPath) === undefined) {
     console.log(
       `*** JSON file "${fileName}" is missing target "${fieldPath}" creating new field`,
     );
   }
 
-  _.set(jsonObject, fieldPath, value);
+  set(jsonObject, fieldPath, value);
 
   fs.writeFileSync(fileName, JSON.stringify(jsonObject, undefined, 2));
   return 0;

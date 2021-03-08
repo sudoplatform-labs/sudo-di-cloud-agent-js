@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import _ from 'lodash';
+import { get } from 'lodash';
 import { exit } from 'process';
 
 export type OperationMapping = {
@@ -62,7 +62,7 @@ export const modifyAPIOperationIds = (
   const mergeInput = JSON.parse(fs.readFileSync(mergeInputFile).toString());
   mergeInput.map((change: OperationMapping) => {
     // Locate the specification method and replace/insert the indicated operationId
-    if (_.get(specification, `paths.${change.path}.${change.method}`)) {
+    if (get(specification, `paths.${change.path}.${change.method}`)) {
       specification.paths[change.path][change.method].operationId =
         change.operationId;
     } else {

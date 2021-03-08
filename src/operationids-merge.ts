@@ -12,12 +12,12 @@
 //
 // It will then parse the indicated OpenApi specification file and
 // add/replace the operationIds.
-import path from 'path';
-import yargs from 'yargs';
+import { basename } from 'path';
+import * as yargs from 'yargs';
 import { modifyAPIOperationIds } from './modifyAPIOperationIds';
 
 const argv = yargs(process.argv.slice(2))
-  .usage(`Usage: ${path.basename(process.argv[1])} [options]`)
+  .usage(`Usage: ${basename(process.argv[1])} [options]`)
   .options({
     mergeFile: {
       alias: 'i',

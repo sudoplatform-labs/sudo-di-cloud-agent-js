@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import _ from 'lodash';
+import { get } from 'lodash';
 import { setJSONFileField } from './setJSONFileField';
 
 jest.mock('fs');
@@ -62,7 +62,7 @@ const writeFileSyncSpy = jest
 // include the indicated JSON element and value.
 function checkField(fileName: string, fieldPath: string, value: any): void {
   const testData = JSON.parse(fs.readFileSync(fileName).toString());
-  const testValue = _.get(testData, fieldPath);
+  const testValue = get(testData, fieldPath);
 
   expect(testValue).toEqual(value);
 }

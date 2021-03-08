@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import _ from 'lodash';
+import { get } from 'lodash';
 import {
   OperationMapping,
   modifyAPIOperationIds,
@@ -110,7 +110,7 @@ const writeFileSyncSpy = jest
 function checkOperationId(fileName: string, change: OperationMapping): boolean {
   const data = JSON.parse(fs.readFileSync(fileName).toString());
   return (
-    _.get(data, `paths.${change.path}.${change.method}`) != undefined &&
+    get(data, `paths.${change.path}.${change.method}`) != undefined &&
     data.paths[change.path][change.method].operationId === change.operationId
   );
 }
