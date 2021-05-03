@@ -100,8 +100,8 @@ function exportConfigOptions() {
   export ACA_PY_IMAGE=$(getJSONFieldValue "acapyImageLocation" ${configFile})
 
   # Get the parameters for talking to the ACA-py Agent from the UI
-  export ACA_PY_AGENT_KEY=$(getJSONFieldValue "customerAgentKey" ${configFile})
-  agentURI=$(getJSONFieldValue "customerAgentUri" ${configFile})
+  export ACA_PY_AGENT_KEY=$(getJSONFieldValue "acapyAdminKey" ${configFile})
+  agentURI=$(getJSONFieldValue "acapyAdminUri" ${configFile})
   export ACA_PY_ADMIN_PORT=$(cut -d':' -f3 <<<${agentURI}) 
 
   # Get the parameters for starting the ACA-py Agent to allow for
@@ -110,6 +110,21 @@ function exportConfigOptions() {
   inboundPort=$(getJSONFieldValue "acapyInboundPort" ${configFile})
 
   export ACA_PY_DOCKER_PORTS="${inboundPort}:${inboundPort} ${ACA_PY_ADMIN_PORT}:${ACA_PY_ADMIN_PORT}"
+
+  # Specify a full endpoint (e.g. http://host:port).  This is used to override 
+  # the local host information when creating invitations. Particularly needed
+  # when connections from Clients need to pass through a NAT to reach 
+  # this agent.
+  if [ ${clientEndpointOption} ]; then
+    # Command switch overrides all
+    clientEndpoint=${clientEndpointOption}
+  else
+    clientEndpoint=$(getJSONFieldValue "acapyClientEndpoint" ${configFile})
+    if [ ! ${clientEndpoint} ]; then
+      # Fall back to the default endpoint for only localhost processes to access
+      clientEndpoint="http://${DOCKER_HOST_IP}:${inboundPort}"
+    fi
+  fi
 
   # Define the complete set of command options for starting the ACA-py
   # agent 
@@ -120,7 +135,7 @@ function exportConfigOptions() {
     --admin 0.0.0.0 ${ACA_PY_ADMIN_PORT} \
     --admin-insecure-mode \
     --log-level info \
-    --endpoint http://${DOCKER_HOST_IP}:${inboundPort} \
+    --endpoint ${clientEndpoint} \
     --genesis-url http://${VON_LEDGER}/genesis \
     --seed "${VON_ENDORSER_SEED}" \
     --public-invites \
@@ -140,7 +155,8 @@ function exportConfigOptions() {
 
 function runVONNetwork() {
   cd ${VON_SRC_DIR}
-  ./manage start
+  # Can now ask to wait until VON is up before returning
+  ./manage start --wait
 }
 
 function stopVONNetwork() {
@@ -164,12 +180,6 @@ function executeVONStartup() {
     cd ${VON_SRC_DIR}
     ./manage build
     runVONNetwork
-    waitActiveWebInterface "http://localhost:${vonAdminPort}" 20
-    # Give the von nodes a few seconds after its web 
-    # interface is up to allow the ledger to stabilise before
-    # anything hits it since this can cause failures of the agent starting
-    # NOTE : Need to find a better approach to determine VON is ready
-    sleep 5
 }
 
 # Register an "ENDORSER" DID to the VON Ledger so that 
@@ -218,11 +228,12 @@ case "${subCommand}" in
     startVonLedger=true;
 
     # start comes with several options on how to construct the environment
-    while getopts ':flc:' option; do
+    while getopts ':flc:e:' option; do
       case ${option} in
         f) flushOption=true ;;
         l) startVonLedger=false ;;
         c) configFileOption=${OPTARG} ;;
+        e) clientEndpointOption=${OPTARG} ;;
         \?) usage; 
       esac
     done
