@@ -1,7 +1,6 @@
 {
-  "endorserSeed": "DevelSecretKey000000000000000001",
   "acapyInboundPort": "8200",
-  "acapyImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-cloud-agent:0.2.2",
+  "acapyImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-cloud-agent:0.2.3",
   "acapyAdminUri": "http://localhost:8201",
   "acapyAdminKey": "cl0udAg3nt"
 }

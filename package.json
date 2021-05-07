@@ -1,6 +1,6 @@
 {
   "name": "@sudoplatform-labs/sudo-di-cloud-agent",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Decentralized Identity Cloud Agent SDK",
   "author": "Anonyome Labs, Inc.",
   "repository": {
@@ -40,7 +40,7 @@
     "build:operationIds": "./node_modules/ts-node/dist/bin.js src/operationids-merge.ts -i open-api/operationIds.json -s open-api/openapi.json",
     "test:acapy": "src/test-acapy-image.sh",
     "test:scripts": "jest",
-    "build": "yarn audit && yarn build:acapy && yarn build:openapi-spec && yarn build:add-company-info && yarn test:scripts && yarn build:operationIds && yarn build:wrappers && yarn build:docs"
+    "build": "yarn audit --groups dependencies && yarn build:acapy && yarn build:openapi-spec && yarn build:add-company-info && yarn test:scripts && yarn build:operationIds && yarn build:wrappers && yarn build:docs"
   },
   "dependencies": {
     "portable-fetch": "^3.0.0"
@@ -68,6 +68,7 @@
   },
   "resolutions": {
     "**/node-fetch": "^2.6.1",
-    "**/marked": "^2.0.0"
+    "**/marked": "^2.0.0",
+    "**/lodash": "^4.17.21"
   }
 }

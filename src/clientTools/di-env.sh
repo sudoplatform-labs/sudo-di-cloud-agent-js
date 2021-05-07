@@ -1,19 +1,6 @@
 #!/bin/bash
 #
-# This script creates a local Cloud Agent development environment by
-# performing the following steps on the "start" command :
-# 1. If -f option is specified, delete the ../devel directory to create
-#    an empty development environment.
-# 2. Check if the ../devel directory exists and if not create it
-# 3. If -l option is specified, check if the ../devel/von-network 
-#    directory is missing, pull the latest 
-#    VON Network version from the github.com/bcgov/von-network.git repository.
-# 4. Configure and run the docker VON Indy Ledger Network locally.
-# 5. If the -c option is specified, use the specified configuration file
-#    to provide ACA-py docker image parameters and location. Otherwise use
-#    the config file located in our local directory.
-# 6. Run an instance of the docker ACA-py Cloud Agent configured to use 
-#    the Local VON Indy Ledger.
+# This script creates a running local Cloud Agent development environment 
 #
 # Usage:
 
@@ -29,12 +16,26 @@ function usage() {
           and ACA-py Cloud Agent inside docker containers
 
           start options :
-          -l : DO NOT Start the VON Indy Decentralized Ledger before the aca-py Agent.
-               This is useful if you are going to run multiple agents and the Ledger
-               has already been started.
-          -c : Use a custom configuration file rather than the default acapy.json. 
+          -s <32 byte seed> : Use the specified 32 bytes as the seed for the wallets public DID.
+               There is NO default, for security reasons it must be supplied either as an
+               arguement or via an 'endorserSeed' field added to the config file.
+          -g <genesis file url> : Pull the ledger genesis file from the specified url. Overrides
+               a url specified in the 'ledgerGenesisURL' field of the config file. If neither
+               present, defaults to the URL to pull a genesis file from a locally running VON Indy
+               Ledger.
+          -e <agent endpoint> : Specifies the endpoint to put into DIDDocs to inform
+               other agents where they should send messages destined for this agent.
+               Specify a full endpoint URL (e.g. http://host:port). Overrides
+               a url specified in the 'acapyClientEndpoint' field of the config file. If neither
+               present, defaults to the localhost url of the running docker image. Particularly 
+               useful when connections from agents need to pass through a NAT (i.e or ngrok) to reach
+               this agent. 
+          -c <config file path> : Use a custom configuration file rather than the default acapy.json. 
                This allows changing various parameters so that multiple agents can be run
                on a single machine (NOTE: must provide an absolute path).
+          -l : DO NOT Start the VON Indy Decentralized Ledger before the aca-py Agent.
+               This is useful if you are going to run multiple agents and the Ledger
+               has already been started or you will be using a public ledger URL via -g
           -f : Force remove the existing runtime environment before starting which will
                cause new VON repository versions to be pulled. 
   
@@ -106,7 +107,6 @@ function exportConfigOptions() {
 
   # Get the parameters for starting the ACA-py Agent to allow for
   # multiple agents when testing
-  export VON_ENDORSER_SEED=$(getJSONFieldValue "endorserSeed" ${configFile})
   inboundPort=$(getJSONFieldValue "acapyInboundPort" ${configFile})
 
   export ACA_PY_DOCKER_PORTS="${inboundPort}:${inboundPort} ${ACA_PY_ADMIN_PORT}:${ACA_PY_ADMIN_PORT}"
@@ -126,6 +126,36 @@ function exportConfigOptions() {
     fi
   fi
 
+  # Determine the URL to pull the ledger genesis transaction file from.
+  # Command option overides configfile with overrides default of localhost VON ledger
+  if [ ${ledgerGenesisURLOption} ]; then
+    # Command switch overrides all
+    ledgerGenesisURL=${ledgerGenesisURLOption}
+  else
+    ledgerGenesisURL=$(getJSONFieldValue "ledgerGenesisURL" ${configFile})
+    if [ ! ${ledgerGenesisURL} ]; then
+      # Fall back to the default endpoint for only localhost processes to access
+      ledgerGenesisURL="http://${VON_LEDGER}/genesis"
+    fi
+  fi
+
+  # Determine the seed to use for creating the wallets public DID.
+  # For VON localhost ledgers we will create the DID as part of startup but
+  # for public ledgers creating the DID will need to be done out of band 
+  # with whatever mechanism the ledger itself provides. 
+  if [ ${endorserDIDSeedOption} ]; then
+    # Command switch overrides all
+    ENDORSER_SEED=${endorserDIDSeedOption}
+  else
+    ENDORSER_SEED=$(getJSONFieldValue "endorserSeed" ${configFile})
+  fi
+
+  if [[ ${#ENDORSER_SEED} != 32 ]]; then
+      echo "Must specify a 32 byte seed to generate the wallet DID either via -s option or via ${configFile} 'endorserSeed' element"
+      exit -1
+  fi
+  export ENDORSER_SEED
+
   # Define the complete set of command options for starting the ACA-py
   # agent 
   export ACA_PY_CMD_OPTIONS=" \
@@ -136,8 +166,8 @@ function exportConfigOptions() {
     --admin-insecure-mode \
     --log-level info \
     --endpoint ${clientEndpoint} \
-    --genesis-url http://${VON_LEDGER}/genesis \
-    --seed "${VON_ENDORSER_SEED}" \
+    --genesis-url ${ledgerGenesisURL} \
+    --seed "${ENDORSER_SEED}" \
     --public-invites \
     --auto-ping-connection \
     --auto-accept-requests \
@@ -157,6 +187,13 @@ function runVONNetwork() {
   cd ${VON_SRC_DIR}
   # Can now ask to wait until VON is up before returning
   ./manage start --wait
+  # Make sure we have access to the web interface
+  waitActiveWebInterface "http://localhost:${vonAdminPort}" 20
+  # Give the von nodes a few seconds after its web 
+  # interface is up to allow the ledger to stabilise before
+  # anything hits it since this can cause failures of the agent starting
+  # NOTE : Need to find a better approach to determine VON is ready
+  sleep 5
 }
 
 function stopVONNetwork() {
@@ -188,7 +225,7 @@ function executeVONStartup() {
 #       organisation process for a Production System
 # $1 : The VON admin port to use in talking to the local Indy network
 # $2 : The seed to use in creating the endorser did 
-function createEndorserDID() {
+function createVONEndorserDID() {
   local adminPort=${1}
   local endorserSeed=${2}
 
@@ -228,12 +265,14 @@ case "${subCommand}" in
     startVonLedger=true;
 
     # start comes with several options on how to construct the environment
-    while getopts ':flc:e:' option; do
+    while getopts ':flc:e:g:s:' option; do
       case ${option} in
         f) flushOption=true ;;
         l) startVonLedger=false ;;
         c) configFileOption=${OPTARG} ;;
         e) clientEndpointOption=${OPTARG} ;;
+        g) ledgerGenesisURLOption=${OPTARG} ;;
+        s) endorserDIDSeedOption=${OPTARG} ;;
         \?) usage; 
       esac
     done
@@ -259,8 +298,8 @@ case "${subCommand}" in
     cd ${DEVEL_DIR}
     if [[ ${startVonLedger} = true ]]; then
       executeVONStartup ${VON_ADMIN_PORT}
+      createVONEndorserDID ${VON_ADMIN_PORT} ${ENDORSER_SEED}
     fi
-    createEndorserDID ${VON_ADMIN_PORT} ${VON_ENDORSER_SEED}
     executeACAPyStartup
     ;;
   stop)
