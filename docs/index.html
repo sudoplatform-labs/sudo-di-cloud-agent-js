@@ -115,14 +115,79 @@ npm install --save <span class="hljs-string">&#x27;@sudoplatform/sudo-di-cloud-a
 				<a href="#public-interfaces" id="public-interfaces" style="color: inherit; text-decoration: none;">
 					<h2>Public Interfaces</h2>
 				</a>
-				<a href="#local-development-environment" id="local-development-environment" style="color: inherit; text-decoration: none;">
-					<h3>Local Development Environment</h3>
+				<a href="#local-development-environment-overview" id="local-development-environment-overview" style="color: inherit; text-decoration: none;">
+					<h3>Local Development Environment Overview</h3>
 				</a>
 				<p>To start and stop a local development environment (currently MacOS only), run the di-env utility.</p>
-				<pre><code>yarn <span class="hljs-built_in">di</span>-env start
-yarn <span class="hljs-built_in">di</span>-env <span class="hljs-meta">down</span>
+				<pre><code>yarn di-<span class="hljs-keyword">env</span> start -s &lt;your <span class="hljs-number">32</span> <span class="hljs-keyword">character</span> secret wallet <span class="hljs-keyword">seed</span>&gt;
+yarn di-<span class="hljs-keyword">env</span> down
 </code></pre>
-				<p>Other options can be seen with <code>yarn di-env</code></p>
+				<p>Other options can be seen with <code>yarn di-env</code>
+					You must specify the 32 byte secret seed used to create the wallet on the <code>start</code> command or in a <code>acapy.conf</code> configuration file. Since
+				the seed should never be exposed to the public, a default is never provided by <code>di-env</code>.</p>
+				<a href="#detailed-usage-examples" id="detailed-usage-examples" style="color: inherit; text-decoration: none;">
+					<h3>Detailed Usage Examples</h3>
+				</a>
+				<a href="#setup-for-a-new-react-app" id="setup-for-a-new-react-app" style="color: inherit; text-decoration: none;">
+					<h4>Setup for a new React App</h4>
+				</a>
+				<ol>
+					<li><code>yarn global add create-react-app</code></li>
+					<li><code>create-react-app &lt;app-name&gt;</code></li>
+					<li><code>cd &lt;app-name&gt;</code></li>
+					<li><code>yarn add @sudoplatform-labs/sudo-di-cloud-agent</code></li>
+					<li><code>cp node_modules/@sudoplatform-labs/sudo-di-cloud-agent/bin/acapy.json &lt;your apps root location&gt;</code></li>
+					<li>Edit public/acapy.json and add element <code>&quot;endorserSeed&quot;: “&lt;32 byte seed&gt;”,</code></li>
+					<li><code>yarn di-env start -c &lt;absolute path to acapy.json&gt;</code></li>
+				</ol>
+				<a href="#accessing-the-local-cloud-agent-and-von-development-ledger-directly" id="accessing-the-local-cloud-agent-and-von-development-ledger-directly" style="color: inherit; text-decoration: none;">
+					<h4>Accessing the local Cloud Agent and VON Development Ledger Directly</h4>
+				</a>
+				<p>After the <code>di-env start</code> command has completed :</p>
+				<ul>
+					<li>The Cloud Agent swagger interface can be accessed at the <code>acapyAdminUri</code> field location specified in the <code>acapy.json</code> config file (e.g. <a href="http://localhost:8201">http://localhost:8201</a>)</li>
+					<li>The VON Ledger web UI can be accessed on <a href="http://localhost:9000">http://localhost:9000</a></li>
+				</ul>
+				<a href="#providing-a-public-cloud-agent-endpoint-via-ngrok-to-interact-with-mobileexternal-agents" id="providing-a-public-cloud-agent-endpoint-via-ngrok-to-interact-with-mobileexternal-agents" style="color: inherit; text-decoration: none;">
+					<h4>Providing a Public Cloud Agent Endpoint via ngrok to interact with Mobile/External Agents</h4>
+				</a>
+				<ol>
+					<li>Download and unpack the <a href="https://ngrok.com/download">ngrok free version</a></li>
+					<li>In a terminal where you unpacked ngrok run<ul>
+							<li><code>ngrok http &lt;acapy.json &quot;acapyInboundPort&quot; value &gt;</code></li>
+							<li>Save the URL printed out by ngrok (i.e. it will be something like <code>http://0e51393f5372.ngrok.io</code>)</li>
+						</ul>
+					</li>
+					<li>Start the environment specifying the -e switch and the URL from ngrok along with the -c config file path<ul>
+							<li><code>yarn di-env start -e &lt;ngrok provided public endpoint&gt; -c &lt;absolute path to acapy.json&gt;</code></li>
+						</ul>
+					</li>
+				</ol>
+				<a href="#using-a-public-ledger-for-testing-eg-sovrin-buildernet" id="using-a-public-ledger-for-testing-eg-sovrin-buildernet" style="color: inherit; text-decoration: none;">
+					<h4>Using a Public Ledger for testing (e.g Sovrin BuilderNet)</h4>
+				</a>
+				<p><strong>IMPORTANT</strong> : When using a public test ledger, information written is persistent and immutable. Personally Identifiable Information (PII) <strong>MUST NOT</strong> be written and is a major reason why the Transaction Authorisation Agreement must be signed in the acceptance/setup process.
+				It is recommended that as much development activity as possible is performed with the local VON Ledger before using a Public ledger.</p>
+				<ol>
+					<li><code>di-env start -l -c &lt;absolute path to acapy.json&gt; -g &lt;url to genesis file for ledger&gt;</code><ul>
+							<li>As an example you could use the <a href="https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_builder_genesis">Sovrin BuilderNet Genesis URL</a> or <a href="https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_sandbox_genesis">Sovrin StagingNet Genesis URL</a></li>
+							<li>The genesis file URL can also be placed in the acapy.json config file using the <code>ledgerGenesisURL</code> key.</li>
+						</ul>
+					</li>
+					<li>Obtain the did created from the seed at startup via the swagger interface at <a href="http://localhost:8201/api/doc#/wallet/get_wallet_did">http://localhost:8201/api/doc#/wallet/get_wallet_did</a></li>
+					<li>Use the did and verkey returned to create an endorser DID on the appropriate public test ledger (e.g for Sovrin test networks go <a href="https://selfserve.sovrin.org">here</a></li>
+					<li>Extract the ledger taa <code>text</code> field from the output returned by the following command<ul>
+							<li><code>curl -X GET &quot;http://localhost:8201/ledger/taa&quot; -H &quot;accept: application/json”</code></li>
+						</ul>
+					</li>
+					<li>Use the taa accept swagger interface at <code>http://localhost:8201/api/doc#/ledger/post_ledger_taa_accept</code><ul>
+							<li>Choose an appropriate <code>mechanism</code> value returned from step 4 in the <code>aml_record-&gt;aml</code> object (e.g <code>for_session</code>)</li>
+							<li>Use the <code>taa_record-&gt; text</code> field <strong>EXACTLY</strong> as returned in step 4 (i.e. this will have a <code>\ufeff</code> value at the beginning which is not capture if you use the swagger ui in step 4 and will fail later when you try and write something to the ledger)</li>
+							<li>Use the <code>taa_record-&gt;version</code> field returned in step 4 (e.g. currently 2.0)</li>
+						</ul>
+					</li>
+					<li>Once this has been done it is possible to write new DIDs and Schemas/Credential Definitions to the Public Ledger using the relevant Swagger APIs or Typescript library provided by the SDK.</li>
+				</ol>
 				<a href="#sdk-class-and-method-documentation" id="sdk-class-and-method-documentation" style="color: inherit; text-decoration: none;">
 					<h3>SDK Class and Method Documentation</h3>
 				</a>
