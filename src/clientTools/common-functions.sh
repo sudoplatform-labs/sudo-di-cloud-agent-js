@@ -66,6 +66,10 @@ function waitActiveWebInterface() {
     fi
     sleep 1
   done
+  if [ "${i}" -ge "${2}" ]; then
+    echo "Web interface ${1} failed to be come active in ${2} seconds"
+    return -1
+  fi
 }
 
 # Get a git clone area setup with the correct version of code
@@ -164,9 +168,9 @@ function runACAPy() {
   fi
 }
 
-# Stop a running ACA-py docker image
+# Stop a running ACA-py docker container
 # $1: The docker container identifier
-function stopACAPy() {
+function destroyACAPy() {
   local acaPyDockerId="${1}" 
   acaPyCmd="docker stop ${acaPyDockerId}" 
 

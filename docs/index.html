@@ -102,7 +102,15 @@
 							<th>Supported version</th>
 						</tr>
 					</thead>
-				</table>
+					<tbody><tr>
+							<td>docker desktop</td>
+							<td>3.1.0</td>
+						</tr>
+						<tr>
+							<td>yarn</td>
+							<td>1.22.10</td>
+						</tr>
+				</tbody></table>
 				<a href="#integration-instructions" id="integration-instructions" style="color: inherit; text-decoration: none;">
 					<h2>Integration Instructions</h2>
 				</a>
@@ -112,6 +120,8 @@
 <span class="hljs-comment"># or</span>
 npm install --save <span class="hljs-string">&#x27;@sudoplatform/sudo-di-cloud-agent&#x27;</span>
 </code></pre>
+				<p>You will need to have <a href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">docker desktop</a> installed on your machine to run the ledger and
+				agent images.</p>
 				<a href="#public-interfaces" id="public-interfaces" style="color: inherit; text-decoration: none;">
 					<h2>Public Interfaces</h2>
 				</a>
@@ -175,9 +185,9 @@ yarn di-<span class="hljs-keyword">env</span> down
 						</ul>
 					</li>
 					<li>Obtain the did created from the seed at startup via the swagger interface at <a href="http://localhost:8201/api/doc#/wallet/get_wallet_did">http://localhost:8201/api/doc#/wallet/get_wallet_did</a></li>
-					<li>Use the did and verkey returned to create an endorser DID on the appropriate public test ledger (e.g for Sovrin test networks go <a href="https://selfserve.sovrin.org">here</a></li>
+					<li>Use the did and verkey returned to create an endorser DID on the appropriate public test ledger (e.g for Sovrin test networks go <a href="https://selfserve.sovrin.org">here</a>)</li>
 					<li>Extract the ledger taa <code>text</code> field from the output returned by the following command<ul>
-							<li><code>curl -X GET &quot;http://localhost:8201/ledger/taa&quot; -H &quot;accept: application/json”</code></li>
+							<li><code>curl -X GET &quot;http://localhost:8201/ledger/taa&quot; -H &quot;accept: application/json&quot;</code></li>
 						</ul>
 					</li>
 					<li>Use the taa accept swagger interface at <code>http://localhost:8201/api/doc#/ledger/post_ledger_taa_accept</code><ul>

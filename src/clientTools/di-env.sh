@@ -82,6 +82,9 @@ VON_SRC_DIR="${DEVEL_DIR}/von-network"
 VON_ADMIN_PORT="9000"
 VON_LEDGER="${DOCKER_HOST_IP}:${VON_ADMIN_PORT}"
 
+# Saves a set of commands to execute on abort failures
+ABORT_CLEANUP_CMDS=()
+
 ##########################################################################################
 # Functions
 ##########################################################################################
@@ -183,19 +186,6 @@ function exportConfigOptions() {
   #  --admin-api-key "${ACA_PY_AGENT_KEY}" \
 }
 
-function runVONNetwork() {
-  cd ${VON_SRC_DIR}
-  # Can now ask to wait until VON is up before returning
-  ./manage start --wait
-  # Make sure we have access to the web interface
-  waitActiveWebInterface "http://localhost:${vonAdminPort}" 20
-  # Give the von nodes a few seconds after its web 
-  # interface is up to allow the ledger to stabilise before
-  # anything hits it since this can cause failures of the agent starting
-  # NOTE : Need to find a better approach to determine VON is ready
-  sleep 5
-}
-
 function stopVONNetwork() {
   cd ${VON_SRC_DIR}
   ./manage stop
@@ -204,6 +194,25 @@ function stopVONNetwork() {
 function destroyVONNetwork() {
   cd ${VON_SRC_DIR}
   ./manage down
+}
+
+function runVONNetwork() {
+  cd ${VON_SRC_DIR}
+  # Can now ask to wait until VON is up before returning
+  ./manage start --wait
+  # Make sure we will now cleanup the VON network if we exit with an error.
+  ABORT_CLEANUP_CMDS=("destroyVONNetwork" "${ABORT_CLEANUP_CMDS[@]}")
+  # Make sure we have access to the web interface
+  waitActiveWebInterface "http://localhost:${vonAdminPort}" 20
+  if [ $? != 0 ] ; then
+    printMilestone "ABORTING : VON Network failed to come active, please check start parameters and try again"
+    exit -1
+  fi
+  # Give the von nodes a few seconds after its web 
+  # interface is up to allow the ledger to stabilise before
+  # anything hits it since this can cause failures of the agent starting
+  # NOTE : Need to find a better approach to determine VON is ready
+  sleep 15
 }
 
 # Obtain the VON network code from git and
@@ -248,13 +257,31 @@ function executeACAPyStartup() {
   }
 EOF
   getDockerIP "${acaPyContainerID}" acaPyIp 
+  # ACAPy now has to be added to cleanup steps if we exit with error
+  ABORT_CLEANUP_CMDS=("destroyACAPy ${acaPyContainerID}" "${ABORT_CLEANUP_CMDS[@]}")
+
   waitActiveWebInterface "http://localhost:${ACA_PY_ADMIN_PORT}" 20
+  if [ $? != 0 ] ; then
+    printMilestone "ABORTING : ACA-py failed to come active please check start parameters and try again"
+    exit -1
+  fi
+
   printMilestone "ACA-Py Admin interface active\n\t Container IP '${acaPyIp}' Docker Id '${acaPyContainerID}'"
+}
+
+function abortCleanup() {
+  for cmd in "${ABORT_CLEANUP_CMDS[@]}"; do
+    printMilestone "Executing cleanup command : ${cmd}"
+    result=$(eval ${cmd})
+  done
 }
 
 ##########################################################################################
 # MAIN LINE 
 ##########################################################################################
+
+# Make sure we execute saved tidyup commands on exception exits
+trap abortCleanup EXIT
 
 # Support start, non-destructive stop and destructuve down commands
 subCommand=$1
@@ -314,7 +341,7 @@ case "${subCommand}" in
     # Remove processed options
     shift $((OPTIND -1))
     acaPyContainerId=$(getJSONFieldValue "acapyDockerContainer" ${ACA_PY_DOCKER_NAME_FILE})
-    stopACAPy ${acaPyContainerId}
+    destroyACAPy ${acaPyContainerId}
     if [[ ${leaveVonLedger} = false ]]; then
       stopVONNetwork
     fi
@@ -331,7 +358,7 @@ case "${subCommand}" in
     # Remove processed options
     shift $((OPTIND -1))
     acaPyContainerId=$(getJSONFieldValue "acapyDockerContainer" ${ACA_PY_DOCKER_NAME_FILE})
-    stopACAPy ${acaPyContainerId}
+    destroyACAPy ${acaPyContainerId}
     if [[ ${leaveVonLedger} = false ]]; then
       destroyVONNetwork
     fi
@@ -339,4 +366,6 @@ case "${subCommand}" in
   *) usage; 
 esac
 
+# Turn of our exit trap on normal exit
+trap - EXIT
 

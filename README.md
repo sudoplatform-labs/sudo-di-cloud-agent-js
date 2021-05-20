@@ -21,9 +21,10 @@ of Hyperledger Aries Cloud Agent Python.
 
 ## Version Support
 
-| Technology | Supported version |
-| ---------- | ----------------- |
-
+| Technology     | Supported version |
+| -------------- | ----------------- |
+| docker desktop | 3.1.0             |
+| yarn           | 1.22.10           |
 
 ## Integration Instructions
 
@@ -35,6 +36,9 @@ yarn add '@sudoplatform/sudo-di-cloud-agent'
 # or
 npm install --save '@sudoplatform/sudo-di-cloud-agent'
 ```
+
+You will need to have [docker desktop](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installed on your machine to run the ledger and
+agent images.
 
 ## Public Interfaces
 
@@ -88,9 +92,9 @@ It is recommended that as much development activity as possible is performed wit
    - As an example you could use the [Sovrin BuilderNet Genesis URL](https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_builder_genesis) or [Sovrin StagingNet Genesis URL](https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_sandbox_genesis)
    - The genesis file URL can also be placed in the acapy.json config file using the `ledgerGenesisURL` key.
 2. Obtain the did created from the seed at startup via the swagger interface at http://localhost:8201/api/doc#/wallet/get_wallet_did
-3. Use the did and verkey returned to create an endorser DID on the appropriate public test ledger (e.g for Sovrin test networks go [here](https://selfserve.sovrin.org)
+3. Use the did and verkey returned to create an endorser DID on the appropriate public test ledger (e.g for Sovrin test networks go [here](https://selfserve.sovrin.org))
 4. Extract the ledger taa `text` field from the output returned by the following command
-   - `curl -X GET "http://localhost:8201/ledger/taa" -H "accept: application/json”`
+   - `curl -X GET "http://localhost:8201/ledger/taa" -H "accept: application/json"`
 5. Use the taa accept swagger interface at `http://localhost:8201/api/doc#/ledger/post_ledger_taa_accept`
    - Choose an appropriate `mechanism` value returned from step 4 in the `aml_record->aml` object (e.g `for_session`)
    - Use the `taa_record-> text` field **EXACTLY** as returned in step 4 (i.e. this will have a `\ufeff` value at the beginning which is not capture if you use the swagger ui in step 4 and will fail later when you try and write something to the ledger)
