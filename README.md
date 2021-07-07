@@ -29,12 +29,12 @@ of Hyperledger Aries Cloud Agent Python.
 ## Integration Instructions
 
 To use the Decentralized Identity Cloud Agent SDK in a Web or Node.js project you
-must add `@sudoplatform/sudo-di-cloud-agent` as a dependency to your project.
+must add `@sudoplatform-labs/sudo-di-cloud-agent` as a dependency to your project.
 
 ```
-yarn add '@sudoplatform/sudo-di-cloud-agent'
+yarn add '@sudoplatform-labs/sudo-di-cloud-agent'
 # or
-npm install --save '@sudoplatform/sudo-di-cloud-agent'
+npm install --save '@sudoplatform-labs/sudo-di-cloud-agent'
 ```
 
 You will need to have [docker desktop](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installed on your machine to run the ledger and
@@ -105,7 +105,7 @@ It is recommended that as much development activity as possible is performed wit
 
 The Decentralized Identity Cloud Agent SDK installs local typedoc
 generated, HTML documentation. This will be located in the
-`@sudoplatform/sudo-di-cloud-agent/docs` directory under the
+`@sudoplatform-labs/sudo-di-cloud-agent/docs` directory under the
 relevent node_modules install location. The latest version of
 documentation can also be found online at [Github](https://sudoplatform-labs.github.io/sudo-di-cloud-agent-js/)
 

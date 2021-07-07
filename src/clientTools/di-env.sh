@@ -57,6 +57,20 @@ exit 1
 ##########################################################################################
 
 ##########################################################################################
+# Check Programs needed are installed
+##########################################################################################
+
+type docker-compose >/dev/null 2>&1 || {
+  echo >&2 "docker-compose is required by VON but is not installed. Aborting."
+  exit 1
+}
+
+type curl >/dev/null 2>&1 || {
+  echo >&2 "curl is required to set endorser DID but is not installed. Aborting."
+  exit 1
+}
+
+##########################################################################################
 # Global Defaults and Constants
 ##########################################################################################
 # Contorted way to ensure we get the working directory that this file lives in
@@ -76,8 +90,9 @@ ACA_PY_DOCKER_NAME_FILE="${DEVEL_DIR}/acapy_runner.json"
 
 DOCKER_HOST_IP=`docker run --rm --net=host eclipse/che-ip`
 
-VON_GIT_REPO_DEFAULT="https://github.com/bcgov/von-network.git"
-VON_GIT_BRANCH_DEFAULT="master"
+VON_GIT_REPO_DEFAULT="https://github.com/anonyome/von-network.git"
+VON_GIT_BRANCH_DEFAULT=""
+VON_GIT_VERSION_DEFAULT="0.1.0"
 VON_SRC_DIR="${DEVEL_DIR}/von-network"
 VON_ADMIN_PORT="9000"
 VON_LEDGER="${DOCKER_HOST_IP}:${VON_ADMIN_PORT}"
@@ -198,8 +213,10 @@ function destroyVONNetwork() {
 
 function runVONNetwork() {
   cd ${VON_SRC_DIR}
-  # Can now ask to wait until VON is up before returning
-  ./manage start --wait
+  # Can now ask to wait until VON is up before returning. 
+  # Also start the ledger with a Transaction Authors Agreement
+  # requirement since all public Indy ledgers seem to have this enabled.
+  ./manage start --wait --taa-sample
   # Make sure we will now cleanup the VON network if we exit with an error.
   ABORT_CLEANUP_CMDS=("destroyVONNetwork" "${ABORT_CLEANUP_CMDS[@]}")
   # Make sure we have access to the web interface
@@ -221,7 +238,7 @@ function runVONNetwork() {
 function executeVONStartup() {
     local vonAdminPort=${1}
 
-    updateGitClone "${VON_SRC_DIR}" "${VON_GIT_REPO_DEFAULT}" "" "${VON_GIT_BRANCH_DEFAULT}"
+    updateGitClone "${VON_SRC_DIR}" "${VON_GIT_REPO_DEFAULT}" "${VON_GIT_VERSION_DEFAULT}" "${VON_GIT_BRANCH_DEFAULT}"
     # Build the VON docker container images and bring up the nodes
     cd ${VON_SRC_DIR}
     ./manage build
