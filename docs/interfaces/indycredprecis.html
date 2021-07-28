@@ -92,13 +92,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indycredprecis.html#cred_def_id" class="tsd-kind-icon">cred_<wbr>def_<wbr>id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indycredprecis.html#cred_info" class="tsd-kind-icon">cred_<wbr>info</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indycredprecis.html#cred_rev" class="tsd-kind-icon">cred_<wbr>rev</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indycredprecis.html#interval" class="tsd-kind-icon">interval</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indycredprecis.html#presentation_referents" class="tsd-kind-icon">presentation_<wbr>referents</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indycredprecis.html#rev_reg_id" class="tsd-kind-icon">rev_<wbr>reg_<wbr>id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indycredprecis.html#schema_id" class="tsd-kind-icon">schema_<wbr>id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="indycredprecis.html#pres_referents" class="tsd-kind-icon">pres_<wbr>referents</a></li>
 							</ul>
 						</section>
 					</div>
@@ -107,32 +103,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="cred_def_id" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cred_<wbr>def_<wbr>id</h3>
-					<div class="tsd-signature tsd-kind-icon">cred_<wbr>def_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in client/api.ts:1048</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Credential definition identifier</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>memberof</dt>
-							<dd><p>IndyCredPrecis</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="cred_info" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cred_<wbr>info</h3>
 					<div class="tsd-signature tsd-kind-icon">cred_<wbr>info<span class="tsd-signature-symbol">:</span> <a href="indycredinfo.html" class="tsd-signature-type">IndyCredInfo</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in client/api.ts:1054</li>
+							<li>Defined in client/models/IndyCredPrecis.ts:36</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -147,32 +123,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="cred_rev" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cred_<wbr>rev</h3>
-					<div class="tsd-signature tsd-kind-icon">cred_<wbr>rev<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in client/api.ts:1060</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Credential revocation identifier</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>memberof</dt>
-							<dd><p>IndyCredPrecis</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="interval" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> interval</h3>
-					<div class="tsd-signature tsd-kind-icon">interval<span class="tsd-signature-symbol">:</span> <a href="indyproofreqnonrevoked.html" class="tsd-signature-type">IndyProofReqNonRevoked</a></div>
+					<div class="tsd-signature tsd-kind-icon">interval<span class="tsd-signature-symbol">:</span> <a href="indynonrevocationinterval.html" class="tsd-signature-type">IndyNonRevocationInterval</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in client/api.ts:1066</li>
+							<li>Defined in client/models/IndyCredPrecis.ts:42</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -187,55 +143,15 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="presentation_referents" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> presentation_<wbr>referents</h3>
-					<div class="tsd-signature tsd-kind-icon">presentation_<wbr>referents<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="pres_referents" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> pres_<wbr>referents</h3>
+					<div class="tsd-signature tsd-kind-icon">pres_<wbr>referents<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in client/api.ts:1072</li>
+							<li>Defined in client/models/IndyCredPrecis.ts:48</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<dl class="tsd-comment-tags">
-							<dt>memberof</dt>
-							<dd><p>IndyCredPrecis</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="rev_reg_id" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> rev_<wbr>reg_<wbr>id</h3>
-					<div class="tsd-signature tsd-kind-icon">rev_<wbr>reg_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in client/api.ts:1078</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Revocation registry identifier</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>memberof</dt>
-							<dd><p>IndyCredPrecis</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="schema_id" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> schema_<wbr>id</h3>
-					<div class="tsd-signature tsd-kind-icon">schema_<wbr>id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in client/api.ts:1084</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Schema identifier</p>
-						</div>
 						<dl class="tsd-comment-tags">
 							<dt>memberof</dt>
 							<dd><p>IndyCredPrecis</p>
@@ -261,25 +177,13 @@
 						<a href="indycredprecis.html" class="tsd-kind-icon">Indy<wbr>Cred<wbr>Precis</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="indycredprecis.html#cred_def_id" class="tsd-kind-icon">cred_<wbr>def_<wbr>id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="indycredprecis.html#cred_info" class="tsd-kind-icon">cred_<wbr>info</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="indycredprecis.html#cred_rev" class="tsd-kind-icon">cred_<wbr>rev</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="indycredprecis.html#interval" class="tsd-kind-icon">interval</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="indycredprecis.html#presentation_referents" class="tsd-kind-icon">presentation_<wbr>referents</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="indycredprecis.html#rev_reg_id" class="tsd-kind-icon">rev_<wbr>reg_<wbr>id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="indycredprecis.html#schema_id" class="tsd-kind-icon">schema_<wbr>id</a>
+								<a href="indycredprecis.html#pres_referents" class="tsd-kind-icon">pres_<wbr>referents</a>
 							</li>
 						</ul>
 					</li>
@@ -300,14 +204,16 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>

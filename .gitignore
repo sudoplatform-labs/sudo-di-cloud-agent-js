@@ -1,7 +1,6 @@
 # Ignore build directory where we will create temporary working spaces 
 build/
-# Don't track build artifacts that are used in packaging 
-client/
+# Don't track dirs that only exist for creating package structure 
 lib/
 docs/
 bin/

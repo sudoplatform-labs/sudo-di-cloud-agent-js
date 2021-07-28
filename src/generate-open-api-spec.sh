@@ -35,6 +35,7 @@ ACA_PY_CMD_OPTIONS=" \
   --admin 0.0.0.0 ${ACA_PY_ADMIN_PORT} \
   --admin-insecure-mode \
   --log-level info \
+  --auto-provision \
   --wallet-type indy \
   --wallet-name gen-openapi \
   --wallet-key gen-openapi-key \
@@ -69,7 +70,7 @@ printMilestone "ACA-Py Admin interface active\n\t Container IP '${ACA_PY_IP}' Do
 
 # Pull the swagger raw format spec file from ACA-py
 if [ ! -d ${OPEN_API_SHARED_DIR} ]; then 
-  mkdir ${OPEN_API_SHARED_DIR}; 
+  mkdir -p ${OPEN_API_SHARED_DIR}; 
 fi
 curl --output ${OPEN_API_SHARED_DIR}/acapy-raw.json http://localhost:${ACA_PY_ADMIN_PORT}/api/docs/swagger.json
 

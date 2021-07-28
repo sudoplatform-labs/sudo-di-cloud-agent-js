@@ -14,7 +14,7 @@ function usage() {
 cd $(dirname $0)
 
 # Establish basic context of where things exist
-ACA_PY_GIT_TAG_DEFAULT=0.500.600
+ACA_PY_GIT_TAG_DEFAULT=0.700.0
 GIT_BRANCH=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 ROOT_DIR="${PWD}/.."
 BUILD_DIR="${ROOT_DIR}/build"

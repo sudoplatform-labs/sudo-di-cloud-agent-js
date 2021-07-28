@@ -6,9 +6,13 @@
 # pull in functions common between build and SDK client sctipts
 source ${ROOT_DIR}/src/clientTools/common-functions.sh
 
-OPEN_API_CONTAINER="swaggerapi/swagger-codegen-cli-v3:3.0.23"
-# OPEN_API_CONTAINER="swaggerapi/swagger-codegen-cli:2.4.15"
+# OPEN_API_CONTAINER="swaggerapi/swagger-codegen-cli:2.4.21"
+# OPEN_API_CONTAINER="swaggerapi/swagger-codegen-cli-v3:3.0.23"
 # OPEN_API_CONTAINER="openapitools/openapi-generator-cli:v4.3.1"
+
+# Move to 5.2.0 to work around an issue with allOf #ref not resolving
+# correctly.
+OPEN_API_CONTAINER="openapitools/openapi-generator-cli:v5.2.0"
 OPEN_API_OPTIONS=" "
 OPEN_API_MOUNT="/local"
 
@@ -62,3 +66,21 @@ function runOpenAPIGenerate() {
   fi
 }
 
+
+# Move the generated typescript wrappers to the packaging area
+# $1 : source location
+# $2 : packaging area
+function moveAPI() {
+  printMilestone "Moving Generated Client API Code from ${1} to checkin location ${2}"
+  runEval "rm -rf ${2}"
+  runEval "mkdir -p ${2}"
+  if [[ ${OPEN_API_CONTAINER} = *swagger-codegen* ]]; then
+    runEval "cp ${1}/*.ts ${2}/"
+  else
+    # If its the openapi code generator there are extra directories
+    runEval "cp ${1}/*.ts ${2}/"
+    runEval "cp ${1}/.openapi-generator-ignore ${2}/"  
+    runEval "cp -R ${1}/apis ${2}/apis"
+    runEval "cp -R ${1}/models ${2}/models"
+  fi
+}

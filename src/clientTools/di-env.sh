@@ -190,6 +190,7 @@ function exportConfigOptions() {
     --auto-ping-connection \
     --auto-accept-requests \
     --preserve-exchange-records \
+    --auto-provision \
     --wallet-type indy \
     --wallet-name dev-wallet \
     --wallet-key dev-wallet-key" 

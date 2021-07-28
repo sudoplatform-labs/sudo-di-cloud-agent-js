@@ -64,7 +64,7 @@ the seed should never be exposed to the public, a default is never provided by `
 3. `cd <app-name>`
 4. `yarn add @sudoplatform-labs/sudo-di-cloud-agent`
 5. `cp node_modules/@sudoplatform-labs/sudo-di-cloud-agent/bin/acapy.json <your apps root location>`
-6. Edit public/acapy.json and add element `"endorserSeed": “<32 byte seed>”,`
+6. Edit acapy.json and add element `"endorserSeed": “<32 byte seed>”,`
 7. `yarn di-env start -c <absolute path to acapy.json>`
 
 #### Accessing the local Cloud Agent and VON Development Ledger Directly
@@ -85,7 +85,7 @@ After the `di-env start` command has completed :
 
 #### Using a Public Ledger for testing (e.g Sovrin BuilderNet)
 
-**IMPORTANT** : When using a public test ledger, information written is persistent and immutable. Personally Identifiable Information (PII) **MUST NOT** be written and is a major reason why the Transaction Authorisation Agreement must be signed in the acceptance/setup process.
+**IMPORTANT** : When using a public test ledger, information written is persistent and immutable. Personally Identifiable Information (PII) **MUST NOT** be written and is a major reason why the Transaction Authors Agreement (TAA) must be signed in the acceptance/setup process.
 It is recommended that as much development activity as possible is performed with the local VON Ledger before using a Public ledger.
 
 1. `di-env start -l -c <absolute path to acapy.json> -g <url to genesis file for ledger>`
@@ -106,7 +106,7 @@ It is recommended that as much development activity as possible is performed wit
 The Decentralized Identity Cloud Agent SDK installs local typedoc
 generated, HTML documentation. This will be located in the
 `@sudoplatform-labs/sudo-di-cloud-agent/docs` directory under the
-relevent node_modules install location. The latest version of
+relevent `node_modules` install location. The latest version of
 documentation can also be found online at [Github](https://sudoplatform-labs.github.io/sudo-di-cloud-agent-js/)
 
 ## Questions and Support
