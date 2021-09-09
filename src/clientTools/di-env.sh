@@ -139,8 +139,8 @@ function exportConfigOptions() {
   export TAILS_SERVER_INTERNAL_URL="http://tails-server:${TAILS_SERVER_PORT}"
 
   cloudAgentImageLocation=$(getJSONFieldValue "acapyImageLocation" ${configFile})
-  export CLOUD_AGENT_DOCKER_IMAGE=$(cut -d':' -f1 <<<${clientAgentImageLocation}) 
-  export CLOUD_AGENT_DOCKER_TAG=$(cut -d':' -f2 <<<${clientAgentImageLocation}) 
+  export CLOUD_AGENT_DOCKER_IMAGE=$(cut -d':' -f1 <<<${cloudAgentImageLocation}) 
+  export CLOUD_AGENT_DOCKER_TAG=$(cut -d':' -f2 <<<${cloudAgentImageLocation}) 
 
   # Get the parameters for talking to the Agent from the UI
   agentURI=$(getJSONFieldValue "acapyAdminUri" ${configFile})
