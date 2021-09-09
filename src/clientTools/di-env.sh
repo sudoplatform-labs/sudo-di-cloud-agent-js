@@ -11,45 +11,61 @@ function usage() {
 
   Commands:
 
-  start - Create a local Decentralized Identity development environment by 
-          starting the VON Distributed Ledger
-          and ACA-py Cloud Agent inside docker containers
+  up - Create a local Decentralized Identity development environment by 
+       starting the VON Distributed Ledger, a tails file server to support revocable 
+       credential functionality and the ACA-py Cloud Agent inside docker containers
 
-          start options :
-          -s <32 byte seed> : Use the specified 32 bytes as the seed for the wallets public DID.
-               There is NO default, for security reasons it must be supplied either as an
-               arguement or via an 'endorserSeed' field added to the config file.
-          -g <genesis file url> : Pull the ledger genesis file from the specified url. Overrides
-               a url specified in the 'ledgerGenesisURL' field of the config file. If neither
-               present, defaults to the URL to pull a genesis file from a locally running VON Indy
-               Ledger.
-          -e <agent endpoint> : Specifies the endpoint to put into DIDDocs to inform
-               other agents where they should send messages destined for this agent.
-               Specify a full endpoint URL (e.g. http://host:port). Overrides
-               a url specified in the 'acapyClientEndpoint' field of the config file. If neither
-               present, defaults to the localhost url of the running docker image. Particularly 
-               useful when connections from agents need to pass through a NAT (i.e or ngrok) to reach
-               this agent. 
-          -c <config file path> : Use a custom configuration file rather than the default acapy.json. 
-               This allows changing various parameters so that multiple agents can be run
-               on a single machine (NOTE: must provide an absolute path).
-          -l : DO NOT Start the VON Indy Decentralized Ledger before the aca-py Agent.
-               This is useful if you are going to run multiple agents and the Ledger
-               has already been started or you will be using a public ledger URL via -g
-          -f : Force remove the existing runtime environment before starting which will
-               cause new VON repository versions to be pulled. 
+       start options :
+         -s <32 byte seed> : Use the specified 32 bytes as the seed for the wallets public DID.
+            There is NO default, for security reasons it must be supplied either as an
+            arguement or via an 'endorserSeed' field added to the config file.
+         -g <genesis file url> : Pull the ledger genesis file from the specified url. Overrides
+            a url specified in the 'ledgerGenesisURL' field of the config file. If neither
+            present, defaults to the URL to pull a genesis file from a locally running VON Indy
+            Ledger.
+         -e <agent endpoint> : Specifies the endpoint to put into DIDDocs to inform
+            other agents where they should send messages destined for this agent.
+            Specify a full endpoint URL (e.g. http://host:port). Overrides
+            a url specified in the 'acapyClientEndpoint' field of the config file. If neither
+            present, defaults to the localhost url of the running docker image. Particularly 
+            useful when connections from agents need to pass through a NAT (i.e or ngrok) to reach
+            this agent. 
+         -c <config file path> : Use a custom configuration file rather than the default acapy.json. 
+            This allows changing various parameters so that multiple agents can be run
+            on a single machine (NOTE: must provide an absolute path).
+         -l : DO NOT Start the VON Indy Decentralized Ledger before the aca-py Agent.
+            This is useful if you will be using a public ledger URL via -g
+         -f : Force remove the existing runtime environment before starting which will
+            cause new VON repository versions to be pulled. 
+         -v : Set the logging level for ACA-py and the tails file server (use: debug, info, warning, error).  
+            Log output can be seen using the 'yarn di-env logs' command
   
-  stop - Stop running instance of ACA-py Agent and VON Distributed Ledger
-         leaving the contents of the local Ledger intact.
-
-         stop options :
-         -l : DO NOT stop the VON Indy Decentralized Ledger 
-  
-  down - Stop running instance of ACA-py Agent and VON Distributed Ledger
-         destroying the contents of local Ledger.
+  down - Stop running instance of ACA-py Agent, tails file server, and VON Distributed Ledger
+         destroying the contents of local Ledger and the Cloud Agent Wallet.
  
          down options :
          -l : DO NOT stop or destroy the VON Indy Decentralized Ledger contents 
+
+  start- Restart a pre-existing environment that was paused via the `stop` command.
+         This allows existing ledger and wallet data to be maintained between 
+         development sessions whilst allowing the host resources to be freed up
+         (i.e the docker containers remain in tact after a `stop` command).
+
+         start options :
+         -l : DO NOT Start the VON Indy Decentralized Ledger before the aca-py Agent.
+            This is useful if you are using a public ledger URL via -g
+
+  stop - Stop running instance of ACA-py Agent and VON Distributed Ledger
+         leaving the contents of the local Ledger and Wallet intact so that it
+         can be resumed later using the `start` command
+
+         stop options :
+         -l : DO NOT stop the VON Indy Decentralized Ledger 
+
+  logs - Watch and output log information from the ACA-py agent and the tails
+         file server. An appropriate log level needs to have been set when
+         the `up` command was issued using the `-v` switch. Use Ctrl-c to exit
+         log monitoring.
 EOF
 exit 1
 }
@@ -61,7 +77,7 @@ exit 1
 ##########################################################################################
 
 type docker-compose >/dev/null 2>&1 || {
-  echo >&2 "docker-compose is required by VON but is not installed. Aborting."
+  echo >&2 "docker-compose is required but is not installed. Aborting."
   exit 1
 }
 
@@ -85,24 +101,24 @@ cd ${REAL_PWD}
 ROOT_DIR="${REAL_PWD}/.."
 DEVEL_DIR="${ROOT_DIR}/devel"
 
-ACA_PY_CONFIG_FILE="${ROOT_DIR}/bin/acapy.json"
-ACA_PY_DOCKER_NAME_FILE="${DEVEL_DIR}/acapy_runner.json"
+CLOUD_AGENT_CONFIG_FILE="${ROOT_DIR}/bin/acapy.json"
 
 DOCKER_HOST_IP=`docker run --rm --net=host eclipse/che-ip`
 
-VON_GIT_REPO_DEFAULT="https://github.com/anonyome/von-network.git"
-VON_GIT_BRANCH_DEFAULT=""
-VON_GIT_VERSION_DEFAULT="0.1.0"
 VON_SRC_DIR="${DEVEL_DIR}/von-network"
-VON_ADMIN_PORT="9000"
-VON_LEDGER="${DOCKER_HOST_IP}:${VON_ADMIN_PORT}"
+VON_WEBSERVER_EXTERNAL_PORT="9000"
+
+VON_LEDGER="${DOCKER_HOST_IP}:${VON_WEBSERVER_EXTERNAL_PORT}"
 
 # Saves a set of commands to execute on abort failures
-ABORT_CLEANUP_CMDS=()
+export CLEANUP_CMDS=()
 
 ##########################################################################################
 # Functions
 ##########################################################################################
+
+# Get the version defaults for VON network
+source ./versions.sh
 
 # pull in common functions
 source ./common-functions.sh
@@ -116,18 +132,22 @@ function exportConfigOptions() {
     echo "Missing configuration file ${configFile}"
     exit -1
   fi
-  export ACA_PY_IMAGE=$(getJSONFieldValue "acapyImageLocation" ${configFile})
+  tailsServerImageLocation=$(getJSONFieldValue "tailsServerImageLocation" ${configFile})
+  export TAILS_SERVER_DOCKER_IMAGE=$(cut -d':' -f1 <<<${tailsServerImageLocation}) 
+  export TAILS_SERVER_DOCKER_TAG=$(cut -d':' -f2 <<<${tailsServerImageLocation}) 
+  export TAILS_SERVER_PORT=6543
+  export TAILS_SERVER_INTERNAL_URL="http://tails-server:${TAILS_SERVER_PORT}"
 
-  # Get the parameters for talking to the ACA-py Agent from the UI
-  export ACA_PY_AGENT_KEY=$(getJSONFieldValue "acapyAdminKey" ${configFile})
+  cloudAgentImageLocation=$(getJSONFieldValue "acapyImageLocation" ${configFile})
+  export CLOUD_AGENT_DOCKER_IMAGE=$(cut -d':' -f1 <<<${clientAgentImageLocation}) 
+  export CLOUD_AGENT_DOCKER_TAG=$(cut -d':' -f2 <<<${clientAgentImageLocation}) 
+
+  # Get the parameters for talking to the Agent from the UI
   agentURI=$(getJSONFieldValue "acapyAdminUri" ${configFile})
-  export ACA_PY_ADMIN_PORT=$(cut -d':' -f3 <<<${agentURI}) 
+  export CLOUD_AGENT_ADMIN_PORT=$(cut -d':' -f3 <<<${agentURI}) 
 
-  # Get the parameters for starting the ACA-py Agent to allow for
-  # multiple agents when testing
-  inboundPort=$(getJSONFieldValue "acapyInboundPort" ${configFile})
-
-  export ACA_PY_DOCKER_PORTS="${inboundPort}:${inboundPort} ${ACA_PY_ADMIN_PORT}:${ACA_PY_ADMIN_PORT}"
+  # Get the parameters for other agents to talk to us
+  export CLOUD_AGENT_INBOUND_PORT=$(getJSONFieldValue "acapyInboundPort" ${configFile})
 
   # Specify a full endpoint (e.g. http://host:port).  This is used to override 
   # the local host information when creating invitations. Particularly needed
@@ -135,27 +155,33 @@ function exportConfigOptions() {
   # this agent.
   if [ ${clientEndpointOption} ]; then
     # Command switch overrides all
-    clientEndpoint=${clientEndpointOption}
+    CLOUD_AGENT_ENDPOINT=${clientEndpointOption}
   else
-    clientEndpoint=$(getJSONFieldValue "acapyClientEndpoint" ${configFile})
+    CLOUD_AGENT_ENDPOINT=$(getJSONFieldValue "acapyClientEndpoint" ${configFile})
     if [ ! ${clientEndpoint} ]; then
       # Fall back to the default endpoint for only localhost processes to access
-      clientEndpoint="http://${DOCKER_HOST_IP}:${inboundPort}"
+      CLOUD_AGENT_ENDPOINT="http://${DOCKER_HOST_IP}:${CLOUD_AGENT_INBOUND_PORT}"
     fi
   fi
+  # make the agent endpoint visible to compose 
+  export CLOUD_AGENT_ENDPOINT
 
   # Determine the URL to pull the ledger genesis transaction file from.
   # Command option overides configfile with overrides default of localhost VON ledger
   if [ ${ledgerGenesisURLOption} ]; then
     # Command switch overrides all
-    ledgerGenesisURL=${ledgerGenesisURLOption}
+    LEDGER_GENESIS_URL=${ledgerGenesisURLOption}
   else
-    ledgerGenesisURL=$(getJSONFieldValue "ledgerGenesisURL" ${configFile})
+    LEDGER_GENESIS_URL=$(getJSONFieldValue "ledgerGenesisURL" ${configFile})
     if [ ! ${ledgerGenesisURL} ]; then
-      # Fall back to the default endpoint for only localhost processes to access
-      ledgerGenesisURL="http://${VON_LEDGER}/genesis"
+      # Fall back to the default endpoint for running a local docker ledger
+      VON_WEBSERVER_INTERNAL_URL="http://von_webserver_1:8000"
+      LEDGER_GENESIS_URL="${VON_WEBSERVER_INTERNAL_URL}/genesis"
     fi
   fi
+  # make the leder visible to compose
+  export VON_WEBSERVER_INTERNAL_URL
+  export LEDGER_GENESIS_URL
 
   # Determine the seed to use for creating the wallets public DID.
   # For VON localhost ledgers we will create the DID as part of startup but
@@ -163,154 +189,65 @@ function exportConfigOptions() {
   # with whatever mechanism the ledger itself provides. 
   if [ ${endorserDIDSeedOption} ]; then
     # Command switch overrides all
-    ENDORSER_SEED=${endorserDIDSeedOption}
+    CLOUD_AGENT_ENDORSER_SEED=${endorserDIDSeedOption}
   else
-    ENDORSER_SEED=$(getJSONFieldValue "endorserSeed" ${configFile})
+    CLOUD_AGENT_ENDORSER_SEED=$(getJSONFieldValue "endorserSeed" ${configFile})
   fi
-
-  if [[ ${#ENDORSER_SEED} != 32 ]]; then
-      echo "Must specify a 32 byte seed to generate the wallet DID either via -s option or via ${configFile} 'endorserSeed' element"
-      exit -1
-  fi
-  export ENDORSER_SEED
-
-  # Define the complete set of command options for starting the ACA-py
-  # agent 
-  export ACA_PY_CMD_OPTIONS=" \
-    -e http \
-    --inbound-transport http 0.0.0.0 ${inboundPort} \
-    --outbound-transport http \
-    --admin 0.0.0.0 ${ACA_PY_ADMIN_PORT} \
-    --admin-insecure-mode \
-    --log-level info \
-    --endpoint ${clientEndpoint} \
-    --genesis-url ${ledgerGenesisURL} \
-    --seed "${ENDORSER_SEED}" \
-    --public-invites \
-    --auto-ping-connection \
-    --auto-accept-requests \
-    --preserve-exchange-records \
-    --auto-provision \
-    --wallet-type indy \
-    --wallet-name dev-wallet \
-    --wallet-key dev-wallet-key" 
-
-  # Using an api key currently fails with a CORS error when the
-  # browser attempts to do an OPTIONS request to urls like wallet/did
-  # Needs sorting out in the ACA-py code. For now we are using the
-  # insecure mechanism.
-  #  --admin-api-key "${ACA_PY_AGENT_KEY}" \
+  export CLOUD_AGENT_ENDORSER_SEED
 }
 
-function stopVONNetwork() {
-  cd ${VON_SRC_DIR}
-  ./manage stop
-}
-
-function destroyVONNetwork() {
-  cd ${VON_SRC_DIR}
-  ./manage down
-}
-
-function runVONNetwork() {
-  cd ${VON_SRC_DIR}
-  # Can now ask to wait until VON is up before returning. 
-  # Also start the ledger with a Transaction Authors Agreement
-  # requirement since all public Indy ledgers seem to have this enabled.
-  ./manage start --wait --taa-sample
-  # Make sure we will now cleanup the VON network if we exit with an error.
-  ABORT_CLEANUP_CMDS=("destroyVONNetwork" "${ABORT_CLEANUP_CMDS[@]}")
-  # Make sure we have access to the web interface
-  waitActiveWebInterface "http://localhost:${vonAdminPort}" 20
-  if [ $? != 0 ] ; then
-    printMilestone "ABORTING : VON Network failed to come active, please check start parameters and try again"
-    exit -1
-  fi
-  # Give the von nodes a few seconds after its web 
-  # interface is up to allow the ledger to stabilise before
-  # anything hits it since this can cause failures of the agent starting
-  # NOTE : Need to find a better approach to determine VON is ready
-  sleep 15
-}
-
-# Obtain the VON network code from git and
-# start a 4 Node Indy Ledger locally.
-# $1 : The VON admin port to wait on 
-function executeVONStartup() {
-    local vonAdminPort=${1}
-
-    updateGitClone "${VON_SRC_DIR}" "${VON_GIT_REPO_DEFAULT}" "${VON_GIT_VERSION_DEFAULT}" "${VON_GIT_BRANCH_DEFAULT}"
-    # Build the VON docker container images and bring up the nodes
-    cd ${VON_SRC_DIR}
-    ./manage build
-    runVONNetwork
-}
-
-# Register an "ENDORSER" DID to the VON Ledger so that 
-# it can be used to perform other ledger write operations. 
-# NOTE: Normally this would need to be done through a ToIP 
-#       organisation process for a Production System
-# $1 : The VON admin port to use in talking to the local Indy network
-# $2 : The seed to use in creating the endorser did 
-function createVONEndorserDID() {
-  local adminPort=${1}
-  local endorserSeed=${2}
-
-  tmpfile=$(mktemp /tmp/did.XXXXXX)
-  echo "{\"role\":\"TRUST_ANCHOR\",\"alias\":\"DeveloperEndorserDID\",\"did\":null,\"seed\":\"${endorserSeed}\"}" >${tmpfile}.json
-  endorserDID=`curl -s -d "@${tmpfile}.json" -X POST localhost:${adminPort}/register | awk -F'"' '/did/ { print $4 }'`
-  printMilestone "Endorser DID was registered as: ${endorserDID}"
-  rm ${tmpfile}.json
-}
-
+# Bring up the cloud-agent and the tails-server containers.
+# We do this in two stages so that we can support both a Local VON Ledger
+# and an external public ledger. 
+# 1) Configure the containers but don't start them as the cloud-agent
+#    would immediately try and connect to the ledger and fail
+# 2) Attach the containers to the von_von network if that has been requested
+#    otherwise they must be using an external public ledger so no attach 
+#    required.
+# 3) Start the containers to complete the bringup of the agent
+#
+# $1 : Indication on whether to use the local VON Ledger
 function executeACAPyStartup() {
-  # Start ACA-py and wait for active admin interface
-  runACAPy "${ACA_PY_IMAGE}" "${ACA_PY_DOCKER_PORTS}" "${ACA_PY_CMD_OPTIONS}" acaPyContainerID 
-  # Save the acapy docker container name so that it can be killed on stop 
-  # commands and not potentially destroy another instance we didn't
-  # start.
-  cat <<EOF > ${ACA_PY_DOCKER_NAME_FILE}
-  {
-    "acapyDockerContainer": "${acaPyContainerID}"
-  }
-EOF
-  getDockerIP "${acaPyContainerID}" acaPyIp 
-  # ACAPy now has to be added to cleanup steps if we exit with error
-  ABORT_CLEANUP_CMDS=("destroyACAPy ${acaPyContainerID}" "${ABORT_CLEANUP_CMDS[@]}")
+  local usingVonLedger=${1}
 
-  waitActiveWebInterface "http://localhost:${ACA_PY_ADMIN_PORT}" 20
+  docker-compose -f ${REAL_PWD}/docker-compose-devel.yml up --no-start
+  # ACAPy now has to be added to cleanup steps if we exit with error
+  CLEANUP_CMDS=("docker-compose -f ${REAL_PWD}/docker-compose-devel.yml down" "${CLEANUP_CMDS[@]}")
+
+  if [[ ${usingVonLedger} = true ]]; then
+    docker network connect von_von cloud-agent
+    docker network connect von_von tails-server
+  fi
+
+  docker-compose -f ${REAL_PWD}/docker-compose-devel.yml start
+
+  waitActiveWebInterface "http://localhost:${CLOUD_AGENT_ADMIN_PORT}" 20
   if [ $? != 0 ] ; then
-    printMilestone "ABORTING : ACA-py failed to come active please check start parameters and try again"
+    printMilestone "ABORTING : Cloud Agent failed to come active please check start parameters and try again"
     exit -1
   fi
 
-  printMilestone "ACA-Py Admin interface active\n\t Container IP '${acaPyIp}' Docker Id '${acaPyContainerID}'"
+  printMilestone "Cloud Agent Admin interface active"
 }
 
-function abortCleanup() {
-  for cmd in "${ABORT_CLEANUP_CMDS[@]}"; do
-    printMilestone "Executing cleanup command : ${cmd}"
-    result=$(eval ${cmd})
-  done
-}
 
 ##########################################################################################
 # MAIN LINE 
 ##########################################################################################
 
 # Make sure we execute saved tidyup commands on exception exits
-trap abortCleanup EXIT
+trap cleanupHandler EXIT
 
 # Support start, non-destructive stop and destructuve down commands
 subCommand=$1
 shift || usage; 
 
 case "${subCommand}" in
-  start)
+  up)
     startVonLedger=true;
 
-    # start comes with several options on how to construct the environment
-    while getopts ':flc:e:g:s:' option; do
+    # Up comes with several options on how to construct the environment
+    while getopts ':flc:e:g:s:v:' option; do
       case ${option} in
         f) flushOption=true ;;
         l) startVonLedger=false ;;
@@ -318,6 +255,7 @@ case "${subCommand}" in
         e) clientEndpointOption=${OPTARG} ;;
         g) ledgerGenesisURLOption=${OPTARG} ;;
         s) endorserDIDSeedOption=${OPTARG} ;;
+        v) export LOG_LEVEL=${OPTARG} ;;
         \?) usage; 
       esac
     done
@@ -329,7 +267,12 @@ case "${subCommand}" in
     if [ ${configFileOption} ]; then
       exportConfigOptions ${configFileOption}
     else
-      exportConfigOptions ${ACA_PY_CONFIG_FILE}
+      exportConfigOptions ${CLOUD_AGENT_CONFIG_FILE}
+    fi
+
+    if [[ ${#CLOUD_AGENT_ENDORSER_SEED} != 32 ]]; then
+        echo "Must specify a 32 byte seed to generate the wallet DID either via -s option or via ${configFile} 'endorserSeed' element"
+        exit -1
     fi
 
     # Setup the devel directory structure if it doesn't
@@ -342,27 +285,14 @@ case "${subCommand}" in
     # Bring it all up to a running state
     cd ${DEVEL_DIR}
     if [[ ${startVonLedger} = true ]]; then
-      executeVONStartup ${VON_ADMIN_PORT}
-      createVONEndorserDID ${VON_ADMIN_PORT} ${ENDORSER_SEED}
+      buildVON ${VON_SRC_DIR} ${VON_GIT_REPO_DEFAULT} ${VON_GIT_VERSION_DEFAULT} ${VON_GIT_BRANCH_DEFAULT}
+      CLEANUP_CMDS=("destroyVONNetwork  ${VON_SRC_DIR}" "${CLEANUP_CMDS[@]}")
+      # Start the ledger with a Transaction Authors Agreement
+      # requirement since all public Indy ledgers seem to have this enabled.
+      runVONNetwork ${VON_SRC_DIR} "localhost" ${VON_WEBSERVER_EXTERNAL_PORT} "--taa-sample"
+      createVONEndorserDID "localhost" ${VON_WEBSERVER_EXTERNAL_PORT} ${CLOUD_AGENT_ENDORSER_SEED}
     fi
-    executeACAPyStartup
-    ;;
-  stop)
-    leaveVonLedger=false;
-     
-    while getopts ':l' option; do
-      case ${option} in
-        l) leaveVonLedger=true ;;
-        \?) usage; 
-      esac
-    done
-    # Remove processed options
-    shift $((OPTIND -1))
-    acaPyContainerId=$(getJSONFieldValue "acapyDockerContainer" ${ACA_PY_DOCKER_NAME_FILE})
-    destroyACAPy ${acaPyContainerId}
-    if [[ ${leaveVonLedger} = false ]]; then
-      stopVONNetwork
-    fi
+    executeACAPyStartup ${startVonLedger}
     ;;
   down)
     leaveVonLedger=false;
@@ -375,11 +305,51 @@ case "${subCommand}" in
     done
     # Remove processed options
     shift $((OPTIND -1))
-    acaPyContainerId=$(getJSONFieldValue "acapyDockerContainer" ${ACA_PY_DOCKER_NAME_FILE})
-    destroyACAPy ${acaPyContainerId}
+    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml down
     if [[ ${leaveVonLedger} = false ]]; then
-      destroyVONNetwork
+      destroyVONNetwork ${VON_SRC_DIR}
     fi
+    ;;
+  start)
+    # Restart existing containers that have been previously stopped 
+    # without losing state.
+    startVonLedger=true;
+    while getopts ':l' option; do
+      case ${option} in
+        l) startVonLedger=false ;;
+        \?) usage; 
+      esac
+    done
+    # Remove processed options
+    shift $((OPTIND -1))
+
+    cd ${DEVEL_DIR}
+    if [[ ${startVonLedger} = true ]]; then
+      CLEANUP_CMDS=("destroyVONNetwork  ${VON_SRC_DIR}" "${CLEANUP_CMDS[@]}")
+      # Start the ledger with a Transaction Authors Agreement
+      # requirement since all public Indy ledgers seem to have this enabled.
+      runVONNetwork ${VON_SRC_DIR} "localhost" ${VON_WEBSERVER_EXTERNAL_PORT} "--taa-sample"
+    fi
+    docker-compose  -f ${REAL_PWD}/docker-compose-devel.yml start 
+    ;;
+  stop)
+    leaveVonLedger=false;
+     
+    while getopts ':l' option; do
+      case ${option} in
+        l) leaveVonLedger=true ;;
+        \?) usage; 
+      esac
+    done
+    # Remove processed options
+    shift $((OPTIND -1))
+    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml stop
+    if [[ ${leaveVonLedger} = false ]]; then
+      stopVONNetwork ${VON_SRC_DIR}
+    fi
+    ;;
+  logs)
+    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml logs -f
     ;;
   *) usage; 
 esac

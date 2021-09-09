@@ -1,0 +1,61 @@
+# This docker compose file will provide run capabilities for the
+# folowing Cloud Agent components.
+#    * sudo-di-cloud-agent (aka ACA-Py)
+#    * sudo-di-cloud-agent-tails-server (aka indy-tails-server)
+#
+version: '3'
+services:
+  # Tails file server to support Indy revocable credentials
+  tails-server:
+    image: ${TAILS_SERVER_DOCKER_IMAGE:-sudo-di-tails-server}:${TAILS_SERVER_DOCKER_TAG:-latest}
+    container_name: ${TAILS_SERVER_CONTAINER_NAME:-tails-server}
+    ports:
+      - ${TAILS_SERVER_PORT:-6543}:${TAILS_SERVER_PORT:-6543}
+    command: >
+      tails-server
+        --host 0.0.0.0
+        --port ${TAILS_SERVER_PORT:-6543}
+        --storage-path ${STORAGE_PATH:-/tmp/tails-files}
+        --log-level ${LOG_LEVEL:-INFO}
+    networks:
+      - frontend
+
+  # The cloud agent proper
+  cloud-agent:
+    image: ${CLOUD_AGENT_DOCKER_IMAGE:-sudo-di-cloud-agent}:${CLOUD_AGENT_DOCKER_TAG:-latest}
+    container_name: ${CLOUD_AGENT_CONTAINER_NAME:-cloud-agent}
+    ports:
+      - ${CLOUD_AGENT_INBOUND_PORT:-8200}:${CLOUD_AGENT_INBOUND_PORT:-8200}
+      - ${CLOUD_AGENT_ADMIN_PORT:-8201}:${CLOUD_AGENT_ADMIN_PORT:-8201}
+    # NOTE : Using an api key currently fails with a CORS error when the
+    # browser attempts to do an OPTIONS request to urls like wallet/did
+    # Needs sorting out in the ACA-py code. For now we are using the
+    # insecure mechanism.
+    command: >-
+      start
+        --endpoint ${CLOUD_AGENT_ENDPOINT:-http} 
+        --inbound-transport http 0.0.0.0 ${CLOUD_AGENT_INBOUND_PORT:-8200} 
+        --outbound-transport http 
+        --admin 0.0.0.0 ${CLOUD_AGENT_ADMIN_PORT:-8201} 
+        --admin-insecure-mode 
+        --log-level ${LOG_LEVEL:-INFO} 
+        --genesis-url ${LEDGER_GENESIS_URL:-} 
+        --seed ${CLOUD_AGENT_ENDORSER_SEED:-} 
+        --public-invites 
+        --auto-ping-connection 
+        --auto-accept-requests 
+        --preserve-exchange-records 
+        --auto-provision 
+        --wallet-type indy 
+        --wallet-name dev-wallet 
+        --wallet-key dev-wallet-key
+        --tails-server-base-url ${TAILS_SERVER_INTERNAL_URL:-}
+    networks:
+      - frontend
+    depends_on:
+      - tails-server
+
+networks:
+  # The frontend network that admin consoles would connect to
+  frontend:
+    name: frontend

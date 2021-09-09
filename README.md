@@ -13,17 +13,20 @@ of Hyperledger Aries Cloud Agent Python.
   environment using docker containers (currently only MacOS)
   - A running 4 Node Indy Decentralized Ledger
   - A configured and running Decentralized Identity Cloud Agent
+  - A configured and running Tails File Server to support revocable credentials
 - Typescript SDK wrappers to access all the functionality provided by
   [Anonyomes fork](https://github.com/anonyome/aries-cloudagent-python) of Hyperledger Aries Cloud Agent Python.
   - Ability to create Decentralized Identifiers, Schemas and Credential Definitions on the Local
     Ledger
   - Ability to Issue, Hold and Verify Credentials based on Credential Definitions
+  - Ability to revoke issued credentials
 
 ## Version Support
 
 | Technology     | Supported version |
 | -------------- | ----------------- |
-| docker desktop | 3.1.0             |
+| docker desktop | 3.3.3             |
+| docker compose | 1.29.1            |
 | yarn           | 1.22.10           |
 
 ## Integration Instructions
@@ -37,22 +40,22 @@ yarn add '@sudoplatform-labs/sudo-di-cloud-agent'
 npm install --save '@sudoplatform-labs/sudo-di-cloud-agent'
 ```
 
-You will need to have [docker desktop](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installed on your machine to run the ledger and
-agent images.
+You will need to have [docker desktop](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installed on your machine to run the ledger,
+agent and tails file server, images.
 
 ## Public Interfaces
 
 ### Local Development Environment Overview
 
-To start and stop a local development environment (currently MacOS only), run the di-env utility.
+To create and destroy a local development environment (currently MacOS only), run the di-env utility.
 
 ```
-yarn di-env start -s <your 32 character secret wallet seed>
+yarn di-env up -s <your 32 character secret wallet seed>
 yarn di-env down
 ```
 
 Other options can be seen with `yarn di-env`
-You must specify the 32 byte secret seed used to create the wallet on the `start` command or in a `acapy.conf` configuration file. Since
+You must specify the 32 byte secret seed used to create the wallet on the `up` command or in a `acapy.conf` configuration file. Since
 the seed should never be exposed to the public, a default is never provided by `di-env`.
 
 ### Detailed Usage Examples
@@ -65,14 +68,15 @@ the seed should never be exposed to the public, a default is never provided by `
 4. `yarn add @sudoplatform-labs/sudo-di-cloud-agent`
 5. `cp node_modules/@sudoplatform-labs/sudo-di-cloud-agent/bin/acapy.json <your apps root location>`
 6. Edit acapy.json and add element `"endorserSeed": “<32 byte seed>”,`
-7. `yarn di-env start -c <absolute path to acapy.json>`
+7. `yarn di-env up -c <absolute path to acapy.json>`
 
 #### Accessing the local Cloud Agent and VON Development Ledger Directly
 
-After the `di-env start` command has completed :
+After the `yarn di-env up` command has completed :
 
 - The Cloud Agent swagger interface can be accessed at the `acapyAdminUri` field location specified in the `acapy.json` config file (e.g. http://localhost:8201)
 - The VON Ledger web UI can be accessed on http://localhost:9000
+- To see the logs for both Cloud Agent and Tails File Server run `yarn di-env logs`
 
 #### Providing a Public Cloud Agent Endpoint via ngrok to interact with Mobile/External Agents
 
@@ -81,14 +85,14 @@ After the `di-env start` command has completed :
    - `ngrok http <acapy.json "acapyInboundPort" value >`
    - Save the URL printed out by ngrok (i.e. it will be something like `http://0e51393f5372.ngrok.io`)
 3. Start the environment specifying the -e switch and the URL from ngrok along with the -c config file path
-   - `yarn di-env start -e <ngrok provided public endpoint> -c <absolute path to acapy.json>`
+   - `yarn di-env up -e <ngrok provided public endpoint> -c <absolute path to acapy.json>`
 
 #### Using a Public Ledger for testing (e.g Sovrin BuilderNet)
 
 **IMPORTANT** : When using a public test ledger, information written is persistent and immutable. Personally Identifiable Information (PII) **MUST NOT** be written and is a major reason why the Transaction Authors Agreement (TAA) must be signed in the acceptance/setup process.
 It is recommended that as much development activity as possible is performed with the local VON Ledger before using a Public ledger.
 
-1. `di-env start -l -c <absolute path to acapy.json> -g <url to genesis file for ledger>`
+1. `di-env up -l -c <absolute path to acapy.json> -g <url to genesis file for ledger>`
    - As an example you could use the [Sovrin BuilderNet Genesis URL](https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_builder_genesis) or [Sovrin StagingNet Genesis URL](https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_sandbox_genesis)
    - The genesis file URL can also be placed in the acapy.json config file using the `ledgerGenesisURL` key.
 2. Obtain the did created from the seed at startup via the swagger interface at http://localhost:8201/api/doc#/wallet/get_wallet_did

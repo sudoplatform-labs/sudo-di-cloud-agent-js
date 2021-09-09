@@ -36,8 +36,14 @@ cd ${ACA_PY_SRC_DIR}/scripts
 # in gitlab trying to do network traffic between indy and aca-py
 docker build -t aries-cloudagent-test -f ${ACA_PY_SRC_DIR}/docker/Dockerfile.test .. || exit 1
 
-docker run --rm --user $(id -u):$(id -g) --name aries-cloudagent-runner \
-	-v "${ACA_PY_SRC_DIR}/test-reports:/usr/src/app/test-reports" \
-	aries-cloudagent-test "$@"
-
+hostOS="$(uname -s)"
+if [ ${hostOS} = "Darwin" ]; then
+  docker run --rm --name aries-cloudagent-runner \
+	  -v "${ACA_PY_SRC_DIR}/test-reports:/usr/src/app/test-reports" \
+	  aries-cloudagent-test "$@"
+else
+  docker run --rm --user $(id -u):$(id -g) --name aries-cloudagent-runner \
+	  -v "${ACA_PY_SRC_DIR}/test-reports:/usr/src/app/test-reports" \
+	  aries-cloudagent-test "$@"
+fi
 

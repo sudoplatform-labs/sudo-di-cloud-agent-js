@@ -1,0 +1,50 @@
+# This docker compose file will provide run capabilities for the
+# folowing Cloud Agent components.
+#    * sudo-di-cloud-agent (aka ACA-Py)
+#    * sudo-di-cloud-agent-tails-server (aka indy-tails-server)
+#
+version: '3'
+services:
+  # Helper image to create the cloud agent DID on a localhost VON indy ledger
+  register-cloud-agent-seed:
+    image: curlimages/curl
+    networks:
+      - von
+    command: >-
+      ${VON_WEBSERVER_INTERNAL_URL}/register
+      -X POST
+      -d "{\"alias\":\"DeveloperEndorserDID\",\"seed\":\"00000000000000000000000000000000\",\"role\":\"TRUST_ANCHOR\"}"
+
+  # Tails file server to support Indy revocable credentials
+  tails-server:
+    image: ${TAILS_SERVER_DOCKER_IMAGE}:${TAILS_SERVER_DOCKER_TAG:-latest}
+    ports:
+      - ${TAILS_SERVER_PORT}:${TAILS_SERVER_PORT}
+    command: >
+      tails-server
+        --host 0.0.0.0
+        --port ${TAILS_SERVER_PORT}
+        --storage-path ${STORAGE_PATH:-/tmp/tails-files}
+        --log-level ${LOG_LEVEL:-INFO}
+    networks:
+      - backend
+      - von
+
+  tails-tester:
+    build:
+      context: ${TAILS_SERVER_SRC_DIR}
+      dockerfile: docker/Dockerfile.test
+    networks:
+      - backend
+      - von
+    depends_on:
+      - register-cloud-agent-seed
+      - tails-server
+
+networks:
+  # Private network for agent component communications
+  backend:
+  # Externally defined localhost VON network that multiple agents might connect to.
+  von:
+    external: true
+    name: von_von

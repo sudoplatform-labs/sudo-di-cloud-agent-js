@@ -3,6 +3,9 @@
 # This file contains bash functions that are common across
 # build scripts
 
+# Get the version defaults for components
+source ${ROOT_DIR}/src/clientTools/versions.sh
+
 # pull in functions common between build and SDK client sctipts
 source ${ROOT_DIR}/src/clientTools/common-functions.sh
 
