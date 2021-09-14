@@ -1,5 +1,7 @@
 # Ignore build directory where we will create temporary working spaces 
 build/
+devel/
+
 # Don't track dirs that only exist for creating package structure 
 lib/
 docs/

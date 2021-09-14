@@ -1,7 +1,5 @@
-# This docker compose file will provide run capabilities for the
-# folowing Cloud Agent components.
-#    * sudo-di-cloud-agent (aka ACA-Py)
-#    * sudo-di-cloud-agent-tails-server (aka indy-tails-server)
+# This docker compose file will setup the test environment
+# for the tails-file-server.
 #
 version: '3'
 services:

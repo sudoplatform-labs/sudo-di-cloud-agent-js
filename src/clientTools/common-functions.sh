@@ -203,7 +203,7 @@ function runVONNetwork() {
   # Can now ask to wait until VON is up before returning. 
   ./manage start --wait ${4}
   # Make sure we have access to the web interface
-  # waitActiveWebInterface "http://${vonWebServerHost}:${vonWebServerPort}" 20
+  waitActiveWebInterface "http://${vonWebServerHost}:${vonWebServerPort}" 20
   if [ $? != 0 ] ; then
     printMilestone "ABORTING : VON Network failed to come active, please check start parameters and try again"
     exit -1

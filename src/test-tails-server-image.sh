@@ -43,7 +43,7 @@ VON_WEBSERVER_EXTERNAL_PORT="9000"
 # NOTE: Depending on whether we are running in a localhost environment or
 # something like the gitlab docker in docker changes how the
 # VON host address has to be determined. 
-VON_WEBSERVER_CONTAINER_ADDRESS=${VON_WEBSERVER_CONTAINER_ADDRESS:-localhost}
+VON_WEBSERVER_DOCKER_HOST=${VON_WEBSERVER_DOCKER_HOST:-localhost}
 
 # Make sure we execute saved tidyup commands on exception exits
 trap cleanupHandler EXIT
@@ -51,7 +51,7 @@ trap cleanupHandler EXIT
 # Start the local ledger needed by the tails-server integration tests
 buildVON ${VON_SRC_DIR} ${VON_GIT_REPO_DEFAULT} ${VON_GIT_VERSION_DEFAULT} ${VON_GIT_BRANCH_DEFAULT}
 CLEANUP_CMDS=("destroyVONNetwork ${VON_SRC_DIR}" "${CLEANUP_CMDS[@]}")
-runVONNetwork ${VON_SRC_DIR} ${VON_WEBSERVER_CONTAINER_ADDRESS} ${VON_WEBSERVER_EXTERNAL_PORT}
+runVONNetwork ${VON_SRC_DIR} ${VON_WEBSERVER_DOCKER_HOST} ${VON_WEBSERVER_EXTERNAL_PORT}
 
 # Identify where the tails server source is located for the docker compose config
 export TAILS_SERVER_SRC_DIR="${BUILD_DIR}/indy-tails-server"
@@ -65,6 +65,8 @@ export TAILS_SERVER_PORT=6543
 TAILS_SERVER_INTERNAL_URL="http://tails-server:${TAILS_SERVER_PORT}"
 
 # Run the tests
+docker-compose -f ${ROOT_DIR}/docker/docker-compose-tails-test.yml build tails-tester
+
 docker-compose  \
   -f ${ROOT_DIR}/docker/docker-compose-tails-test.yml run tails-tester \
   --genesis-url "${VON_WEBSERVER_INTERNAL_URL}/genesis" \

@@ -107,8 +107,14 @@ DOCKER_HOST_IP=`docker run --rm --net=host eclipse/che-ip`
 
 VON_SRC_DIR="${DEVEL_DIR}/von-network"
 VON_WEBSERVER_EXTERNAL_PORT="9000"
+# NOTE: Depending on whether we are running in a localhost environment or
+# something like the gitlab docker in docker changes how the
+# host address has to be determined. 
+VON_WEBSERVER_DOCKER_HOST=${VON_WEBSERVER_DOCKER_HOST:-localhost}
+CLOUD_AGENT_DOCKER_HOST=${CLOUD_AGENT_DOCKER_HOST:-localhost}
 
-VON_LEDGER="${DOCKER_HOST_IP}:${VON_WEBSERVER_EXTERNAL_PORT}"
+DOCKER_PROJECT_NAME='cloud-agency'
+
 
 # Saves a set of commands to execute on abort failures
 export CLEANUP_CMDS=()
@@ -210,7 +216,7 @@ function exportConfigOptions() {
 function executeACAPyStartup() {
   local usingVonLedger=${1}
 
-  docker-compose -f ${REAL_PWD}/docker-compose-devel.yml up --no-start
+  docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} up --no-start
   # ACAPy now has to be added to cleanup steps if we exit with error
   CLEANUP_CMDS=("docker-compose -f ${REAL_PWD}/docker-compose-devel.yml down" "${CLEANUP_CMDS[@]}")
 
@@ -219,9 +225,9 @@ function executeACAPyStartup() {
     docker network connect von_von tails-server
   fi
 
-  docker-compose -f ${REAL_PWD}/docker-compose-devel.yml start
+  docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} start
 
-  waitActiveWebInterface "http://localhost:${CLOUD_AGENT_ADMIN_PORT}" 20
+  waitActiveWebInterface "http://${CLOUD_AGENT_DOCKER_HOST}:${CLOUD_AGENT_ADMIN_PORT}" 20
   if [ $? != 0 ] ; then
     printMilestone "ABORTING : Cloud Agent failed to come active please check start parameters and try again"
     exit -1
@@ -289,8 +295,8 @@ case "${subCommand}" in
       CLEANUP_CMDS=("destroyVONNetwork  ${VON_SRC_DIR}" "${CLEANUP_CMDS[@]}")
       # Start the ledger with a Transaction Authors Agreement
       # requirement since all public Indy ledgers seem to have this enabled.
-      runVONNetwork ${VON_SRC_DIR} "localhost" ${VON_WEBSERVER_EXTERNAL_PORT} "--taa-sample"
-      createVONEndorserDID "localhost" ${VON_WEBSERVER_EXTERNAL_PORT} ${CLOUD_AGENT_ENDORSER_SEED}
+      runVONNetwork ${VON_SRC_DIR} ${VON_WEBSERVER_DOCKER_HOST} ${VON_WEBSERVER_EXTERNAL_PORT} "--taa-sample"
+      createVONEndorserDID ${VON_WEBSERVER_DOCKER_HOST} ${VON_WEBSERVER_EXTERNAL_PORT} ${CLOUD_AGENT_ENDORSER_SEED}
     fi
     executeACAPyStartup ${startVonLedger}
     ;;
@@ -305,7 +311,7 @@ case "${subCommand}" in
     done
     # Remove processed options
     shift $((OPTIND -1))
-    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml down
+    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} down
     if [[ ${leaveVonLedger} = false ]]; then
       destroyVONNetwork ${VON_SRC_DIR}
     fi
@@ -328,9 +334,9 @@ case "${subCommand}" in
       CLEANUP_CMDS=("destroyVONNetwork  ${VON_SRC_DIR}" "${CLEANUP_CMDS[@]}")
       # Start the ledger with a Transaction Authors Agreement
       # requirement since all public Indy ledgers seem to have this enabled.
-      runVONNetwork ${VON_SRC_DIR} "localhost" ${VON_WEBSERVER_EXTERNAL_PORT} "--taa-sample"
+      runVONNetwork ${VON_SRC_DIR} ${VON_WEBSERVER_DOCKER_HOST} ${VON_WEBSERVER_EXTERNAL_PORT} "--taa-sample"
     fi
-    docker-compose  -f ${REAL_PWD}/docker-compose-devel.yml start 
+    docker-compose  -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} start 
     ;;
   stop)
     leaveVonLedger=false;
@@ -343,13 +349,13 @@ case "${subCommand}" in
     done
     # Remove processed options
     shift $((OPTIND -1))
-    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml stop
+    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} stop
     if [[ ${leaveVonLedger} = false ]]; then
       stopVONNetwork ${VON_SRC_DIR}
     fi
     ;;
   logs)
-    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml logs -f
+    docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} logs -f
     ;;
   *) usage; 
 esac
