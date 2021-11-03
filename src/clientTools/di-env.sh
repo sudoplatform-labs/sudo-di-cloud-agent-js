@@ -110,8 +110,8 @@ VON_WEBSERVER_EXTERNAL_PORT="9000"
 # NOTE: Depending on whether we are running in a localhost environment or
 # something like the gitlab docker in docker changes how the
 # host address has to be determined. 
-VON_WEBSERVER_DOCKER_HOST=${VON_WEBSERVER_DOCKER_HOST:-localhost}
-CLOUD_AGENT_DOCKER_HOST=${CLOUD_AGENT_DOCKER_HOST:-localhost}
+VON_WEBSERVER_DOCKER_HOST=${VON_WEBSERVER_DOCKER_HOST:-'localhost'}
+CLOUD_AGENT_DOCKER_HOST=${CLOUD_AGENT_DOCKER_HOST:-'localhost'}
 
 DOCKER_PROJECT_NAME='cloud-agency'
 
@@ -174,6 +174,8 @@ function exportConfigOptions() {
 
   # Determine the URL to pull the ledger genesis transaction file from.
   # Command option overides configfile with overrides default of localhost VON ledger
+  FRONTEND_NETWORK="frontend"
+  FRONTEND_EXTERNAL="false"
   if [ ${ledgerGenesisURLOption} ]; then
     # Command switch overrides all
     LEDGER_GENESIS_URL=${ledgerGenesisURLOption}
@@ -183,11 +185,20 @@ function exportConfigOptions() {
       # Fall back to the default endpoint for running a local docker ledger
       VON_WEBSERVER_INTERNAL_URL="http://von_webserver_1:8000"
       LEDGER_GENESIS_URL="${VON_WEBSERVER_INTERNAL_URL}/genesis"
+      # If we are using the VON Network ledger we have to use the
+      # network it creates as the frontend. Since Docker Desktop 4.1.0 the
+      # addresses in the genesis file for VON which use the eclipse/che-ip
+      # utility to determine are NOT accessible from a seperately created
+      # frontend network.
+      FRONTEND_NETWORK="von_von"
+      FRONTEND_EXTERNAL="true"
     fi
   fi
   # make the leder visible to compose
   export VON_WEBSERVER_INTERNAL_URL
   export LEDGER_GENESIS_URL
+  export FRONTEND_NETWORK
+  export FRONTEND_EXTERNAL
 
   # Determine the seed to use for creating the wallets public DID.
   # For VON localhost ledgers we will create the DID as part of startup but
@@ -219,11 +230,6 @@ function executeACAPyStartup() {
   docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} up --no-start
   # ACAPy now has to be added to cleanup steps if we exit with error
   CLEANUP_CMDS=("docker-compose -f ${REAL_PWD}/docker-compose-devel.yml down" "${CLEANUP_CMDS[@]}")
-
-  if [[ ${usingVonLedger} = true ]]; then
-    docker network connect von_von cloud-agent
-    docker network connect von_von tails-server
-  fi
 
   docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} start
 

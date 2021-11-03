@@ -25,7 +25,6 @@ services:
         --storage-path ${STORAGE_PATH:-/tmp/tails-files}
         --log-level ${LOG_LEVEL:-INFO}
     networks:
-      - backend
       - von
 
   tails-tester:
@@ -33,15 +32,12 @@ services:
       context: ${TAILS_SERVER_SRC_DIR}
       dockerfile: docker/Dockerfile.test
     networks:
-      - backend
       - von
     depends_on:
       - register-cloud-agent-seed
       - tails-server
 
 networks:
-  # Private network for agent component communications
-  backend:
   # Externally defined localhost VON network that multiple agents might connect to.
   von:
     external: true

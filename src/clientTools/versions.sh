@@ -10,7 +10,7 @@ ACA_PY_DOCKER_IMAGE_DEFAULT="sudo-di-cloud-agent"
 
 # Indy Tails File Server build config defaults
 TAILS_SERVER_GIT_REPO_DEFAULT="https://github.com/anonyome/indy-tails-server.git"
-TAILS_SERVER_GIT_TAG_DEFAULT=0.1.0
+TAILS_SERVER_GIT_TAG_DEFAULT=0.1.1
 TAILS_SERVER_GIT_BRANCH_DEFAULT=master
 TAILS_SERVER_DOCKER_IMAGE_DEFAULT="sudo-di-tails-server"
 

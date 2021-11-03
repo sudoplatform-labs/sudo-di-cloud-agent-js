@@ -58,4 +58,5 @@ services:
 networks:
   # The frontend network that admin consoles would connect to
   frontend:
-    name: frontend
+    external: ${FRONTEND_EXTERNAL:-false}
+    name: ${FRONTEND_NETWORK:-frontend}
