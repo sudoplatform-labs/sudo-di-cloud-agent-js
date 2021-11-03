@@ -1,6 +1,6 @@
 {
   "acapyInboundPort": "8200",
-  "acapyImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-cloud-agent:0.5.4",
-  "tailsServerImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-tails-server:0.5.4",
+  "acapyImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-cloud-agent:0.6.1",
+  "tailsServerImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-tails-server:0.6.1",
   "acapyAdminUri": "http://localhost:8201"
 }

@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.6.0"
+    "version": "v0.6.1"
   },
   "servers": [
     {
@@ -408,15 +408,15 @@
             "name": "state",
             "schema": {
               "enum": [
-                "abandoned",
-                "response",
-                "active",
-                "request",
-                "completed",
+                "start",
                 "error",
+                "completed",
+                "request",
                 "init",
                 "invitation",
-                "start"
+                "abandoned",
+                "active",
+                "response"
               ],
               "type": "string"
             }
@@ -6210,7 +6210,7 @@
           },
           "lastmod_time": {
             "description": "Hint regarding last modification datetime, in ISO-8601 format",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -6458,7 +6458,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -6555,7 +6555,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -8202,7 +8202,7 @@
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8210,7 +8210,7 @@
           },
           "to": {
             "description": "Latest time of interest in non-revocation interval",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8429,7 +8429,7 @@
           },
           "timestamp": {
             "description": "Timestamp epoch",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8546,7 +8546,7 @@
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8554,7 +8554,7 @@
           },
           "to": {
             "description": "Latest time of interest in non-revocation interval",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8618,7 +8618,7 @@
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8626,7 +8626,7 @@
           },
           "to": {
             "description": "Latest time of interest in non-revocation interval",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8684,7 +8684,7 @@
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8692,7 +8692,7 @@
           },
           "to": {
             "description": "Latest time of interest in non-revocation interval",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8812,7 +8812,7 @@
           },
           "timestamp": {
             "description": "Epoch timestamp of interest for non-revocation proof",
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -9117,7 +9117,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9156,7 +9156,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -9188,7 +9188,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9227,7 +9227,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -9238,7 +9238,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9335,7 +9335,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -9535,7 +9535,7 @@
           },
           "created": {
             "description": "The date and time of the proof (with a maximum accuracy in seconds). Defaults to current system time",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9581,7 +9581,7 @@
           },
           "created": {
             "description": "The string value of an ISO8601 combined date and time string generated by the Signature Algorithm",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9729,7 +9729,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9769,7 +9769,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -10316,7 +10316,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -10336,7 +10336,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -10648,7 +10648,7 @@
             "type": "string"
           },
           "time": {
-            "example": 1635901327,
+            "example": 1635908096,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -10745,7 +10745,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -10836,7 +10836,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -11014,7 +11014,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11151,7 +11151,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -11409,7 +11409,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11493,7 +11493,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11672,7 +11672,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11781,7 +11781,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -11833,7 +11833,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11876,7 +11876,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -11887,7 +11887,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11913,7 +11913,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -12513,7 +12513,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -12597,7 +12597,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 01:02:07Z",
+            "example": "2021-11-03 02:54:56Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
