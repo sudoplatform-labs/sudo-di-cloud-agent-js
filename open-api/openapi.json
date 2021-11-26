@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.6.1"
+    "version": "v0.6.2"
   },
   "servers": [
     {
@@ -408,15 +408,15 @@
             "name": "state",
             "schema": {
               "enum": [
+                "response",
+                "active",
+                "request",
+                "completed",
                 "start",
                 "error",
-                "completed",
-                "request",
-                "init",
                 "invitation",
-                "abandoned",
-                "active",
-                "response"
+                "init",
+                "abandoned"
               ],
               "type": "string"
             }
@@ -703,7 +703,7 @@
             "in": "query",
             "name": "my_endpoint",
             "schema": {
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             }
           },
@@ -751,7 +751,7 @@
             "in": "query",
             "name": "my_endpoint",
             "schema": {
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             }
           }
@@ -1212,6 +1212,38 @@
         ]
       }
     },
+    "/credential-definitions/{cred_def_id}/write_record": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Credential definition identifier",
+            "in": "path",
+            "name": "cred_def_id",
+            "required": true,
+            "schema": {
+              "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+)):(.+)?$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialDefinitionGetResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Writes a credential definition non-secret record to the wallet",
+        "tags": [
+          "credential-definition"
+        ]
+      }
+    },
     "/credential/mime-types/{credential_id}": {
       "get": {
         "parameters": [
@@ -1548,7 +1580,7 @@
             "in": "query",
             "name": "my_endpoint",
             "schema": {
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             }
           },
@@ -1620,7 +1652,7 @@
             "in": "query",
             "name": "my_endpoint",
             "schema": {
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             }
           }
@@ -1671,7 +1703,7 @@
             "in": "query",
             "name": "my_endpoint",
             "schema": {
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             }
           },
@@ -1728,7 +1760,7 @@
             "in": "query",
             "name": "my_endpoint",
             "schema": {
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             }
           }
@@ -1806,6 +1838,37 @@
           }
         },
         "summary": "Create credential from attribute values",
+        "tags": [
+          "issue-credential v2.0"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/issue-credential-2.0/create-offer": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/V20CredOfferConnFreeRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V20CredExRecord"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a credential offer, independent of any proposal or connection",
         "tags": [
           "issue-credential v2.0"
         ],
@@ -2166,7 +2229,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/V20CredSendRequest"
+                "$ref": "#/components/schemas/V20CredExFree"
               }
             }
           },
@@ -2228,7 +2291,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/V20IssueCredSchemaCore"
+                "$ref": "#/components/schemas/V20CredExFree"
               }
             }
           },
@@ -2309,6 +2372,37 @@
           }
         },
         "summary": "Send holder a credential, automating entire flow",
+        "tags": [
+          "issue-credential v1.0"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/issue-credential/create-offer": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/V10CredentialConnFreeOfferRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V10CredentialExchange"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a credential offer, independent of any proposal or connection",
         "tags": [
           "issue-credential v1.0"
         ],
@@ -4747,24 +4841,6 @@
     },
     "/revocation/publish-revocations": {
       "post": {
-        "parameters": [
-          {
-            "description": "Connection identifier",
-            "in": "query",
-            "name": "conn_id",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Create Transaction For Endorser's signature",
-            "in": "query",
-            "name": "create_transaction_for_endorser",
-            "schema": {
-              "type": "boolean"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "*/*": {
@@ -5316,6 +5392,38 @@
           }
         },
         "summary": "Gets a schema from the ledger",
+        "tags": [
+          "schema"
+        ]
+      }
+    },
+    "/schemas/{schema_id}/write_record": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Schema identifier",
+            "in": "path",
+            "name": "schema_id",
+            "required": true,
+            "schema": {
+              "pattern": "^[1-9][0-9]*|[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaGetResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Writes a schema non-secret record to the wallet",
         "tags": [
           "schema"
         ]
@@ -6210,7 +6318,7 @@
           },
           "lastmod_time": {
             "description": "Hint regarding last modification datetime, in ISO-8601 format",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -6436,29 +6544,15 @@
           "connection_protocol": {
             "description": "Connection protocol used",
             "enum": [
-              "c",
-              "o",
-              "n",
-              "e",
-              "t",
-              "i",
-              "s",
-              "/",
-              "1",
-              ".",
-              "0",
-              "d",
-              "x",
-              "h",
-              "a",
-              "g"
+              "connections/1.0",
+              "didexchange/1.0"
             ],
             "example": "connections/1.0",
             "type": "string"
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -6555,7 +6649,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -6684,7 +6778,7 @@
           "their_endpoint": {
             "description": "URL endpoint for other party",
             "example": "https://myhost:8021",
-            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
             "type": "string"
           },
           "their_label": {
@@ -6704,12 +6798,6 @@
       },
       "ConnectionStaticResult": {
         "properties": {
-          "mv_verkey": {
-            "description": "My verification key",
-            "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
-            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
-            "type": "string"
-          },
           "my_did": {
             "description": "Local DID",
             "example": "WgWxqztrNooG92RXvxSTWv",
@@ -6719,7 +6807,13 @@
           "my_endpoint": {
             "description": "My URL endpoint",
             "example": "https://myhost:8021",
-            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "type": "string"
+          },
+          "my_verkey": {
+            "description": "My verification key",
+            "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
+            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
             "type": "string"
           },
           "record": {
@@ -6739,9 +6833,9 @@
           }
         },
         "required": [
-          "mv_verkey",
           "my_did",
           "my_endpoint",
+          "my_verkey",
           "record",
           "their_did",
           "their_verkey"
@@ -7389,7 +7483,7 @@
           "endpoint": {
             "description": "Endpoint to set (omit to delete)",
             "example": "https://myhost:8021",
-            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
             "type": "string"
           }
         },
@@ -7409,7 +7503,7 @@
           "endpoint": {
             "description": "Endpoint to set (omit to delete)",
             "example": "https://myhost:8021",
-            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
             "type": "string"
           },
           "endpoint_type": {
@@ -7578,6 +7672,36 @@
             },
             "properties": {},
             "type": "object"
+          },
+          "reveal_doc": {
+            "description": "reveal doc [JSON-LD frame] dict used to derive the credential when selective disclosure is required",
+            "example": {
+              "@context": [
+                "https://www.w3.org/2018/credentials/v1",
+                "https://w3id.org/security/bbs/v1"
+              ],
+              "@explicit": true,
+              "@requireAll": true,
+              "credentialSubject": {
+                "@explicit": true,
+                "@requireAll": true,
+                "Observation": [
+                  {
+                    "effectiveDateTime": {},
+                    "@explicit": true,
+                    "@requireAll": true
+                  }
+                ]
+              },
+              "issuanceDate": {},
+              "issuer": {},
+              "type": [
+                "VerifiableCredential",
+                "LabReport"
+              ]
+            },
+            "properties": {},
+            "type": "object"
           }
         },
         "type": "object"
@@ -7665,13 +7789,13 @@
           "my_endpoint": {
             "description": "My endpoint",
             "example": "https://myhost:8021",
-            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
             "type": "string"
           },
           "their_endpoint": {
             "description": "Their endpoint",
             "example": "https://myhost:8021",
-            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
             "type": "string"
           }
         },
@@ -7764,7 +7888,7 @@
             "description": "Full verification key",
             "example": "https://myhost:8021",
             "nullable": true,
-            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
             "type": "string"
           }
         },
@@ -7807,8 +7931,8 @@
         "properties": {
           "encoded": {
             "description": "Attribute encoded value",
-            "example": "0",
-            "pattern": "^[0-9]*$",
+            "example": "-1",
+            "pattern": "^-?[0-9]*$",
             "type": "string"
           },
           "raw": {
@@ -7924,7 +8048,7 @@
             "description": "Non-revocation interval from presentation request",
             "type": "object"
           },
-          "pres_referents": {
+          "presentation_referents": {
             "items": {
               "description": "presentation referent",
               "example": "1_age_uuid",
@@ -8067,8 +8191,8 @@
           },
           "revealed_attrs": {
             "additionalProperties": {
-              "example": "0",
-              "pattern": "^[0-9]*$",
+              "example": "-1",
+              "pattern": "^-?[0-9]*$",
               "type": "string"
             },
             "type": "object"
@@ -8202,7 +8326,7 @@
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8210,7 +8334,7 @@
           },
           "to": {
             "description": "Latest time of interest in non-revocation interval",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8429,7 +8553,7 @@
           },
           "timestamp": {
             "description": "Timestamp epoch",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8546,7 +8670,7 @@
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8554,7 +8678,7 @@
           },
           "to": {
             "description": "Latest time of interest in non-revocation interval",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8618,7 +8742,7 @@
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8626,7 +8750,7 @@
           },
           "to": {
             "description": "Latest time of interest in non-revocation interval",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8678,13 +8802,17 @@
             "type": "string"
           }
         },
+        "required": [
+          "requested_attributes",
+          "requested_predicates"
+        ],
         "type": "object"
       },
       "IndyProofRequestNonRevoked": {
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8692,7 +8820,7 @@
           },
           "to": {
             "description": "Latest time of interest in non-revocation interval",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8753,8 +8881,8 @@
         "properties": {
           "encoded": {
             "description": "Encoded value",
-            "example": "0",
-            "pattern": "^[0-9]*$",
+            "example": "-1",
+            "pattern": "^-?[0-9]*$",
             "type": "string"
           },
           "raw": {
@@ -8812,7 +8940,7 @@
           },
           "timestamp": {
             "description": "Epoch timestamp of interest for non-revocation proof",
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -8998,10 +9126,39 @@
             "type": "string"
           },
           "schema": {
-            "items": {
-              "$ref": "#/components/schemas/SchemaInputDescriptor"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SchemasInputDescriptorFilter"
+              }
+            ],
+            "description": "Accepts a list of schema or a dict containing filters like oneof_filter.",
+            "example": {
+              "oneOf": [
+                [
+                  {
+                    "uri": "https://www.w3.org/Test1#Test1"
+                  },
+                  {
+                    "uri": "https://www.w3.org/Test2#Test2"
+                  }
+                ],
+                {
+                  "oneof_filter": [
+                    [
+                      {
+                        "uri": "https://www.w3.org/Test1#Test1"
+                      }
+                    ],
+                    [
+                      {
+                        "uri": "https://www.w3.org/Test2#Test2"
+                      }
+                    ]
+                  ]
+                }
+              ]
             },
-            "type": "array"
+            "type": "object"
           }
         },
         "type": "object"
@@ -9117,7 +9274,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9156,7 +9313,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -9188,7 +9345,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9227,7 +9384,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -9238,7 +9395,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9335,7 +9492,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -9535,7 +9692,7 @@
           },
           "created": {
             "description": "The date and time of the proof (with a maximum accuracy in seconds). Defaults to current system time",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9581,7 +9738,7 @@
           },
           "created": {
             "description": "The string value of an ISO8601 combined date and time string generated by the Signature Algorithm",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9729,7 +9886,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -9769,7 +9926,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -10113,8 +10270,8 @@
         "properties": {
           "encoded": {
             "description": "Encoded value",
-            "example": "0",
-            "pattern": "^[0-9]*$",
+            "example": "-1",
+            "pattern": "^-?[0-9]*$",
             "type": "string"
           },
           "raw": {
@@ -10316,7 +10473,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -10336,7 +10493,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -10475,6 +10632,24 @@
               "example": "WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0",
               "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+$",
               "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "SchemasInputDescriptorFilter": {
+        "properties": {
+          "oneof_filter": {
+            "description": "oneOf",
+            "type": "boolean"
+          },
+          "uri_groups": {
+            "items": {
+              "items": {
+                "$ref": "#/components/schemas/SchemaInputDescriptor"
+              },
+              "type": "array"
             },
             "type": "array"
           }
@@ -10648,7 +10823,7 @@
             "type": "string"
           },
           "time": {
-            "example": 1635908096,
+            "example": 1640995199,
             "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
@@ -10745,7 +10920,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -10780,6 +10955,22 @@
               "type": "object"
             },
             "type": "array"
+          },
+          "meta_data": {
+            "example": {
+              "context": {
+                "param1": "param1_value",
+                "param2": "param2_value"
+              },
+              "post_process": [
+                {
+                  "topic": "topic_value",
+                  "other": "other_value"
+                }
+              ]
+            },
+            "properties": {},
+            "type": "object"
           },
           "signature_request": {
             "items": {
@@ -10836,7 +11027,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -10931,6 +11122,41 @@
         },
         "type": "object"
       },
+      "V10CredentialConnFreeOfferRequest": {
+        "properties": {
+          "auto_issue": {
+            "description": "Whether to respond automatically to credential requests, creating and issuing requested credentials",
+            "type": "boolean"
+          },
+          "auto_remove": {
+            "description": "Whether to remove the credential exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
+          "comment": {
+            "description": "Human-readable comment",
+            "nullable": true,
+            "type": "string"
+          },
+          "cred_def_id": {
+            "description": "Credential definition identifier",
+            "example": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag",
+            "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+)):(.+)?$",
+            "type": "string"
+          },
+          "credential_preview": {
+            "$ref": "#/components/schemas/CredentialPreview"
+          },
+          "trace": {
+            "description": "Record trace information, based on agent configuration",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "cred_def_id",
+          "credential_preview"
+        ],
+        "type": "object"
+      },
       "V10CredentialCreate": {
         "properties": {
           "auto_remove": {
@@ -11014,7 +11240,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11151,7 +11377,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -11409,7 +11635,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11493,7 +11719,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11639,6 +11865,46 @@
         },
         "type": "object"
       },
+      "V20CredExFree": {
+        "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the credential exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
+          "comment": {
+            "description": "Human-readable comment",
+            "nullable": true,
+            "type": "string"
+          },
+          "connection_id": {
+            "description": "Connection identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "format": "uuid",
+            "type": "string"
+          },
+          "credential_preview": {
+            "$ref": "#/components/schemas/V20CredPreview"
+          },
+          "filter": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/V20CredFilter"
+              }
+            ],
+            "description": "Credential specification criteria by format",
+            "type": "object"
+          },
+          "trace": {
+            "description": "Record trace information, based on agent configuration",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "connection_id",
+          "filter"
+        ],
+        "type": "object"
+      },
       "V20CredExRecord": {
         "properties": {
           "auto_issue": {
@@ -11672,7 +11938,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11781,7 +12047,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -11833,7 +12099,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11876,7 +12142,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -11887,7 +12153,7 @@
         "properties": {
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -11913,7 +12179,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
@@ -12143,6 +12409,43 @@
         ],
         "type": "object"
       },
+      "V20CredOfferConnFreeRequest": {
+        "properties": {
+          "auto_issue": {
+            "description": "Whether to respond automatically to credential requests, creating and issuing requested credentials",
+            "type": "boolean"
+          },
+          "auto_remove": {
+            "description": "Whether to remove the credential exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
+          "comment": {
+            "description": "Human-readable comment",
+            "nullable": true,
+            "type": "string"
+          },
+          "credential_preview": {
+            "$ref": "#/components/schemas/V20CredPreview"
+          },
+          "filter": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/V20CredFilter"
+              }
+            ],
+            "description": "Credential specification criteria by format",
+            "type": "object"
+          },
+          "trace": {
+            "description": "Record trace information, based on agent configuration",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "filter"
+        ],
+        "type": "object"
+      },
       "V20CredOfferRequest": {
         "properties": {
           "auto_issue": {
@@ -12348,46 +12651,6 @@
         },
         "type": "object"
       },
-      "V20CredSendRequest": {
-        "properties": {
-          "auto_remove": {
-            "description": "Whether to remove the credential exchange record on completion (overrides --preserve-exchange-records configuration setting)",
-            "type": "boolean"
-          },
-          "comment": {
-            "description": "Human-readable comment",
-            "nullable": true,
-            "type": "string"
-          },
-          "connection_id": {
-            "description": "Connection identifier",
-            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
-            "type": "string"
-          },
-          "credential_preview": {
-            "$ref": "#/components/schemas/V20CredPreview"
-          },
-          "filter": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/V20CredFilter"
-              }
-            ],
-            "description": "Credential specification criteria by format",
-            "type": "object"
-          },
-          "trace": {
-            "description": "Record trace information, based on agent configuration",
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "connection_id",
-          "filter"
-        ],
-        "type": "object"
-      },
       "V20CredStoreRequest": {
         "properties": {
           "credential_id": {
@@ -12513,7 +12776,7 @@
           },
           "created_at": {
             "description": "Time of record creation",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -12597,7 +12860,7 @@
           },
           "updated_at": {
             "description": "Time of last record update",
-            "example": "2021-11-03 02:54:56Z",
+            "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
@@ -12891,7 +13154,7 @@
             "items": {
               "description": "Context",
               "example": "https://myhost:8021",
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             },
             "type": "array"
@@ -13011,7 +13274,7 @@
             "items": {
               "description": "Credential context to match",
               "example": "https://myhost:8021",
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             },
             "type": "array"
@@ -13042,7 +13305,7 @@
             "items": {
               "description": "Credential schema identifier",
               "example": "https://myhost:8021",
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             },
             "type": "array"
@@ -13067,7 +13330,7 @@
             "items": {
               "description": "Credential type to match",
               "example": "https://myhost:8021",
-              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+              "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             },
             "type": "array"

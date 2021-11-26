@@ -24,4 +24,3 @@
 
 # Leave until https://github.com/hyperledger/aries-cloudagent-python/issues/1327
 # is fixed
-models/IndyCredPrecis.ts

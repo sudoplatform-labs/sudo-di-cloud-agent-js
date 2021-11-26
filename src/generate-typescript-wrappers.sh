@@ -37,7 +37,7 @@ runEval "cp -f ${ROOT_DIR}/open-api/openapi.json ${OPEN_API_SHARED_DIR}/"
 # modified files identified in .openapi-generator-ignore to be included in the
 # generation and not overwritten.
 # Helps to be able to hand code some interfaces where the Spec is broken.
-runEval "cp -Rf ${CLIENT_API_OVERRIDES_DIR}/* ${OPEN_API_SHARED_DIR}/"
+runEval "cp -Rf ${CLIENT_API_OVERRIDES_DIR}/* ${OPEN_API_SHARED_DIR}/ || true"
 runEval "cp -f ${CLIENT_API_OVERRIDES_DIR}/.openapi-generator-ignore ${OPEN_API_SHARED_DIR}/"
 runOpenAPIGenerate "${OPEN_API_MOUNT}/openapi.json" "${OPEN_API_OUTPUT_LANGUAGE}"  "${ROOT_DIR}/open-api/${OPEN_API_LANGUAGE_CONFIG}" "${OPEN_API_SHARED_DIR}"
 
