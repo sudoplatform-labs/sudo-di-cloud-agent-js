@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Sudo Decentralized Identity Cloud Agent SDK",
-    "description": "Provides REST API wrappers for Typescript Agent Controllers using the Sudo Decentralized Identity Cloud Agency Service",
+    "description": "Provides REST API wrappers for Typescript Agent Controllers using the Sudo Decentralized Identity Cloud Agent Service",
     "contact": {
       "name": " Support",
       "url": "https://sudoplatform.com/#lets-chat"
@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.6.2"
+    "version": "v0.6.3"
   },
   "servers": [
     {
@@ -62,6 +62,22 @@
         "url": "https://github.com/hyperledger/aries-rfcs/tree/25464a5c8f8a17b14edaa4310393df6094ace7b0/features/0023-did-exchange"
       },
       "name": "did-exchange"
+    },
+    {
+      "description": "Feature discovery",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://github.com/hyperledger/aries-rfcs/tree/b3a3942ef052039e73cd23d847f42947f8287da2/features/0031-discover-features"
+      },
+      "name": "discover-features"
+    },
+    {
+      "description": "Feature discovery v2",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://github.com/hyperledger/aries-rfcs/tree/b3a3942ef052039e73cd23d847f42947f8287da2/features/0557-discover-features-v2"
+      },
+      "name": "discover-features v2.0"
     },
     {
       "description": "Endorse a Transaction",
@@ -157,14 +173,6 @@
         "url": "https://github.com/hyperledger/indy-node/blob/master/design/anoncreds.md#schema"
       },
       "name": "schema"
-    },
-    {
-      "description": "Feature discovery",
-      "externalDocs": {
-        "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/9b7ab9814f2e7d1108f74aca6f3d2e5d62899473/features/0031-discover-features"
-      },
-      "name": "server"
     },
     {
       "description": "Trust-ping over connection",
@@ -408,15 +416,15 @@
             "name": "state",
             "schema": {
               "enum": [
-                "response",
-                "active",
                 "request",
-                "completed",
-                "start",
-                "error",
-                "invitation",
                 "init",
-                "abandoned"
+                "error",
+                "start",
+                "invitation",
+                "active",
+                "abandoned",
+                "completed",
+                "response"
               ],
               "type": "string"
             }
@@ -1567,6 +1575,14 @@
             }
           },
           {
+            "description": "Alias for connection",
+            "in": "query",
+            "name": "alias",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Identifier for active mediation record to be used",
             "in": "query",
             "name": "mediation_id",
@@ -1783,11 +1799,103 @@
         ]
       }
     },
-    "/features": {
+    "/discover-features-2.0/queries": {
       "get": {
         "parameters": [
           {
-            "description": "Query",
+            "description": "Connection identifier, if none specified, then the query will provide features for this agent.",
+            "in": "query",
+            "name": "connection_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Goal-code feature-type query",
+            "in": "query",
+            "name": "query_goal_code",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Protocol feature-type query",
+            "in": "query",
+            "name": "query_protocol",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V20DiscoveryExchangeResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Query supported features",
+        "tags": [
+          "discover-features v2.0"
+        ]
+      }
+    },
+    "/discover-features-2.0/records": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "query",
+            "name": "connection_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V20DiscoveryExchangeListResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Discover Features v2.0 records",
+        "tags": [
+          "discover-features v2.0"
+        ]
+      }
+    },
+    "/discover-features/query": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Comment",
+            "in": "query",
+            "name": "comment",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Connection identifier, if none specified, then the query will provide features for this agent.",
+            "in": "query",
+            "name": "connection_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Protocol feature query",
             "in": "query",
             "name": "query",
             "schema": {
@@ -1800,7 +1908,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/QueryResult"
+                  "$ref": "#/components/schemas/V10DiscoveryExchangeResult"
                 }
               }
             },
@@ -1809,7 +1917,37 @@
         },
         "summary": "Query supported features",
         "tags": [
-          "server"
+          "discover-features"
+        ]
+      }
+    },
+    "/discover-features/records": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "query",
+            "name": "connection_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V10DiscoveryExchangeListResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Discover Features records",
+        "tags": [
+          "discover-features"
         ]
       }
     },
@@ -1913,7 +2051,8 @@
                 "request-received",
                 "credential-issued",
                 "credential-received",
-                "done"
+                "done",
+                "credential-revoked"
               ],
               "type": "string"
             }
@@ -2447,7 +2586,8 @@
                 "request_received",
                 "credential_issued",
                 "credential_received",
-                "credential_acked"
+                "credential_acked",
+                "credential_revoked"
               ],
               "type": "string"
             }
@@ -3010,6 +3150,46 @@
         ]
       }
     },
+    "/ledger/multiple/config": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerConfigList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch the multiple ledger configuration currently in use",
+        "tags": [
+          "ledger"
+        ]
+      }
+    },
+    "/ledger/multiple/get-write-ledger": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WriteLedgerRequest"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch the current write ledger",
+        "tags": [
+          "ledger"
+        ]
+      }
+    },
     "/ledger/register-nym": {
       "post": {
         "parameters": [
@@ -3157,7 +3337,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Clear default mediator",
@@ -3175,7 +3355,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Get default mediator",
@@ -3219,7 +3399,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Retrieve keylists by connection or role",
@@ -3281,7 +3461,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Send keylist query to mediator",
@@ -3324,7 +3504,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Send keylist update to mediator",
@@ -3366,7 +3546,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Request mediation from connection",
@@ -3439,7 +3619,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Query mediation requests, returns list of all mediation records",
@@ -3471,7 +3651,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Delete mediation request by ID",
@@ -3501,7 +3681,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Retrieve mediation request record",
@@ -3543,7 +3723,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Deny a stored mediation request",
@@ -3576,7 +3756,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Grant received mediation",
@@ -3608,7 +3788,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Set default mediator",
@@ -4687,7 +4867,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Retrieve doc for requested did",
@@ -5571,7 +5751,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "For Author to resend a particular transaction request",
@@ -5591,7 +5771,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Query transactions",
@@ -5640,7 +5820,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "For author to send a transaction request",
@@ -5689,7 +5869,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Set Endorser Info",
@@ -5733,7 +5913,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Set transaction jobs",
@@ -5764,7 +5944,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "Fetch a single transaction record",
@@ -5795,7 +5975,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "For Author to cancel a particular transaction request",
@@ -5826,7 +6006,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "For Endorser to endorse a particular transaction record",
@@ -5857,7 +6037,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "For Endorser to refuse a particular transaction record",
@@ -5888,7 +6068,7 @@
                 }
               }
             },
-            "description": "null"
+            "description": ""
           }
         },
         "summary": "For Author / Endorser to write an endorsed transaction to the ledger",
@@ -7742,6 +7922,58 @@
         },
         "required": [
           "expires_time"
+        ],
+        "type": "object"
+      },
+      "Disclose": {
+        "properties": {
+          "@id": {
+            "description": "Message identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "@type": {
+            "description": "Message type",
+            "example": "https://didcomm.org/my-family/1.0/my-message-type",
+            "readOnly": true,
+            "type": "string"
+          },
+          "protocols": {
+            "description": "List of protocol descriptors",
+            "items": {
+              "$ref": "#/components/schemas/ProtocolDescriptor"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "protocols"
+        ],
+        "type": "object"
+      },
+      "Disclosures": {
+        "properties": {
+          "@id": {
+            "description": "Message identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "@type": {
+            "description": "Message type",
+            "example": "https://didcomm.org/my-family/1.0/my-message-type",
+            "readOnly": true,
+            "type": "string"
+          },
+          "disclosures": {
+            "description": "List of protocol or goal_code descriptors",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "disclosures"
         ],
         "type": "object"
       },
@@ -9726,6 +9958,45 @@
         ],
         "type": "object"
       },
+      "LedgerConfigInstance": {
+        "properties": {
+          "genesis_file": {
+            "description": "genesis_file",
+            "type": "string"
+          },
+          "genesis_transactions": {
+            "description": "genesis_transactions",
+            "type": "string"
+          },
+          "genesis_url": {
+            "description": "genesis_url",
+            "type": "string"
+          },
+          "id": {
+            "description": "ledger_id",
+            "type": "string"
+          },
+          "is_production": {
+            "description": "is_production",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "LedgerConfigList": {
+        "properties": {
+          "ledger_config_list": {
+            "items": {
+              "$ref": "#/components/schemas/LedgerConfigInstance"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "ledger_config_list"
+        ],
+        "type": "object"
+      },
       "LedgerModulesResult": {
         "type": "object"
       },
@@ -10234,6 +10505,27 @@
         ],
         "type": "object"
       },
+      "ProtocolDescriptor": {
+        "properties": {
+          "pid": {
+            "type": "string"
+          },
+          "roles": {
+            "description": "List of roles",
+            "items": {
+              "description": "Role: requester or responder",
+              "example": "requester",
+              "type": "string"
+            },
+            "nullable": true,
+            "type": "array"
+          }
+        },
+        "required": [
+          "pid"
+        ],
+        "type": "object"
+      },
       "PublishRevocations": {
         "properties": {
           "rrid2crid": {
@@ -10252,18 +10544,73 @@
         },
         "type": "object"
       },
-      "QueryResult": {
+      "Queries": {
         "properties": {
-          "results": {
-            "additionalProperties": {
-              "description": "Protocol descriptor",
-              "properties": {},
-              "type": "object"
+          "@id": {
+            "description": "Message identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "@type": {
+            "description": "Message type",
+            "example": "https://didcomm.org/my-family/1.0/my-message-type",
+            "readOnly": true,
+            "type": "string"
+          },
+          "queries": {
+            "items": {
+              "$ref": "#/components/schemas/QueryItem"
             },
-            "description": "Query results keyed by protocol",
-            "type": "object"
+            "type": "array"
           }
         },
+        "type": "object"
+      },
+      "Query": {
+        "properties": {
+          "@id": {
+            "description": "Message identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "@type": {
+            "description": "Message type",
+            "example": "https://didcomm.org/my-family/1.0/my-message-type",
+            "readOnly": true,
+            "type": "string"
+          },
+          "comment": {
+            "nullable": true,
+            "type": "string"
+          },
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      },
+      "QueryItem": {
+        "properties": {
+          "feature-type": {
+            "description": "feature type",
+            "enum": [
+              "protocol",
+              "goal-code"
+            ],
+            "type": "string"
+          },
+          "match": {
+            "description": "match",
+            "type": "string"
+          }
+        },
+        "required": [
+          "feature-type",
+          "match"
+        ],
         "type": "object"
       },
       "RawEncoded": {
@@ -10441,6 +10788,16 @@
       },
       "RevokeRequest": {
         "properties": {
+          "comment": {
+            "description": "Optional comment to include in revocation notification",
+            "type": "string"
+          },
+          "connection_id": {
+            "description": "Connection ID to which the revocation notification will be sent; required if notify is true",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "type": "string"
+          },
           "cred_ex_id": {
             "description": "Credential exchange identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -10453,6 +10810,10 @@
             "pattern": "^[1-9][0-9]*$",
             "type": "string"
           },
+          "notify": {
+            "description": "Send a notification to the credential recipient",
+            "type": "boolean"
+          },
           "publish": {
             "description": "(True) publish revocation to ledger immediately, or (default, False) mark it pending",
             "type": "boolean"
@@ -10461,6 +10822,10 @@
             "description": "Revocation registry identifier",
             "example": "WgWxqztrNooG92RXvxSTWv:4:WgWxqztrNooG92RXvxSTWv:3:CL:20:tag:CL_ACCUM:0",
             "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):4:([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+))(:.+)?:CL_ACCUM:(.+$)",
+            "type": "string"
+          },
+          "thread_id": {
+            "description": "Thread ID of the credential exchange message thread resulting in the credential now being revoked; required if notify is true",
             "type": "string"
           }
         },
@@ -10975,11 +11340,11 @@
           "signature_request": {
             "items": {
               "example": {
-                "author_goal_code": "transaction.ledger.write",
+                "author_goal_code": "aries.transaction.ledger.write",
                 "context": "did:sov",
                 "method": "add-signature",
                 "signature_type": "<requested signature type>",
-                "signer_goal_code": "transaction.endorse"
+                "signer_goal_code": "aries.transaction.endorse"
               },
               "properties": {},
               "type": "object"
@@ -10992,7 +11357,7 @@
                 "context": "did:sov",
                 "message_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "method": "add-signature",
-                "signer_goal_code": "transaction.refuse"
+                "signer_goal_code": "aries.transaction.refuse"
               },
               "properties": {},
               "type": "object"
@@ -11598,6 +11963,96 @@
         },
         "type": "object"
       },
+      "V10DiscoveryExchangeListResult": {
+        "properties": {
+          "results": {
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/V10DiscoveryRecord"
+                }
+              ],
+              "description": "Discover Features v1.0 exchange record",
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "V10DiscoveryExchangeResult": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/V10DiscoveryRecord"
+              }
+            ],
+            "description": "Discover Features v1.0 exchange record",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "V10DiscoveryRecord": {
+        "properties": {
+          "connection_id": {
+            "description": "Connection identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "disclose": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Disclose"
+              }
+            ],
+            "description": "Disclose message",
+            "type": "object"
+          },
+          "discovery_exchange_id": {
+            "description": "Credential exchange identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "query_msg": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Query"
+              }
+            ],
+            "description": "Query message",
+            "type": "object"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "thread_id": {
+            "description": "Thread identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "trace": {
+            "description": "Record trace information, based on agent configuration",
+            "type": "boolean"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "V10PresentProofModuleResponse": {
         "type": "object"
       },
@@ -12031,7 +12486,8 @@
               "request-received",
               "credential-issued",
               "credential-received",
-              "done"
+              "done",
+              "credential-revoked"
             ],
             "example": "done",
             "type": "string"
@@ -12654,6 +13110,96 @@
       "V20CredStoreRequest": {
         "properties": {
           "credential_id": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "V20DiscoveryExchangeListResult": {
+        "properties": {
+          "results": {
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/V20DiscoveryRecord"
+                }
+              ],
+              "description": "Discover Features v2.0 exchange record",
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "V20DiscoveryExchangeResult": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/V20DiscoveryRecord"
+              }
+            ],
+            "description": "Discover Features v2.0 exchange record",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "V20DiscoveryRecord": {
+        "properties": {
+          "connection_id": {
+            "description": "Connection identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "disclosures": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Disclosures"
+              }
+            ],
+            "description": "Disclosures message",
+            "type": "object"
+          },
+          "discovery_exchange_id": {
+            "description": "Credential exchange identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "queries_msg": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Queries"
+              }
+            ],
+            "description": "Queries message",
+            "type": "object"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "thread_id": {
+            "description": "Thread identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "trace": {
+            "description": "Record trace information, based on agent configuration",
+            "type": "boolean"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           }
         },
@@ -13339,6 +13885,14 @@
         "type": "object"
       },
       "WalletModuleResponse": {
+        "type": "object"
+      },
+      "WriteLedgerRequest": {
+        "properties": {
+          "ledger_id": {
+            "type": "string"
+          }
+        },
         "type": "object"
       }
     }

@@ -1,6 +1,6 @@
 {
   "title": "Sudo Decentralized Identity Cloud Agent SDK",
-  "description": "Provides REST API wrappers for Typescript Agent Controllers using the Sudo Decentralized Identity Cloud Agency Service",
+  "description": "Provides REST API wrappers for Typescript Agent Controllers using the Sudo Decentralized Identity Cloud Agent Service",
   "contact": {
     "name": " Support",
     "url": "https://sudoplatform.com/#lets-chat"
@@ -9,5 +9,5 @@
     "name": "Apache 2.0",
     "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
   },
-  "version": "v0.6.2"
+  "version": "v0.6.3"
 }

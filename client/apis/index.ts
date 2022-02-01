@@ -4,6 +4,8 @@ export * from './ConnectionApi';
 export * from './CredentialDefinitionApi';
 export * from './CredentialsApi';
 export * from './DidExchangeApi';
+export * from './DiscoverFeaturesApi';
+export * from './DiscoverFeaturesV20Api';
 export * from './EndorseTransactionApi';
 export * from './IntroductionApi';
 export * from './IssueCredentialV10Api';
