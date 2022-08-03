@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { get } from 'lodash';
-import { setJSONFileField } from './setJSONFileField';
+import { setJSONFileField } from '../src/setJSONFileField';
 
 jest.mock('fs');
 
@@ -30,12 +30,12 @@ const mockExistsSync = jest.fn().mockImplementation((path: any): boolean => {
   return mockFSContents.findIndex((item) => item.path === path) >= 0;
 });
 
-const mockReadFileSync = jest.fn().mockImplementation(
-  (path: any, options: any): Buffer => {
+const mockReadFileSync = jest
+  .fn()
+  .mockImplementation((path: any, options: any): Buffer => {
     const buffer = mockFSContents.find((item) => item.path == path)?.contents;
     return buffer ? buffer : Buffer.from('');
-  },
-);
+  });
 
 const mockWriteFileSync = jest
   .fn()

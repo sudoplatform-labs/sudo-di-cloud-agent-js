@@ -1,7 +1,7 @@
 {
   "preset": "ts-jest",
   "testEnvironment": "node",
-  "testMatch": ["<rootDir>/src/**/*.spec.ts"],
+  "testMatch": ["<rootDir>/src/**/*.spec.ts", "<rootDir>/test/**/*.spec.ts"],
   "testPathIgnorePatterns": ["/node_modules/", "/lib/"],
   "clearMocks": true,
   "collectCoverageFrom": ["src/**/*.ts", "!**/*.d.ts", "!node_modules/**"],

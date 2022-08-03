@@ -25,9 +25,9 @@ of Hyperledger Aries Cloud Agent Python.
 
 | Technology     | Supported version |
 | -------------- | ----------------- |
-| docker desktop | 4.1.1             |
-| docker compose | 1.29.2            |
-| yarn           | 1.22.10           |
+| docker desktop | 4.11.0            |
+| docker compose | 2.7.0             |
+| yarn           | 1.22.17           |
 
 ## Integration Instructions
 
@@ -41,7 +41,7 @@ npm install --save '@sudoplatform-labs/sudo-di-cloud-agent'
 ```
 
 You will need to have [docker desktop](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installed on your machine to run the ledger,
-agent and tails file server, images.
+agent and tails file server, images. Make sure `Use Docker Compose V2` is set in the Docker Desktop preferences since the container naming scheme is different between Docker Compose V1 and V2.
 
 ## Public Interfaces
 
@@ -101,7 +101,7 @@ It is recommended that as much development activity as possible is performed wit
    - `curl -X GET "http://localhost:8201/ledger/taa" -H "accept: application/json"`
 5. Use the taa accept swagger interface at `http://localhost:8201/api/doc#/ledger/post_ledger_taa_accept`
    - Choose an appropriate `mechanism` value returned from step 4 in the `aml_record->aml` object (e.g `for_session`)
-   - Use the `taa_record-> text` field **EXACTLY** as returned in step 4 (i.e. this will have a `\ufeff` value at the beginning which is not capture if you use the swagger ui in step 4 and will fail later when you try and write something to the ledger)
+   - Use the `taa_record-> text` field **EXACTLY** as returned in step 4 (i.e. this will have a `\ufeff` value at the beginning which is not captured if you use the swagger ui in step 4 and will fail later when you try and write something to the ledger)
    - Use the `taa_record->version` field returned in step 4 (e.g. currently 2.0)
 6. Once this has been done it is possible to write new DIDs and Schemas/Credential Definitions to the Public Ledger using the relevant Swagger APIs or Typescript library provided by the SDK.
 

@@ -200,7 +200,7 @@ function runVONNetwork() {
   # Tell the VON manage script how it will need to 
   # connect to the VON Webserver to check it is up.
   export LEDGER_URL_CONFIG="http://${vonWebServerHost}:${vonWebServerPort}"
-  # Can now ask to wait until VON is up before returning. 
+  # Can now ask to wait until VON is up before returning.
   ./manage start --wait ${4}
   # Make sure we have access to the web interface
   waitActiveWebInterface "http://${vonWebServerHost}:${vonWebServerPort}" 20
@@ -210,8 +210,10 @@ function runVONNetwork() {
   fi
   # Give the von nodes a few seconds after its web 
   # interface is up to allow the ledger to stabilise before
-  # anything hits it since this can cause failures of the agent starting
-  sleep 15
+  # anything hits it since this can cause failures of the agent starting.
+  # Have also noticed on the M1 chip doing amd64 translation of containters this
+  # can be longer.
+  sleep 30
 }
 
 # Obtain the VON network code from git and

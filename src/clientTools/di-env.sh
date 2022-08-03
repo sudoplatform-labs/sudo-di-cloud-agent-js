@@ -183,7 +183,7 @@ function exportConfigOptions() {
     LEDGER_GENESIS_URL=$(getJSONFieldValue "ledgerGenesisURL" ${configFile})
     if [ ! ${ledgerGenesisURL} ]; then
       # Fall back to the default endpoint for running a local docker ledger
-      VON_WEBSERVER_INTERNAL_URL="http://von_webserver_1:8000"
+      VON_WEBSERVER_INTERNAL_URL="http://von-webserver-1:8000"
       LEDGER_GENESIS_URL="${VON_WEBSERVER_INTERNAL_URL}/genesis"
       # If we are using the VON Network ledger we have to use the
       # network it creates as the frontend. Since Docker Desktop 4.1.0 the
@@ -214,26 +214,14 @@ function exportConfigOptions() {
 }
 
 # Bring up the cloud-agent and the tails-server containers.
-# We do this in two stages so that we can support both a Local VON Ledger
-# and an external public ledger. 
-# 1) Configure the containers but don't start them as the cloud-agent
-#    would immediately try and connect to the ledger and fail
-# 2) Attach the containers to the von_von network if that has been requested
-#    otherwise they must be using an external public ledger so no attach 
-#    required.
-# 3) Start the containers to complete the bringup of the agent
-#
-# $1 : Indication on whether to use the local VON Ledger
 function executeACAPyStartup() {
-  local usingVonLedger=${1}
-
   docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} up --no-start
   # ACAPy now has to be added to cleanup steps if we exit with error
   CLEANUP_CMDS=("docker-compose -f ${REAL_PWD}/docker-compose-devel.yml down" "${CLEANUP_CMDS[@]}")
 
   docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} start
 
-  waitActiveWebInterface "http://${CLOUD_AGENT_DOCKER_HOST}:${CLOUD_AGENT_ADMIN_PORT}" 20
+  waitActiveWebInterface "http://${CLOUD_AGENT_DOCKER_HOST}:${CLOUD_AGENT_ADMIN_PORT}" 40
   if [ $? != 0 ] ; then
     printMilestone "ABORTING : Cloud Agent failed to come active please check start parameters and try again"
     exit -1
@@ -304,7 +292,7 @@ case "${subCommand}" in
       runVONNetwork ${VON_SRC_DIR} ${VON_WEBSERVER_DOCKER_HOST} ${VON_WEBSERVER_EXTERNAL_PORT} "--taa-sample"
       createVONEndorserDID ${VON_WEBSERVER_DOCKER_HOST} ${VON_WEBSERVER_EXTERNAL_PORT} ${CLOUD_AGENT_ENDORSER_SEED}
     fi
-    executeACAPyStartup ${startVonLedger}
+    executeACAPyStartup
     ;;
   down)
     leaveVonLedger=false;

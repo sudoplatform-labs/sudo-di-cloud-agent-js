@@ -27,10 +27,9 @@ services:
     ports:
       - ${CLOUD_AGENT_INBOUND_PORT:-8200}:${CLOUD_AGENT_INBOUND_PORT:-8200}
       - ${CLOUD_AGENT_ADMIN_PORT:-8201}:${CLOUD_AGENT_ADMIN_PORT:-8201}
-    # NOTE : Using an api key currently fails with a CORS error when the
-    # browser attempts to do an OPTIONS request to urls like wallet/did
-    # Needs sorting out in the ACA-py code. For now we are using the
-    # insecure mechanism.
+    # Version ACA-py 0.7.3 contained a fix for the CORs issue that stopped the
+    # x-api-key header from working properly.  However for the time being in
+    # the development environment we will still use the insecure admin mechanism.
     command: >-
       start
         --endpoint ${CLOUD_AGENT_ENDPOINT:-http} 

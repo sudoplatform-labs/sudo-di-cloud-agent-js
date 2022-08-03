@@ -1,6 +1,6 @@
 {
   "name": "@sudoplatform-labs/sudo-di-cloud-agent",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Decentralized Identity Cloud Agent SDK",
   "author": "Anonyome Labs, Inc.",
   "repository": {
@@ -41,10 +41,11 @@
     "build:wrappers": "yarn generate-wrappers && yarn clean:test-specs && yarn build:lint",
     "build:operationIds": "./node_modules/ts-node/dist/bin.js src/operationids-merge.ts -i open-api/operationIds.json -s open-api/openapi.json",
     "build:agent": "yarn build:acapy && yarn build:openapi-spec && yarn build:add-company-info && yarn build:operationIds && yarn build:wrappers && yarn build:docs",
-    "test:acapy": "src/test-acapy-image.sh",
-    "test:tails-server": "src/test-tails-server-image.sh",
-    "test:scripts": "jest",
-    "test": "yarn test:scripts && yarn test:acapy && yarn test:tails-server",
+    "test:acapy": "test/test-acapy-image.sh",
+    "test:tails-server": "test/test-tails-server-image.sh",
+    "test:scripts-release": "jest",
+    "test:scripts-latest": "CLOUD_AGENT_IMAGE=sudo-di-cloud-agent:latest TAILS_SERVER_IMAGE=sudo-di-tails-server:latest jest",
+    "test": "yarn test:scripts-latest && yarn test:acapy && yarn test:tails-server",
     "build": "yarn audit && yarn build:agent && yarn build:tails-server",
     "all": "yarn build && yarn test"
   },
@@ -70,6 +71,7 @@
     "yargs": "^17.1.1"
   },
   "resolutions": {
-    "**/node-fetch": "^2.6.7"
+    "**/node-fetch": "^2.6.7",
+    "**/minimist": "^1.2.6"
   }
 }

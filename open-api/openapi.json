@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.6.3"
+    "version": "v0.6.4"
   },
   "servers": [
     {
@@ -402,6 +402,15 @@
             }
           },
           {
+            "description": "Identifier of the associated Invitation Mesage",
+            "in": "query",
+            "name": "invitation_msg_id",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
             "description": "My DID",
             "in": "query",
             "name": "my_did",
@@ -418,12 +427,12 @@
               "enum": [
                 "request",
                 "init",
-                "error",
+                "active",
+                "completed",
                 "start",
                 "invitation",
-                "active",
                 "abandoned",
-                "completed",
+                "error",
                 "response"
               ],
               "type": "string"
@@ -433,6 +442,15 @@
             "description": "Their DID",
             "in": "query",
             "name": "their_did",
+            "schema": {
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Their Public DID",
+            "in": "query",
+            "name": "their_public_did",
             "schema": {
               "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
@@ -2052,7 +2070,8 @@
                 "credential-issued",
                 "credential-received",
                 "done",
-                "credential-revoked"
+                "credential-revoked",
+                "abandoned"
               ],
               "type": "string"
             }
@@ -2587,7 +2606,8 @@
                 "credential_issued",
                 "credential_received",
                 "credential_acked",
-                "credential_revoked"
+                "credential_revoked",
+                "abandoned"
               ],
               "type": "string"
             }
@@ -3222,6 +3242,22 @@
             }
           },
           {
+            "description": "Connection identifier",
+            "in": "query",
+            "name": "conn_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Create Transaction For Endorser's signature",
+            "in": "query",
+            "name": "create_transaction_for_endorser",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Role",
             "in": "query",
             "name": "role",
@@ -3242,7 +3278,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegisterLedgerNymResponse"
+                  "$ref": "#/components/schemas/TxnOrRegisterLedgerNymResponse"
                 }
               }
             },
@@ -4269,7 +4305,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/AdminAPIMessageTracing"
+                "$ref": "#/components/schemas/V20PresentationSendRequestToProposal"
               }
             }
           },
@@ -4456,7 +4492,8 @@
                 "presentation_sent",
                 "presentation_received",
                 "verified",
-                "presentation_acked"
+                "presentation_acked",
+                "abandoned"
               ],
               "type": "string"
             }
@@ -4725,7 +4762,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/AdminAPIMessageTracing"
+                "$ref": "#/components/schemas/V10PresentationSendRequestToProposal"
               }
             }
           },
@@ -5265,6 +5302,47 @@
         ]
       }
     },
+    "/revocation/registry/{rev_reg_id}/fix-revocation-entry-state": {
+      "put": {
+        "parameters": [
+          {
+            "description": "Revocation Registry identifier",
+            "in": "path",
+            "name": "rev_reg_id",
+            "required": true,
+            "schema": {
+              "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):4:([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+))(:.+)?:CL_ACCUM:(.+$)",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Apply updated accumulator transaction to ledger",
+            "in": "query",
+            "name": "apply_ledger_update",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevRegWalletUpdatedResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fix revocation state in wallet and return number of updated entries",
+        "tags": [
+          "revocation"
+        ]
+      }
+    },
     "/revocation/registry/{rev_reg_id}/issued": {
       "get": {
         "parameters": [
@@ -5292,6 +5370,70 @@
           }
         },
         "summary": "Get number of credentials issued against revocation registry",
+        "tags": [
+          "revocation"
+        ]
+      }
+    },
+    "/revocation/registry/{rev_reg_id}/issued/details": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Revocation Registry identifier",
+            "in": "path",
+            "name": "rev_reg_id",
+            "required": true,
+            "schema": {
+              "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):4:([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+))(:.+)?:CL_ACCUM:(.+$)",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredRevRecordDetailsResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get details of credentials issued against revocation registry",
+        "tags": [
+          "revocation"
+        ]
+      }
+    },
+    "/revocation/registry/{rev_reg_id}/issued/indy_recs": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Revocation Registry identifier",
+            "in": "path",
+            "name": "rev_reg_id",
+            "required": true,
+            "schema": {
+              "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):4:([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+))(:.+)?:CL_ACCUM:(.+$)",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredRevIndyRecordsResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get details of revoked credentials from ledger",
         "tags": [
           "revocation"
         ]
@@ -5995,6 +6137,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Endorser DID",
+            "in": "query",
+            "name": "endorser_did",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -6247,6 +6397,22 @@
               "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
             }
+          },
+          {
+            "description": "Connection identifier",
+            "in": "query",
+            "name": "conn_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Create Transaction For Endorser's signature",
+            "in": "query",
+            "name": "create_transaction_for_endorser",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -6301,6 +6467,24 @@
     },
     "/wallet/set-did-endpoint": {
       "post": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "query",
+            "name": "conn_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Create Transaction For Endorser's signature",
+            "in": "query",
+            "name": "create_transaction_for_endorser",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "*/*": {
@@ -6365,15 +6549,6 @@
         "type": "object"
       },
       "ActionMenuModulesResult": {
-        "type": "object"
-      },
-      "AdminAPIMessageTracing": {
-        "properties": {
-          "trace": {
-            "description": "Record trace information, based on agent configuration",
-            "type": "boolean"
-          }
-        },
         "type": "object"
       },
       "AdminConfig": {
@@ -7257,6 +7432,27 @@
         },
         "type": "object"
       },
+      "CredRevIndyRecordsResult": {
+        "properties": {
+          "rev_reg_delta": {
+            "description": "Indy revocation registry delta",
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "CredRevRecordDetailsResult": {
+        "properties": {
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/IssuerCredRevRecord"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
       "CredRevRecordResult": {
         "properties": {
           "result": {
@@ -7893,6 +8089,9 @@
               "$ref": "#/components/schemas/InputDescriptors"
             },
             "type": "array"
+          },
+          "options": {
+            "$ref": "#/components/schemas/DIFOptions"
           }
         },
         "type": "object"
@@ -9365,7 +9564,7 @@
             ],
             "description": "Accepts a list of schema or a dict containing filters like oneof_filter.",
             "example": {
-              "oneOf": [
+              "oneof_filter": [
                 [
                   {
                     "uri": "https://www.w3.org/Test1#Test1"
@@ -9532,6 +9731,11 @@
           "invitation_url": {
             "description": "Invitation message URL",
             "example": "https://example.com/endpoint?c_i=eyJAdHlwZSI6ICIuLi4iLCAiLi4uIjogIi4uLiJ9XX0=",
+            "type": "string"
+          },
+          "oob_id": {
+            "description": "Out of band record identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "type": "string"
           },
           "state": {
@@ -10687,16 +10891,6 @@
         },
         "type": "object"
       },
-      "RegisterLedgerNymResponse": {
-        "properties": {
-          "success": {
-            "description": "Success of nym registration operation",
-            "example": true,
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
       "ResolutionResult": {
         "properties": {
           "did_doc": {
@@ -10769,6 +10963,26 @@
         ],
         "type": "object"
       },
+      "RevRegWalletUpdatedResult": {
+        "properties": {
+          "accum_calculated": {
+            "description": "Calculated accumulator for phantom revocations",
+            "properties": {},
+            "type": "object"
+          },
+          "accum_fixed": {
+            "description": "Applied ledger transaction to fix revocations",
+            "properties": {},
+            "type": "object"
+          },
+          "rev_reg_delta": {
+            "description": "Indy revocation registry delta",
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "RevRegsCreated": {
         "properties": {
           "rev_reg_ids": {
@@ -10813,6 +11027,14 @@
           "notify": {
             "description": "Send a notification to the credential recipient",
             "type": "boolean"
+          },
+          "notify_version": {
+            "description": "Specify which version of the revocation notification should be sent",
+            "enum": [
+              "v1_0",
+              "v2_0"
+            ],
+            "type": "string"
           },
           "publish": {
             "description": "(True) publish revocation to ledger immediately, or (default, False) mark it pending",
@@ -11428,6 +11650,25 @@
               }
             ],
             "description": "Revocation registry revocations transaction to endorse",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "TxnOrRegisterLedgerNymResponse": {
+        "properties": {
+          "success": {
+            "description": "Success of nym registration operation",
+            "example": true,
+            "type": "boolean"
+          },
+          "txn": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TransactionRecord"
+              }
+            ],
+            "description": "DID transaction to endorse",
             "type": "object"
           }
         },
@@ -12058,6 +12299,11 @@
       },
       "V10PresentationCreateRequestRequest": {
         "properties": {
+          "auto_verify": {
+            "description": "Verifier choice to auto-verify proof presentation",
+            "example": false,
+            "type": "boolean"
+          },
           "comment": {
             "nullable": true,
             "type": "string"
@@ -12081,6 +12327,10 @@
           "auto_present": {
             "description": "Prover choice to auto-present proof as verifier requests",
             "example": false,
+            "type": "boolean"
+          },
+          "auto_verify": {
+            "description": "Verifier choice to auto-verify proof presentation",
             "type": "boolean"
           },
           "connection_id": {
@@ -12247,6 +12497,11 @@
       },
       "V10PresentationSendRequestRequest": {
         "properties": {
+          "auto_verify": {
+            "description": "Verifier choice to auto-verify proof presentation",
+            "example": false,
+            "type": "boolean"
+          },
           "comment": {
             "nullable": true,
             "type": "string"
@@ -12270,6 +12525,21 @@
           "connection_id",
           "proof_request"
         ],
+        "type": "object"
+      },
+      "V10PresentationSendRequestToProposal": {
+        "properties": {
+          "auto_verify": {
+            "description": "Verifier choice to auto-verify proof presentation",
+            "example": false,
+            "type": "boolean"
+          },
+          "trace": {
+            "description": "Whether to trace event (default false)",
+            "example": false,
+            "type": "boolean"
+          }
+        },
         "type": "object"
       },
       "V20CredAttrSpec": {
@@ -12487,7 +12757,8 @@
               "credential-issued",
               "credential-received",
               "done",
-              "credential-revoked"
+              "credential-revoked",
+              "abandoned"
             ],
             "example": "done",
             "type": "string"
@@ -13281,6 +13552,11 @@
       },
       "V20PresCreateRequestRequest": {
         "properties": {
+          "auto_verify": {
+            "description": "Verifier choice to auto-verify proof presentation",
+            "example": false,
+            "type": "boolean"
+          },
           "comment": {
             "nullable": true,
             "type": "string"
@@ -13304,6 +13580,10 @@
           "auto_present": {
             "description": "Prover choice to auto-present proof as verifier requests",
             "example": false,
+            "type": "boolean"
+          },
+          "auto_verify": {
+            "description": "Verifier choice to auto-verify proof presentation",
             "type": "boolean"
           },
           "by_format": {
@@ -13639,6 +13919,11 @@
       },
       "V20PresSendRequestRequest": {
         "properties": {
+          "auto_verify": {
+            "description": "Verifier choice to auto-verify proof presentation",
+            "example": false,
+            "type": "boolean"
+          },
           "comment": {
             "nullable": true,
             "type": "string"
@@ -13692,6 +13977,21 @@
         "type": "object"
       },
       "V20PresentProofModuleResponse": {
+        "type": "object"
+      },
+      "V20PresentationSendRequestToProposal": {
+        "properties": {
+          "auto_verify": {
+            "description": "Verifier choice to auto-verify proof presentation",
+            "example": false,
+            "type": "boolean"
+          },
+          "trace": {
+            "description": "Whether to trace event (default false)",
+            "example": false,
+            "type": "boolean"
+          }
+        },
         "type": "object"
       },
       "VCRecord": {

@@ -58,7 +58,7 @@ export TAILS_SERVER_SRC_DIR="${BUILD_DIR}/indy-tails-server"
 # We use the von_von network created which provides
 # a von_webserver_1 host on that network so pass that to the tester 
 # docker environment.
-export VON_WEBSERVER_INTERNAL_URL="http://von_webserver_1:8000"
+export VON_WEBSERVER_INTERNAL_URL="http://von-webserver-1:8000"
 
 export TAILS_SERVER_DOCKER_IMAGE=${DOCKER_IMAGE_OPT}
 export TAILS_SERVER_PORT=6543
