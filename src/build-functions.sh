@@ -38,7 +38,7 @@ function runOpenAPIGenerate() {
     configFile="$(basename -- ${configLocation})"
   fi
 
-  openAPICmd="docker run --rm  --user $(id -u):$(id -g) -v ${hostSharedDir}:${OPEN_API_MOUNT} ${OPEN_API_CONTAINER} generate \
+  openAPICmd="docker run --rm  --platform linux/amd64 --user $(id -u):$(id -g) -v ${hostSharedDir}:${OPEN_API_MOUNT} ${OPEN_API_CONTAINER} generate \
   --input-spec ${specFile} \
   --output ${OPEN_API_MOUNT}"
  

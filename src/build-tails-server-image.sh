@@ -34,7 +34,7 @@ function buildDockerImage() {
   local tag="${2}"
 
   cd ${srcDir}
-  docker build -t ${tag} -f docker/Dockerfile.tails-server . || exit 1
+  docker build --platform linux/amd64 -t ${tag} -f docker/Dockerfile.tails-server . || exit 1
 }
 
 ##########################################################################################

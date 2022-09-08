@@ -20,6 +20,19 @@ services:
     networks:
       - frontend
 
+  # A mockserver to provide a webhook callback endpoint/proxy for events
+  # from the cloud agent
+  webhook-mockserver:
+    image: mockserver/mockserver:5.14.0
+    container_name: ${WEBHOOK_MOCKSERVER_CONTAINER_NAME:-webhook-mockserver}
+    ports:
+      - ${WEBHOOK_MOCKSERVER_PORT:-1080}:${WEBHOOK_MOCKSERVER_PORT:-1080}
+    environment:
+      MOCKSERVER_SERVER_PORT: ${WEBHOOK_MOCKSERVER_PORT:-1080}
+      MOCKSERVER_LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    networks:
+      - frontend
+
   # The cloud agent proper
   cloud-agent:
     image: ${CLOUD_AGENT_DOCKER_IMAGE:-sudo-di-cloud-agent}:${CLOUD_AGENT_DOCKER_TAG:-latest}
@@ -45,10 +58,11 @@ services:
         --auto-accept-requests 
         --preserve-exchange-records 
         --auto-provision 
-        --wallet-type indy 
+        --wallet-type ${CLOUD_AGENT_WALLET_TYPE:-askar} 
         --wallet-name dev-wallet 
         --wallet-key dev-wallet-key
         --tails-server-base-url ${TAILS_SERVER_INTERNAL_URL:-}
+        --webhook-url ${WEBHOOK_MOCKSERVER_INTERNAL_URL:-}
     networks:
       - frontend
     depends_on:

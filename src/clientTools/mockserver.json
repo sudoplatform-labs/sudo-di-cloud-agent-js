@@ -1,0 +1,23 @@
+[
+  {
+    "id": "defaultWebhookExpectation",
+    "priority": -1,
+    "httpRequest": {
+      "method": "POST",
+      "path": "/topic/{subject}",
+      "pathParameters": {
+        "subject": [
+          {
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9_]+$"
+            }
+          }
+        ]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200
+    }
+  }
+]

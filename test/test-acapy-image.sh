@@ -34,15 +34,15 @@ cd ${ACA_PY_SRC_DIR}/scripts
 
 # Run tests but not indy specific ones since it breaks
 # in gitlab trying to do network traffic between indy and aca-py
-docker build -t aries-cloudagent-test -f ${ACA_PY_SRC_DIR}/docker/Dockerfile.test .. || exit 1
+docker build --platform linux/amd64 -t aries-cloudagent-test -f ${ACA_PY_SRC_DIR}/docker/Dockerfile.test .. || exit 1
 
 hostOS="$(uname -s)"
 if [ ${hostOS} = "Darwin" ]; then
-  docker run --rm --name aries-cloudagent-runner \
+  docker run --rm --platform linux/amd64 --name aries-cloudagent-runner \
 	  -v "${ACA_PY_SRC_DIR}/test-reports:/usr/src/app/test-reports" \
 	  aries-cloudagent-test "$@"
 else
-  docker run --rm --user $(id -u):$(id -g) --name aries-cloudagent-runner \
+  docker run --rm --platform linux/amd64 --user $(id -u):$(id -g) --name aries-cloudagent-runner \
 	  -v "${ACA_PY_SRC_DIR}/test-reports:/usr/src/app/test-reports" \
 	  aries-cloudagent-test "$@"
 fi

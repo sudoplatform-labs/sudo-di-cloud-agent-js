@@ -10,10 +10,11 @@ of Hyperledger Aries Cloud Agent Python.
 ## Key Features
 
 - Quickly setup and takedown a local Decentralized Identity development
-  environment using docker containers (currently only MacOS)
+  environment using docker-compose (currently only MacOS)
   - A running 4 Node Indy Decentralized Ledger
   - A configured and running Decentralized Identity Cloud Agent
   - A configured and running Tails File Server to support revocable credentials
+  - A mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the controller is developed
 - Typescript SDK wrappers to access all the functionality provided by
   [Anonyomes fork](https://github.com/anonyome/aries-cloudagent-python) of Hyperledger Aries Cloud Agent Python.
   - Ability to create Decentralized Identifiers, Schemas and Credential Definitions on the Local
@@ -41,7 +42,9 @@ npm install --save '@sudoplatform-labs/sudo-di-cloud-agent'
 ```
 
 You will need to have [docker desktop](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installed on your machine to run the ledger,
-agent and tails file server, images. Make sure `Use Docker Compose V2` is set in the Docker Desktop preferences since the container naming scheme is different between Docker Compose V1 and V2.
+agent, mockserver and tails file server, images. 
+
+**NOTE:** Make sure `Use Docker Compose V2` is set in the Docker Desktop preferences since the container naming scheme is different between Docker Compose V1 and V2.
 
 ## Public Interfaces
 
@@ -76,7 +79,18 @@ After the `yarn di-env up` command has completed :
 
 - The Cloud Agent swagger interface can be accessed at the `acapyAdminUri` field location specified in the `acapy.json` config file (e.g. http://localhost:8201)
 - The VON Ledger web UI can be accessed on http://localhost:9000
-- To see the logs for both Cloud Agent and Tails File Server run `yarn di-env logs`
+
+#### Seeing container log output 
+- To see the logs for Cloud Agent, Tails File Server and MockServer webhook handler run `yarn di-env logs`
+- The level of logging defaults to INFO but can be set using the `-v` switch to `di-env up`
+
+#### Using MockServer to develop webhook handlers
+
+After the `yarn di-env up` command has completed :
+
+- The mockserver dashboard can be accessed at http://localhost:1080/mockserver/dashboard. This dashboard will display all the webhook callback information received from the running Cloud Agent.
+- The configuration for mockserver is intialised from a file during the `di-env up` command. The absolute path for a custom intialisation file can be specifed either using the `mockServerConfigFile` field in `acapy.json` or via the `-m` switch to the `di-env up` command. If neither is specified a default initialisation is used.
+- The [mockserver](https://mock-server.com/#what-is-mockserver) website contains details on how to write configuration to forward specific routes on to your controller as development progresses.
 
 #### Providing a Public Cloud Agent Endpoint via ngrok to interact with Mobile/External Agents
 

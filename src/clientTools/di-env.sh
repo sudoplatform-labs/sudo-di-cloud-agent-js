@@ -13,16 +13,13 @@ function usage() {
 
   up - Create a local Decentralized Identity development environment by 
        starting the VON Distributed Ledger, a tails file server to support revocable 
-       credential functionality and the ACA-py Cloud Agent inside docker containers
+       credential functionality, a mockerserver webhook handler and the ACA-py Cloud Agent
+       all inside linked docker containers
 
        start options :
-         -s <32 byte seed> : Use the specified 32 bytes as the seed for the wallets public DID.
-            There is NO default, for security reasons it must be supplied either as an
-            arguement or via an 'endorserSeed' field added to the config file.
-         -g <genesis file url> : Pull the ledger genesis file from the specified url. Overrides
-            a url specified in the 'ledgerGenesisURL' field of the config file. If neither
-            present, defaults to the URL to pull a genesis file from a locally running VON Indy
-            Ledger.
+         -c <config file path> : Use a custom configuration file rather than the default acapy.json. 
+            This allows changing various parameters so that multiple agents can be run
+            on a single machine (NOTE: must provide an absolute path).
          -e <agent endpoint> : Specifies the endpoint to put into DIDDocs to inform
             other agents where they should send messages destined for this agent.
             Specify a full endpoint URL (e.g. http://host:port). Overrides
@@ -30,15 +27,33 @@ function usage() {
             present, defaults to the localhost url of the running docker image. Particularly 
             useful when connections from agents need to pass through a NAT (i.e or ngrok) to reach
             this agent. 
-         -c <config file path> : Use a custom configuration file rather than the default acapy.json. 
-            This allows changing various parameters so that multiple agents can be run
-            on a single machine (NOTE: must provide an absolute path).
-         -l : DO NOT Start the VON Indy Decentralized Ledger before the aca-py Agent.
-            This is useful if you will be using a public ledger URL via -g
          -f : Force remove the existing runtime environment before starting which will
             cause new VON repository versions to be pulled. 
+         -g <genesis file url> : Pull the ledger genesis file from the specified url. Overrides
+            a url specified in the 'ledgerGenesisURL' field of the config file. If neither
+            present, defaults to the URL to pull a genesis file from a locally running VON Indy
+            Ledger.
+         -l : DO NOT Start the VON Indy Decentralized Ledger before the aca-py Agent.
+            This is useful if you will be using a public ledger URL via -g
+         -m <mockserver config file path> : Use a custom mockserver expectation configuration 
+            file rather than the default mockserver.json.  This allows developers to slowly 
+            develop their controller handlers for webhook callbacks 
+            (see: https://mock-server.com/#what-is-mockserver for how to use mockserver).
+            (NOTE: must provide an absolute path).
+         -s <32 byte seed> : Use the specified 32 bytes as the seed for the wallets public DID.
+            There is NO default, for security reasons it must be supplied either as an
+            arguement or via an 'endorserSeed' field added to the config file.
+         -t <grace in seconds> : Time to allow acapy to become active on its web iterface before 
+            declaring failure.  This can by useful due to the variance in both docker image layer
+            donwload speeds and architecture variations (e.g. when running on risc chipsets and docker
+            is doing architecture translation at runtime). Overrides the time specified in the 
+            'agentTimeGrace' field of the config file. If neither present, defaults to 60 seconds. 
          -v : Set the logging level for ACA-py and the tails file server (use: debug, info, warning, error).  
             Log output can be seen using the 'yarn di-env logs' command
+         -w <wallet type> : Specifies the wallet plugin type to use. Currently should be either
+            "indy" or "askar".  Overrides the type specified in the 'walletType' field of the
+            config file. If neither present, defaults to "askar" since this is preferred from 
+            ACA-py V0.7.4 onwards. 
   
   down - Stop running instance of ACA-py Agent, tails file server, and VON Distributed Ledger
          destroying the contents of local Ledger and the Cloud Agent Wallet.
@@ -103,8 +118,6 @@ DEVEL_DIR="${ROOT_DIR}/devel"
 
 CLOUD_AGENT_CONFIG_FILE="${ROOT_DIR}/bin/acapy.json"
 
-DOCKER_HOST_IP=`docker run --rm --net=host eclipse/che-ip`
-
 VON_SRC_DIR="${DEVEL_DIR}/von-network"
 VON_WEBSERVER_EXTERNAL_PORT="9000"
 # NOTE: Depending on whether we are running in a localhost environment or
@@ -112,6 +125,7 @@ VON_WEBSERVER_EXTERNAL_PORT="9000"
 # host address has to be determined. 
 VON_WEBSERVER_DOCKER_HOST=${VON_WEBSERVER_DOCKER_HOST:-'localhost'}
 CLOUD_AGENT_DOCKER_HOST=${CLOUD_AGENT_DOCKER_HOST:-'localhost'}
+WEBHOOK_MOCKSERVER_DOCKER_HOST=${WEBHOOK_MOCKSERVER_DOCKER_HOST:-'localhost'}
 
 DOCKER_PROJECT_NAME='cloud-agency'
 
@@ -147,11 +161,9 @@ function exportConfigOptions() {
   cloudAgentImageLocation=$(getJSONFieldValue "acapyImageLocation" ${configFile})
   export CLOUD_AGENT_DOCKER_IMAGE=$(cut -d':' -f1 <<<${cloudAgentImageLocation}) 
   export CLOUD_AGENT_DOCKER_TAG=$(cut -d':' -f2 <<<${cloudAgentImageLocation}) 
-
   # Get the parameters for talking to the Agent from the UI
   agentURI=$(getJSONFieldValue "acapyAdminUri" ${configFile})
   export CLOUD_AGENT_ADMIN_PORT=$(cut -d':' -f3 <<<${agentURI}) 
-
   # Get the parameters for other agents to talk to us
   export CLOUD_AGENT_INBOUND_PORT=$(getJSONFieldValue "acapyInboundPort" ${configFile})
 
@@ -164,9 +176,9 @@ function exportConfigOptions() {
     CLOUD_AGENT_ENDPOINT=${clientEndpointOption}
   else
     CLOUD_AGENT_ENDPOINT=$(getJSONFieldValue "acapyClientEndpoint" ${configFile})
-    if [ ! ${clientEndpoint} ]; then
+    if [ ! ${CLOUD_AGENT_ENDPOINT} ]; then
       # Fall back to the default endpoint for only localhost processes to access
-      CLOUD_AGENT_ENDPOINT="http://${DOCKER_HOST_IP}:${CLOUD_AGENT_INBOUND_PORT}"
+      CLOUD_AGENT_ENDPOINT="http://${CLOUD_AGENT_DOCKER_HOST}:${CLOUD_AGENT_INBOUND_PORT}"
     fi
   fi
   # make the agent endpoint visible to compose 
@@ -181,7 +193,7 @@ function exportConfigOptions() {
     LEDGER_GENESIS_URL=${ledgerGenesisURLOption}
   else
     LEDGER_GENESIS_URL=$(getJSONFieldValue "ledgerGenesisURL" ${configFile})
-    if [ ! ${ledgerGenesisURL} ]; then
+    if [ ! ${LEDGER_GENESIS_URL} ]; then
       # Fall back to the default endpoint for running a local docker ledger
       VON_WEBSERVER_INTERNAL_URL="http://von-webserver-1:8000"
       LEDGER_GENESIS_URL="${VON_WEBSERVER_INTERNAL_URL}/genesis"
@@ -211,6 +223,37 @@ function exportConfigOptions() {
     CLOUD_AGENT_ENDORSER_SEED=$(getJSONFieldValue "endorserSeed" ${configFile})
   fi
   export CLOUD_AGENT_ENDORSER_SEED
+
+  if [ ${walletTypeOption} ]; then
+    # Command switch overrides all
+    CLOUD_AGENT_WALLET_TYPE=${walletTypeOption}
+  else
+    CLOUD_AGENT_WALLET_TYPE=$(getJSONFieldValue "walletType" ${configFile})
+  fi
+  export CLOUD_AGENT_WALLET_TYPE
+
+  if [ ${timeGraceOption} ]; then
+    # Command switch overrides all
+    CLOUD_AGENT_TIME_GRACE=${timeGraceOption}
+  else
+    CLOUD_AGENT_TIME_GRACE=$(getJSONFieldValue "agentTimeGrace" ${configFile})
+  fi
+  export CLOUD_AGENT_TIME_GRACE
+
+  # Webhook mockserver configuration 
+  export WEBHOOK_MOCKSERVER_PORT=1080
+  export WEBHOOK_MOCKSERVER_INTERNAL_URL="http://webhook-mockserver:${WEBHOOK_MOCKSERVER_PORT}"
+  if [ ${webHookMockServerFileOption} ]; then
+    # Command switch overrides all
+    WEBHOOK_MOCKSERVER_FILE=${webHookMockServerFileOption}
+  else
+    WEBHOOK_MOCKSERVER_FILE=$(getJSONFieldValue "mockServerConfigFile" ${configFile})
+    if [ ! ${WEBHOOK_MOCKSERVER_FILE} ]; then
+      # Fall back to the default file location
+      WEBHOOK_MOCKSERVER_FILE="${REAL_PWD}/mockserver.json"
+    fi
+  fi
+  export WEBHOOK_MOCKSERVER_FILE
 }
 
 # Bring up the cloud-agent and the tails-server containers.
@@ -221,11 +264,14 @@ function executeACAPyStartup() {
 
   docker-compose -f ${REAL_PWD}/docker-compose-devel.yml -p ${DOCKER_PROJECT_NAME} start
 
-  waitActiveWebInterface "http://${CLOUD_AGENT_DOCKER_HOST}:${CLOUD_AGENT_ADMIN_PORT}" 40
+  waitActiveWebInterface "http://${CLOUD_AGENT_DOCKER_HOST}:${CLOUD_AGENT_ADMIN_PORT}" ${CLOUD_AGENT_TIME_GRACE:-60}
   if [ $? != 0 ] ; then
     printMilestone "ABORTING : Cloud Agent failed to come active please check start parameters and try again"
     exit -1
   fi
+
+  # Send the mockserver webhook configuration 
+  updateMockServerExpectations "${WEBHOOK_MOCKSERVER_DOCKER_HOST}" "${WEBHOOK_MOCKSERVER_PORT}" "${WEBHOOK_MOCKSERVER_FILE}"
 
   printMilestone "Cloud Agent Admin interface active"
 }
@@ -247,15 +293,18 @@ case "${subCommand}" in
     startVonLedger=true;
 
     # Up comes with several options on how to construct the environment
-    while getopts ':flc:e:g:s:v:' option; do
+    while getopts ':flc:e:g:s:v:w:t:m:' option; do
       case ${option} in
-        f) flushOption=true ;;
-        l) startVonLedger=false ;;
         c) configFileOption=${OPTARG} ;;
         e) clientEndpointOption=${OPTARG} ;;
+        f) flushOption=true ;;
         g) ledgerGenesisURLOption=${OPTARG} ;;
+        l) startVonLedger=false ;;
+        m) webHookMockServerFileOption=${OPTARG} ;;
         s) endorserDIDSeedOption=${OPTARG} ;;
+        t) timeGraceOption=${OPTARG} ;;
         v) export LOG_LEVEL=${OPTARG} ;;
+        w) walletTypeOption=${OPTARG} ;;
         \?) usage; 
       esac
     done

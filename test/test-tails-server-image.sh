@@ -20,6 +20,9 @@ DEVEL_DIR="${ROOT_DIR}/devel"
 # pull in common build functions
 source ${ROOT_DIR}/src/build-functions.sh
 
+# Make sure we build for linux/amd64 architecture
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+
 ##########################################################################################
 # Parse command-line options
 ##########################################################################################

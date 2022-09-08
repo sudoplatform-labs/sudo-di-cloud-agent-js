@@ -15,18 +15,18 @@ beforeAll(() => {
   // Load the acapy.json config and write out a new one that indicates a different
   // tag if CLOUD_AGENT_TAG is set
   copyFileSync(acapyConfigFile, configTmpFile);
-  if (process.env['CLOUD_AGENT_IMAGE']) {
+  if (process.env['TEST_CLOUD_AGENT_IMAGE']) {
     setJSONFileField(
       configTmpFile,
       'acapyImageLocation',
-      process.env['CLOUD_AGENT_IMAGE'],
+      process.env['TEST_CLOUD_AGENT_IMAGE'],
     );
   }
-  if (process.env['TAILS_SERVER_IMAGE']) {
+  if (process.env['TEST_TAILS_SERVER_IMAGE']) {
     setJSONFileField(
       configTmpFile,
       'tailsServerImageLocation',
-      process.env['TAILS_SERVER_IMAGE'],
+      process.env['TEST_TAILS_SERVER_IMAGE'],
     );
   }
 });
@@ -60,6 +60,7 @@ describe('test di-env utility for starting and stopping development environment'
     const upStdout = diEnvUp.stdout.toString();
     expect(upStdout).toContain('waiting for ledger to start');
     expect(upStdout).toContain('Endorser DID was registered');
+    expect(upStdout).toContain('Mock Server Expectations set');
     expect(upStdout).toContain('Cloud Agent Admin interface active');
   });
 });

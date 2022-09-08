@@ -145,7 +145,7 @@ function runACAPy() {
   args="${args} -v /$(pwd)/../logs:/home/indy/logs"
 
   randName=$(cat /dev/urandom | env LC_CTYPE=ALL tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1)
-  acaPyCmd="docker run -d --rm  --name sudo-di-cloud-agent_${randName} ${args} \
+  acaPyCmd="docker run -d --rm --platform linux/amd64 --name sudo-di-cloud-agent_${randName} ${args} \
               ${acaPyImage} start ${acaPyArgs}" 
   printMilestone "Starting ACA-py docker image with command: \n \
         \t ${acaPyCmd}"
@@ -203,7 +203,7 @@ function runVONNetwork() {
   # Can now ask to wait until VON is up before returning.
   ./manage start --wait ${4}
   # Make sure we have access to the web interface
-  waitActiveWebInterface "http://${vonWebServerHost}:${vonWebServerPort}" 20
+  waitActiveWebInterface "http://${vonWebServerHost}:${vonWebServerPort}" 60
   if [ $? != 0 ] ; then
     printMilestone "ABORTING : VON Network failed to come active, please check start parameters and try again"
     exit -1
@@ -217,7 +217,7 @@ function runVONNetwork() {
 }
 
 # Obtain the VON network code from git and
-# start a 4 Node Indy Ledger locally.
+# build it locally.
 # $1: The local VON source directory
 # $2: Location of the VON repository
 # $3: Git tag to use
@@ -264,4 +264,19 @@ function createVONEndorserDID() {
   endorserDID=`curl -s -d "@${tmpfile}.json" -X POST ${vonHost}:${adminPort}/register | awk -F'"' '/did/ { print $4 }'`
   printMilestone "Endorser DID was registered as: ${endorserDID}"
   rm ${tmpfile}.json
+}
+
+# Update the mockserver 'expectations' which listens for 
+# webhook callbacks from cloudagent.
+# $1 : The Host running webhook mockerserver
+# $2 : The port which the mockserver is listening on
+# $3 : The absolute path of the config file containing the 
+#      expectations to upload.
+function updateMockServerExpectations() {
+  local mockServerHost=${1}
+  local mockServerPort=${2}
+  local configFile=${3}
+
+  expectations=`curl -s -d "@${configFile}" -X PUT ${mockServerHost}:${mockServerPort}/mockserver/expectation -H accept: application/json`
+  printMilestone "Mock Server Expectations set using ${configFile} : ${expectations}"
 }

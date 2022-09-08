@@ -16,10 +16,11 @@ of Hyperledger Aries Cloud Agent Python.</p>
 </a>
 <ul>
 <li>Quickly setup and takedown a local Decentralized Identity development
-environment using docker containers (currently only MacOS)<ul>
+environment using docker-compose (currently only MacOS)<ul>
 <li>A running 4 Node Indy Decentralized Ledger</li>
 <li>A configured and running Decentralized Identity Cloud Agent</li>
 <li>A configured and running Tails File Server to support revocable credentials</li>
+<li>A mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the controller is developed</li>
 </ul>
 </li>
 <li>Typescript SDK wrappers to access all the functionality provided by
@@ -64,7 +65,8 @@ must add <code>@sudoplatform-labs/sudo-di-cloud-agent</code> as a dependency to 
 <pre><code><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">add</span><span class="hl-1"> </span><span class="hl-2">&#39;@sudoplatform-labs/sudo-di-cloud-agent&#39;</span><br/><span class="hl-1"># </span><span class="hl-0">or</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">install</span><span class="hl-1"> --</span><span class="hl-0">save</span><span class="hl-1"> </span><span class="hl-2">&#39;@sudoplatform-labs/sudo-di-cloud-agent&#39;</span>
 </code></pre>
 <p>You will need to have <a href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">docker desktop</a> installed on your machine to run the ledger,
-agent and tails file server, images. Make sure <code>Use Docker Compose V2</code> is set in the Docker Desktop preferences since the container naming scheme is different between Docker Compose V1 and V2.</p>
+agent, mockserver and tails file server, images. </p>
+<p><strong>NOTE:</strong> Make sure <code>Use Docker Compose V2</code> is set in the Docker Desktop preferences since the container naming scheme is different between Docker Compose V1 and V2.</p>
 
 <a href="#public-interfaces" id="public-interfaces" style="color: inherit; text-decoration: none;">
   <h2>Public Interfaces</h2>
@@ -104,7 +106,24 @@ the seed should never be exposed to the public, a default is never provided by <
 <ul>
 <li>The Cloud Agent swagger interface can be accessed at the <code>acapyAdminUri</code> field location specified in the <code>acapy.json</code> config file (e.g. <a href="http://localhost:8201">http://localhost:8201</a>)</li>
 <li>The VON Ledger web UI can be accessed on <a href="http://localhost:9000">http://localhost:9000</a></li>
-<li>To see the logs for both Cloud Agent and Tails File Server run <code>yarn di-env logs</code></li>
+</ul>
+
+<a href="#seeing-container-log-output" id="seeing-container-log-output" style="color: inherit; text-decoration: none;">
+  <h4>Seeing container log output</h4>
+</a>
+<ul>
+<li>To see the logs for Cloud Agent, Tails File Server and MockServer webhook handler run <code>yarn di-env logs</code></li>
+<li>The level of logging defaults to INFO but can be set using the <code>-v</code> switch to <code>di-env up</code></li>
+</ul>
+
+<a href="#using-mockserver-to-develop-webhook-handlers" id="using-mockserver-to-develop-webhook-handlers" style="color: inherit; text-decoration: none;">
+  <h4>Using MockServer to develop webhook handlers</h4>
+</a>
+<p>After the <code>yarn di-env up</code> command has completed :</p>
+<ul>
+<li>The mockserver dashboard can be accessed at <a href="http://localhost:1080/mockserver/dashboard">http://localhost:1080/mockserver/dashboard</a>. This dashboard will display all the webhook callback information received from the running Cloud Agent.</li>
+<li>The configuration for mockserver is intialised from a file during the <code>di-env up</code> command. The absolute path for a custom intialisation file can be specifed either using the <code>mockServerConfigFile</code> field in <code>acapy.json</code> or via the <code>-m</code> switch to the <code>di-env up</code> command. If neither is specified a default initialisation is used.</li>
+<li>The <a href="https://mock-server.com/#what-is-mockserver">mockserver</a> website contains details on how to write configuration to forward specific routes on to your controller as development progresses.</li>
 </ul>
 
 <a href="#providing-a-public-cloud-agent-endpoint-via-ngrok-to-interact-with-mobileexternal-agents" id="providing-a-public-cloud-agent-endpoint-via-ngrok-to-interact-with-mobileexternal-agents" style="color: inherit; text-decoration: none;">

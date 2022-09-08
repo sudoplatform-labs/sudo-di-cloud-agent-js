@@ -67,7 +67,7 @@ runACAPy "${ACA_PY_DOCKER_IMAGE_OPT}" "${ACA_PY_DOCKER_PORTS}" "${ACA_PY_CMD_OPT
 CLOUD_AGENT_DOCKER_HOST=${CLOUD_AGENT_DOCKER_HOST:-'localhost'}
 # Make sure ACA-py container gets terminated when we do
 trap 'docker kill ${ACA_PY_CONTAINER_ID}' EXIT
-waitActiveWebInterface "http://${CLOUD_AGENT_DOCKER_HOST}:${ACA_PY_ADMIN_PORT}" 20
+waitActiveWebInterface "http://${CLOUD_AGENT_DOCKER_HOST}:${ACA_PY_ADMIN_PORT}" ${CLOUD_AGENT_TIME_GRACE:-60}
 printMilestone "ACA-Py Admin interface active\n\t Container IP '${CLOUD_AGENT_DOCKER_HOST}' Docker Id '${ACA_PY_CONTAINER_ID}'"
 
 # Pull the swagger raw format spec file from ACA-py

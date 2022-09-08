@@ -34,7 +34,7 @@ function buildACAPyDockerImage() {
   local tag="${2}"
 
   cd ${srcDir}/scripts
-  docker build -t ${tag} -f ../docker/Dockerfile.run .. || exit 1
+  docker build --platform linux/amd64 -t ${tag} -f ../docker/Dockerfile.run .. || exit 1
 }
 
 ##########################################################################################
