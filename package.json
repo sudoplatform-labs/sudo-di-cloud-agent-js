@@ -1,6 +1,6 @@
 {
   "name": "@sudoplatform-labs/sudo-di-cloud-agent",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "Decentralized Identity Cloud Agent SDK",
   "author": "Anonyome Labs, Inc.",
   "repository": {
@@ -46,19 +46,20 @@
     "test:scripts-release": "jest",
     "test:scripts-latest": "TEST_CLOUD_AGENT_IMAGE=sudo-di-cloud-agent:latest TEST_TAILS_SERVER_IMAGE=sudo-di-tails-server:latest jest",
     "test": "yarn test:scripts-latest && yarn test:acapy && yarn test:tails-server",
-    "build": "yarn audit && yarn build:agent && yarn build:tails-server",
+    "build": "yarn audit-with-suppressions && yarn build:agent && yarn build:tails-server",
     "all": "yarn build && yarn test"
   },
   "dependencies": {
     "portable-fetch": "^3.0.0"
   },
   "devDependencies": {
+    "@sudoplatform/sudo-common": "^8.1.1",
     "@types/jest": "^27.0.1",
-    "@types/lodash": "^4.14.172",
+    "@types/lodash": "^4.14.187",
     "@types/node": "^16.9.1",
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
-    "eslint": "^7.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.2.0",
@@ -66,12 +67,21 @@
     "prettier": "^2.4.0",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
-    "typedoc": "^0.22.11",
+    "typedoc": "^0.23.19",
     "typescript": "^4.4.3",
     "yargs": "^17.1.1"
   },
   "resolutions": {
     "**/node-fetch": "^2.6.7",
     "**/minimist": "^1.2.6"
+  },
+  "outdatedSuppressions": {
+    "major": {
+      "node-fetch": 1675818742,
+      "@types/jest": 1675818741,
+      "@types/node": 1675818741,
+      "jest": 1675818741,
+      "ts-jest": 1675818742
+    }
   }
 }

@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.6.5"
+    "version": "v0.6.6"
   },
   "servers": [
     {
@@ -425,15 +425,15 @@
             "name": "state",
             "schema": {
               "enum": [
-                "response",
-                "completed",
-                "start",
                 "init",
-                "active",
-                "abandoned",
+                "error",
                 "request",
+                "abandoned",
+                "start",
+                "active",
+                "response",
                 "invitation",
-                "error"
+                "completed"
               ],
               "type": "string"
             }
@@ -1926,7 +1926,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/V10DiscoveryExchangeResult"
+                  "$ref": "#/components/schemas/V10DiscoveryRecord"
                 }
               }
             },
@@ -1993,7 +1993,7 @@
             "description": ""
           }
         },
-        "summary": "Create credential from attribute values",
+        "summary": "Create a credential record without sending (generally for use with Out-Of-Band)",
         "tags": [
           "issue-credential v2.0"
         ],
@@ -2529,7 +2529,7 @@
             "description": ""
           }
         },
-        "summary": "Send holder a credential, automating entire flow",
+        "summary": "Create a credential record without sending (generally for use with Out-Of-Band)",
         "tags": [
           "issue-credential v1.0"
         ],
@@ -3801,6 +3801,48 @@
         ]
       }
     },
+    "/mediation/update-keylist/{conn_id}": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "path",
+            "name": "conn_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/MediationIdMatchInfo"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeylistUpdate"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update keylist for a connection",
+        "tags": [
+          "mediation"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/mediation/{mediation_id}/default-mediator": {
       "put": {
         "parameters": [
@@ -3934,7 +3976,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnRecord"
+                  "$ref": "#/components/schemas/OobRecord"
                 }
               }
             },
@@ -5133,6 +5175,46 @@
         ]
       }
     },
+    "/revocation/registry/delete-tails-file": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Credential definition identifier",
+            "in": "query",
+            "name": "cred_def_id",
+            "schema": {
+              "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+)):(.+)?$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Revocation registry identifier",
+            "in": "query",
+            "name": "rev_reg_id",
+            "schema": {
+              "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):4:([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+))(:.+)?:CL_ACCUM:(.+$)",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TailsDeleteResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Delete the tail files",
+        "tags": [
+          "revocation"
+        ]
+      }
+    },
     "/revocation/registry/{rev_reg_id}": {
       "get": {
         "parameters": [
@@ -6235,7 +6317,7 @@
             "in": "query",
             "name": "did",
             "schema": {
-              "pattern": "^did:key:z[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$|^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -6412,6 +6494,14 @@
             "name": "create_transaction_for_endorser",
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "description": "Mediation identifier",
+            "in": "query",
+            "name": "mediation_id",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -6699,7 +6789,6 @@
           "json": {
             "description": "JSON-serialized data",
             "example": "{\"sample\": \"content\"}",
-            "properties": {},
             "type": "object"
           },
           "jws": {
@@ -7769,8 +7858,8 @@
         "properties": {
           "did": {
             "description": "DID of interest",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^did:key:z[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$|^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "key_type": {
@@ -7784,10 +7873,6 @@
           },
           "method": {
             "description": "Did method associated with the DID",
-            "enum": [
-              "sov",
-              "key"
-            ],
             "example": "sov",
             "type": "string"
           },
@@ -7813,10 +7898,7 @@
       "DIDCreate": {
         "properties": {
           "method": {
-            "enum": [
-              "key",
-              "sov"
-            ],
+            "description": "Method for the requested DID.Supported methods are 'key', 'sov', and any other registered method.",
             "example": "sov",
             "type": "string"
           },
@@ -7826,15 +7908,27 @@
                 "$ref": "#/components/schemas/DIDCreateOptions"
               }
             ],
-            "description": "To define a key type for a did:key",
+            "description": "To define a key type and/or a did depending on chosen DID method.",
             "type": "object"
+          },
+          "seed": {
+            "description": "Optional seed to use for DID, Must beenabled in configuration before use.",
+            "example": "000000000000000000000000Trustee1",
+            "type": "string"
           }
         },
         "type": "object"
       },
       "DIDCreateOptions": {
         "properties": {
+          "did": {
+            "description": "Specify final value of the did (including did:<method>: prefix)if the method supports or requires so.",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "type": "string"
+          },
           "key_type": {
+            "description": "Key type to use for the DID keypair. Validated with the chosen DID method's supported key types.",
             "enum": [
               "ed25519",
               "bls12381g2"
@@ -8525,7 +8619,8 @@
           "blinded_ms",
           "blinded_ms_correctness_proof",
           "cred_def_id",
-          "nonce"
+          "nonce",
+          "prover_did"
         ],
         "type": "object"
       },
@@ -9599,6 +9694,17 @@
       },
       "InvitationCreateRequest": {
         "properties": {
+          "accept": {
+            "description": "List of mime type in order of preference that should be use in responding to the message",
+            "example": [
+              "didcomm/aip1",
+              "didcomm/aip2;env=rfc19"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "alias": {
             "description": "Alias for connection",
             "example": "Barry",
@@ -9635,6 +9741,11 @@
             "example": "Invitation to Barry",
             "type": "string"
           },
+          "protocol_version": {
+            "description": "OOB protocol version",
+            "example": "1.1",
+            "type": "string"
+          },
           "use_public_did": {
             "description": "Whether to use public DID in invitation",
             "example": false,
@@ -9653,8 +9764,18 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
+          },
+          "accept": {
+            "description": "List of mime type in order of preference",
+            "example": [
+              "didcomm/aip1",
+              "didcomm/aip2;env=rfc19"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "handshake_protocols": {
             "items": {
@@ -9663,6 +9784,13 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "imageUrl": {
+            "description": "Optional image URL for out-of-band invitation",
+            "example": "http://192.168.56.101/img/logo.jpg",
+            "format": "url",
+            "nullable": true,
+            "type": "string"
           },
           "label": {
             "description": "Optional label",
@@ -9794,6 +9922,10 @@
           "cred_ex_id": {
             "description": "Credential exchange record identifier at credential issue",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "cred_ex_version": {
+            "description": "Credential exchange version",
             "type": "string"
           },
           "cred_rev_id": {
@@ -10054,8 +10186,8 @@
           },
           "recipient_key": {
             "description": "Key to remove or add",
-            "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
-            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
+            "example": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+            "pattern": "^did:key:z[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$|^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
             "type": "string"
           }
         },
@@ -10342,6 +10474,17 @@
         },
         "type": "object"
       },
+      "MediationIdMatchInfo": {
+        "properties": {
+          "mediation_id": {
+            "description": "Mediation record identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "MediationList": {
         "properties": {
           "results": {
@@ -10388,8 +10531,8 @@
           },
           "routing_keys": {
             "items": {
-              "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
-              "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
+              "example": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+              "pattern": "^did:key:z[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$",
               "type": "string"
             },
             "type": "array"
@@ -10578,6 +10721,93 @@
         "required": [
           "name",
           "title"
+        ],
+        "type": "object"
+      },
+      "OobRecord": {
+        "properties": {
+          "attach_thread_id": {
+            "description": "Connection record identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "connection_id": {
+            "description": "Connection record identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "invi_msg_id": {
+            "description": "Invitation message identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "invitation": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InvitationMessage"
+              }
+            ],
+            "description": "Out of band invitation message",
+            "type": "object"
+          },
+          "oob_id": {
+            "description": "Oob record identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "our_recipient_key": {
+            "description": "Recipient key used for oob invitation",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "role": {
+            "description": "OOB Role",
+            "enum": [
+              "sender",
+              "receiver"
+            ],
+            "example": "receiver",
+            "type": "string"
+          },
+          "state": {
+            "description": "Out of band message exchange state",
+            "enum": [
+              "initial",
+              "prepare-response",
+              "await-response",
+              "reuse-not-accepted",
+              "reuse-accepted",
+              "done",
+              "deleted"
+            ],
+            "example": "await-response",
+            "type": "string"
+          },
+          "their_service": {
+            "$ref": "#/components/schemas/ServiceDecorator"
+          },
+          "trace": {
+            "description": "Record trace information, based on agent configuration",
+            "type": "boolean"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "invi_msg_id",
+          "invitation",
+          "oob_id",
+          "state"
         ],
         "type": "object"
       },
@@ -10893,7 +11123,7 @@
       },
       "ResolutionResult": {
         "properties": {
-          "did_doc": {
+          "did_document": {
             "description": "DID Document",
             "properties": {},
             "type": "object"
@@ -10905,7 +11135,7 @@
           }
         },
         "required": [
-          "did_doc",
+          "did_document",
           "metadata"
         ],
         "type": "object"
@@ -11270,6 +11500,40 @@
         },
         "type": "object"
       },
+      "ServiceDecorator": {
+        "properties": {
+          "recipientKeys": {
+            "description": "List of recipient keys",
+            "items": {
+              "description": "Recipient public key",
+              "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
+              "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "routingKeys": {
+            "description": "List of routing keys",
+            "items": {
+              "description": "Routing key",
+              "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
+              "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "serviceEndpoint": {
+            "description": "Service endpoint at which to reach this agent",
+            "example": "http://192.168.56.101:8020",
+            "type": "string"
+          }
+        },
+        "required": [
+          "recipientKeys",
+          "serviceEndpoint"
+        ],
+        "type": "object"
+      },
       "SignRequest": {
         "properties": {
           "doc": {
@@ -11454,6 +11718,14 @@
         "properties": {
           "result": {
             "$ref": "#/components/schemas/TAAInfo"
+          }
+        },
+        "type": "object"
+      },
+      "TailsDeleteResponse": {
+        "properties": {
+          "message": {
+            "type": "string"
           }
         },
         "type": "object"
@@ -12221,20 +12493,6 @@
         },
         "type": "object"
       },
-      "V10DiscoveryExchangeResult": {
-        "properties": {
-          "results": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/V10DiscoveryRecord"
-              }
-            ],
-            "description": "Discover Features v1.0 exchange record",
-            "type": "object"
-          }
-        },
-        "type": "object"
-      },
       "V10DiscoveryRecord": {
         "properties": {
           "connection_id": {
@@ -12436,6 +12694,13 @@
             ],
             "example": "true",
             "type": "string"
+          },
+          "verified_msgs": {
+            "items": {
+              "description": "Proof verification warning or error information",
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -12622,6 +12887,11 @@
           "trace": {
             "description": "Record trace information, based on agent configuration",
             "type": "boolean"
+          },
+          "verification_method": {
+            "description": "For ld-proofs. Verification method for signing.",
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
@@ -12758,7 +13028,8 @@
               "credential-received",
               "done",
               "credential-revoked",
-              "abandoned"
+              "abandoned",
+              "deleted"
             ],
             "example": "done",
             "type": "string"
@@ -13671,7 +13942,8 @@
               "presentation-sent",
               "presentation-received",
               "done",
-              "abandoned"
+              "abandoned",
+              "deleted"
             ],
             "type": "string"
           },
@@ -13698,6 +13970,13 @@
             ],
             "example": "true",
             "type": "string"
+          },
+          "verified_msgs": {
+            "items": {
+              "description": "Proof verification warning or error information",
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "type": "object"
