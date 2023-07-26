@@ -43,6 +43,7 @@ const argv = yargs(process.argv.slice(2))
   })
   .help('h')
   .alias('h', 'help')
-  .env('PUB').argv;
+  .env('PUB')
+  .parseSync();
 
 modifyAPIOperationIds(argv.openApiSpec, argv.mergeFile, argv.output);

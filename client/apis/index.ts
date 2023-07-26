@@ -20,5 +20,6 @@ export * from './ResolverApi';
 export * from './RevocationApi';
 export * from './SchemaApi';
 export * from './ServerApi';
+export * from './SettingsApi';
 export * from './TrustpingApi';
 export * from './WalletApi';

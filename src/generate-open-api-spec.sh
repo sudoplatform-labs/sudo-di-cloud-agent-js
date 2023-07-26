@@ -36,7 +36,7 @@ ACA_PY_CMD_OPTIONS=" \
   --admin-insecure-mode \
   --log-level info \
   --auto-provision \
-  --wallet-type indy \
+  --wallet-type askar \
   --wallet-name gen-openapi \
   --wallet-key gen-openapi-key \
   --no-ledger"

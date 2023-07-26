@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.6.6"
+    "version": "v0.6.8"
   },
   "servers": [
     {
@@ -173,6 +173,10 @@
         "url": "https://github.com/hyperledger/indy-node/blob/master/design/anoncreds.md#schema"
       },
       "name": "schema"
+    },
+    {
+      "description": "Agent settings interface.",
+      "name": "settings"
     },
     {
       "description": "Trust-ping over connection",
@@ -425,15 +429,15 @@
             "name": "state",
             "schema": {
               "enum": [
-                "init",
-                "error",
-                "request",
-                "abandoned",
                 "start",
                 "active",
+                "error",
                 "response",
-                "invitation",
-                "completed"
+                "abandoned",
+                "completed",
+                "request",
+                "init",
+                "invitation"
               ],
               "type": "string"
             }
@@ -5833,6 +5837,55 @@
         ]
       }
     },
+    "/settings": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileSettings"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get the configurable settings associated with the profile.",
+        "tags": [
+          "settings"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileSettings"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileSettings"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update configurable settings associated with the profile.",
+        "tags": [
+          "settings"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/shutdown": {
       "get": {
         "responses": {
@@ -10939,6 +10992,21 @@
         ],
         "type": "object"
       },
+      "ProfileSettings": {
+        "properties": {
+          "settings": {
+            "description": "Profile settings dict",
+            "example": {
+              "debug.invite_public": true,
+              "log.level": "INFO",
+              "public_invites": false
+            },
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "ProtocolDescriptor": {
         "properties": {
           "pid": {
@@ -11981,6 +12049,21 @@
               }
             ],
             "description": "Schema transaction to endorse",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "UpdateProfileSettings": {
+        "properties": {
+          "extra_settings": {
+            "description": "Agent config key-value pairs",
+            "example": {
+              "ACAPY_INVITE_PUBLIC": true,
+              "log-level": "INFO",
+              "public-invites": false
+            },
+            "properties": {},
             "type": "object"
           }
         },
