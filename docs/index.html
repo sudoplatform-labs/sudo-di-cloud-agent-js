@@ -17,20 +17,32 @@ APIs enabling applications to implement decentralized identity functionality.
 Decentralized Identity Cloud Agent SDK is based around <a href="https://github.com/anonyome/aries-cloudagent-python">Anonyomes fork</a>
 of Hyperledger Aries Cloud Agent Python.</p>
 <a id="md:key-features" class="tsd-anchor"></a><h2><a href="#md:key-features">Key Features</a></h2><ul>
-<li>Quickly setup and takedown a local Decentralized Identity development
-environment using docker-compose (currently only MacOS)<ul>
-<li>A running 4 Node Indy Decentralized Ledger</li>
-<li>A configured and running Decentralized Identity Cloud Agent</li>
-<li>A configured and running Tails File Server to support revocable credentials</li>
-<li>A mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the controller is developed</li>
-</ul>
-</li>
-<li>Typescript SDK wrappers to access all the functionality provided by
-<a href="https://github.com/anonyome/aries-cloudagent-python">Anonyomes fork</a> of Hyperledger Aries Cloud Agent Python.<ul>
+<li><p>Typescript SDK wrappers to access all the functionality provided by
+<a href="https://github.com/anonyome/aries-cloudagent-python">Anonyomes fork</a> of Hyperledger Aries Cloud Agent Python.</p>
+<ul>
 <li>Ability to create Decentralized Identifiers, Schemas and Credential Definitions on the Local
 Ledger</li>
 <li>Ability to Issue, Hold and Verify Credentials based on Credential Definitions</li>
 <li>Ability to revoke issued credentials</li>
+</ul>
+</li>
+<li><p>Quickly setup and takedown a local Decentralized Identity development
+environment using docker-compose (currently only MacOS). There are currently two playground modes supported :</p>
+<a id="md:standalone-endorser-mode-legacy-and-default-mode" class="tsd-anchor"></a><h3><a href="#md:standalone-endorser-mode-legacy-and-default-mode">Standalone Endorser Mode (Legacy and Default mode)</a></h3><p>This mode creates the following local docker environment</p>
+<ul>
+<li>A running 4 Node Indy Decentralized Ledger</li>
+<li>A Decentralized Identity Cloud Agent with write permissions to the Indy Ledger</li>
+<li>A configured and running Tails File Server to support revocable credentials</li>
+<li>A mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the controller is developed</li>
+</ul>
+<a id="md:author-automatic-endorser-automatic-mode-playgroundmodeauthor_auto_endorser_auto" class="tsd-anchor"></a><h3><a href="#md:author-automatic-endorser-automatic-mode-playgroundmodeauthor_auto_endorser_auto">Author Automatic, Endorser Automatic Mode (playgroundMode=author_auto_endorser_auto)</a></h3><p>This mode is intended to allow local controller development of more complex scenarios. In this scenario, ledger transactions are created by an Author agent which are automatically forwarded to an Endorser for signing before being written to a Ledger (ie. Authors and Endorsers have different Ledger <a href="https://github.com/anonyome/aries-cloudagent-python/blob/main/Endorser.md">permissions</a> through their DID). This playground mode allows development of both Author and Endorser controllers by creating the following local docker environment</p>
+<ul>
+<li>A running 4 Node Indy Decentralized Ledger</li>
+<li>A configured and running Tails File Server to support revocable credentials</li>
+<li>A Decentralized Identity Cloud Agent with <strong>endorser</strong> permissions on the Indy Ledger, configured to automatically action <strong>ALL</strong> Endorsement signing requests received over DIDComm connections.</li>
+<li>An Endorser mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the Endorser controller is developed</li>
+<li>A Decentralized Identity Cloud Agent with <strong>user</strong> permissions on the Indy Ledger, configured to create a DIDComm connection to the Endorser and use that Endorser agent for signing Ledger transactions</li>
+<li>An Author mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the Author controller is developed</li>
 </ul>
 </li>
 </ul>
@@ -59,15 +71,14 @@ must add <code>@sudoplatform-labs/sudo-di-cloud-agent</code> as a dependency to 
 <pre><code><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">add</span><span class="hl-1"> </span><span class="hl-2">&#39;@sudoplatform-labs/sudo-di-cloud-agent&#39;</span><br/><span class="hl-1"># </span><span class="hl-0">or</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">install</span><span class="hl-1"> --</span><span class="hl-0">save</span><span class="hl-1"> </span><span class="hl-2">&#39;@sudoplatform-labs/sudo-di-cloud-agent&#39;</span>
 </code><button>Copy</button></pre>
 <p>You will need to have <a href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">docker desktop</a> installed on your machine to run the ledger,
-agent, mockserver and tails file server, images. </p>
+agent, mockserver and tails file server, images.</p>
 <p><strong>NOTE:</strong> Make sure <code>Use Docker Compose V2</code> is set in the Docker Desktop preferences since the container naming scheme is different between Docker Compose V1 and V2.</p>
-<a id="md:public-interfaces" class="tsd-anchor"></a><h2><a href="#md:public-interfaces">Public Interfaces</a></h2><a id="md:local-development-environment-overview" class="tsd-anchor"></a><h3><a href="#md:local-development-environment-overview">Local Development Environment Overview</a></h3><p>To create and destroy a local development environment (currently MacOS only), run the di-env utility.</p>
-<pre><code><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">di</span><span class="hl-1">-</span><span class="hl-0">env</span><span class="hl-1"> </span><span class="hl-0">up</span><span class="hl-1"> -</span><span class="hl-0">s</span><span class="hl-1"> &lt;</span><span class="hl-0">your</span><span class="hl-1"> </span><span class="hl-3">32</span><span class="hl-1"> </span><span class="hl-0">character</span><span class="hl-1"> </span><span class="hl-0">secret</span><span class="hl-1"> </span><span class="hl-0">wallet</span><span class="hl-1"> </span><span class="hl-0">seed</span><span class="hl-1">&gt;</span><br/><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">di</span><span class="hl-1">-</span><span class="hl-0">env</span><span class="hl-1"> </span><span class="hl-0">down</span>
+<a id="md:public-interfaces" class="tsd-anchor"></a><h2><a href="#md:public-interfaces">Public Interfaces</a></h2><a id="md:local-development-environment-overview" class="tsd-anchor"></a><h3><a href="#md:local-development-environment-overview">Local Development Environment Overview</a></h3><p>To create and destroy a local standalone agent development environment (currently MacOS only), run the di-env utility.</p>
+<pre><code><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">di</span><span class="hl-1">-</span><span class="hl-0">env</span><span class="hl-1"> </span><span class="hl-0">up</span><span class="hl-1"> -</span><span class="hl-0">s</span><span class="hl-1"> &lt;</span><span class="hl-0">your</span><span class="hl-1"> </span><span class="hl-3">32</span><span class="hl-1"> </span><span class="hl-0">character</span><span class="hl-1"> </span><span class="hl-0">standalone</span><span class="hl-1"> </span><span class="hl-0">agent</span><span class="hl-1"> </span><span class="hl-0">secret</span><span class="hl-1"> </span><span class="hl-0">wallet</span><span class="hl-1"> </span><span class="hl-0">seed</span><span class="hl-1">&gt;</span><br/><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">di</span><span class="hl-1">-</span><span class="hl-0">env</span><span class="hl-1"> </span><span class="hl-0">down</span>
 </code><button>Copy</button></pre>
 <p>Other options can be seen with <code>yarn di-env</code>
-You must specify the 32 byte secret seed used to create the wallet on the <code>up</code> command or in a <code>acapy.conf</code> configuration file. Since
-the seed should never be exposed to the public, a default is never provided by <code>di-env</code>.</p>
-<a id="md:detailed-usage-examples" class="tsd-anchor"></a><h3><a href="#md:detailed-usage-examples">Detailed Usage Examples</a></h3><a id="md:setup-for-a-new-react-app" class="tsd-anchor"></a><h4><a href="#md:setup-for-a-new-react-app">Setup for a new React App</a></h4><ol>
+You must specify the 32 byte secret seed used to create the wallet on the <code>up</code> command or in a <code>acapy.conf</code> configuration file. Since the seed should never be exposed to the public, a default is never provided by <code>di-env</code>.</p>
+<a id="md:standalone-endorser-mode-detailed-usage-examples" class="tsd-anchor"></a><h3><a href="#md:standalone-endorser-mode-detailed-usage-examples">Standalone endorser mode, detailed usage examples</a></h3><a id="md:setup-for-a-new-react-controller-app" class="tsd-anchor"></a><h4><a href="#md:setup-for-a-new-react-controller-app">Setup for a new React Controller App</a></h4><ol>
 <li><code>yarn global add create-react-app</code></li>
 <li><code>create-react-app &lt;app-name&gt;</code></li>
 <li><code>cd &lt;app-name&gt;</code></li>
@@ -78,7 +89,7 @@ the seed should never be exposed to the public, a default is never provided by <
 </ol>
 <a id="md:accessing-the-local-cloud-agent-and-von-development-ledger-directly" class="tsd-anchor"></a><h4><a href="#md:accessing-the-local-cloud-agent-and-von-development-ledger-directly">Accessing the local Cloud Agent and VON Development Ledger Directly</a></h4><p>After the <code>yarn di-env up</code> command has completed :</p>
 <ul>
-<li>The Cloud Agent swagger interface can be accessed at the <code>acapyAdminUri</code> field location specified in the <code>acapy.json</code> config file (e.g. <a href="http://localhost:8201">http://localhost:8201</a>)</li>
+<li>The Cloud Agent swagger interface can be accessed at the <code>endorserAcapyAdminUri</code> field location specified in the <code>acapy.json</code> config file (e.g. <a href="http://localhost:8201">http://localhost:8201</a>)</li>
 <li>The VON Ledger web UI can be accessed on <a href="http://localhost:9000">http://localhost:9000</a></li>
 </ul>
 <a id="md:seeing-container-log-output" class="tsd-anchor"></a><h4><a href="#md:seeing-container-log-output">Seeing container log output</a></h4><ul>
@@ -88,13 +99,13 @@ the seed should never be exposed to the public, a default is never provided by <
 <a id="md:using-mockserver-to-develop-webhook-handlers" class="tsd-anchor"></a><h4><a href="#md:using-mockserver-to-develop-webhook-handlers">Using MockServer to develop webhook handlers</a></h4><p>After the <code>yarn di-env up</code> command has completed :</p>
 <ul>
 <li>The mockserver dashboard can be accessed at <a href="http://localhost:1080/mockserver/dashboard">http://localhost:1080/mockserver/dashboard</a>. This dashboard will display all the webhook callback information received from the running Cloud Agent.</li>
-<li>The configuration for mockserver is intialised from a file during the <code>di-env up</code> command. The absolute path for a custom intialisation file can be specifed either using the <code>mockServerConfigFile</code> field in <code>acapy.json</code> or via the <code>-m</code> switch to the <code>di-env up</code> command. If neither is specified a default initialisation is used.</li>
+<li>The configuration for mockserver is initialised from a file during the <code>di-env up</code> command. The absolute path for a custom initialisation file can be specifed either using the <code>endorserMockServerConfigFile</code> field in <code>acapy.json</code> or via the <code>-m</code> switch to the <code>di-env up</code> command. If neither is specified a default initialisation is used.</li>
 <li>The <a href="https://mock-server.com/#what-is-mockserver">mockserver</a> website contains details on how to write configuration to forward specific routes on to your controller as development progresses.</li>
 </ul>
 <a id="md:providing-a-public-cloud-agent-endpoint-via-ngrok-to-interact-with-mobileexternal-agents" class="tsd-anchor"></a><h4><a href="#md:providing-a-public-cloud-agent-endpoint-via-ngrok-to-interact-with-mobileexternal-agents">Providing a Public Cloud Agent Endpoint via ngrok to interact with Mobile/External Agents</a></h4><ol>
 <li>Download and unpack the <a href="https://ngrok.com/download">ngrok free version</a></li>
 <li>In a terminal where you unpacked ngrok run<ul>
-<li><code>ngrok http &lt;acapy.json &quot;acapyInboundPort&quot; value &gt;</code></li>
+<li><code>ngrok http &lt;acapy.json &quot;endorserAcapyInboundPort&quot; value &gt;</code></li>
 <li>Save the URL printed out by ngrok (i.e. it will be something like <code>http://0e51393f5372.ngrok.io</code>)</li>
 </ul>
 </li>
@@ -158,16 +169,20 @@ documentation can also be found online at <a href="https://sudoplatform-labs.git
 <ul>
 <li><a href="#md:overview"><span>Overview</span></a></li>
 <li><a href="#md:key-features"><span>Key <wbr/>Features</span></a></li>
+<li>
+<ul>
+<li><a href="#md:standalone-endorser-mode-legacy-and-default-mode"><span>Standalone <wbr/>Endorser <wbr/>Mode (<wbr/>Legacy and <wbr/>Default mode)</span></a></li>
+<li><a href="#md:author-automatic-endorser-automatic-mode-playgroundmodeauthor_auto_endorser_auto"><span>Author <wbr/>Automatic, <wbr/>Endorser <wbr/>Automatic <wbr/>Mode (playground<wbr/>Mode=author_<wbr/>auto_<wbr/>endorser_<wbr/>auto)</span></a></li></ul></li>
 <li><a href="#md:version-support"><span>Version <wbr/>Support</span></a></li>
 <li><a href="#md:integration-instructions"><span>Integration <wbr/>Instructions</span></a></li>
 <li><a href="#md:public-interfaces"><span>Public <wbr/>Interfaces</span></a></li>
 <li>
 <ul>
 <li><a href="#md:local-development-environment-overview"><span>Local <wbr/>Development <wbr/>Environment <wbr/>Overview</span></a></li>
-<li><a href="#md:detailed-usage-examples"><span>Detailed <wbr/>Usage <wbr/>Examples</span></a></li>
+<li><a href="#md:standalone-endorser-mode-detailed-usage-examples"><span>Standalone endorser mode, detailed usage examples</span></a></li>
 <li>
 <ul>
-<li><a href="#md:setup-for-a-new-react-app"><span>Setup for a new <wbr/>React <wbr/>App</span></a></li>
+<li><a href="#md:setup-for-a-new-react-controller-app"><span>Setup for a new <wbr/>React <wbr/>Controller <wbr/>App</span></a></li>
 <li><a href="#md:accessing-the-local-cloud-agent-and-von-development-ledger-directly"><span>Accessing the local <wbr/>Cloud <wbr/>Agent and VON <wbr/>Development <wbr/>Ledger <wbr/>Directly</span></a></li>
 <li><a href="#md:seeing-container-log-output"><span>Seeing container log output</span></a></li>
 <li><a href="#md:using-mockserver-to-develop-webhook-handlers"><span>Using <wbr/>Mock<wbr/>Server to develop webhook handlers</span></a></li>
@@ -461,6 +476,9 @@ documentation can also be found online at <a href="https://sudoplatform-labs.git
 <li><a href="interfaces/IssueCredentialSendProposalPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Issue<wbr/>Credential<wbr/>Send<wbr/>Proposal<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/IssuerCredRevRecord.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Issuer<wbr/>Cred<wbr/>Rev<wbr/>Record</span></a></li>
 <li><a href="interfaces/IssuerRevRegRecord.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Issuer<wbr/>Rev<wbr/>Reg<wbr/>Record</span></a></li>
+<li><a href="interfaces/JWSCreate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>JWSCreate</span></a></li>
+<li><a href="interfaces/JWSVerify.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>JWSVerify</span></a></li>
+<li><a href="interfaces/JWSVerifyResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>JWSVerify<wbr/>Response</span></a></li>
 <li><a href="interfaces/JsonldSignPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Jsonld<wbr/>Sign<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/JsonldVerifyPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Jsonld<wbr/>Verify<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/Keylist.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Keylist</span></a></li>
@@ -556,6 +574,7 @@ documentation can also be found online at <a href="https://sudoplatform-labs.git
 <li><a href="interfaces/RevRegWalletUpdatedResult.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Rev<wbr/>Reg<wbr/>Wallet<wbr/>Updated<wbr/>Result</span></a></li>
 <li><a href="interfaces/RevRegsCreated.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Rev<wbr/>Regs<wbr/>Created</span></a></li>
 <li><a href="interfaces/RevocationActiveRegistryCredDefIdGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Get<wbr/>Request</span></a></li>
+<li><a href="interfaces/RevocationActiveRegistryCredDefIdRotatePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/RevocationClearPendingRevocationsPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Clear<wbr/>Pending<wbr/>Revocations<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/RevocationCreateRegistryPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Create<wbr/>Registry<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/RevocationCredentialRecordGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Credential<wbr/>Record<wbr/>Get<wbr/>Request</span></a></li>
@@ -694,6 +713,8 @@ documentation can also be found online at <a href="https://sudoplatform-labs.git
 <li><a href="interfaces/WalletDidLocalRotateKeypairPatchRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Did<wbr/>Local<wbr/>Rotate<wbr/>Keypair<wbr/>Patch<wbr/>Request</span></a></li>
 <li><a href="interfaces/WalletDidPublicPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Did<wbr/>Public<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/WalletGetDidEndpointGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Get<wbr/>Did<wbr/>Endpoint<wbr/>Get<wbr/>Request</span></a></li>
+<li><a href="interfaces/WalletJwtSignPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Jwt<wbr/>Sign<wbr/>Post<wbr/>Request</span></a></li>
+<li><a href="interfaces/WalletJwtVerifyPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Jwt<wbr/>Verify<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/WalletSetDidEndpointPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Set<wbr/>Did<wbr/>Endpoint<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="interfaces/WriteLedgerRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Write<wbr/>Ledger<wbr/>Request</span></a></li>
 <li><a href="types/FetchAPI.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4194304"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-type-alias)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)"></path></g></svg><span>FetchAPI</span></a></li>
@@ -1053,6 +1074,15 @@ documentation can also be found online at <a href="https://sudoplatform-labs.git
 <li><a href="functions/IssuerRevRegRecordFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Issuer<wbr/>Rev<wbr/>Reg<wbr/>Record<wbr/>FromJSON</span></a></li>
 <li><a href="functions/IssuerRevRegRecordFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Issuer<wbr/>Rev<wbr/>Reg<wbr/>Record<wbr/>FromJSONTyped</span></a></li>
 <li><a href="functions/IssuerRevRegRecordToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Issuer<wbr/>Rev<wbr/>Reg<wbr/>Record<wbr/>ToJSON</span></a></li>
+<li><a href="functions/JWSCreateFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSCreate<wbr/>FromJSON</span></a></li>
+<li><a href="functions/JWSCreateFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSCreate<wbr/>FromJSONTyped</span></a></li>
+<li><a href="functions/JWSCreateToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSCreate<wbr/>ToJSON</span></a></li>
+<li><a href="functions/JWSVerifyFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>FromJSON</span></a></li>
+<li><a href="functions/JWSVerifyFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>FromJSONTyped</span></a></li>
+<li><a href="functions/JWSVerifyResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>Response<wbr/>FromJSON</span></a></li>
+<li><a href="functions/JWSVerifyResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
+<li><a href="functions/JWSVerifyResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>Response<wbr/>ToJSON</span></a></li>
+<li><a href="functions/JWSVerifyToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>ToJSON</span></a></li>
 <li><a href="functions/KeylistFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Keylist<wbr/>FromJSON</span></a></li>
 <li><a href="functions/KeylistFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Keylist<wbr/>FromJSONTyped</span></a></li>
 <li><a href="functions/KeylistQueryFilterRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Keylist<wbr/>Query<wbr/>Filter<wbr/>Request<wbr/>FromJSON</span></a></li>

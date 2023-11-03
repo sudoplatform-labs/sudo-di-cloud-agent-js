@@ -253,17 +253,33 @@ function cleanupHandler() {
 #       organisation process for a Production System
 # $1 : The Host running the VON Webserver
 # $2 : The VON WebServer port to use in talking to the local Indy network
-# $3 : The seed to use in creating the endorser did 
-function createVONEndorserDID() {
+# $3 : The seed to use in creating the DID 
+# $4 : The alias for the DID
+# $4 : The role to assign to the created DID. Must currently be either "TRUST_ANCHOR" or "null"
+# $5 : The name of a variable to return the DID into
+function createVONDID() {
   local vonHost=${1}
   local adminPort=${2}
   local endorserSeed=${3}
+  local alias=${4}
+  local role=${5}
+  local result=${6}
 
   tmpfile=$(mktemp /tmp/did.XXXXXX)
-  echo "{\"role\":\"TRUST_ANCHOR\",\"alias\":\"DeveloperEndorserDID\",\"did\":null,\"seed\":\"${endorserSeed}\"}" >${tmpfile}.json
-  endorserDID=`curl -s -d "@${tmpfile}.json" -X POST ${vonHost}:${adminPort}/register | awk -F'"' '/did/ { print $4 }'`
-  printMilestone "Endorser DID was registered as: ${endorserDID}"
+  
+  if [[ ${role} == "null" ]]; then 
+    echo "{\"role\":null,\"alias\":\"${alias}\",\"did\":null,\"seed\":\"${endorserSeed}\"}" >${tmpfile}.json
+  else
+    echo "{\"role\":\"${role}\",\"alias\":\"${alias}\",\"did\":null,\"seed\":\"${endorserSeed}\"}" >${tmpfile}.json
+  fi
+
+  createdDID=`curl -s -d "@${tmpfile}.json" -X POST ${vonHost}:${adminPort}/register | awk -F'"' '/did/ { print $4 }'`
+  printMilestone "${alias} DID was registered as: ${createdDID}"
   rm ${tmpfile}.json
+
+  if [[ "${result}" ]]; then
+    eval ${result}="'${createdDID}'"
+  fi
 }
 
 # Update the mockserver 'expectations' which listens for 
@@ -277,6 +293,53 @@ function updateMockServerExpectations() {
   local mockServerPort=${2}
   local configFile=${3}
 
+  waitActiveWebInterface "http://${mockServerHost}:${mockServerPort}/mockserver/dashboard" 60
+  if [ $? != 0 ] ; then
+    printMilestone "ABORTING : Mock Server http://${mockServerHost}:${mockServerPort} failed to come active"
+    exit -1
+  fi
+
   expectations=`curl -s -d "@${configFile}" -X PUT ${mockServerHost}:${mockServerPort}/mockserver/expectation -H accept: application/json`
   printMilestone "Mock Server Expectations set using ${configFile} : ${expectations}"
+}
+
+
+# Create an invitation url for the agent endpoint specified by
+# calling a running admin API directly
+# $1 : The Admin Endpoint for the agent 
+# $2 : The Alias to assign to the connection invitation
+# $3 : The Label to include in the invitation indicating where it came from
+# $4 : The name of a variable to return the invitation url into
+function getPrivateInvitation() {
+  local agentAdminEndpoint=${1}
+  local invitationAlias=${2}
+  local invitationLabel=${3}
+  local result=${4}
+
+  invitationUrl=`curl -s -X POST "${agentAdminEndpoint}/connections/create-invitation?alias=${invitationAlias}&multi_use=false&public=false" \
+  -H "accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d "{ \"my_label\": \"${invitationLabel}\" }" | jq | awk -F'"' '/invitation_url/ { print $4 }'`
+  printMilestone "${invitationAlias} Private Invitation URL was created: ${invitationUrl}"
+
+  if [[ "${result}" ]]; then
+    eval ${result}="'${invitationUrl}'"
+  fi
+}
+
+# Obtain the public DID of a running cloud agent
+# by calling a running admin API directly
+# $1 : The Admin Endpoint for the agent 
+# $2 : The name of a variable to return the public DID into
+function getAgentPublicDID() {
+  local agentAdminEndpoint=${1}
+  local result=${2}
+
+  publicDID=`curl -s -X GET "${agentAdminEndpoint}/wallet/did?posture=public" \
+  -H "accept: application/json" \
+  -H "Content-Type: application/json" | jq | awk -F'"' '/did/ { print $4 }'`
+
+  if [[ "${result}" ]]; then
+    eval ${result}="'${publicDID}'"
+  fi
 }

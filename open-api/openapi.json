@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.6.8"
+    "version": "v0.7.0"
   },
   "servers": [
     {
@@ -430,14 +430,14 @@
             "schema": {
               "enum": [
                 "start",
-                "active",
+                "invitation",
                 "error",
-                "response",
                 "abandoned",
-                "completed",
                 "request",
+                "active",
                 "init",
-                "invitation"
+                "completed",
+                "response"
               ],
               "type": "string"
             }
@@ -1600,6 +1600,22 @@
             "description": "Alias for connection",
             "in": "query",
             "name": "alias",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "A self-attested string that the receiver may want to display to the user about the context-specific goal of the out-of-band message",
+            "in": "query",
+            "name": "goal",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "A self-attested code the receiver may want to display to the user or use in automatically deciding what to do with the out-of-band message",
+            "in": "query",
+            "name": "goal_code",
             "schema": {
               "type": "string"
             }
@@ -4991,6 +5007,38 @@
         ]
       }
     },
+    "/revocation/active-registry/{cred_def_id}/rotate": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Credential definition identifier",
+            "in": "path",
+            "name": "cred_def_id",
+            "required": true,
+            "schema": {
+              "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+)):(.+)?$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevRegsCreated"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Rotate revocation registry",
+        "tags": [
+          "revocation"
+        ]
+      }
+    },
     "/revocation/clear-pending-revocations": {
       "post": {
         "requestBody": {
@@ -5155,7 +5203,8 @@
                 "generated",
                 "posted",
                 "active",
-                "full"
+                "full",
+                "decommissioned"
               ],
               "type": "string"
             }
@@ -6608,6 +6657,68 @@
         ]
       }
     },
+    "/wallet/jwt/sign": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/JWSCreate"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletModuleResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a EdDSA jws using did keys with a given payload",
+        "tags": [
+          "wallet"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/wallet/jwt/verify": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/JWSVerify"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JWSVerifyResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Verify a EdDSA jws using did keys with a given JWS",
+        "tags": [
+          "wallet"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/wallet/set-did-endpoint": {
       "post": {
         "parameters": [
@@ -7168,8 +7279,8 @@
           },
           "did": {
             "description": "DID for connection invitation",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "imageUrl": {
@@ -8092,6 +8203,16 @@
             ],
             "description": "As signed attachment, DID Doc associated with DID",
             "type": "object"
+          },
+          "goal": {
+            "description": "A self-attested string that the receiver may want to display to the user about the context-specific goal of the out-of-band message",
+            "example": "To issue a Faber College Graduate credential",
+            "type": "string"
+          },
+          "goal_code": {
+            "description": "A self-attested code the receiver may want to display to the user or use in automatically deciding what to do with the out-of-band message",
+            "example": "issue-vc",
+            "type": "string"
           },
           "label": {
             "description": "Label for DID exchange request",
@@ -9770,6 +9891,16 @@
             },
             "type": "array"
           },
+          "goal": {
+            "description": "A self-attested string that the receiver may want to display to the user about the context-specific goal of the out-of-band message",
+            "example": "To issue a Faber College Graduate credential",
+            "type": "string"
+          },
+          "goal_code": {
+            "description": "A self-attested code the receiver may want to display to the user or use in automatically deciding what to do with the out-of-band message",
+            "example": "issue-vc",
+            "type": "string"
+          },
           "handshake_protocols": {
             "items": {
               "description": "Handshake protocol to specify in invitation",
@@ -9829,6 +9960,16 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "goal": {
+            "description": "A self-attested string that the receiver may want to display to the user about the context-specific goal of the out-of-band message",
+            "example": "To issue a Faber College Graduate credential",
+            "type": "string"
+          },
+          "goal_code": {
+            "description": "A self-attested code the receiver may want to display to the user or use in automatically deciding what to do with the out-of-band message",
+            "example": "issue-vc",
+            "type": "string"
           },
           "handshake_protocols": {
             "items": {
@@ -10118,6 +10259,76 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "JWSCreate": {
+        "properties": {
+          "did": {
+            "description": "DID of interest",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "type": "string"
+          },
+          "headers": {
+            "properties": {},
+            "type": "object"
+          },
+          "payload": {
+            "properties": {},
+            "type": "object"
+          },
+          "verificationMethod": {
+            "description": "Information used for proof verification",
+            "example": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          }
+        },
+        "required": [
+          "payload"
+        ],
+        "type": "object"
+      },
+      "JWSVerify": {
+        "properties": {
+          "jwt": {
+            "example": "eyJhbGciOiJFZERTQSJ9.eyJhIjogIjAifQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk",
+            "pattern": "^[-_a-zA-Z0-9]*\\.[-_a-zA-Z0-9]*\\.[-_a-zA-Z0-9]*$",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "JWSVerifyResponse": {
+        "properties": {
+          "error": {
+            "description": "Error text",
+            "type": "string"
+          },
+          "headers": {
+            "description": "Headers from verified JWT.",
+            "properties": {},
+            "type": "object"
+          },
+          "kid": {
+            "description": "kid of signer",
+            "type": "string"
+          },
+          "payload": {
+            "description": "Payload from verified JWT",
+            "properties": {},
+            "type": "object"
+          },
+          "valid": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "headers",
+          "kid",
+          "payload",
+          "valid"
+        ],
         "type": "object"
       },
       "Keylist": {
@@ -11145,8 +11356,8 @@
           },
           "did": {
             "description": "DID for connection invitation",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "imageUrl": {
@@ -12967,6 +13178,12 @@
             "description": "Credential specification criteria by format",
             "type": "object"
           },
+          "replacement_id": {
+            "description": "Optional identifier used to manage credential replacement",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "nullable": true,
+            "type": "string"
+          },
           "trace": {
             "description": "Record trace information, based on agent configuration",
             "type": "boolean"
@@ -13517,6 +13734,12 @@
             "description": "Credential specification criteria by format",
             "type": "object"
           },
+          "replacement_id": {
+            "description": "Optional identifier used to manage credential replacement",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "nullable": true,
+            "type": "string"
+          },
           "trace": {
             "description": "Record trace information, based on agent configuration",
             "type": "boolean"
@@ -13559,6 +13782,12 @@
             ],
             "description": "Credential specification criteria by format",
             "type": "object"
+          },
+          "replacement_id": {
+            "description": "Optional identifier used to manage credential replacement",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "nullable": true,
+            "type": "string"
           },
           "trace": {
             "description": "Record trace information, based on agent configuration",
@@ -13852,6 +14081,12 @@
             ],
             "description": "Credential specification criteria by format",
             "type": "object"
+          },
+          "replacement_id": {
+            "description": "Optional identifier used to manage credential replacement",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "nullable": true,
+            "type": "string"
           },
           "trace": {
             "description": "Record trace information, based on agent configuration",

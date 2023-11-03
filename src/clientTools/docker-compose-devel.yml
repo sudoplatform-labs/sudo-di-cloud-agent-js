@@ -5,6 +5,13 @@
 #
 version: '3'
 services:
+
+  ############################################################
+  #
+  # Standalone Endorser service set which can write to the ledger
+  #
+  ############################################################
+
   # Tails file server to support Indy revocable credentials
   tails-server:
     image: ${TAILS_SERVER_DOCKER_IMAGE:-sudo-di-tails-server}:${TAILS_SERVER_DOCKER_TAG:-latest}
@@ -20,39 +27,39 @@ services:
     networks:
       - frontend
 
-  # A mockserver to provide a webhook callback endpoint/proxy for events
+  # Endorser agent mockserver to provide a webhook callback endpoint/proxy for events
   # from the cloud agent
-  webhook-mockserver:
+  endorser-webhook-mockserver:
     image: mockserver/mockserver:5.14.0
-    container_name: ${WEBHOOK_MOCKSERVER_CONTAINER_NAME:-webhook-mockserver}
+    container_name: ${ENDORSER_WEBHOOK_MOCKSERVER_CONTAINER_NAME:-endorser-webhook-mockserver}
     ports:
-      - ${WEBHOOK_MOCKSERVER_PORT:-1080}:${WEBHOOK_MOCKSERVER_PORT:-1080}
+      - ${ENDORSER_WEBHOOK_MOCKSERVER_PORT:-1080}:${ENDORSER_WEBHOOK_MOCKSERVER_PORT:-1080}
     environment:
-      MOCKSERVER_SERVER_PORT: ${WEBHOOK_MOCKSERVER_PORT:-1080}
+      MOCKSERVER_SERVER_PORT: ${ENDORSER_WEBHOOK_MOCKSERVER_PORT:-1080}
       MOCKSERVER_LOG_LEVEL: ${LOG_LEVEL:-INFO}
     networks:
       - frontend
 
-  # The cloud agent proper
-  cloud-agent:
+  # A fully functional endorser cloud agent 
+  endorser-cloud-agent:
     image: ${CLOUD_AGENT_DOCKER_IMAGE:-sudo-di-cloud-agent}:${CLOUD_AGENT_DOCKER_TAG:-latest}
-    container_name: ${CLOUD_AGENT_CONTAINER_NAME:-cloud-agent}
+    container_name: ${ENDORSER_CLOUD_AGENT_CONTAINER_NAME:-endorser-cloud-agent}
     ports:
-      - ${CLOUD_AGENT_INBOUND_PORT:-8200}:${CLOUD_AGENT_INBOUND_PORT:-8200}
-      - ${CLOUD_AGENT_ADMIN_PORT:-8201}:${CLOUD_AGENT_ADMIN_PORT:-8201}
+      - ${ENDORSER_CLOUD_AGENT_INBOUND_PORT:-8200}:${ENDORSER_CLOUD_AGENT_INBOUND_PORT:-8200}
+      - ${ENDORSER_CLOUD_AGENT_ADMIN_PORT:-8201}:${ENDORSER_CLOUD_AGENT_ADMIN_PORT:-8201}
     # Version ACA-py 0.7.3 contained a fix for the CORs issue that stopped the
     # x-api-key header from working properly.  However for the time being in
     # the development environment we will still use the insecure admin mechanism.
     command: >-
       start
-        --endpoint ${CLOUD_AGENT_ENDPOINT:-http} 
-        --inbound-transport http 0.0.0.0 ${CLOUD_AGENT_INBOUND_PORT:-8200} 
+        --endpoint ${ENDORSER_CLOUD_AGENT_ENDPOINT:-http} 
+        --inbound-transport http 0.0.0.0 ${ENDORSER_CLOUD_AGENT_INBOUND_PORT:-8200} 
         --outbound-transport http 
-        --admin 0.0.0.0 ${CLOUD_AGENT_ADMIN_PORT:-8201} 
+        --admin 0.0.0.0 ${ENDORSER_CLOUD_AGENT_ADMIN_PORT:-8201} 
         --admin-insecure-mode 
         --log-level ${LOG_LEVEL:-INFO} 
         --genesis-url ${LEDGER_GENESIS_URL:-} 
-        --seed ${CLOUD_AGENT_ENDORSER_SEED:-} 
+        --seed ${ENDORSER_CLOUD_AGENT_SEED:-} 
         --public-invites 
         --auto-ping-connection 
         --auto-accept-requests 
@@ -62,11 +69,78 @@ services:
         --wallet-name dev-wallet 
         --wallet-key dev-wallet-key
         --tails-server-base-url ${TAILS_SERVER_INTERNAL_URL:-}
-        --webhook-url ${WEBHOOK_MOCKSERVER_INTERNAL_URL:-}
+        --webhook-url ${ENDORSER_WEBHOOK_MOCKSERVER_INTERNAL_URL:-}
+        --endorser-protocol-role endorser
+        --auto-endorse-transactions
     networks:
       - frontend
     depends_on:
       - tails-server
+      - endorser-webhook-mockserver
+
+  ############################################################
+  #
+  # Author service set which requires/depends on the Endorser
+  # to write to the ledger and will also use the Endorsers
+  # tails file server.
+  #
+  ############################################################
+
+  # Author agent mockserver to provide a webhook callback endpoint/proxy for events
+  # from the cloud agent
+  author-webhook-mockserver:
+    image: mockserver/mockserver:5.14.0
+    container_name: ${AUTHOR_WEBHOOK_MOCKSERVER_CONTAINER_NAME:-author-webhook-mockserver}
+    ports:
+      - ${AUTHOR_WEBHOOK_MOCKSERVER_PORT:-1081}:${AUTHOR_WEBHOOK_MOCKSERVER_PORT:-1081}
+    environment:
+      MOCKSERVER_SERVER_PORT: ${AUTHOR_WEBHOOK_MOCKSERVER_PORT:-1081}
+      MOCKSERVER_LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    networks:
+      - frontend
+
+  # An author cloud agent which requires an endorser in order to perform ledger writes 
+  author-cloud-agent:
+    image: ${CLOUD_AGENT_DOCKER_IMAGE:-sudo-di-cloud-agent}:${CLOUD_AGENT_DOCKER_TAG:-latest}
+    container_name: ${AUTHOR_CLOUD_AGENT_CONTAINER_NAME:-author-cloud-agent}
+    ports:
+      - ${AUTHOR_CLOUD_AGENT_INBOUND_PORT:-8210}:${AUTHOR_CLOUD_AGENT_INBOUND_PORT:-8210}
+      - ${AUTHOR_CLOUD_AGENT_ADMIN_PORT:-8211}:${AUTHOR_CLOUD_AGENT_ADMIN_PORT:-8211}
+    # Version ACA-py 0.7.3 contained a fix for the CORs issue that stopped the
+    # x-api-key header from working properly.  However for the time being in
+    # the development environment we will still use the insecure admin mechanism.
+    command: >-
+      start
+        --endpoint ${AUTHOR_CLOUD_AGENT_ENDPOINT:-http} 
+        --inbound-transport http 0.0.0.0 ${AUTHOR_CLOUD_AGENT_INBOUND_PORT:-8210} 
+        --outbound-transport http 
+        --admin 0.0.0.0 ${AUTHOR_CLOUD_AGENT_ADMIN_PORT:-8211} 
+        --admin-insecure-mode 
+        --log-level ${LOG_LEVEL:-INFO} 
+        --genesis-url ${LEDGER_GENESIS_URL:-} 
+        --seed ${AUTHOR_CLOUD_AGENT_SEED:-} 
+        --public-invites 
+        --auto-ping-connection 
+        --auto-accept-requests 
+        --preserve-exchange-records 
+        --auto-provision 
+        --wallet-type ${CLOUD_AGENT_WALLET_TYPE:-askar} 
+        --wallet-name dev-wallet 
+        --wallet-key dev-wallet-key
+        --tails-server-base-url ${TAILS_SERVER_INTERNAL_URL:-}
+        --webhook-url ${AUTHOR_WEBHOOK_MOCKSERVER_INTERNAL_URL:-}
+        --endorser-protocol-role author
+        --endorser-public-did ${ENDORSER_CLOUD_AGENT_DID:-}
+        --endorser-alias ${ENDORSER_ALIAS:-MyEndorser}
+        --auto-request-endorsement
+        --auto-write-transactions
+        --auto-create-revocation-transactions
+        --endorser-invitation ${ENDORSER_INVITATION:-} 
+    networks:
+      - frontend
+    depends_on:
+      - endorser-cloud-agent
+      - author-webhook-mockserver
 
 networks:
   # The frontend network that admin consoles would connect to

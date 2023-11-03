@@ -9,18 +9,36 @@ of Hyperledger Aries Cloud Agent Python.
 
 ## Key Features
 
-- Quickly setup and takedown a local Decentralized Identity development
-  environment using docker-compose (currently only MacOS)
-  - A running 4 Node Indy Decentralized Ledger
-  - A configured and running Decentralized Identity Cloud Agent
-  - A configured and running Tails File Server to support revocable credentials
-  - A mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the controller is developed
 - Typescript SDK wrappers to access all the functionality provided by
   [Anonyomes fork](https://github.com/anonyome/aries-cloudagent-python) of Hyperledger Aries Cloud Agent Python.
+
   - Ability to create Decentralized Identifiers, Schemas and Credential Definitions on the Local
     Ledger
   - Ability to Issue, Hold and Verify Credentials based on Credential Definitions
   - Ability to revoke issued credentials
+
+- Quickly setup and takedown a local Decentralized Identity development
+  environment using docker-compose (currently only MacOS). There are currently two playground modes supported :
+
+  ### Standalone Endorser Mode (Legacy and Default mode)
+
+  This mode creates the following local docker environment
+
+  - A running 4 Node Indy Decentralized Ledger
+  - A Decentralized Identity Cloud Agent with write permissions to the Indy Ledger
+  - A configured and running Tails File Server to support revocable credentials
+  - A mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the controller is developed
+
+  ### Author Automatic, Endorser Automatic Mode (playgroundMode=author_auto_endorser_auto)
+
+  This mode is intended to allow local controller development of more complex scenarios. In this scenario, ledger transactions are created by an Author agent which are automatically forwarded to an Endorser for signing before being written to a Ledger (ie. Authors and Endorsers have different Ledger [permissions](https://github.com/anonyome/aries-cloudagent-python/blob/main/Endorser.md) through their DID). This playground mode allows development of both Author and Endorser controllers by creating the following local docker environment
+
+  - A running 4 Node Indy Decentralized Ledger
+  - A configured and running Tails File Server to support revocable credentials
+  - A Decentralized Identity Cloud Agent with **endorser** permissions on the Indy Ledger, configured to automatically action **ALL** Endorsement signing requests received over DIDComm connections.
+  - An Endorser mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the Endorser controller is developed
+  - A Decentralized Identity Cloud Agent with **user** permissions on the Indy Ledger, configured to create a DIDComm connection to the Endorser and use that Endorser agent for signing Ledger transactions
+  - An Author mockserver agent to display webhook callbacks and provide configurable forwarding of callbacks as the Author controller is developed
 
 ## Version Support
 
@@ -42,7 +60,7 @@ npm install --save '@sudoplatform-labs/sudo-di-cloud-agent'
 ```
 
 You will need to have [docker desktop](https://hub.docker.com/editions/community/docker-ce-desktop-mac) installed on your machine to run the ledger,
-agent, mockserver and tails file server, images. 
+agent, mockserver and tails file server, images.
 
 **NOTE:** Make sure `Use Docker Compose V2` is set in the Docker Desktop preferences since the container naming scheme is different between Docker Compose V1 and V2.
 
@@ -50,20 +68,19 @@ agent, mockserver and tails file server, images.
 
 ### Local Development Environment Overview
 
-To create and destroy a local development environment (currently MacOS only), run the di-env utility.
+To create and destroy a local standalone agent development environment (currently MacOS only), run the di-env utility.
 
 ```
-yarn di-env up -s <your 32 character secret wallet seed>
+yarn di-env up -s <your 32 character standalone agent secret wallet seed>
 yarn di-env down
 ```
 
 Other options can be seen with `yarn di-env`
-You must specify the 32 byte secret seed used to create the wallet on the `up` command or in a `acapy.conf` configuration file. Since
-the seed should never be exposed to the public, a default is never provided by `di-env`.
+You must specify the 32 byte secret seed used to create the wallet on the `up` command or in a `acapy.conf` configuration file. Since the seed should never be exposed to the public, a default is never provided by `di-env`.
 
-### Detailed Usage Examples
+### Standalone endorser mode, detailed usage examples
 
-#### Setup for a new React App
+#### Setup for a new React Controller App
 
 1. `yarn global add create-react-app`
 2. `create-react-app <app-name>`
@@ -77,10 +94,11 @@ the seed should never be exposed to the public, a default is never provided by `
 
 After the `yarn di-env up` command has completed :
 
-- The Cloud Agent swagger interface can be accessed at the `acapyAdminUri` field location specified in the `acapy.json` config file (e.g. http://localhost:8201)
+- The Cloud Agent swagger interface can be accessed at the `endorserAcapyAdminUri` field location specified in the `acapy.json` config file (e.g. http://localhost:8201)
 - The VON Ledger web UI can be accessed on http://localhost:9000
 
-#### Seeing container log output 
+#### Seeing container log output
+
 - To see the logs for Cloud Agent, Tails File Server and MockServer webhook handler run `yarn di-env logs`
 - The level of logging defaults to INFO but can be set using the `-v` switch to `di-env up`
 
@@ -89,14 +107,14 @@ After the `yarn di-env up` command has completed :
 After the `yarn di-env up` command has completed :
 
 - The mockserver dashboard can be accessed at http://localhost:1080/mockserver/dashboard. This dashboard will display all the webhook callback information received from the running Cloud Agent.
-- The configuration for mockserver is intialised from a file during the `di-env up` command. The absolute path for a custom intialisation file can be specifed either using the `mockServerConfigFile` field in `acapy.json` or via the `-m` switch to the `di-env up` command. If neither is specified a default initialisation is used.
+- The configuration for mockserver is initialised from a file during the `di-env up` command. The absolute path for a custom initialisation file can be specifed either using the `endorserMockServerConfigFile` field in `acapy.json` or via the `-m` switch to the `di-env up` command. If neither is specified a default initialisation is used.
 - The [mockserver](https://mock-server.com/#what-is-mockserver) website contains details on how to write configuration to forward specific routes on to your controller as development progresses.
 
 #### Providing a Public Cloud Agent Endpoint via ngrok to interact with Mobile/External Agents
 
 1. Download and unpack the [ngrok free version](https://ngrok.com/download)
 2. In a terminal where you unpacked ngrok run
-   - `ngrok http <acapy.json "acapyInboundPort" value >`
+   - `ngrok http <acapy.json "endorserAcapyInboundPort" value >`
    - Save the URL printed out by ngrok (i.e. it will be something like `http://0e51393f5372.ngrok.io`)
 3. Start the environment specifying the -e switch and the URL from ngrok along with the -c config file path
    - `yarn di-env up -e <ngrok provided public endpoint> -c <absolute path to acapy.json>`

@@ -22,7 +22,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">RevocationApi</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:152</li></ul></aside>
+<li>Defined in client/apis/RevocationApi.ts:156</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -41,6 +41,8 @@
 <div class="tsd-index-list"><a href="RevocationApi.html#request" class="tsd-index-link tsd-is-protected tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-2048"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)"></path></g></svg><span>request</span></a>
 <a href="RevocationApi.html#revocationActiveRegistryCredDefIdGet" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Get</span></a>
 <a href="RevocationApi.html#revocationActiveRegistryCredDefIdGetRaw" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Get<wbr/>Raw</span></a>
+<a href="RevocationApi.html#revocationActiveRegistryCredDefIdRotatePost" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post</span></a>
+<a href="RevocationApi.html#revocationActiveRegistryCredDefIdRotatePostRaw" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post<wbr/>Raw</span></a>
 <a href="RevocationApi.html#revocationClearPendingRevocationsPost" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Clear<wbr/>Pending<wbr/>Revocations<wbr/>Post</span></a>
 <a href="RevocationApi.html#revocationClearPendingRevocationsPostRaw" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Clear<wbr/>Pending<wbr/>Revocations<wbr/>Post<wbr/>Raw</span></a>
 <a href="RevocationApi.html#revocationCreateRegistryPost" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Create<wbr/>Registry<wbr/>Post</span></a>
@@ -136,7 +138,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:191</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:195</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationActiveRegistryCredDefIdGetRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Get<wbr/>Raw</span><a href="#revocationActiveRegistryCredDefIdGetRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -152,7 +154,39 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:156</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:160</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="revocationActiveRegistryCredDefIdRotatePost" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post</span><a href="#revocationActiveRegistryCredDefIdRotatePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="revocationActiveRegistryCredDefIdRotatePost.revocationActiveRegistryCredDefIdRotatePost-1"><span class="tsd-kind-call-signature">revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegsCreated.html" class="tsd-signature-type tsd-kind-interface">RevRegsCreated</a><span class="tsd-signature-symbol">&gt;</span><a href="#revocationActiveRegistryCredDefIdRotatePost.revocationActiveRegistryCredDefIdRotatePost-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Rotate revocation registry</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/RevocationActiveRegistryCredDefIdRotatePostRequest.html" class="tsd-signature-type tsd-kind-interface">RevocationActiveRegistryCredDefIdRotatePostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegsCreated.html" class="tsd-signature-type tsd-kind-interface">RevRegsCreated</a><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in client/apis/RevocationApi.ts:242</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="revocationActiveRegistryCredDefIdRotatePostRaw" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post<wbr/>Raw</span><a href="#revocationActiveRegistryCredDefIdRotatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="revocationActiveRegistryCredDefIdRotatePostRaw.revocationActiveRegistryCredDefIdRotatePostRaw-1"><span class="tsd-kind-call-signature">revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post<wbr/>Raw</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegsCreated.html" class="tsd-signature-type tsd-kind-interface">RevRegsCreated</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#revocationActiveRegistryCredDefIdRotatePostRaw.revocationActiveRegistryCredDefIdRotatePostRaw-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Rotate revocation registry</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/RevocationActiveRegistryCredDefIdRotatePostRequest.html" class="tsd-signature-type tsd-kind-interface">RevocationActiveRegistryCredDefIdRotatePostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegsCreated.html" class="tsd-signature-type tsd-kind-interface">RevRegsCreated</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in client/apis/RevocationApi.ts:207</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationClearPendingRevocationsPost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Clear<wbr/>Pending<wbr/>Revocations<wbr/>Post</span><a href="#revocationClearPendingRevocationsPost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -168,7 +202,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/PublishRevocations.html" class="tsd-signature-type tsd-kind-interface">PublishRevocations</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:228</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:279</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationClearPendingRevocationsPostRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Clear<wbr/>Pending<wbr/>Revocations<wbr/>Post<wbr/>Raw</span><a href="#revocationClearPendingRevocationsPostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -184,7 +218,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/PublishRevocations.html" class="tsd-signature-type tsd-kind-interface">PublishRevocations</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:203</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:254</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationCreateRegistryPost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Create<wbr/>Registry<wbr/>Post</span><a href="#revocationCreateRegistryPost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -200,7 +234,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:265</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:316</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationCreateRegistryPostRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Create<wbr/>Registry<wbr/>Post<wbr/>Raw</span><a href="#revocationCreateRegistryPostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -216,7 +250,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:240</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:291</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationCredentialRecordGet" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Credential<wbr/>Record<wbr/>Get</span><a href="#revocationCredentialRecordGet" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -232,7 +266,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CredRevRecordResult.html" class="tsd-signature-type tsd-kind-interface">CredRevRecordResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:311</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:362</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationCredentialRecordGetRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Credential<wbr/>Record<wbr/>Get<wbr/>Raw</span><a href="#revocationCredentialRecordGetRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -248,7 +282,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CredRevRecordResult.html" class="tsd-signature-type tsd-kind-interface">CredRevRecordResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:277</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:328</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationPublishRevocationsPost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Publish<wbr/>Revocations<wbr/>Post</span><a href="#revocationPublishRevocationsPost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -264,7 +298,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/TxnOrPublishRevocationsResult.html" class="tsd-signature-type tsd-kind-interface">TxnOrPublishRevocationsResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:348</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:399</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationPublishRevocationsPostRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Publish<wbr/>Revocations<wbr/>Post<wbr/>Raw</span><a href="#revocationPublishRevocationsPostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -280,7 +314,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/TxnOrPublishRevocationsResult.html" class="tsd-signature-type tsd-kind-interface">TxnOrPublishRevocationsResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:323</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:374</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistriesCreatedGet" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registries<wbr/>Created<wbr/>Get</span><a href="#revocationRegistriesCreatedGet" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -296,7 +330,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegsCreated.html" class="tsd-signature-type tsd-kind-interface">RevRegsCreated</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:390</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:441</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistriesCreatedGetRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registries<wbr/>Created<wbr/>Get<wbr/>Raw</span><a href="#revocationRegistriesCreatedGetRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -312,7 +346,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegsCreated.html" class="tsd-signature-type tsd-kind-interface">RevRegsCreated</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:360</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:411</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryDeleteTailsFileDelete" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Delete<wbr/>Tails<wbr/>File<wbr/>Delete</span><a href="#revocationRegistryDeleteTailsFileDelete" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -328,7 +362,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/TailsDeleteResponse.html" class="tsd-signature-type tsd-kind-interface">TailsDeleteResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:432</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:483</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryDeleteTailsFileDeleteRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Delete<wbr/>Tails<wbr/>File<wbr/>Delete<wbr/>Raw</span><a href="#revocationRegistryDeleteTailsFileDeleteRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -344,7 +378,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/TailsDeleteResponse.html" class="tsd-signature-type tsd-kind-interface">TailsDeleteResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:402</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:453</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdDefinitionPost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Definition<wbr/>Post</span><a href="#revocationRegistryRevRegIdDefinitionPost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -360,7 +394,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/TxnOrRevRegResult.html" class="tsd-signature-type tsd-kind-interface">TxnOrRevRegResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:488</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:539</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdDefinitionPostRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Definition<wbr/>Post<wbr/>Raw</span><a href="#revocationRegistryRevRegIdDefinitionPostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -376,7 +410,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/TxnOrRevRegResult.html" class="tsd-signature-type tsd-kind-interface">TxnOrRevRegResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:444</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:495</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdEntryPost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Entry<wbr/>Post</span><a href="#revocationRegistryRevRegIdEntryPost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -392,7 +426,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:544</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:595</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdEntryPostRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Entry<wbr/>Post<wbr/>Raw</span><a href="#revocationRegistryRevRegIdEntryPostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -408,7 +442,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:500</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:551</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdFixRevocationEntryStatePut" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Fix<wbr/>Revocation<wbr/>Entry<wbr/>State<wbr/>Put</span><a href="#revocationRegistryRevRegIdFixRevocationEntryStatePut" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -424,7 +458,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegWalletUpdatedResult.html" class="tsd-signature-type tsd-kind-interface">RevRegWalletUpdatedResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:606</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:657</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdFixRevocationEntryStatePutRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Fix<wbr/>Revocation<wbr/>Entry<wbr/>State<wbr/>Put<wbr/>Raw</span><a href="#revocationRegistryRevRegIdFixRevocationEntryStatePutRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -440,7 +474,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegWalletUpdatedResult.html" class="tsd-signature-type tsd-kind-interface">RevRegWalletUpdatedResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:556</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:607</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdGet" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Get</span><a href="#revocationRegistryRevRegIdGet" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -456,7 +490,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:654</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:705</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdGetRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Get<wbr/>Raw</span><a href="#revocationRegistryRevRegIdGetRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -472,7 +506,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:619</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:670</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdIssuedDetailsGet" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Issued<wbr/>Details<wbr/>Get</span><a href="#revocationRegistryRevRegIdIssuedDetailsGet" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -488,7 +522,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CredRevRecordDetailsResult.html" class="tsd-signature-type tsd-kind-interface">CredRevRecordDetailsResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:701</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:752</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdIssuedDetailsGetRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Issued<wbr/>Details<wbr/>Get<wbr/>Raw</span><a href="#revocationRegistryRevRegIdIssuedDetailsGetRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -504,7 +538,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CredRevRecordDetailsResult.html" class="tsd-signature-type tsd-kind-interface">CredRevRecordDetailsResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:666</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:717</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdIssuedGet" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Issued<wbr/>Get</span><a href="#revocationRegistryRevRegIdIssuedGet" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -520,7 +554,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegIssuedResult.html" class="tsd-signature-type tsd-kind-interface">RevRegIssuedResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:748</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:799</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdIssuedGetRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Issued<wbr/>Get<wbr/>Raw</span><a href="#revocationRegistryRevRegIdIssuedGetRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -536,7 +570,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegIssuedResult.html" class="tsd-signature-type tsd-kind-interface">RevRegIssuedResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:713</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:764</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdIssuedIndyRecsGet" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Issued<wbr/>Indy<wbr/>Recs<wbr/>Get</span><a href="#revocationRegistryRevRegIdIssuedIndyRecsGet" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -552,7 +586,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CredRevIndyRecordsResult.html" class="tsd-signature-type tsd-kind-interface">CredRevIndyRecordsResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:795</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:846</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdIssuedIndyRecsGetRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Issued<wbr/>Indy<wbr/>Recs<wbr/>Get<wbr/>Raw</span><a href="#revocationRegistryRevRegIdIssuedIndyRecsGetRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -568,7 +602,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CredRevIndyRecordsResult.html" class="tsd-signature-type tsd-kind-interface">CredRevIndyRecordsResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:760</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:811</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdPatch" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Patch</span><a href="#revocationRegistryRevRegIdPatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -584,7 +618,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:845</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:896</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdPatchRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Patch<wbr/>Raw</span><a href="#revocationRegistryRevRegIdPatchRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -600,7 +634,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:807</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:858</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdSetStatePatch" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Set<wbr/>State<wbr/>Patch</span><a href="#revocationRegistryRevRegIdSetStatePatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -616,7 +650,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:906</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:957</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdSetStatePatchRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Set<wbr/>State<wbr/>Patch<wbr/>Raw</span><a href="#revocationRegistryRevRegIdSetStatePatchRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -632,7 +666,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/RevRegResult.html" class="tsd-signature-type tsd-kind-interface">RevRegResult</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:857</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:908</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdTailsFileGet" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Tails<wbr/>File<wbr/>Get</span><a href="#revocationRegistryRevRegIdTailsFileGet" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -648,7 +682,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Blob</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:951</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:1002</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdTailsFileGetRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Tails<wbr/>File<wbr/>Get<wbr/>Raw</span><a href="#revocationRegistryRevRegIdTailsFileGetRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -664,7 +698,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type ">Blob</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:918</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:969</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdTailsFilePut" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Tails<wbr/>File<wbr/>Put</span><a href="#revocationRegistryRevRegIdTailsFilePut" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -680,7 +714,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:996</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:1047</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRegistryRevRegIdTailsFilePutRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Tails<wbr/>File<wbr/>Put<wbr/>Raw</span><a href="#revocationRegistryRevRegIdTailsFilePutRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -696,7 +730,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:963</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:1014</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRevokePost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Revoke<wbr/>Post</span><a href="#revocationRevokePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -712,7 +746,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:1031</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:1082</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="revocationRevokePostRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>revocation<wbr/>Revoke<wbr/>Post<wbr/>Raw</span><a href="#revocationRevokePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -728,7 +762,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/RevocationApi.ts:1008</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/RevocationApi.ts:1059</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="withMiddleware" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>with<wbr/>Middleware</span><a href="#withMiddleware" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -815,6 +849,8 @@
 <li><a href="#request" class="tsd-is-protected tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>request</span></a></li>
 <li><a href="#revocationActiveRegistryCredDefIdGet" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Get</span></a></li>
 <li><a href="#revocationActiveRegistryCredDefIdGetRaw" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Get<wbr/>Raw</span></a></li>
+<li><a href="#revocationActiveRegistryCredDefIdRotatePost" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post</span></a></li>
+<li><a href="#revocationActiveRegistryCredDefIdRotatePostRaw" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post<wbr/>Raw</span></a></li>
 <li><a href="#revocationClearPendingRevocationsPost" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Clear<wbr/>Pending<wbr/>Revocations<wbr/>Post</span></a></li>
 <li><a href="#revocationClearPendingRevocationsPostRaw" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Clear<wbr/>Pending<wbr/>Revocations<wbr/>Post<wbr/>Raw</span></a></li>
 <li><a href="#revocationCreateRegistryPost" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>revocation<wbr/>Create<wbr/>Registry<wbr/>Post</span></a></li>
@@ -1140,6 +1176,9 @@
 <li><a href="../interfaces/IssueCredentialSendProposalPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Issue<wbr/>Credential<wbr/>Send<wbr/>Proposal<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/IssuerCredRevRecord.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Issuer<wbr/>Cred<wbr/>Rev<wbr/>Record</span></a></li>
 <li><a href="../interfaces/IssuerRevRegRecord.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Issuer<wbr/>Rev<wbr/>Reg<wbr/>Record</span></a></li>
+<li><a href="../interfaces/JWSCreate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>JWSCreate</span></a></li>
+<li><a href="../interfaces/JWSVerify.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>JWSVerify</span></a></li>
+<li><a href="../interfaces/JWSVerifyResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>JWSVerify<wbr/>Response</span></a></li>
 <li><a href="../interfaces/JsonldSignPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Jsonld<wbr/>Sign<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/JsonldVerifyPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Jsonld<wbr/>Verify<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/Keylist.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Keylist</span></a></li>
@@ -1235,6 +1274,7 @@
 <li><a href="../interfaces/RevRegWalletUpdatedResult.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Rev<wbr/>Reg<wbr/>Wallet<wbr/>Updated<wbr/>Result</span></a></li>
 <li><a href="../interfaces/RevRegsCreated.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Rev<wbr/>Regs<wbr/>Created</span></a></li>
 <li><a href="../interfaces/RevocationActiveRegistryCredDefIdGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Get<wbr/>Request</span></a></li>
+<li><a href="../interfaces/RevocationActiveRegistryCredDefIdRotatePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Active<wbr/>Registry<wbr/>Cred<wbr/>Def<wbr/>Id<wbr/>Rotate<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/RevocationClearPendingRevocationsPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Clear<wbr/>Pending<wbr/>Revocations<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/RevocationCreateRegistryPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Create<wbr/>Registry<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/RevocationCredentialRecordGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Revocation<wbr/>Credential<wbr/>Record<wbr/>Get<wbr/>Request</span></a></li>
@@ -1373,6 +1413,8 @@
 <li><a href="../interfaces/WalletDidLocalRotateKeypairPatchRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Did<wbr/>Local<wbr/>Rotate<wbr/>Keypair<wbr/>Patch<wbr/>Request</span></a></li>
 <li><a href="../interfaces/WalletDidPublicPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Did<wbr/>Public<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/WalletGetDidEndpointGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Get<wbr/>Did<wbr/>Endpoint<wbr/>Get<wbr/>Request</span></a></li>
+<li><a href="../interfaces/WalletJwtSignPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Jwt<wbr/>Sign<wbr/>Post<wbr/>Request</span></a></li>
+<li><a href="../interfaces/WalletJwtVerifyPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Jwt<wbr/>Verify<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/WalletSetDidEndpointPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Set<wbr/>Did<wbr/>Endpoint<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/WriteLedgerRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Write<wbr/>Ledger<wbr/>Request</span></a></li>
 <li><a href="../types/FetchAPI.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4194304"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-type-alias)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)"></path></g></svg><span>FetchAPI</span></a></li>
@@ -1732,6 +1774,15 @@
 <li><a href="../functions/IssuerRevRegRecordFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Issuer<wbr/>Rev<wbr/>Reg<wbr/>Record<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/IssuerRevRegRecordFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Issuer<wbr/>Rev<wbr/>Reg<wbr/>Record<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/IssuerRevRegRecordToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Issuer<wbr/>Rev<wbr/>Reg<wbr/>Record<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/JWSCreateFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSCreate<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/JWSCreateFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSCreate<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/JWSCreateToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSCreate<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/JWSVerifyFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/JWSVerifyFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/JWSVerifyResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>Response<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/JWSVerifyResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/JWSVerifyResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>Response<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/JWSVerifyToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>JWSVerify<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/KeylistFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Keylist<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/KeylistFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Keylist<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/KeylistQueryFilterRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Keylist<wbr/>Query<wbr/>Filter<wbr/>Request<wbr/>FromJSON</span></a></li>
