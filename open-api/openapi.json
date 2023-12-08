@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.7.0"
+    "version": "v0.7.1"
   },
   "servers": [
     {
@@ -419,7 +419,7 @@
             "in": "query",
             "name": "my_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -429,15 +429,15 @@
             "name": "state",
             "schema": {
               "enum": [
-                "start",
-                "invitation",
+                "init",
+                "active",
                 "error",
                 "abandoned",
+                "start",
+                "invitation",
+                "response",
                 "request",
-                "active",
-                "init",
-                "completed",
-                "response"
+                "completed"
               ],
               "type": "string"
             }
@@ -447,7 +447,7 @@
             "in": "query",
             "name": "their_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -456,7 +456,7 @@
             "in": "query",
             "name": "their_public_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -1817,6 +1817,14 @@
               "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
               "type": "string"
             }
+          },
+          {
+            "description": "Use public DID for this connection",
+            "in": "query",
+            "name": "use_public_did",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -1835,6 +1843,48 @@
         "tags": [
           "did-exchange"
         ]
+      }
+    },
+    "/didexchange/{conn_id}/reject": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "path",
+            "name": "conn_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DIDXRejectRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnRecord"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Abandon or reject a DID Exchange",
+        "tags": [
+          "did-exchange"
+        ],
+        "x-codegen-request-body-name": "body"
       }
     },
     "/discover-features-2.0/queries": {
@@ -2865,6 +2915,16 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/V10CredentialExchangeAutoRemoveRequest"
+              }
+            }
+          },
+          "required": false
+        },
         "responses": {
           "200": {
             "content": {
@@ -2880,7 +2940,8 @@
         "summary": "Send issuer a credential request",
         "tags": [
           "issue-credential v1.0"
-        ]
+        ],
+        "x-codegen-request-body-name": "body"
       }
     },
     "/issue-credential/records/{cred_ex_id}/store": {
@@ -3081,6 +3142,26 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/ledger/config": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerConfigList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch the multiple ledger configuration currently in use",
+        "tags": [
+          "ledger"
+        ]
+      }
+    },
     "/ledger/did-endpoint": {
       "get": {
         "parameters": [
@@ -3190,34 +3271,14 @@
         ]
       }
     },
-    "/ledger/multiple/config": {
+    "/ledger/get-write-ledger": {
       "get": {
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LedgerConfigList"
-                }
-              }
-            },
-            "description": ""
-          }
-        },
-        "summary": "Fetch the multiple ledger configuration currently in use",
-        "tags": [
-          "ledger"
-        ]
-      }
-    },
-    "/ledger/multiple/get-write-ledger": {
-      "get": {
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/WriteLedgerRequest"
+                  "$ref": "#/components/schemas/WriteLedger"
                 }
               }
             },
@@ -3225,6 +3286,26 @@
           }
         },
         "summary": "Fetch the current write ledger",
+        "tags": [
+          "ledger"
+        ]
+      }
+    },
+    "/ledger/get-write-ledgers": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfigurableWriteLedgers"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch list of available write ledgers",
         "tags": [
           "ledger"
         ]
@@ -3382,6 +3463,36 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/ledger/{ledger_id}/set-write-ledger": {
+      "put": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ledger_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WriteLedger"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Set write ledger",
+        "tags": [
+          "ledger"
+        ]
+      }
+    },
     "/mediation/default-mediator": {
       "delete": {
         "responses": {
@@ -3433,7 +3544,7 @@
             }
           },
           {
-            "description": "Filer on role, 'client' for keys         mediated by other agents, 'server' for keys         mediated by this agent",
+            "description": "Filer on role, 'client' for keys     mediated by other agents, 'server' for keys     mediated by this agent",
             "in": "query",
             "name": "role",
             "schema": {
@@ -4781,7 +4892,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/IndyPresSpec"
+                "$ref": "#/components/schemas/V10PresentationSendRequest"
               }
             }
           },
@@ -6528,7 +6639,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           }
@@ -6578,7 +6689,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -6634,7 +6745,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           }
@@ -7124,6 +7235,19 @@
             },
             "description": "Credential revocation ids by revocation registry id: omit for all, specify null or empty list for all pending per revocation registry",
             "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "ConfigurableWriteLedgers": {
+        "properties": {
+          "write_ledgers": {
+            "description": "List of configurable write ledgers identifiers",
+            "items": {
+              "description": "Ledgers identifiers",
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -8176,6 +8300,16 @@
         },
         "type": "object"
       },
+      "DIDXRejectRequest": {
+        "properties": {
+          "reason": {
+            "description": "Reason for rejecting the DID Exchange",
+            "example": "Request rejected",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "DIDXRequest": {
         "properties": {
           "@id": {
@@ -8191,8 +8325,8 @@
           },
           "did": {
             "description": "DID of exchange",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "did_doc~attach": {
@@ -12085,7 +12219,7 @@
               "example": {
                 "@id": "143c458d-1b1c-40c7-ab85-4d16808ddf0a",
                 "data": {
-                  "json": "{\"endorser\": \"V4SGRU86Z58d6TV7PBUe6f\",\"identifier\": \"LjgpST2rjsoxYegQDRm7EL\",\"operation\": {\"data\": {\"attr_names\": [\"first_name\", \"last_name\"],\"name\": \"test_schema\",\"version\": \"2.1\",},\"type\": \"101\",},\"protocolVersion\": 2,\"reqId\": 1597766666168851000,\"signatures\": {\"LjgpST2rjsox\": \"4ATKMn6Y9sTgwqaGTm7py2c2M8x1EVDTWKZArwyuPgjU\"},\"taaAcceptance\": {\"mechanism\": \"manual\",\"taaDigest\": \"f50fe2c2ab977006761d36bd6f23e4c6a7e0fc2feb9f62\",\"time\": 1597708800,}}"
+                  "json": "{\"endorser\": \"V4SGRU86Z58d6TV7PBUe6f\",\"identifier\": \"LjgpST2rjsoxYegQDRm7EL\",\"operation\": {\"data\": {\"attr_names\": [\"first_name\", \"last_name\"],\"name\": \"test_schema\",\"version\": \"2.1\",},\"type\": \"101\",},\"protocolVersion\": 2,\"reqId\": 1597766666168851000,\"signatures\": {\"LjgpST2rjsox\": \"4ATKMn6Y9sTgwqaGTm7py2c2M8x1EVDTWKZArwyuPgjU\"}, \"taaAcceptance\": {\"mechanism\": \"manual\",\"taaDigest\": \"f50fe2c2ab977006761d36bd6f23e4c6a7e0fc2feb9f62\",\"time\": 1597708800,}}"
                 },
                 "mime-type": "application/json"
               },
@@ -12556,6 +12690,15 @@
         },
         "type": "object"
       },
+      "V10CredentialExchangeAutoRemoveRequest": {
+        "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the credential exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
       "V10CredentialExchangeListResult": {
         "properties": {
           "results": {
@@ -12851,6 +12994,10 @@
       },
       "V10PresentationCreateRequestRequest": {
         "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "auto_verify": {
             "description": "Verifier choice to auto-verify proof presentation",
             "example": false,
@@ -12878,6 +13025,11 @@
         "properties": {
           "auto_present": {
             "description": "Prover choice to auto-present proof as verifier requests",
+            "example": false,
+            "type": "boolean"
+          },
+          "auto_remove": {
+            "description": "Verifier choice to remove this presentation exchange record when complete",
             "example": false,
             "type": "boolean"
           },
@@ -13028,6 +13180,10 @@
             "description": "Whether to respond automatically to presentation requests, building and presenting requested proof",
             "type": "boolean"
           },
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "comment": {
             "description": "Human-readable comment",
             "nullable": true,
@@ -13054,8 +13210,54 @@
         ],
         "type": "object"
       },
+      "V10PresentationSendRequest": {
+        "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
+          "requested_attributes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/IndyRequestedCredsRequestedAttr"
+            },
+            "description": "Nested object mapping proof request attribute referents to requested-attribute specifiers",
+            "type": "object"
+          },
+          "requested_predicates": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/IndyRequestedCredsRequestedPred"
+            },
+            "description": "Nested object mapping proof request predicate referents to requested-predicate specifiers",
+            "type": "object"
+          },
+          "self_attested_attributes": {
+            "additionalProperties": {
+              "description": "Self-attested attribute values to use in requested-credentials structure for proof construction",
+              "example": "self_attested_value",
+              "type": "string"
+            },
+            "description": "Self-attested attributes to build into proof",
+            "type": "object"
+          },
+          "trace": {
+            "description": "Whether to trace event (default false)",
+            "example": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "requested_attributes",
+          "requested_predicates",
+          "self_attested_attributes"
+        ],
+        "type": "object"
+      },
       "V10PresentationSendRequestRequest": {
         "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "auto_verify": {
             "description": "Verifier choice to auto-verify proof presentation",
             "example": false,
@@ -13088,6 +13290,10 @@
       },
       "V10PresentationSendRequestToProposal": {
         "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "auto_verify": {
             "description": "Verifier choice to auto-verify proof presentation",
             "example": false,
@@ -13952,6 +14158,10 @@
       },
       "V20CredRequestRequest": {
         "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the credential exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "holder_did": {
             "description": "Holder DID to substitute for the credentialSubject.id",
             "example": "did:key:ahsdkjahsdkjhaskjdhakjshdkajhsdkjahs",
@@ -14141,6 +14351,10 @@
       },
       "V20PresCreateRequestRequest": {
         "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "auto_verify": {
             "description": "Verifier choice to auto-verify proof presentation",
             "example": false,
@@ -14168,6 +14382,11 @@
         "properties": {
           "auto_present": {
             "description": "Prover choice to auto-present proof as verifier requests",
+            "example": false,
+            "type": "boolean"
+          },
+          "auto_remove": {
+            "description": "Verifier choice to remove this presentation exchange record when complete",
             "example": false,
             "type": "boolean"
           },
@@ -14424,6 +14643,10 @@
             "description": "Whether to respond automatically to presentation requests, building and presenting requested proof",
             "type": "boolean"
           },
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "comment": {
             "description": "Human-readable comment",
             "nullable": true,
@@ -14516,6 +14739,10 @@
       },
       "V20PresSendRequestRequest": {
         "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "auto_verify": {
             "description": "Verifier choice to auto-verify proof presentation",
             "example": false,
@@ -14548,6 +14775,10 @@
       },
       "V20PresSpecByFormatRequest": {
         "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "dif": {
             "allOf": [
               {
@@ -14578,6 +14809,10 @@
       },
       "V20PresentationSendRequestToProposal": {
         "properties": {
+          "auto_remove": {
+            "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
+            "type": "boolean"
+          },
           "auto_verify": {
             "description": "Verifier choice to auto-verify proof presentation",
             "example": false,
@@ -14784,7 +15019,7 @@
       "WalletModuleResponse": {
         "type": "object"
       },
-      "WriteLedgerRequest": {
+      "WriteLedger": {
         "properties": {
           "ledger_id": {
             "type": "string"

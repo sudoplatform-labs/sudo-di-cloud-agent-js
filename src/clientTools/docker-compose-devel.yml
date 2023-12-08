@@ -42,7 +42,7 @@ services:
 
   # A fully functional endorser cloud agent 
   endorser-cloud-agent:
-    image: ${CLOUD_AGENT_DOCKER_IMAGE:-sudo-di-cloud-agent}:${CLOUD_AGENT_DOCKER_TAG:-latest}
+    image: ${CLOUD_AGENT_DOCKER_IMAGE:-sudo-di-acapy}:${CLOUD_AGENT_DOCKER_TAG:-latest}
     container_name: ${ENDORSER_CLOUD_AGENT_CONTAINER_NAME:-endorser-cloud-agent}
     ports:
       - ${ENDORSER_CLOUD_AGENT_INBOUND_PORT:-8200}:${ENDORSER_CLOUD_AGENT_INBOUND_PORT:-8200}
@@ -101,7 +101,7 @@ services:
 
   # An author cloud agent which requires an endorser in order to perform ledger writes 
   author-cloud-agent:
-    image: ${CLOUD_AGENT_DOCKER_IMAGE:-sudo-di-cloud-agent}:${CLOUD_AGENT_DOCKER_TAG:-latest}
+    image: ${CLOUD_AGENT_DOCKER_IMAGE:-sudo-di-acapy}:${CLOUD_AGENT_DOCKER_TAG:-latest}
     container_name: ${AUTHOR_CLOUD_AGENT_CONTAINER_NAME:-author-cloud-agent}
     ports:
       - ${AUTHOR_CLOUD_AGENT_INBOUND_PORT:-8210}:${AUTHOR_CLOUD_AGENT_INBOUND_PORT:-8210}

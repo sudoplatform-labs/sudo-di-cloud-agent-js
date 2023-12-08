@@ -23,7 +23,7 @@ source ${ROOT_DIR}/src/build-functions.sh
 ##########################################################################################
 # Global Defaults and Constants
 ##########################################################################################
-ACA_PY_DOCKER_IMAGE_DEFAULT="sudo-di-cloud-agent"
+ACA_PY_DOCKER_IMAGE_DEFAULT="sudo-di-acapy"
 
 ACA_PY_ADMIN_PORT="8101"
 ACA_PY_INBOUND_PORT="8100"
