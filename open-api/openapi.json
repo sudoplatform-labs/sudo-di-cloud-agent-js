@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.7.1"
+    "version": "v0.8.0"
   },
   "servers": [
     {
@@ -429,15 +429,15 @@
             "name": "state",
             "schema": {
               "enum": [
-                "init",
-                "active",
-                "error",
-                "abandoned",
                 "start",
-                "invitation",
-                "response",
+                "completed",
+                "abandoned",
+                "error",
+                "active",
+                "init",
                 "request",
-                "completed"
+                "invitation",
+                "response"
               ],
               "type": "string"
             }
@@ -830,46 +830,6 @@
           }
         },
         "summary": "Fetch connection remote endpoint",
-        "tags": [
-          "connection"
-        ]
-      }
-    },
-    "/connections/{conn_id}/establish-inbound/{ref_id}": {
-      "post": {
-        "parameters": [
-          {
-            "description": "Connection identifier",
-            "in": "path",
-            "name": "conn_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Inbound connection identifier",
-            "in": "path",
-            "name": "ref_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConnectionModuleResponse"
-                }
-              }
-            },
-            "description": ""
-          }
-        },
-        "summary": "Assign another connection as the inbound connection",
         "tags": [
           "connection"
         ]
@@ -3734,34 +3694,6 @@
               "format": "uuid",
               "type": "string"
             }
-          },
-          {
-            "description": "List of mediator rules for recipient",
-            "explode": true,
-            "in": "query",
-            "name": "mediator_terms",
-            "schema": {
-              "items": {
-                "description": "Indicate terms to which the mediator requires the recipient to agree",
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "style": "form"
-          },
-          {
-            "description": "List of recipient rules for mediation",
-            "explode": true,
-            "in": "query",
-            "name": "recipient_terms",
-            "schema": {
-              "items": {
-                "description": "Indicate terms to which the recipient requires the mediator to agree",
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "style": "form"
           },
           {
             "description": "Mediation state (optional)",
@@ -6830,6 +6762,68 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/wallet/sd-jwt/sign": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SDJWSCreate"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletModuleResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a EdDSA sd-jws using did keys with a given payload",
+        "tags": [
+          "wallet"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/wallet/sd-jwt/verify": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SDJWSVerify"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SDJWSVerifyResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Verify a EdDSA sd-jws using did keys with a given SD-JWS with optional key binding",
+        "tags": [
+          "wallet"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/wallet/set-did-endpoint": {
       "post": {
         "parameters": [
@@ -6927,24 +6921,6 @@
         "type": "object"
       },
       "AdminMediationDeny": {
-        "properties": {
-          "mediator_terms": {
-            "description": "List of mediator rules for recipient",
-            "items": {
-              "description": "Indicate terms to which the mediator requires the recipient to agree",
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "recipient_terms": {
-            "description": "List of recipient rules for mediation",
-            "items": {
-              "description": "Indicate terms to which the recipient requires the mediator to agree",
-              "type": "string"
-            },
-            "type": "array"
-          }
-        },
         "type": "object"
       },
       "AdminModules": {
@@ -7334,17 +7310,6 @@
             "description": "State per RFC 23",
             "example": "invitation-sent",
             "readOnly": true,
-            "type": "string"
-          },
-          "routing_state": {
-            "description": "Routing state of connection",
-            "enum": [
-              "none",
-              "request",
-              "active",
-              "error"
-            ],
-            "example": "active",
             "type": "string"
           },
           "state": {
@@ -10427,7 +10392,7 @@
         "properties": {
           "jwt": {
             "example": "eyJhbGciOiJFZERTQSJ9.eyJhIjogIjAifQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk",
-            "pattern": "^[-_a-zA-Z0-9]*\\.[-_a-zA-Z0-9]*\\.[-_a-zA-Z0-9]*$",
+            "pattern": "^[a-zA-Z0-9_-]+\\.[a-zA-Z0-9_-]*\\.[a-zA-Z0-9_-]+$",
             "type": "string"
           }
         },
@@ -10794,24 +10759,6 @@
         "type": "object"
       },
       "MediationCreateRequest": {
-        "properties": {
-          "mediator_terms": {
-            "description": "List of mediator rules for recipient",
-            "items": {
-              "description": "Indicate terms to which the mediator requires the recipient to agree",
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "recipient_terms": {
-            "description": "List of recipient rules for mediation",
-            "items": {
-              "description": "Indicate terms to which the recipient requires the mediator to agree",
-              "type": "string"
-            },
-            "type": "array"
-          }
-        },
         "type": "object"
       },
       "MediationDeny": {
@@ -10826,20 +10773,6 @@
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
             "readOnly": true,
             "type": "string"
-          },
-          "mediator_terms": {
-            "items": {
-              "description": "Terms for mediator to agree",
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "recipient_terms": {
-            "items": {
-              "description": "Terms for recipient to agree",
-              "type": "string"
-            },
-            "type": "array"
           }
         },
         "type": "object"
@@ -11733,6 +11666,110 @@
         },
         "required": [
           "recipient_key"
+        ],
+        "type": "object"
+      },
+      "SDJWSCreate": {
+        "properties": {
+          "did": {
+            "description": "DID of interest",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "type": "string"
+          },
+          "headers": {
+            "properties": {},
+            "type": "object"
+          },
+          "non_sd_list": {
+            "items": {
+              "example": "",
+              "pattern": "[a-z0-9:\\[\\]_\\.@?\\(\\)]",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "payload": {
+            "properties": {},
+            "type": "object"
+          },
+          "verificationMethod": {
+            "description": "Information used for proof verification",
+            "example": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          }
+        },
+        "required": [
+          "payload"
+        ],
+        "type": "object"
+      },
+      "SDJWSVerify": {
+        "properties": {
+          "sd_jwt": {
+            "example": "eyJhbGciOiJFZERTQSJ9.eyJhIjogIjAifQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk~WyJEM3BUSFdCYWNRcFdpREc2TWZKLUZnIiwgIkRFIl0~WyJPMTFySVRjRTdHcXExYW9oRkd0aDh3IiwgIlNBIl0~WyJkVmEzX1JlTGNsWTU0R1FHZm5oWlRnIiwgInVwZGF0ZWRfYXQiLCAxNTcwMDAwMDAwXQ",
+            "pattern": "^[a-zA-Z0-9_-]+\\.[a-zA-Z0-9_-]*\\.[a-zA-Z0-9_-]+(?:~[a-zA-Z0-9._-]+)*~?$",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SDJWSVerifyResponse": {
+        "properties": {
+          "disclosures": {
+            "description": "Disclosure arrays associated with the SD-JWT",
+            "example": [
+              [
+                "fx1iT_mETjGiC-JzRARnVg",
+                "name",
+                "Alice"
+              ],
+              [
+                "n4-t3mlh8jSS6yMIT7QHnA",
+                "street_address",
+                {
+                  "_sd": [
+                    "kLZrLK7enwfqeOzJ9-Ss88YS3mhjOAEk9lr_ix2Heng"
+                  ]
+                }
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "error": {
+            "description": "Error text",
+            "type": "string"
+          },
+          "headers": {
+            "description": "Headers from verified JWT.",
+            "properties": {},
+            "type": "object"
+          },
+          "kid": {
+            "description": "kid of signer",
+            "type": "string"
+          },
+          "payload": {
+            "description": "Payload from verified JWT",
+            "properties": {},
+            "type": "object"
+          },
+          "valid": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "headers",
+          "kid",
+          "payload",
+          "valid"
         ],
         "type": "object"
       },
