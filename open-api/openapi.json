@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.8.0"
+    "version": "v0.9.0"
   },
   "servers": [
     {
@@ -62,6 +62,14 @@
         "url": "https://github.com/hyperledger/aries-rfcs/tree/25464a5c8f8a17b14edaa4310393df6094ace7b0/features/0023-did-exchange"
       },
       "name": "did-exchange"
+    },
+    {
+      "description": "Rotate a DID",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://github.com/hyperledger/aries-rfcs/tree/main/features/0794-did-rotate"
+      },
+      "name": "did-rotate"
     },
     {
       "description": "Feature discovery",
@@ -154,7 +162,8 @@
     {
       "description": "did resolver interface.",
       "externalDocs": {
-        "description": "Specification"
+        "description": "DID Resolution Specification",
+        "url": "https://www.w3.org/TR/did-core/#resolution"
       },
       "name": "resolver"
     },
@@ -185,6 +194,14 @@
         "url": "https://github.com/hyperledger/aries-rfcs/tree/527849ec3aa2a8fd47a7bb6c57f918ff8bcb5e8c/features/0048-trust-ping"
       },
       "name": "trustping"
+    },
+    {
+      "description": "Endpoints for managing w3c credentials and presentations",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://w3c-ccg.github.io/vc-api/"
+      },
+      "name": "vc-api"
     },
     {
       "description": "DID and tag policy management",
@@ -391,7 +408,8 @@
             "schema": {
               "enum": [
                 "connections/1.0",
-                "didexchange/1.0"
+                "didexchange/1.0",
+                "didexchange/1.1"
               ],
               "type": "string"
             }
@@ -406,11 +424,10 @@
             }
           },
           {
-            "description": "Identifier of the associated Invitation Mesage",
+            "description": "Identifier of the associated Invitation Message",
             "in": "query",
             "name": "invitation_msg_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           },
@@ -429,15 +446,15 @@
             "name": "state",
             "schema": {
               "enum": [
-                "start",
-                "completed",
                 "abandoned",
-                "error",
                 "active",
+                "completed",
+                "error",
                 "init",
-                "request",
                 "invitation",
-                "response"
+                "request",
+                "response",
+                "start"
               ],
               "type": "string"
             }
@@ -495,6 +512,7 @@
     },
     "/connections/create-invitation": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Alias",
@@ -591,6 +609,7 @@
     },
     "/connections/receive-invitation": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Alias",
@@ -709,6 +728,7 @@
     },
     "/connections/{conn_id}/accept-invitation": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Connection identifier",
@@ -766,6 +786,7 @@
     },
     "/connections/{conn_id}/accept-request": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Connection identifier",
@@ -1543,6 +1564,79 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/did-rotate/{conn_id}/hangup": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "path",
+            "name": "conn_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Hangup"
+                }
+              }
+            },
+            "description": "Hangup agent message for observer"
+          }
+        },
+        "summary": "Send hangup of DID rotation as a rotator",
+        "tags": [
+          "did-rotate"
+        ]
+      }
+    },
+    "/did-rotate/{conn_id}/rotate": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "path",
+            "name": "conn_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DIDRotateRequestJSON"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rotate"
+                }
+              }
+            },
+            "description": "Rotate agent message for observer"
+          }
+        },
+        "summary": "Begin rotation of a DID as a rotator",
+        "tags": [
+          "did-rotate"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/didexchange/create-request": {
       "post": {
         "parameters": [
@@ -1562,6 +1656,14 @@
             "name": "alias",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Auto-accept connection (defaults to configuration)",
+            "in": "query",
+            "name": "auto_accept",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -1607,6 +1709,38 @@
             }
           },
           {
+            "description": "Which DID Exchange Protocol version to use",
+            "in": "query",
+            "name": "protocol",
+            "schema": {
+              "enum": [
+                "didexchange/1.0",
+                "didexchange/1.1"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "The DID to use to for this connection",
+            "in": "query",
+            "name": "use_did",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The DID method to use to generate a DID for this connection",
+            "in": "query",
+            "name": "use_did_method",
+            "schema": {
+              "enum": [
+                "did:peer:2",
+                "did:peer:4"
+              ],
+              "type": "string"
+            }
+          },
+          {
             "description": "Use public DID for this connection",
             "in": "query",
             "name": "use_public_did",
@@ -1635,6 +1769,7 @@
     },
     "/didexchange/receive-request": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Alias for connection",
@@ -1726,6 +1861,26 @@
             "in": "query",
             "name": "my_label",
             "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The DID to use to for this connection",
+            "in": "query",
+            "name": "use_did",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The DID method to use to generate a DID for this connection",
+            "in": "query",
+            "name": "use_did_method",
+            "schema": {
+              "enum": [
+                "did:peer:2",
+                "did:peer:4"
+              ],
               "type": "string"
             }
           }
@@ -2069,7 +2224,6 @@
             "in": "query",
             "name": "connection_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           },
@@ -2111,7 +2265,6 @@
             "in": "query",
             "name": "thread_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -2537,6 +2690,7 @@
     },
     "/issue-credential/create": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -2568,6 +2722,7 @@
     },
     "/issue-credential/create-offer": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -2599,13 +2754,13 @@
     },
     "/issue-credential/records": {
       "get": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Connection identifier",
             "in": "query",
             "name": "connection_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           },
@@ -2647,7 +2802,6 @@
             "in": "query",
             "name": "thread_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -2672,6 +2826,7 @@
     },
     "/issue-credential/records/{cred_ex_id}": {
       "delete": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Credential exchange identifier",
@@ -2702,6 +2857,7 @@
         ]
       },
       "get": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Credential exchange identifier",
@@ -2734,6 +2890,7 @@
     },
     "/issue-credential/records/{cred_ex_id}/issue": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Credential exchange identifier",
@@ -2777,6 +2934,7 @@
     },
     "/issue-credential/records/{cred_ex_id}/problem-report": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Credential exchange identifier",
@@ -2820,6 +2978,7 @@
     },
     "/issue-credential/records/{cred_ex_id}/send-offer": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Credential exchange identifier",
@@ -2863,6 +3022,7 @@
     },
     "/issue-credential/records/{cred_ex_id}/send-request": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Credential exchange identifier",
@@ -2906,6 +3066,7 @@
     },
     "/issue-credential/records/{cred_ex_id}/store": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Credential exchange identifier",
@@ -2949,6 +3110,7 @@
     },
     "/issue-credential/send": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -2980,6 +3142,7 @@
     },
     "/issue-credential/send-offer": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -3011,6 +3174,7 @@
     },
     "/issue-credential/send-proposal": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -3042,6 +3206,7 @@
     },
     "/jsonld/sign": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -3073,6 +3238,7 @@
     },
     "/jsonld/verify": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -3499,12 +3665,11 @@
             "in": "query",
             "name": "conn_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           },
           {
-            "description": "Filer on role, 'client' for keys     mediated by other agents, 'server' for keys     mediated by this agent",
+            "description": "Filer on role, 'client' for keys mediated by other agents, 'server' for keys mediated by this agent",
             "in": "query",
             "name": "role",
             "schema": {
@@ -3544,7 +3709,6 @@
             "name": "mediation_id",
             "required": true,
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           },
@@ -3607,7 +3771,6 @@
             "name": "mediation_id",
             "required": true,
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -3691,7 +3854,6 @@
             "in": "query",
             "name": "conn_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           },
@@ -3736,7 +3898,6 @@
             "name": "mediation_id",
             "required": true,
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -3766,7 +3927,6 @@
             "name": "mediation_id",
             "required": true,
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -3798,7 +3958,6 @@
             "name": "mediation_id",
             "required": true,
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -3841,7 +4000,6 @@
             "name": "mediation_id",
             "required": true,
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -3915,7 +4073,6 @@
             "name": "mediation_id",
             "required": true,
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -3945,6 +4102,14 @@
             "description": "Auto-accept connection (defaults to configuration)",
             "in": "query",
             "name": "auto_accept",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Create unique DID for this invitation (default false)",
+            "in": "query",
+            "name": "create_unique_did",
             "schema": {
               "type": "boolean"
             }
@@ -3985,6 +4150,38 @@
           "out-of-band"
         ],
         "x-codegen-request-body-name": "body"
+      }
+    },
+    "/out-of-band/invitations/{invi_msg_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Invitation Message identifier",
+            "in": "path",
+            "name": "invi_msg_id",
+            "required": true,
+            "schema": {
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationRecordResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Delete records associated with invitation",
+        "tags": [
+          "out-of-band"
+        ]
       }
     },
     "/out-of-band/receive-invitation": {
@@ -4112,7 +4309,6 @@
             "in": "query",
             "name": "connection_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           },
@@ -4151,7 +4347,6 @@
             "in": "query",
             "name": "thread_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -4531,6 +4726,7 @@
     },
     "/present-proof/create-request": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -4562,13 +4758,13 @@
     },
     "/present-proof/records": {
       "get": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Connection identifier",
             "in": "query",
             "name": "connection_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           },
@@ -4608,7 +4804,6 @@
             "in": "query",
             "name": "thread_id",
             "schema": {
-              "format": "uuid",
               "type": "string"
             }
           }
@@ -4633,6 +4828,7 @@
     },
     "/present-proof/records/{pres_ex_id}": {
       "delete": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Presentation exchange identifier",
@@ -4663,6 +4859,7 @@
         ]
       },
       "get": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Presentation exchange identifier",
@@ -4695,6 +4892,7 @@
     },
     "/present-proof/records/{pres_ex_id}/credentials": {
       "get": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Presentation exchange identifier",
@@ -4765,6 +4963,7 @@
     },
     "/present-proof/records/{pres_ex_id}/problem-report": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Presentation exchange identifier",
@@ -4808,6 +5007,7 @@
     },
     "/present-proof/records/{pres_ex_id}/send-presentation": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Presentation exchange identifier",
@@ -4851,6 +5051,7 @@
     },
     "/present-proof/records/{pres_ex_id}/send-request": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Presentation exchange identifier",
@@ -4894,6 +5095,7 @@
     },
     "/present-proof/records/{pres_ex_id}/verify-presentation": {
       "post": {
+        "deprecated": true,
         "parameters": [
           {
             "description": "Presentation exchange identifier",
@@ -4926,6 +5128,7 @@
     },
     "/present-proof/send-proposal": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -4957,6 +5160,7 @@
     },
     "/present-proof/send-request": {
       "post": {
+        "deprecated": true,
         "requestBody": {
           "content": {
             "*/*": {
@@ -5195,6 +5399,24 @@
     },
     "/revocation/publish-revocations": {
       "post": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "query",
+            "name": "conn_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Create Transaction For Endorser's signature",
+            "in": "query",
+            "name": "create_transaction_for_endorser",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "*/*": {
@@ -5730,6 +5952,24 @@
     },
     "/revocation/revoke": {
       "post": {
+        "parameters": [
+          {
+            "description": "Connection identifier",
+            "in": "query",
+            "name": "conn_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Create Transaction For Endorser's signature",
+            "in": "query",
+            "name": "create_transaction_for_endorser",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "*/*": {
@@ -6160,14 +6400,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "description": "Endorser will write the transaction after endorsing it",
-            "in": "query",
-            "name": "endorser_write_txn",
-            "schema": {
-              "type": "boolean"
-            }
           }
         ],
         "requestBody": {
@@ -6454,6 +6686,188 @@
         ]
       }
     },
+    "/vc/credentials": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListCredentialsResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "List credentials",
+        "tags": [
+          "vc-api"
+        ]
+      }
+    },
+    "/vc/credentials/issue": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/IssueCredentialRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssueCredentialResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Issue a credential",
+        "tags": [
+          "vc-api"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/vc/credentials/store": {
+      "post": {
+        "summary": "Store a credential",
+        "tags": [
+          "vc-api"
+        ]
+      }
+    },
+    "/vc/credentials/verify": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyCredentialRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyCredentialResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Verify a credential",
+        "tags": [
+          "vc-api"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/vc/credentials/{credential_id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "credential_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FetchCredentialResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch credential by ID",
+        "tags": [
+          "vc-api"
+        ]
+      }
+    },
+    "/vc/presentations/prove": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/ProvePresentationRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProvePresentationResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Prove a presentation",
+        "tags": [
+          "vc-api"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/vc/presentations/verify": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyPresentationRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyPresentationResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Verify a Presentation",
+        "tags": [
+          "vc-api"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/wallet/did": {
       "get": {
         "parameters": [
@@ -6485,7 +6899,9 @@
             "schema": {
               "enum": [
                 "key",
-                "sov"
+                "sov",
+                "did:peer:2",
+                "did:peer:4"
               ],
               "type": "string"
             }
@@ -6918,6 +7334,9 @@
             "type": "object"
           }
         },
+        "required": [
+          "config"
+        ],
         "type": "object"
       },
       "AdminMediationDeny": {
@@ -7253,7 +7672,8 @@
             "description": "Connection protocol used",
             "enum": [
               "connections/1.0",
-              "didexchange/1.0"
+              "didexchange/1.0",
+              "didexchange/1.1"
             ],
             "example": "connections/1.0",
             "type": "string"
@@ -7297,8 +7717,8 @@
           },
           "my_did": {
             "description": "Our DID for connection",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "request_id": {
@@ -7319,8 +7739,8 @@
           },
           "their_did": {
             "description": "Their DID for connection",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "their_label": {
@@ -7351,6 +7771,9 @@
             "type": "string"
           }
         },
+        "required": [
+          "connection_id"
+        ],
         "type": "object"
       },
       "ConnectionInvitation": {
@@ -7363,7 +7786,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "did": {
@@ -7422,6 +7844,9 @@
             "type": "array"
           }
         },
+        "required": [
+          "results"
+        ],
         "type": "object"
       },
       "ConnectionMetadata": {
@@ -7825,6 +8250,10 @@
             },
             "type": "array"
           },
+          "credentialStatus": {
+            "example": "",
+            "type": "object"
+          },
           "credentialSubject": {
             "example": "",
             "type": "object"
@@ -7836,6 +8265,7 @@
             "type": "string"
           },
           "id": {
+            "description": "The ID of the credential",
             "example": "http://example.edu/credentials/1872",
             "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
             "type": "string"
@@ -7974,6 +8404,9 @@
             "type": "string"
           }
         },
+        "required": [
+          "credential_definition_id"
+        ],
         "type": "object"
       },
       "CredentialDefinitionsCreatedResult": {
@@ -8000,7 +8433,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -8052,7 +8484,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -8124,6 +8555,11 @@
             "example": "ed25519",
             "type": "string"
           },
+          "metadata": {
+            "description": "Additional metadata associated with the DID",
+            "properties": {},
+            "type": "object"
+          },
           "method": {
             "description": "Did method associated with the DID",
             "example": "sov",
@@ -8146,6 +8582,13 @@
             "type": "string"
           }
         },
+        "required": [
+          "did",
+          "key_type",
+          "method",
+          "posture",
+          "verkey"
+        ],
         "type": "object"
       },
       "DIDCreate": {
@@ -8165,7 +8608,7 @@
             "type": "object"
           },
           "seed": {
-            "description": "Optional seed to use for DID, Must beenabled in configuration before use.",
+            "description": "Optional seed to use for DID, Must be enabled in configuration before use.",
             "example": "000000000000000000000000Trustee1",
             "type": "string"
           }
@@ -8265,6 +8708,19 @@
         },
         "type": "object"
       },
+      "DIDRotateRequestJSON": {
+        "properties": {
+          "to_did": {
+            "description": "The DID the rotating party is rotating to",
+            "example": "did:web:example.com",
+            "type": "string"
+          }
+        },
+        "required": [
+          "to_did"
+        ],
+        "type": "object"
+      },
       "DIDXRejectRequest": {
         "properties": {
           "reason": {
@@ -8285,7 +8741,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "did": {
@@ -8501,7 +8956,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "protocols": {
@@ -8527,7 +8981,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "disclosures": {
@@ -8566,6 +9019,33 @@
         ],
         "type": "object"
       },
+      "DocumentVerificationResult": {
+        "properties": {
+          "document": {
+            "properties": {},
+            "type": "object"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/ProofResult"
+            },
+            "type": "array"
+          },
+          "verified": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "verified"
+        ],
+        "type": "object"
+      },
       "EndorserInfo": {
         "properties": {
           "endorser_did": {
@@ -8595,6 +9075,14 @@
             "example": "https://myhost:8021",
             "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "FetchCredentialResponse": {
+        "properties": {
+          "results": {
+            "$ref": "#/components/schemas/VerifiableCredential"
           }
         },
         "type": "object"
@@ -8717,6 +9205,21 @@
               "ROLE_REMOVE"
             ],
             "example": "ENDORSER",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Hangup": {
+        "properties": {
+          "@id": {
+            "description": "Message identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "@type": {
+            "description": "Message type",
+            "example": "https://didcomm.org/my-family/1.0/my-message-type",
             "type": "string"
           }
         },
@@ -8855,6 +9358,9 @@
             "type": "array"
           }
         },
+        "required": [
+          "cred_info"
+        ],
         "type": "object"
       },
       "IndyCredRequest": {
@@ -8882,9 +9388,8 @@
             "type": "string"
           },
           "prover_did": {
-            "description": "Prover DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "description": "Prover DID/Random String/UUID",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "type": "string"
           }
         },
@@ -9216,7 +9721,7 @@
         "properties": {
           "@type": {
             "description": "Message type identifier",
-            "example": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/presentation-preview",
+            "example": "https://didcomm.org/present-proof/1.0/presentation-preview",
             "type": "string"
           },
           "attributes": {
@@ -10003,7 +10508,7 @@
           "handshake_protocols": {
             "items": {
               "description": "Handshake protocol to specify in invitation",
-              "example": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/didexchange/1.0",
+              "example": "https://didcomm.org/didexchange/1.0",
               "type": "string"
             },
             "type": "array"
@@ -10027,6 +10532,20 @@
           "protocol_version": {
             "description": "OOB protocol version",
             "example": "1.1",
+            "type": "string"
+          },
+          "use_did": {
+            "description": "DID to use in invitation",
+            "example": "did:example:123",
+            "type": "string"
+          },
+          "use_did_method": {
+            "description": "DID method to use in invitation",
+            "enum": [
+              "did:peer:2",
+              "did:peer:4"
+            ],
+            "example": "did:peer:2",
             "type": "string"
           },
           "use_public_did": {
@@ -10073,7 +10592,7 @@
           "handshake_protocols": {
             "items": {
               "description": "Handshake protocol",
-              "example": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/didexchange/1.0",
+              "example": "https://didcomm.org/didexchange/1.0",
               "type": "string"
             },
             "type": "array"
@@ -10177,6 +10696,9 @@
         },
         "type": "object"
       },
+      "InvitationRecordResponse": {
+        "type": "object"
+      },
       "InvitationResult": {
         "properties": {
           "connection_id": {
@@ -10193,9 +10715,33 @@
             "type": "string"
           }
         },
+        "required": [
+          "connection_id",
+          "invitation",
+          "invitation_url"
+        ],
         "type": "object"
       },
       "IssueCredentialModuleResponse": {
+        "type": "object"
+      },
+      "IssueCredentialRequest": {
+        "properties": {
+          "credential": {
+            "$ref": "#/components/schemas/Credential"
+          },
+          "options": {
+            "$ref": "#/components/schemas/LDProofVCOptions"
+          }
+        },
+        "type": "object"
+      },
+      "IssueCredentialResponse": {
+        "properties": {
+          "verifiableCredential": {
+            "$ref": "#/components/schemas/VerifiableCredential"
+          }
+        },
         "type": "object"
       },
       "IssuerCredRevRecord": {
@@ -10452,7 +10998,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "filter": {
@@ -10512,7 +11057,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "updates": {
@@ -10598,7 +11142,7 @@
           "options": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/LDProofVCDetailOptions"
+                "$ref": "#/components/schemas/LDProofVCOptions"
               }
             ],
             "description": "Options for specifying how the linked data proof is created.",
@@ -10614,7 +11158,7 @@
         ],
         "type": "object"
       },
-      "LDProofVCDetailOptions": {
+      "LDProofVCOptions": {
         "properties": {
           "challenge": {
             "description": "A challenge to include in the proof. SHOULD be provided by the requesting party of the credential (=holder)",
@@ -10650,11 +11194,13 @@
             "description": "The proof type used for the proof. Should match suites registered in the Linked Data Cryptographic Suite Registry",
             "example": "Ed25519Signature2018",
             "type": "string"
+          },
+          "verificationMethod": {
+            "description": "The verification method to use for the proof. Should match a verification method in the wallet",
+            "example": "did:example:123456#key-1",
+            "type": "string"
           }
         },
-        "required": [
-          "proofType"
-        ],
         "type": "object"
       },
       "LedgerConfigInstance": {
@@ -10714,7 +11260,7 @@
           },
           "domain": {
             "description": "A string value specifying the restricted domain of the signature.",
-            "example": "example.com",
+            "example": "https://example.com",
             "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
             "type": "string"
           },
@@ -10758,6 +11304,9 @@
         ],
         "type": "object"
       },
+      "ListCredentialsResponse": {
+        "type": "object"
+      },
       "MediationCreateRequest": {
         "type": "object"
       },
@@ -10771,7 +11320,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           }
         },
@@ -10787,7 +11335,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "endpoint": {
@@ -10810,10 +11357,12 @@
           "mediation_id": {
             "description": "Mediation record identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           }
         },
+        "required": [
+          "mediation_id"
+        ],
         "type": "object"
       },
       "MediationList": {
@@ -10826,6 +11375,9 @@
             "type": "array"
           }
         },
+        "required": [
+          "results"
+        ],
         "type": "object"
       },
       "MediationRecord": {
@@ -10896,7 +11448,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "description": {
@@ -11087,6 +11638,11 @@
             "description": "Out of band invitation message",
             "type": "object"
           },
+          "multi_use": {
+            "description": "Allow for multiple uses of the oob invitation",
+            "example": true,
+            "type": "boolean"
+          },
           "oob_id": {
             "description": "Oob record identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -11179,6 +11735,69 @@
         },
         "type": "object"
       },
+      "Presentation": {
+        "properties": {
+          "@context": {
+            "description": "The JSON-LD context of the presentation",
+            "example": [
+              "https://www.w3.org/2018/credentials/v1"
+            ],
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "holder": {
+            "description": "The JSON-LD Verifiable Credential Holder. Either string of object with id field.",
+            "example": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+            "type": "object"
+          },
+          "id": {
+            "description": "The ID of the presentation",
+            "example": "http://example.edu/presentations/1872",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          },
+          "proof": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LinkedDataProof"
+              }
+            ],
+            "description": "The proof of the presentation",
+            "example": {
+              "created": "2019-12-11T03:50:55",
+              "jws": "eyJhbGciOiAiRWREU0EiLCAiYjY0IjogZmFsc2UsICJjcml0JiNjQiXX0..lKJU0Df_keblRKhZAS9Qq6zybm-HqUXNVZ8vgEPNTAjQKBhQDxvXNo7nvtUBb_Eq1Ch6YBKY5qBQ",
+              "proofPurpose": "assertionMethod",
+              "type": "Ed25519Signature2018",
+              "verificationMethod": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL"
+            },
+            "type": "object"
+          },
+          "type": {
+            "description": "The JSON-LD type of the presentation",
+            "example": [
+              "VerifiablePresentation"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "verifiableCredential": {
+            "items": {
+              "properties": {},
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "@context",
+          "type"
+        ],
+        "type": "object"
+      },
       "PresentationDefinition": {
         "properties": {
           "format": {
@@ -11223,7 +11842,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -11250,7 +11868,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -11270,6 +11887,32 @@
         ],
         "type": "object"
       },
+      "PresentationVerificationResult": {
+        "properties": {
+          "credential_results": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentVerificationResult"
+            },
+            "type": "array"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "presentation_result": {
+            "$ref": "#/components/schemas/DocumentVerificationResult"
+          },
+          "verified": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "verified"
+        ],
+        "type": "object"
+      },
       "ProfileSettings": {
         "properties": {
           "settings": {
@@ -11281,6 +11924,24 @@
             },
             "properties": {},
             "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "ProofResult": {
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "proof": {
+            "properties": {},
+            "type": "object"
+          },
+          "purpose_result": {
+            "$ref": "#/components/schemas/PurposeResult"
+          },
+          "verified": {
+            "type": "boolean"
           }
         },
         "type": "object"
@@ -11306,6 +11967,25 @@
         ],
         "type": "object"
       },
+      "ProvePresentationRequest": {
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/LDProofVCOptions"
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/Presentation"
+          }
+        },
+        "type": "object"
+      },
+      "ProvePresentationResponse": {
+        "properties": {
+          "verifiablePresentation": {
+            "$ref": "#/components/schemas/VerifiablePresentation"
+          }
+        },
+        "type": "object"
+      },
       "PublishRevocations": {
         "properties": {
           "rrid2crid": {
@@ -11324,6 +12004,21 @@
         },
         "type": "object"
       },
+      "PurposeResult": {
+        "properties": {
+          "controller": {
+            "properties": {},
+            "type": "object"
+          },
+          "error": {
+            "type": "string"
+          },
+          "valid": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
       "Queries": {
         "properties": {
           "@id": {
@@ -11334,7 +12029,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "queries": {
@@ -11356,7 +12050,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -11418,7 +12111,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "did": {
@@ -11627,6 +12319,29 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "Rotate": {
+        "properties": {
+          "@id": {
+            "description": "Message identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "@type": {
+            "description": "Message type",
+            "example": "https://didcomm.org/my-family/1.0/my-message-type",
+            "type": "string"
+          },
+          "to_did": {
+            "description": "The DID the rotating party is rotating to",
+            "example": "did:example:newdid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "to_did"
+        ],
         "type": "object"
       },
       "RouteRecord": {
@@ -12223,7 +12938,7 @@
             "type": "string"
           },
           "connection_id": {
-            "description": "The connection identifier for thie particular transaction record",
+            "description": "The connection identifier for this particular transaction record",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "type": "string"
           },
@@ -12234,8 +12949,8 @@
             "type": "string"
           },
           "endorser_write_txn": {
-            "description": "If True, Endorser will write the transaction after endorsing it",
-            "example": true,
+            "description": "Request Endorser to write the ledger transaction, this parameter is deprecated and no longer supported.",
+            "example": false,
             "type": "boolean"
           },
           "formats": {
@@ -12287,7 +13002,7 @@
                 "author_goal_code": "aries.transaction.ledger.write",
                 "context": "did:sov",
                 "method": "add-signature",
-                "signature_type": "<requested signature type>",
+                "signature_type": "default",
                 "signer_goal_code": "aries.transaction.endorse"
               },
               "properties": {},
@@ -12766,7 +13481,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "cred_def_id": {
@@ -12825,7 +13539,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "cred_def_id": {
@@ -12891,7 +13604,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "cred_def_id": {
@@ -13229,7 +13941,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "presentation_proposal": {
@@ -13307,7 +14018,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "proof_request": {
@@ -13406,7 +14116,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "credential_preview": {
@@ -13848,7 +14557,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -13913,7 +14621,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -14011,7 +14718,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "credential_preview": {
@@ -14072,7 +14778,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -14120,7 +14825,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -14163,7 +14867,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "filter": {
@@ -14358,7 +15061,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -14624,7 +15326,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -14632,6 +15333,7 @@
             "type": "string"
           },
           "formats": {
+            "description": "Acceptable attachment formats",
             "items": {
               "$ref": "#/components/schemas/V20PresFormat"
             },
@@ -14692,7 +15394,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "presentation_proposal": {
@@ -14720,7 +15421,6 @@
           "@type": {
             "description": "Message type",
             "example": "https://didcomm.org/my-family/1.0/my-message-type",
-            "readOnly": true,
             "type": "string"
           },
           "comment": {
@@ -14728,6 +15428,7 @@
             "type": "string"
           },
           "formats": {
+            "description": "Acceptable attachment formats",
             "items": {
               "$ref": "#/components/schemas/V20PresFormat"
             },
@@ -14792,7 +15493,6 @@
           "connection_id": {
             "description": "Connection identifier",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "format": "uuid",
             "type": "string"
           },
           "presentation_request": {
@@ -14822,7 +15522,7 @@
                 "$ref": "#/components/schemas/DIFPresSpec"
               }
             ],
-            "description": "Optional Presentation specification for DIF, overrides the PresentionExchange record's PresRequest",
+            "description": "Optional Presentation specification for DIF, overrides the PresentationExchange record's PresRequest",
             "type": "object"
           },
           "indy": {
@@ -14943,6 +15643,190 @@
               "$ref": "#/components/schemas/VCRecord"
             },
             "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "VerifiableCredential": {
+        "properties": {
+          "@context": {
+            "description": "The JSON-LD context of the credential",
+            "example": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://www.w3.org/2018/credentials/examples/v1"
+            ],
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "credentialStatus": {
+            "example": "",
+            "type": "object"
+          },
+          "credentialSubject": {
+            "example": "",
+            "type": "object"
+          },
+          "expirationDate": {
+            "description": "The expiration date",
+            "example": "2010-01-01T19:23:24Z",
+            "pattern": "^([0-9]{4})-([0-9]{2})-([0-9]{2})([Tt ]([0-9]{2}):([0-9]{2}):([0-9]{2})(\\.[0-9]+)?)?(([Zz]|([+-])([0-9]{2}):([0-9]{2})))?$",
+            "type": "string"
+          },
+          "id": {
+            "description": "The ID of the credential",
+            "example": "http://example.edu/credentials/1872",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          },
+          "issuanceDate": {
+            "description": "The issuance date",
+            "example": "2010-01-01T19:23:24Z",
+            "pattern": "^([0-9]{4})-([0-9]{2})-([0-9]{2})([Tt ]([0-9]{2}):([0-9]{2}):([0-9]{2})(\\.[0-9]+)?)?(([Zz]|([+-])([0-9]{2}):([0-9]{2})))?$",
+            "type": "string"
+          },
+          "issuer": {
+            "description": "The JSON-LD Verifiable Credential Issuer. Either string of object with id field.",
+            "example": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+            "type": "object"
+          },
+          "proof": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LinkedDataProof"
+              }
+            ],
+            "description": "The proof of the credential",
+            "example": {
+              "created": "2019-12-11T03:50:55",
+              "jws": "eyJhbGciOiAiRWREU0EiLCAiYjY0IjogZmFsc2UsICJjcml0JiNjQiXX0..lKJU0Df_keblRKhZAS9Qq6zybm-HqUXNVZ8vgEPNTAjQKBhQDxvXNo7nvtUBb_Eq1Ch6YBKY5qBQ",
+              "proofPurpose": "assertionMethod",
+              "type": "Ed25519Signature2018",
+              "verificationMethod": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL"
+            },
+            "type": "object"
+          },
+          "type": {
+            "description": "The JSON-LD type of the credential",
+            "example": [
+              "VerifiableCredential",
+              "AlumniCredential"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "@context",
+          "credentialSubject",
+          "issuanceDate",
+          "issuer",
+          "proof",
+          "type"
+        ],
+        "type": "object"
+      },
+      "VerifiablePresentation": {
+        "properties": {
+          "@context": {
+            "description": "The JSON-LD context of the presentation",
+            "example": [
+              "https://www.w3.org/2018/credentials/v1"
+            ],
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "holder": {
+            "description": "The JSON-LD Verifiable Credential Holder. Either string of object with id field.",
+            "example": "did:key:z6MkpTHR8VNsBxYAAWHut2Geadd9jSwuBV8xRoAnwWsdvktH",
+            "type": "object"
+          },
+          "id": {
+            "description": "The ID of the presentation",
+            "example": "http://example.edu/presentations/1872",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          },
+          "proof": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LinkedDataProof"
+              }
+            ],
+            "description": "The proof of the presentation",
+            "example": {
+              "created": "2019-12-11T03:50:55",
+              "jws": "eyJhbGciOiAiRWREU0EiLCAiYjY0IjogZmFsc2UsICJjcml0JiNjQiXX0..lKJU0Df_keblRKhZAS9Qq6zybm-HqUXNVZ8vgEPNTAjQKBhQDxvXNo7nvtUBb_Eq1Ch6YBKY5qBQ",
+              "proofPurpose": "assertionMethod",
+              "type": "Ed25519Signature2018",
+              "verificationMethod": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL"
+            },
+            "type": "object"
+          },
+          "type": {
+            "description": "The JSON-LD type of the presentation",
+            "example": [
+              "VerifiablePresentation"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "verifiableCredential": {
+            "items": {
+              "properties": {},
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "@context",
+          "proof",
+          "type"
+        ],
+        "type": "object"
+      },
+      "VerifyCredentialRequest": {
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/LDProofVCOptions"
+          },
+          "verifiableCredential": {
+            "$ref": "#/components/schemas/VerifiableCredential"
+          }
+        },
+        "type": "object"
+      },
+      "VerifyCredentialResponse": {
+        "properties": {
+          "results": {
+            "$ref": "#/components/schemas/PresentationVerificationResult"
+          }
+        },
+        "type": "object"
+      },
+      "VerifyPresentationRequest": {
+        "properties": {
+          "options": {
+            "$ref": "#/components/schemas/LDProofVCOptions"
+          },
+          "verifiablePresentation": {
+            "$ref": "#/components/schemas/VerifiablePresentation"
+          }
+        },
+        "type": "object"
+      },
+      "VerifyPresentationResponse": {
+        "properties": {
+          "results": {
+            "$ref": "#/components/schemas/PresentationVerificationResult"
           }
         },
         "type": "object"

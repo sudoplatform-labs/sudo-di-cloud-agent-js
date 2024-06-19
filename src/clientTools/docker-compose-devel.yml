@@ -72,6 +72,7 @@ services:
         --webhook-url ${ENDORSER_WEBHOOK_MOCKSERVER_INTERNAL_URL:-}
         --endorser-protocol-role endorser
         --auto-endorse-transactions
+        --auto-store-credential
     networks:
       - frontend
     depends_on:
@@ -135,7 +136,8 @@ services:
         --auto-request-endorsement
         --auto-write-transactions
         --auto-create-revocation-transactions
-        --endorser-invitation ${ENDORSER_INVITATION:-} 
+        --endorser-invitation ${ENDORSER_INVITATION:-}
+        --auto-store-credential
     networks:
       - frontend
     depends_on:
