@@ -9,7 +9,7 @@ ACA_PY_DOCKER_IMAGE_DEFAULT="sudo-di-acapy"
 
 # Indy Tails File Server build config defaults
 TAILS_SERVER_GIT_REPO_DEFAULT="https://github.com/anonyome/indy-tails-server.git"
-TAILS_SERVER_GIT_TAG_DEFAULT=100.0.0
+TAILS_SERVER_GIT_TAG_DEFAULT=100.100.0
 TAILS_SERVER_DOCKER_IMAGE_DEFAULT="sudo-di-tails-server"
 
 # VON Network build config defaults
