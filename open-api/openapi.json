@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.9.1"
+    "version": "v100.0.100"
   },
   "servers": [
     {
@@ -22,6 +22,14 @@
     {
       "description": "Menu interaction over connection",
       "name": "action-menu"
+    },
+    {
+      "description": "Anoncreds wallet upgrade",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://hyperledger.github.io/anoncreds-spec"
+      },
+      "name": "anoncreds - wallet upgrade"
     },
     {
       "description": "Simple messaging",
@@ -134,6 +142,22 @@
         "url": "https://github.com/hyperledger/aries-rfcs/tree/fa8dc4ea1e667eb07db8f9ffeaf074a4455697c0/features/0211-route-coordination"
       },
       "name": "mediation"
+    },
+    {
+      "description": "OpenID for VC Issuance",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-11.html"
+      },
+      "name": "oid4vci"
+    },
+    {
+      "description": "OpenID for VP",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID2.html"
+      },
+      "name": "oid4vp"
     },
     {
       "description": "Out-of-band connections",
@@ -390,6 +414,37 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/anoncreds/wallet/upgrade": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Name of wallet to upgrade to anoncreds",
+            "in": "query",
+            "name": "wallet_name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpgradeResult"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "\n        Upgrade the wallet from askar to anoncreds - Be very careful with this! You \n        cannot go back! See migration guide for more information.\n    ",
+        "tags": [
+          "anoncreds - wallet upgrade"
+        ]
+      }
+    },
     "/connections": {
       "get": {
         "parameters": [
@@ -432,12 +487,30 @@
             }
           },
           {
+            "description": "Number of results to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 100,
+              "type": "integer"
+            }
+          },
+          {
             "description": "My DID",
             "in": "query",
             "name": "my_did",
             "schema": {
               "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
+            }
+          },
+          {
+            "description": "Offset for pagination",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "type": "integer"
             }
           },
           {
@@ -1637,6 +1710,37 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/did/jwk/create": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDIDJWKRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDIDJWKResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create DID JWK.",
+        "tags": [
+          "did"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/didexchange/create-request": {
       "post": {
         "parameters": [
@@ -2228,6 +2332,24 @@
             }
           },
           {
+            "description": "Number of results to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Offset for pagination",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "type": "integer"
+            }
+          },
+          {
             "description": "Role assigned in credential exchange",
             "in": "query",
             "name": "role",
@@ -2762,6 +2884,24 @@
             "name": "connection_id",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Number of results to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Offset for pagination",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "type": "integer"
             }
           },
           {
@@ -3718,7 +3858,6 @@
             "name": "paginate_limit",
             "schema": {
               "default": -1,
-              "format": "int32",
               "type": "integer"
             }
           },
@@ -3728,7 +3867,6 @@
             "name": "paginate_offset",
             "schema": {
               "default": 0,
-              "format": "int32",
               "type": "integer"
             }
           }
@@ -4095,6 +4233,593 @@
         ]
       }
     },
+    "/oid4vci/credential-offer": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "exchange_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "user_pin_required",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredOffer"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get a credential offer",
+        "tags": [
+          "oid4vci"
+        ]
+      }
+    },
+    "/oid4vci/credential-supported/create": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SupportedCredCreateRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredential"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Register a Oid4vci credential",
+        "tags": [
+          "oid4vci"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vci/credential-supported/create/jwt": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/JwtSupportedCredCreateRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredential"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Register a configuration for a supported JWT VC credential",
+        "tags": [
+          "oid4vci"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vci/credential-supported/create/sd-jwt": {
+      "post": {
+        "description": "\nThis endpoint feeds into the Credential Issuer Metadata reported by the Issuer to its clients.\n\nSee the SD-JWT VC profile for more details on these properties:\nhttps://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID1.html#name-credential-issuer-metadata-6\n",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SdJwtSupportedCredCreateReq"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredential"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Register a configuration for a supported SD-JWT VC credential",
+        "tags": [
+          "oid4vci"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vci/credential-supported/records": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Filter by credential format.",
+            "in": "query",
+            "name": "format",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by credential supported identifier.",
+            "in": "query",
+            "name": "supported_cred_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredentialList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch all credential supported records",
+        "tags": [
+          "oid4vci"
+        ]
+      }
+    },
+    "/oid4vci/exchange-supported/records/{supported_cred_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Credential supported identifier",
+            "in": "path",
+            "name": "supported_cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredential"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Remove an existing credential supported record",
+        "tags": [
+          "oid4vci"
+        ]
+      }
+    },
+    "/oid4vci/exchange/create": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/ExchangeRecordCreateRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VCIExchangeRecord"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a credential exchange record",
+        "tags": [
+          "oid4vci"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vci/exchange/records": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Filter by exchange record identifier.",
+            "in": "query",
+            "name": "exchange_id",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by exchange record state.",
+            "in": "query",
+            "name": "state",
+            "schema": {
+              "enum": [
+                "created",
+                "offer",
+                "issued",
+                "failed"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by supported credential identifier.",
+            "in": "query",
+            "name": "supported_cred_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRecordList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch all credential exchange records",
+        "tags": [
+          "oid4vci"
+        ]
+      }
+    },
+    "/oid4vci/exchange/records/{exchange_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Credential exchange identifier",
+            "in": "path",
+            "name": "exchange_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VCIExchangeRecord"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Remove an existing exchange record",
+        "tags": [
+          "oid4vci"
+        ]
+      }
+    },
+    "/oid4vp/presentation-definition": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOID4VPPresDefRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOID4VPPresDefResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create an OID4VP Presentation Definition.",
+        "tags": [
+          "oid4vp"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vp/presentation/{presentation_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "presentation_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPPresentation"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Delete presentation.",
+        "tags": [
+          "oid4vp"
+        ]
+      }
+    },
+    "/oid4vp/presentation/{request_id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "presentation_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "request_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOID4VPPresResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch presentation.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "presentation_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "request_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOID4VPPresResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch presentation.",
+        "tags": [
+          "oid4vp"
+        ]
+      }
+    },
+    "/oid4vp/presentations": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Filter by presentation definition identifier.",
+            "in": "query",
+            "name": "pres_def_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by presentation identifier.",
+            "in": "query",
+            "name": "presentation_id",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by presentation state.",
+            "in": "query",
+            "name": "state",
+            "schema": {
+              "enum": [
+                "request-created",
+                "request-retrieved",
+                "presentation-invalid",
+                "presentation-valid"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPPresList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch all Presentations.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Filter by presentation definition identifier.",
+            "in": "query",
+            "name": "pres_def_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by presentation identifier.",
+            "in": "query",
+            "name": "presentation_id",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by presentation state.",
+            "in": "query",
+            "name": "state",
+            "schema": {
+              "enum": [
+                "request-created",
+                "request-retrieved",
+                "presentation-invalid",
+                "presentation-valid"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPPresList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch all Presentations.",
+        "tags": [
+          "oid4vp"
+        ]
+      }
+    },
+    "/oid4vp/request": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOID4VPReqRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateOID4VPReqResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create an OID4VP Request.",
+        "tags": [
+          "oid4vp"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/out-of-band/create-invitation": {
       "post": {
         "parameters": [
@@ -4310,6 +5035,24 @@
             "name": "connection_id",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Number of results to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Offset for pagination",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "type": "integer"
             }
           },
           {
@@ -4766,6 +5509,24 @@
             "name": "connection_id",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Number of results to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Offset for pagination",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "type": "integer"
             }
           },
           {
@@ -6806,6 +7567,68 @@
         ]
       }
     },
+    "/vc/di/add-proof": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/AddProof"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddProofResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Add a DataIntegrityProof to a document.",
+        "tags": [
+          "vc"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/vc/di/verify": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyDiRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyDiResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Verify a document secured with a data integrity proof.",
+        "tags": [
+          "vc"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/vc/presentations/prove": {
       "post": {
         "requestBody": {
@@ -7178,6 +8001,96 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/wallet/keys": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateKeyRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateKeyResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a key pair",
+        "tags": [
+          "wallet"
+        ],
+        "x-codegen-request-body-name": "body"
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateKeyRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateKeyResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update a key pair's kid",
+        "tags": [
+          "wallet"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/wallet/keys/{multikey}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "multikey",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FetchKeyResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch key info.",
+        "tags": [
+          "wallet"
+        ]
+      }
+    },
     "/wallet/sd-jwt/sign": {
       "post": {
         "requestBody": {
@@ -7326,6 +8239,50 @@
       "ActionMenuModulesResult": {
         "type": "object"
       },
+      "AddProof": {
+        "properties": {
+          "document": {
+            "example": {
+              "hello": "world"
+            },
+            "properties": {},
+            "type": "object"
+          },
+          "options": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DataIntegrityProofOptions"
+              }
+            ],
+            "example": {
+              "cryptosuite": "eddsa-jcs-2022",
+              "proofPurpose": "assertionMethod",
+              "type": "DataIntegrityProof",
+              "verificationMethod": "did:web:example.com#key-01"
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "document"
+        ],
+        "type": "object"
+      },
+      "AddProofResponse": {
+        "properties": {
+          "secured_document": {
+            "example": {
+              "hello": "world"
+            },
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "secured_document"
+        ],
+        "type": "object"
+      },
       "AdminConfig": {
         "properties": {
           "config": {
@@ -7415,7 +8372,6 @@
           "byte_count": {
             "description": "Byte count of data included by reference",
             "example": 1234,
-            "format": "int32",
             "type": "integer"
           },
           "data": {
@@ -7589,6 +8545,10 @@
       },
       "ClaimFormat": {
         "properties": {
+          "di_vc": {
+            "properties": {},
+            "type": "object"
+          },
           "jwt": {
             "properties": {},
             "type": "object"
@@ -8017,6 +8977,34 @@
         },
         "type": "object"
       },
+      "CreateDIDJWKRequest": {
+        "properties": {
+          "key_type": {
+            "description": "Type of key",
+            "enum": [
+              "ed25519",
+              "p256"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "key_type"
+        ],
+        "type": "object"
+      },
+      "CreateDIDJWKResponse": {
+        "properties": {
+          "did": {
+            "description": "The created did:jwk",
+            "type": "string"
+          }
+        },
+        "required": [
+          "did"
+        ],
+        "type": "object"
+      },
       "CreateInvitationRequest": {
         "properties": {
           "mediation_id": {
@@ -8061,6 +9049,99 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "CreateKeyRequest": {
+        "properties": {
+          "alg": {
+            "description": "Which key algorithm to use.",
+            "example": "ed25519",
+            "type": "string"
+          },
+          "kid": {
+            "description": "Optional kid to bind to the keypair,                 such as a verificationMethod.",
+            "example": "did:web:example.com#key-01",
+            "type": "string"
+          },
+          "seed": {
+            "description": "Optional seed to generate the key pair.                 Must enable insecure wallet mode.",
+            "example": "00000000000000000000000000000000",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateKeyResponse": {
+        "properties": {
+          "kid": {
+            "description": "The associated kid",
+            "example": "did:web:example.com#key-01",
+            "type": "string"
+          },
+          "multikey": {
+            "description": "The Public Key Multibase format (multikey)",
+            "example": "z6MkgKA7yrw5kYSiDuQFcye4bMaJpcfHFry3Bx45pdWh3s8i",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateOID4VPPresDefRequest": {
+        "properties": {
+          "pres_def": {
+            "description": "The presentation definition",
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "pres_def"
+        ],
+        "type": "object"
+      },
+      "CreateOID4VPPresDefResponse": {
+        "properties": {
+          "pres_def": {
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "pres_def"
+        ],
+        "type": "object"
+      },
+      "CreateOID4VPReqRequest": {
+        "properties": {
+          "pres_def_id": {
+            "description": "Identifier used to identify presentation definition",
+            "type": "string"
+          },
+          "vp_formats": {
+            "description": "Expected presentation formats from the holder",
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "vp_formats"
+        ],
+        "type": "object"
+      },
+      "CreateOID4VPReqResponse": {
+        "properties": {
+          "request": {
+            "$ref": "#/components/schemas/OID4VPRequest"
+          },
+          "request_uri": {
+            "description": "URI for the holder to resolve the request",
+            "type": "string"
+          }
+        },
+        "required": [
+          "request",
+          "request_uri"
+        ],
         "type": "object"
       },
       "CredAttrSpec": {
@@ -8197,6 +9278,45 @@
             "type": "array"
           }
         },
+        "type": "object"
+      },
+      "CredOffer": {
+        "properties": {
+          "credential_issuer": {
+            "description": "The URL of the credential issuer.",
+            "example": "https://example.com",
+            "type": "string"
+          },
+          "credentials": {
+            "items": {
+              "description": "The credential type identifier.",
+              "example": "UniversityDegreeCredential",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "grants": {
+            "$ref": "#/components/schemas/CredOfferGrant"
+          }
+        },
+        "required": [
+          "credential_issuer",
+          "grants"
+        ],
+        "type": "object"
+      },
+      "CredOfferGrant": {
+        "properties": {
+          "pre_authorized_code": {
+            "type": "string"
+          },
+          "user_pin_required": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "pre_authorized_code"
+        ],
         "type": "object"
       },
       "CredRevIndyRecordsResult": {
@@ -8372,7 +9492,6 @@
           "revocation_registry_size": {
             "description": "Revocation registry size",
             "example": 1000,
-            "format": "int32",
             "maximum": 32768,
             "minimum": 4,
             "type": "integer"
@@ -8681,6 +9800,12 @@
             ],
             "example": "Endpoint",
             "type": "string"
+          },
+          "mediation_id": {
+            "description": "Medation ID to use for endpoint information.",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "type": "string"
           }
         },
         "required": [
@@ -8932,6 +10057,78 @@
         ],
         "type": "object"
       },
+      "DataIntegrityProofOptions": {
+        "properties": {
+          "challenge": {
+            "description": "The value is used once for a particular domain and window of time.                     This value is used to mitigate replay attacks.",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "created": {
+            "description": "The date and time the proof was created is OPTIONAL and, if                     included, MUST be specified as an [XMLSCHEMA11-2]                         dateTimeStamp string",
+            "example": "2010-01-01T19:23:24Z",
+            "type": "string"
+          },
+          "cryptosuite": {
+            "description": "An identifier for the cryptographic suite that can be used to                     verify the proof.",
+            "example": "eddsa-jcs-2022",
+            "type": "string"
+          },
+          "domain": {
+            "description": "It conveys one or more security domains in which the proof is                     meant to be used.",
+            "example": "example.com",
+            "type": "string"
+          },
+          "expires": {
+            "description": "The expires property is OPTIONAL and, if present, specifies when                     the proof expires. If present, it MUST be an [XMLSCHEMA11-2]                         dateTimeStamp string",
+            "example": "2010-01-01T19:23:24Z",
+            "type": "string"
+          },
+          "id": {
+            "description": "An optional identifier for the proof, which MUST be a URL [URL],                     such as a UUID as a URN",
+            "example": "urn:uuid:6a1676b8-b51f-11ed-937b-d76685a20ff5",
+            "type": "string"
+          },
+          "nonce": {
+            "description": "One use of this field is to increase privacy by decreasing                 linkability that is the result of deterministically                     generated signatures.",
+            "example": "CF69iO3nfvqRsRBNElE8b4wO39SyJHPM7Gg1nExltW5vSfQA1lvDCR/zXX1To0/4NLo==",
+            "type": "string"
+          },
+          "previousProof": {
+            "description": "Each value identifies another data integrity proof that                 MUST verify before the current proof is processed.",
+            "example": "urn:uuid:6a1676b8-b51f-11ed-937b-d76685a20ff5",
+            "type": "string"
+          },
+          "proofPurpose": {
+            "description": "The proof purpose acts as a safeguard to prevent the                 proof from being misused by being applied to a purpose other than                     the one that was intended.",
+            "example": "assertionMethod",
+            "type": "string"
+          },
+          "proofValue": {
+            "description": "The value of the proof signature.",
+            "example": "zsy1AahqbzJQ63n9RtekmwzqZeVj494VppdAVJBnMYrTwft6cLJJGeTSSxCCJ6HKnRtwE7jjDh6sB2z2AAiZY9BBnCD8wUVgwqH3qchGRCuC2RugA4eQ9fUrR4Yuycac3caiaaay",
+            "type": "string"
+          },
+          "type": {
+            "description": "The specific type of proof MUST be specified as a string that maps                     to a URL [URL].",
+            "example": "DataIntegrityProof",
+            "type": "string"
+          },
+          "verificationMethod": {
+            "description": "A verification method is the means and information                 needed to verify the proof. ",
+            "example": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          }
+        },
+        "required": [
+          "cryptosuite",
+          "proofPurpose",
+          "type",
+          "verificationMethod"
+        ],
+        "type": "object"
+      },
       "Date": {
         "properties": {
           "expires_time": {
@@ -9079,10 +10276,73 @@
         },
         "type": "object"
       },
+      "ExchangeRecordCreateRequest": {
+        "properties": {
+          "credential_subject": {
+            "description": "desired claim and value in credential",
+            "properties": {},
+            "type": "object"
+          },
+          "did": {
+            "description": "DID of interest",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "type": "string"
+          },
+          "pin": {
+            "description": "User PIN sent out of band to the user.",
+            "type": "string"
+          },
+          "supported_cred_id": {
+            "description": "Identifier used to identify credential supported record",
+            "type": "string"
+          },
+          "verification_method": {
+            "description": "Information used for proof verification",
+            "example": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          }
+        },
+        "required": [
+          "credential_subject",
+          "supported_cred_id"
+        ],
+        "type": "object"
+      },
+      "ExchangeRecordList": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OID4VCIExchangeRecord"
+              }
+            ],
+            "description": "Exchange records",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "FetchCredentialResponse": {
         "properties": {
           "results": {
             "$ref": "#/components/schemas/VerifiableCredential"
+          }
+        },
+        "type": "object"
+      },
+      "FetchKeyResponse": {
+        "properties": {
+          "kid": {
+            "description": "The associated kid",
+            "example": "did:web:example.com#key-01",
+            "type": "string"
+          },
+          "multikey": {
+            "description": "The Public Key Multibase format (multikey)",
+            "example": "z6MkgKA7yrw5kYSiDuQFcye4bMaJpcfHFry3Bx45pdWh3s8i",
+            "type": "string"
           }
         },
         "type": "object"
@@ -9115,7 +10375,6 @@
           "maxLength": {
             "description": "Max Length",
             "example": 1234,
-            "format": "int32",
             "type": "integer"
           },
           "maximum": {
@@ -9125,7 +10384,6 @@
           "minLength": {
             "description": "Min Length",
             "example": 1234,
-            "format": "int32",
             "type": "integer"
           },
           "minimum": {
@@ -9208,6 +10466,42 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "GetOID4VPPresResponse": {
+        "properties": {
+          "errors": {
+            "items": {
+              "description": "Errors raised during validation.",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "presentation_id": {
+            "description": "Presentation identifier",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status of the presentation",
+            "enum": [
+              "request-created",
+              "request-retrieved",
+              "presentation-received",
+              "presentation-invalid",
+              "presentation-valid"
+            ],
+            "type": "string"
+          },
+          "verified_claims": {
+            "description": "Any claims verified in the presentation.",
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "presentation_id",
+          "status"
+        ],
         "type": "object"
       },
       "Hangup": {
@@ -9441,13 +10735,7 @@
           },
           "values": {
             "additionalProperties": {
-              "allOf": [
-                {
-                  "$ref": "#/definitions/IndyAttrValue"
-                }
-              ],
-              "description": "Attribute value",
-              "type": "object"
+              "$ref": "#/components/schemas/IndyAttrValue"
             },
             "description": "Credential attributes",
             "type": "object"
@@ -9569,7 +10857,6 @@
           },
           "value": {
             "description": "Predicate threshold value",
-            "format": "int32",
             "type": "integer"
           }
         },
@@ -9631,7 +10918,6 @@
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -9639,7 +10925,6 @@
           "to": {
             "description": "Latest time of interest in non-revocation interval",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -9706,7 +10991,6 @@
           },
           "threshold": {
             "description": "Threshold value",
-            "format": "int32",
             "type": "integer"
           }
         },
@@ -9858,7 +11142,6 @@
           "timestamp": {
             "description": "Timestamp epoch",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "nullable": true,
@@ -9898,7 +11181,6 @@
             "description": "c_list value",
             "items": {
               "items": {
-                "format": "int32",
                 "type": "integer"
               },
               "type": "array"
@@ -9948,13 +11230,7 @@
             "type": "array"
           },
           "non_revoked": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/IndyProofReqAttrSpecNonRevoked"
-              }
-            ],
-            "nullable": true,
-            "type": "object"
+            "$ref": "#/components/schemas/IndyProofReqAttrSpecNonRevoked"
           },
           "restrictions": {
             "description": "If present, credential must satisfy one of given restrictions: specify schema_id, schema_issuer_did, schema_name, schema_version, issuer_did, cred_def_id, and/or attr::<attribute-name>::value where <attribute-name> represents a credential attribute name",
@@ -9975,7 +11251,6 @@
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -9983,7 +11258,6 @@
           "to": {
             "description": "Latest time of interest in non-revocation interval",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -9999,13 +11273,7 @@
             "type": "string"
           },
           "non_revoked": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/IndyProofReqPredSpecNonRevoked"
-              }
-            ],
-            "nullable": true,
-            "type": "object"
+            "$ref": "#/components/schemas/IndyProofReqPredSpecNonRevoked"
           },
           "p_type": {
             "description": "Predicate type ('<', '<=', '>=', or '>')",
@@ -10020,7 +11288,6 @@
           },
           "p_value": {
             "description": "Threshold value",
-            "format": "int32",
             "type": "integer"
           },
           "restrictions": {
@@ -10047,7 +11314,6 @@
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -10055,7 +11321,6 @@
           "to": {
             "description": "Latest time of interest in non-revocation interval",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -10071,13 +11336,7 @@
             "type": "string"
           },
           "non_revoked": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/IndyProofRequestNonRevoked"
-              }
-            ],
-            "nullable": true,
-            "type": "object"
+            "$ref": "#/components/schemas/IndyProofRequestNonRevoked"
           },
           "nonce": {
             "description": "Nonce",
@@ -10117,7 +11376,6 @@
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -10125,7 +11383,6 @@
           "to": {
             "description": "Latest time of interest in non-revocation interval",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -10175,7 +11432,6 @@
         "properties": {
           "sub_proof_index": {
             "description": "Sub-proof index",
-            "format": "int32",
             "type": "integer"
           }
         },
@@ -10195,7 +11451,6 @@
           },
           "sub_proof_index": {
             "description": "Sub-proof index",
-            "format": "int32",
             "type": "integer"
           }
         },
@@ -10205,7 +11460,6 @@
         "properties": {
           "sub_proof_index": {
             "description": "Sub-proof index",
-            "format": "int32",
             "type": "integer"
           },
           "values": {
@@ -10245,7 +11499,6 @@
           "timestamp": {
             "description": "Epoch timestamp of interest for non-revocation proof",
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -10313,7 +11566,6 @@
           "maxCredNum": {
             "description": "Maximum number of credentials; registry size",
             "example": 10,
-            "format": "int32",
             "minimum": 1,
             "type": "integer"
           },
@@ -10392,7 +11644,6 @@
           "revoked": {
             "description": "Revoked credential revocation identifiers",
             "items": {
-              "format": "int32",
               "type": "integer"
             },
             "type": "array"
@@ -10826,7 +12077,6 @@
           "max_cred_num": {
             "description": "Maximum number of credentials for revocation registry",
             "example": 1000,
-            "format": "int32",
             "type": "integer"
           },
           "pending_pub": {
@@ -10976,6 +12226,121 @@
         ],
         "type": "object"
       },
+      "JwtSupportedCredCreateRequest": {
+        "properties": {
+          "@context": {
+            "example": [
+              "https://www.w3.org/2018/credentials/v1",
+              "https://www.w3.org/2018/credentials/examples/v1"
+            ],
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "credentialSubject": {
+            "description": "Metadata about the Credential Subject to help with display.",
+            "example": {
+              "degree": {},
+              "given_name": {
+                "display": [
+                  {
+                    "name": "Given Name",
+                    "locale": "en-US"
+                  }
+                ]
+              },
+              "gpa": {
+                "display": [
+                  {
+                    "name": "GPA"
+                  }
+                ]
+              },
+              "last_name": {
+                "display": [
+                  {
+                    "name": "Surname",
+                    "locale": "en-US"
+                  }
+                ]
+              }
+            },
+            "properties": {},
+            "type": "object"
+          },
+          "cryptographic_binding_methods_supported": {
+            "example": [
+              "did"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cryptographic_suites_supported": {
+            "example": [
+              "ES256K"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "display": {
+            "example": [
+              {
+                "name": "University Credential",
+                "locale": "en-US",
+                "logo": {
+                  "url": "https://w3c-ccg.github.io/vc-ed/plugfest-1-2022/images/JFF_LogoLockup.png",
+                  "alt_text": "a square logo of a university"
+                },
+                "background_color": "#12107c",
+                "text_color": "#FFFFFF"
+              }
+            ],
+            "items": {
+              "properties": {},
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "format": {
+            "example": "jwt_vc_json",
+            "type": "string"
+          },
+          "id": {
+            "example": "UniversityDegreeCredential",
+            "type": "string"
+          },
+          "order": {
+            "description": "The order in which claims should be displayed. This is not well defined by the spec right now. Best to omit for now.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "List of credential types supported.",
+            "example": [
+              "VerifiableCredential",
+              "UniversityDegreeCredential"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "@context",
+          "format",
+          "id",
+          "type"
+        ],
+        "type": "object"
+      },
       "Keylist": {
         "properties": {
           "results": {
@@ -11035,13 +12400,11 @@
           "limit": {
             "description": "Limit for keylist query",
             "example": 30,
-            "format": "int32",
             "type": "integer"
           },
           "offset": {
             "description": "Offset value for query",
             "example": 0,
-            "format": "int32",
             "type": "integer"
           }
         },
@@ -11261,7 +12624,6 @@
           "domain": {
             "description": "A string value specifying the restricted domain of the signature.",
             "example": "https://example.com",
-            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
             "type": "string"
           },
           "jws": {
@@ -11297,7 +12659,6 @@
           }
         },
         "required": [
-          "created",
           "proofPurpose",
           "type",
           "verificationMethod"
@@ -11603,6 +12964,178 @@
         "required": [
           "name",
           "title"
+        ],
+        "type": "object"
+      },
+      "OID4VCIExchangeRecord": {
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "credential_subject": {
+            "description": "desired claim and value in credential",
+            "properties": {},
+            "type": "object"
+          },
+          "exchange_id": {
+            "description": "Exchange identifier",
+            "type": "string"
+          },
+          "issuer_id": {
+            "description": "Information used to identify the issuer",
+            "example": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          },
+          "nonce": {
+            "type": "string"
+          },
+          "pin": {
+            "type": "string"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "supported_cred_id": {
+            "description": "Identifier used to identify credential supported record",
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "verification_method": {
+            "description": "Information used to identify the issuer keys",
+            "example": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
+            "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
+            "type": "string"
+          }
+        },
+        "required": [
+          "credential_subject",
+          "issuer_id",
+          "supported_cred_id",
+          "verification_method"
+        ],
+        "type": "object"
+      },
+      "OID4VPPresList": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OID4VCIExchangeRecord"
+              }
+            ],
+            "description": "Presentations",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "OID4VPPresentation": {
+        "properties": {
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "errors": {
+            "description": "Errors raised during validation, if present",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "matched_credentials": {
+            "description": "Verified claims from the presentation, if present",
+            "properties": {},
+            "type": "object"
+          },
+          "pres_def_id": {
+            "description": "Identifier used to identify presentation defintion",
+            "type": "string"
+          },
+          "presentation_id": {
+            "description": "Presentation identifier",
+            "type": "string"
+          },
+          "request_id": {
+            "description": "Identifier used to identify presentation request",
+            "type": "string"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "verified": {
+            "description": "Whether or not the presentation was successfully verified",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "pres_def_id",
+          "request_id"
+        ],
+        "type": "object"
+      },
+      "OID4VPRequest": {
+        "properties": {
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "pres_def_id": {
+            "description": "Identifier used to identify presentation definition",
+            "type": "string"
+          },
+          "request_id": {
+            "description": "Request identifier",
+            "type": "string"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "vp_formats": {
+            "description": "Expected presentation formats from the holder",
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "pres_def_id",
+          "vp_formats"
         ],
         "type": "object"
       },
@@ -12189,7 +13722,6 @@
           "max_cred_num": {
             "description": "Revocation registry size",
             "example": 1000,
-            "format": "int32",
             "maximum": 32768,
             "minimum": 4,
             "type": "integer"
@@ -12202,7 +13734,6 @@
           "result": {
             "description": "Number of credentials issued against revocation registry",
             "example": 0,
-            "format": "int32",
             "minimum": 0,
             "type": "integer"
           }
@@ -12513,7 +14044,6 @@
           "seqNo": {
             "description": "Schema sequence number",
             "example": 10,
-            "format": "int32",
             "minimum": 1,
             "type": "integer"
           },
@@ -12636,6 +14166,133 @@
             "type": "array"
           }
         },
+        "type": "object"
+      },
+      "SdJwtSupportedCredCreateReq": {
+        "properties": {
+          "claims": {
+            "description": "Display information about claims.",
+            "example": {
+              "address": {
+                "country": {},
+                "locality": {},
+                "region": {},
+                "street_address": {}
+              },
+              "birthdate": {},
+              "email": {},
+              "family_name": {
+                "display": [
+                  {
+                    "name": "Surname",
+                    "locale": "en-US"
+                  },
+                  {
+                    "name": "Nachname",
+                    "locale": "de-DE"
+                  }
+                ]
+              },
+              "given_name": {
+                "display": [
+                  {
+                    "name": "Given Name",
+                    "locale": "en-US"
+                  },
+                  {
+                    "name": "Vorname",
+                    "locale": "de-DE"
+                  }
+                ]
+              },
+              "is_over_18": {},
+              "is_over_21": {},
+              "is_over_65": {},
+              "phone_number": {}
+            },
+            "properties": {},
+            "type": "object"
+          },
+          "cryptographic_binding_methods_supported": {
+            "example": [
+              "did"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cryptographic_suites_supported": {
+            "example": [
+              "ES256K"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "display": {
+            "example": [
+              {
+                "name": "University Credential",
+                "locale": "en-US",
+                "logo": {
+                  "url": "https://w3c-ccg.github.io/vc-ed/plugfest-1-2022/images/JFF_LogoLockup.png",
+                  "alt_text": "a square logo of a university"
+                },
+                "background_color": "#12107c",
+                "text_color": "#FFFFFF"
+              }
+            ],
+            "items": {
+              "properties": {},
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "format": {
+            "example": "jwt_vc_json",
+            "type": "string"
+          },
+          "id": {
+            "example": "UniversityDegreeCredential",
+            "type": "string"
+          },
+          "order": {
+            "description": "The order in which claims should be displayed. This is not well defined by the spec right now. Best to omit for now.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "sd_list": {
+            "description": "List of JSON pointers to selectively disclosable attributes.",
+            "example": [
+              "/given_name",
+              "/family_name",
+              "/email",
+              "/phone_number",
+              "/address",
+              "/is_over_18",
+              "/is_over_21",
+              "/is_over_65"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "vct": {
+            "description": "String designating the type of a Credential. This MAY be a URI but it can also be an arbitrary string value.",
+            "example": "https://example.com/id-card",
+            "type": "string"
+          }
+        },
+        "required": [
+          "format",
+          "id",
+          "vct"
+        ],
         "type": "object"
       },
       "SendMenu": {
@@ -12775,7 +14432,6 @@
           "count": {
             "description": "Count Value",
             "example": 1234,
-            "format": "int32",
             "type": "integer"
           },
           "from": {
@@ -12791,13 +14447,11 @@
           "max": {
             "description": "Max Value",
             "example": 1234,
-            "format": "int32",
             "type": "integer"
           },
           "min": {
             "description": "Min Value",
             "example": 1234,
-            "format": "int32",
             "type": "integer"
           },
           "name": {
@@ -12815,6 +14469,245 @@
               "pick"
             ],
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SupportedCredCreateRequest": {
+        "properties": {
+          "cryptographic_binding_methods_supported": {
+            "example": [
+              "did"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cryptographic_suites_supported": {
+            "example": [
+              "ES256K"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "display": {
+            "example": [
+              {
+                "name": "University Credential",
+                "locale": "en-US",
+                "logo": {
+                  "url": "https://w3c-ccg.github.io/vc-ed/plugfest-1-2022/images/JFF_LogoLockup.png",
+                  "alt_text": "a square logo of a university"
+                },
+                "background_color": "#12107c",
+                "text_color": "#FFFFFF"
+              }
+            ],
+            "items": {
+              "properties": {},
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "format": {
+            "example": "jwt_vc_json",
+            "type": "string"
+          },
+          "format_data": {
+            "description": "Data specific to the credential format to be included in issuer metadata.",
+            "example": {
+              "credentialSubject": {
+                "degree": {},
+                "given_name": {
+                  "display": [
+                    {
+                      "name": "Given Name",
+                      "locale": "en-US"
+                    }
+                  ]
+                },
+                "gpa": {
+                  "display": [
+                    {
+                      "name": "GPA"
+                    }
+                  ]
+                },
+                "last_name": {
+                  "display": [
+                    {
+                      "name": "Surname",
+                      "locale": "en-US"
+                    }
+                  ]
+                }
+              },
+              "types": [
+                "VerifiableCredential",
+                "UniversityDegreeCredential"
+              ]
+            },
+            "properties": {},
+            "type": "object"
+          },
+          "id": {
+            "example": "UniversityDegreeCredential",
+            "type": "string"
+          },
+          "vc_additional_data": {
+            "description": "Additional data to be included in each credential of this type. This is for data that is not specific to the subject but required by the credential format and is included in every credential.",
+            "example": {
+              "@context": [
+                "https://www.w3.org/2018/credentials/v1",
+                "https://www.w3.org/2018/credentials/examples/v1"
+              ],
+              "type": [
+                "VerifiableCredential",
+                "UniversityDegreeCredential"
+              ]
+            },
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "format",
+          "id"
+        ],
+        "type": "object"
+      },
+      "SupportedCredential": {
+        "properties": {
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "cryptographic_binding_methods_supported": {
+            "example": [],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cryptographic_suites_supported": {
+            "example": [
+              "ES256K"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "display": {
+            "example": [
+              {
+                "name": "University Credential",
+                "locale": "en-US",
+                "logo": {
+                  "url": "https://exampleuniversity.com/public/logo.png",
+                  "alt_text": "a square logo of a university"
+                },
+                "background_color": "#12107c",
+                "text_color": "#FFFFFF"
+              }
+            ],
+            "items": {
+              "properties": {},
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "format": {
+            "example": "jwt_vc_json",
+            "type": "string"
+          },
+          "format_data": {
+            "example": {
+              "credentialSubject": {
+                "degree": {},
+                "given_name": {
+                  "display": [
+                    {
+                      "name": "Given Name",
+                      "locale": "en-US"
+                    }
+                  ]
+                },
+                "gpa": {
+                  "display": [
+                    {
+                      "name": "GPA"
+                    }
+                  ]
+                },
+                "last_name": {
+                  "display": [
+                    {
+                      "name": "Surname",
+                      "locale": "en-US"
+                    }
+                  ]
+                }
+              }
+            },
+            "properties": {},
+            "type": "object"
+          },
+          "identifier": {
+            "example": "UniversityDegreeCredential",
+            "type": "string"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "supported_cred_id": {
+            "description": "supported credential identifier",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "vc_additional_data": {
+            "example": {
+              "@context": [
+                "https://www.w3.org/2018/credentials/v1",
+                "https://www.w3.org/2018/credentials/examples/v1"
+              ],
+              "type": [
+                "VerifiableCredential",
+                "UniversityDegreeCredential"
+              ]
+            },
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "format",
+          "identifier"
+        ],
+        "type": "object"
+      },
+      "SupportedCredentialList": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SupportedCredential"
+              }
+            ],
+            "description": "Credential supported records",
+            "type": "object"
           }
         },
         "type": "object"
@@ -12840,7 +14733,6 @@
           },
           "time": {
             "example": 1640995199,
-            "format": "int32",
             "maximum": 18446744073709552000,
             "minimum": 0,
             "type": "integer"
@@ -13077,17 +14969,30 @@
       },
       "TxnOrPublishRevocationsResult": {
         "properties": {
-          "sent": {
-            "$ref": "#/components/schemas/PublishRevocations"
+          "rrid2crid": {
+            "additionalProperties": {
+              "items": {
+                "description": "Credential revocation identifier",
+                "example": "12345",
+                "pattern": "^[1-9][0-9]*$",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Credential revocation ids by revocation registry id",
+            "type": "object"
           },
           "txn": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/TransactionRecord"
-              }
-            ],
-            "description": "Revocation registry revocations transaction to endorse",
-            "type": "object"
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/TransactionRecord"
+                }
+              ],
+              "description": "Revocation registry revocations transaction to endorse",
+              "type": "object"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -13151,6 +15056,40 @@
         },
         "type": "object"
       },
+      "UpdateKeyRequest": {
+        "properties": {
+          "kid": {
+            "description": "New kid to bind to the key pair,                 such as a verificationMethod.",
+            "example": "did:web:example.com#key-02",
+            "type": "string"
+          },
+          "multikey": {
+            "description": "Multikey of the key pair to update",
+            "example": "z6MkgKA7yrw5kYSiDuQFcye4bMaJpcfHFry3Bx45pdWh3s8i",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kid",
+          "multikey"
+        ],
+        "type": "object"
+      },
+      "UpdateKeyResponse": {
+        "properties": {
+          "kid": {
+            "description": "The associated kid",
+            "example": "did:web:example.com#key-02",
+            "type": "string"
+          },
+          "multikey": {
+            "description": "The Public Key Multibase format (multikey)",
+            "example": "z6MkgKA7yrw5kYSiDuQFcye4bMaJpcfHFry3Bx45pdWh3s8i",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "UpdateProfileSettings": {
         "properties": {
           "extra_settings": {
@@ -13164,6 +15103,9 @@
             "type": "object"
           }
         },
+        "type": "object"
+      },
+      "UpgradeResult": {
         "type": "object"
       },
       "V10CredentialBoundOfferRequest": {
@@ -14341,6 +16283,9 @@
           },
           "ld_proof": {
             "$ref": "#/components/schemas/V20CredExRecordLDProof"
+          },
+          "vc_di": {
+            "$ref": "#/components/schemas/V20CredExRecord"
           }
         },
         "type": "object"
@@ -14467,6 +16412,15 @@
             ],
             "description": "Credential filter for linked data proof",
             "type": "object"
+          },
+          "vc_di": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/V20CredFilterVCDI"
+              }
+            ],
+            "description": "Credential filter for vc_di",
+            "type": "object"
           }
         },
         "type": "object"
@@ -14526,6 +16480,46 @@
         "required": [
           "ld_proof"
         ],
+        "type": "object"
+      },
+      "V20CredFilterVCDI": {
+        "properties": {
+          "cred_def_id": {
+            "description": "Credential definition identifier",
+            "example": "WgWxqztrNooG92RXvxSTWv:3:CL:20:tag",
+            "pattern": "^([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}):3:CL:(([1-9][0-9]*)|([123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+)):(.+)?$",
+            "type": "string"
+          },
+          "issuer_did": {
+            "description": "Credential issuer DID",
+            "example": "WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "type": "string"
+          },
+          "schema_id": {
+            "description": "Schema identifier",
+            "example": "WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0",
+            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}:2:.+:[0-9.]+$",
+            "type": "string"
+          },
+          "schema_issuer_did": {
+            "description": "Schema issuer DID",
+            "example": "WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "type": "string"
+          },
+          "schema_name": {
+            "description": "Schema name",
+            "example": "preferences",
+            "type": "string"
+          },
+          "schema_version": {
+            "description": "Schema version",
+            "example": "1.0",
+            "pattern": "^[0-9.]+$",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "V20CredFormat": {
@@ -15812,6 +17806,40 @@
         },
         "type": "object"
       },
+      "VerifyDiRequest": {
+        "properties": {
+          "securedDocument": {
+            "example": {
+              "hello": "world",
+              "proof": [
+                {
+                  "cryptosuite": "eddsa-jcs-2022",
+                  "proofPurpose": "assertionMethod",
+                  "type": "DataIntegrityProof",
+                  "verificationMethod": "did:key:                            z6MksxraKwH8GR7NKeQ4HVZAeRKvD76kfd6G7jm8MscbDmy8#                                z6MksxraKwH8GR7NKeQ4HVZAeRKvD76kfd6G7jm8MscbDmy8",
+                  "proofValue": "zHtda8vV7kJQUPfSKiTGSQDhZfhkgtpnVziT7cdEzhu                            fjPjbeRmysHvizMJEox1eHR7xUGzNUj1V4yaKiLw7UA6E"
+                }
+              ]
+            },
+            "properties": {},
+            "type": "object"
+          }
+        },
+        "required": [
+          "securedDocument"
+        ],
+        "type": "object"
+      },
+      "VerifyDiResponse": {
+        "properties": {
+          "verified": {
+            "description": "Verified",
+            "example": true,
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
       "VerifyPresentationRequest": {
         "properties": {
           "options": {
@@ -15888,7 +17916,6 @@
           },
           "max_results": {
             "description": "Maximum number of results to return",
-            "format": "int32",
             "type": "integer"
           },
           "proof_types": {

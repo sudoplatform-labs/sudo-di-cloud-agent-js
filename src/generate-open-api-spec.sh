@@ -39,7 +39,9 @@ ACA_PY_CMD_OPTIONS=" \
   --wallet-type askar \
   --wallet-name gen-openapi \
   --wallet-key gen-openapi-key \
-  --no-ledger"
+  --no-ledger \
+  --plugin oid4vc \
+  --plugin sd_jwt_vc"
 
 OPEN_API_JSON_CONFIG="openAPIJSON.config"
 OPEN_API_SHARED_DIR="${BUILD_DIR}/open-api"
