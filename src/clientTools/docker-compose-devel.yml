@@ -47,6 +47,7 @@ services:
     ports:
       - ${ENDORSER_CLOUD_AGENT_INBOUND_PORT:-8200}:${ENDORSER_CLOUD_AGENT_INBOUND_PORT:-8200}
       - ${ENDORSER_CLOUD_AGENT_ADMIN_PORT:-8201}:${ENDORSER_CLOUD_AGENT_ADMIN_PORT:-8201}
+      - ${ENDORSER_OID4VCI_PORT:-8020}:${ENDORSER_OID4VCI_PORT:-8020}
     # Version ACA-py 0.7.3 contained a fix for the CORs issue that stopped the
     # x-api-key header from working properly.  However for the time being in
     # the development environment we will still use the insecure admin mechanism.
@@ -73,6 +74,11 @@ services:
         --endorser-protocol-role endorser
         --auto-endorse-transactions
         --auto-store-credential
+        --plugin oid4vc
+        --plugin sd_jwt_vc
+        --plugin-config-value "oid4vci.host=${ENDORSER_OID4VCI_HOST:-0.0.0.0}"
+        --plugin-config-value "oid4vci.port=${ENDORSER_OID4VCI_PORT:-8020}"
+        --plugin-config-value "oid4vci.endpoint=${ENDORSER_OID4VCI_ENDPOINT:-}"
     networks:
       - frontend
     depends_on:
@@ -107,6 +113,7 @@ services:
     ports:
       - ${AUTHOR_CLOUD_AGENT_INBOUND_PORT:-8210}:${AUTHOR_CLOUD_AGENT_INBOUND_PORT:-8210}
       - ${AUTHOR_CLOUD_AGENT_ADMIN_PORT:-8211}:${AUTHOR_CLOUD_AGENT_ADMIN_PORT:-8211}
+      - ${AUTHOR_OID4VCI_PORT:-8021}:${AUTHOR_OID4VCI_PORT:-8021}
     # Version ACA-py 0.7.3 contained a fix for the CORs issue that stopped the
     # x-api-key header from working properly.  However for the time being in
     # the development environment we will still use the insecure admin mechanism.
@@ -138,6 +145,11 @@ services:
         --auto-create-revocation-transactions
         --endorser-invitation ${ENDORSER_INVITATION:-}
         --auto-store-credential
+        --plugin oid4vc
+        --plugin sd_jwt_vc
+        --plugin-config-value "oid4vci.host=${AUTHOR_OID4VCI_HOST:-0.0.0.0}"
+        --plugin-config-value "oid4vci.port=${AUTHOR_OID4VCI_PORT:-8021}"
+        --plugin-config-value "oid4vci.endpoint=${AUTHOR_OID4VCI_ENDPOINT:-}"
     networks:
       - frontend
     depends_on:
