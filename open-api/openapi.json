@@ -11,7 +11,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "v0.10.1"
+    "version": "v0.11.0"
   },
   "servers": [
     {
@@ -62,6 +62,14 @@
         "url": "https://w3c.github.io/vc-data-model/#credentials"
       },
       "name": "credentials"
+    },
+    {
+      "description": "Endpoints for managing dids",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://www.w3.org/TR/did-core/"
+      },
+      "name": "did"
     },
     {
       "description": "Connection management via DID exchange",
@@ -500,7 +508,7 @@
             "in": "query",
             "name": "my_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -537,7 +545,7 @@
             "in": "query",
             "name": "their_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -546,7 +554,7 @@
             "in": "query",
             "name": "their_public_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -1710,6 +1718,99 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/did/cheqd/create": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a did:cheqd",
+        "tags": [
+          "did"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/did/cheqd/deactivate": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DeactivateRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeactivateResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Deactivate a did:cheqd",
+        "tags": [
+          "did"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/did/cheqd/update": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update a did:cheqd",
+        "tags": [
+          "did"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/did/jwk/create": {
       "post": {
         "requestBody": {
@@ -1750,7 +1851,7 @@
             "name": "their_public_did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -4256,14 +4357,50 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CredOffer"
+                  "$ref": "#/components/schemas/CredOfferResponseSchemaVal"
                 }
               }
             },
             "description": ""
           }
         },
-        "summary": "Get a credential offer",
+        "summary": "Get a credential offer by value",
+        "tags": [
+          "oid4vci"
+        ]
+      }
+    },
+    "/oid4vci/credential-offer-by-ref": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "exchange_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "user_pin_required",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredOfferResponseSchemaRef"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get a credential offer by reference",
         "tags": [
           "oid4vci"
         ]
@@ -4401,7 +4538,7 @@
         ]
       }
     },
-    "/oid4vci/exchange-supported/records/{supported_cred_id}": {
+    "/oid4vci/credential-supported/records/jwt/{supported_cred_id}": {
       "delete": {
         "parameters": [
           {
@@ -4427,6 +4564,148 @@
           }
         },
         "summary": "Remove an existing credential supported record",
+        "tags": [
+          "oid4vci"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "description": "Credential supported identifier",
+            "in": "path",
+            "name": "supported_cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/JwtSupportedCredCreateRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredential"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update a Supported Credential. Expected to be a complete replacement of a JWT Supported Credential record, i.e., optional values that aren't supplied will be `None`, rather than retaining their original value.",
+        "tags": [
+          "oid4vci"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vci/credential-supported/records/sd-jwt/{supported_cred_id}": {
+      "put": {
+        "parameters": [
+          {
+            "description": "Credential supported identifier",
+            "in": "path",
+            "name": "supported_cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SdJwtSupportedCredCreateReq"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredential"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update a Supported Credential. Expected to be a complete replacement of an SD JWT Supported Credential record, i.e., optional values that aren't supplied will be `None`, rather than retaining their original value.",
+        "tags": [
+          "oid4vci"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vci/credential-supported/records/{supported_cred_id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Credential supported identifier",
+            "in": "path",
+            "name": "supported_cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredential"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get a credential supported record by ID",
+        "tags": [
+          "oid4vci"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Credential supported identifier",
+            "in": "path",
+            "name": "supported_cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportedCredential"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Get a credential supported record by ID",
         "tags": [
           "oid4vci"
         ]
@@ -4545,6 +4824,240 @@
         "tags": [
           "oid4vci"
         ]
+      },
+      "get": {
+        "parameters": [
+          {
+            "description": "Credential exchange identifier",
+            "in": "path",
+            "name": "exchange_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VCIExchangeRecord"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Retrieve an exchange record by ID",
+        "tags": [
+          "oid4vci"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Credential exchange identifier",
+            "in": "path",
+            "name": "exchange_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VCIExchangeRecord"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Retrieve an exchange record by ID",
+        "tags": [
+          "oid4vci"
+        ]
+      }
+    },
+    "/oid4vp/dcql/queries": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Filter by presentation identifier.",
+            "in": "query",
+            "name": "dcql_query_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DCQLQueryList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "List all DCQL Query records.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Filter by presentation identifier.",
+            "in": "query",
+            "name": "dcql_query_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DCQLQueryList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "List all DCQL Query records.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDCQLQueryRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDCQLQueryResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a DCQL Query record.",
+        "tags": [
+          "oid4vp"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vp/dcql/query/{dcql_query_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "dcql_query_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DCQLQuery"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Delete DCQL Query.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "get": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "dcql_query_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDCQLQueryResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch DCQL query.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "dcql_query_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDCQLQueryResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch DCQL query.",
+        "tags": [
+          "oid4vp"
+        ]
       }
     },
     "/oid4vp/presentation-definition": {
@@ -4578,6 +5091,193 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/oid4vp/presentation-definition/{pres_def_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "pres_def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPPresDef"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch presentation.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "get": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "pres_def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPPresDef"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch presentation definition.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "pres_def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPPresDef"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch presentation definition.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "description": "Presentation identifier",
+            "in": "path",
+            "name": "pres_def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOID4VPPresDefRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOID4VPPresDefResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update an OID4VP Presentation Definition.",
+        "tags": [
+          "oid4vp"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vp/presentation-definitions": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Filter by presentation definition identifier.",
+            "in": "query",
+            "name": "pres_def_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPPresDefList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch all Presentation Definitions.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Filter by presentation definition identifier.",
+            "in": "query",
+            "name": "pres_def_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPPresDefList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch all Presentation Definitions.",
+        "tags": [
+          "oid4vp"
+        ]
+      }
+    },
     "/oid4vp/presentation/{presentation_id}": {
       "delete": {
         "parameters": [
@@ -4607,23 +5307,13 @@
         "tags": [
           "oid4vp"
         ]
-      }
-    },
-    "/oid4vp/presentation/{request_id}": {
+      },
       "get": {
         "parameters": [
           {
             "description": "Presentation identifier",
             "in": "path",
             "name": "presentation_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "request_id",
             "required": true,
             "schema": {
               "type": "string"
@@ -4653,14 +5343,6 @@
             "description": "Presentation identifier",
             "in": "path",
             "name": "presentation_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "path",
-            "name": "request_id",
             "required": true,
             "schema": {
               "type": "string"
@@ -4818,6 +5500,158 @@
           "oid4vp"
         ],
         "x-codegen-request-body-name": "body"
+      }
+    },
+    "/oid4vp/request/{request_id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Request identifier",
+            "in": "path",
+            "name": "request_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPRequest"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch presentation request.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Request identifier",
+            "in": "path",
+            "name": "request_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPRequest"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch presentation request.",
+        "tags": [
+          "oid4vp"
+        ]
+      }
+    },
+    "/oid4vp/requests": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Filter by DCQL query identifier.",
+            "in": "query",
+            "name": "dcql_query_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by presentation definition identifier.",
+            "in": "query",
+            "name": "pres_def_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by request identifier.",
+            "in": "query",
+            "name": "request_id",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPRequestList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch all OID4VP Requests.",
+        "tags": [
+          "oid4vp"
+        ]
+      },
+      "head": {
+        "parameters": [
+          {
+            "description": "Filter by DCQL query identifier.",
+            "in": "query",
+            "name": "dcql_query_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by presentation definition identifier.",
+            "in": "query",
+            "name": "pres_def_id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by request identifier.",
+            "in": "query",
+            "name": "request_id",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OID4VPRequestList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch all OID4VP Requests.",
+        "tags": [
+          "oid4vp"
+        ]
       }
     },
     "/out-of-band/create-invitation": {
@@ -7500,10 +8334,33 @@
     },
     "/vc/credentials/store": {
       "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/StoreCredentialRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StoreCredentialResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
         "summary": "Store a credential",
         "tags": [
           "vc-api"
-        ]
+        ],
+        "x-codegen-request-body-name": "body"
       }
     },
     "/vc/credentials/verify": {
@@ -7699,7 +8556,7 @@
             "in": "query",
             "name": "did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -7710,7 +8567,8 @@
             "schema": {
               "enum": [
                 "ed25519",
-                "bls12381g2"
+                "bls12381g2",
+                "p256"
               ],
               "type": "string"
             }
@@ -7720,12 +8578,6 @@
             "in": "query",
             "name": "method",
             "schema": {
-              "enum": [
-                "key",
-                "sov",
-                "did:peer:2",
-                "did:peer:4"
-              ],
               "type": "string"
             }
           },
@@ -7810,7 +8662,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           }
@@ -7860,7 +8712,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -7916,7 +8768,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           }
@@ -7963,7 +8815,7 @@
             "description": ""
           }
         },
-        "summary": "Create a EdDSA jws using did keys with a given payload",
+        "summary": "Create a jws using did keys with a given payload",
         "tags": [
           "wallet"
         ],
@@ -7994,7 +8846,7 @@
             "description": ""
           }
         },
-        "summary": "Verify a EdDSA jws using did keys with a given JWS",
+        "summary": "Verify a jws using did keys with a given JWS",
         "tags": [
           "wallet"
         ],
@@ -8115,7 +8967,7 @@
             "description": ""
           }
         },
-        "summary": "Create a EdDSA sd-jws using did keys with a given payload",
+        "summary": "Create an sd-jws using did keys with a given payload",
         "tags": [
           "wallet"
         ],
@@ -8146,7 +8998,7 @@
             "description": ""
           }
         },
-        "summary": "Verify a EdDSA sd-jws using did keys with a given SD-JWS with optional key binding",
+        "summary": "Verify an sd-jws using did keys with a given SD-JWS with optional key binding",
         "tags": [
           "wallet"
         ],
@@ -8242,10 +9094,12 @@
       "AddProof": {
         "properties": {
           "document": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "example": {
               "hello": "world"
             },
-            "properties": {},
             "type": "object"
           },
           "options": {
@@ -8271,10 +9125,12 @@
       "AddProofResponse": {
         "properties": {
           "secured_document": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "example": {
               "hello": "world"
             },
-            "properties": {},
             "type": "object"
           }
         },
@@ -8286,8 +9142,10 @@
       "AdminConfig": {
         "properties": {
           "config": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Configuration settings",
-            "properties": {},
             "type": "object"
           }
         },
@@ -8321,8 +9179,10 @@
       "AdminStatus": {
         "properties": {
           "conductor": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Conductor statistics",
-            "properties": {},
             "type": "object"
           },
           "label": {
@@ -8331,8 +9191,10 @@
             "type": "string"
           },
           "timing": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Timing results",
-            "properties": {},
             "type": "object"
           },
           "version": {
@@ -8358,6 +9220,182 @@
             "description": "Readiness status",
             "example": true,
             "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "AnoncredsPresentationReqAttrSpec": {
+        "properties": {
+          "name": {
+            "description": "Attribute name",
+            "example": "favouriteDrink",
+            "type": "string"
+          },
+          "names": {
+            "description": "Attribute name group",
+            "items": {
+              "example": "age",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "non_revoked": {
+            "$ref": "#/components/schemas/AnoncredsPresentationReqAttrSpecNonRevoked"
+          },
+          "restrictions": {
+            "description": "If present, credential must satisfy one of given restrictions: specify schema_id, schema_issuer_did, schema_name, schema_version, issuer_did, cred_def_id, and/or attr::<attribute-name>::value where <attribute-name> represents a credential attribute name",
+            "items": {
+              "additionalProperties": {
+                "example": "did:(method):3:CL:20:tag",
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "AnoncredsPresentationReqAttrSpecNonRevoked": {
+        "properties": {
+          "from": {
+            "description": "Earliest time of interest in non-revocation interval",
+            "example": 1640995199,
+            "maximum": 18446744073709552000,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "to": {
+            "description": "Latest time of interest in non-revocation interval",
+            "example": 1640995199,
+            "maximum": 18446744073709552000,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "AnoncredsPresentationReqPredSpec": {
+        "properties": {
+          "name": {
+            "description": "Attribute name",
+            "example": "index",
+            "type": "string"
+          },
+          "non_revoked": {
+            "$ref": "#/components/schemas/AnoncredsPresentationReqPredSpecNonRevoked"
+          },
+          "p_type": {
+            "description": "Predicate type ('<', '<=', '>=', or '>')",
+            "enum": [
+              "<",
+              "<=",
+              ">=",
+              ">"
+            ],
+            "example": ">=",
+            "type": "string"
+          },
+          "p_value": {
+            "description": "Threshold value",
+            "type": "integer"
+          },
+          "restrictions": {
+            "description": "If present, credential must satisfy one of given restrictions: specify schema_id, schema_issuer_did, schema_name, schema_version, issuer_did, cred_def_id, and/or attr::<attribute-name>::value where <attribute-name> represents a credential attribute name",
+            "items": {
+              "additionalProperties": {
+                "example": "did:(method):3:CL:20:tag",
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "p_type",
+          "p_value"
+        ],
+        "type": "object"
+      },
+      "AnoncredsPresentationReqPredSpecNonRevoked": {
+        "properties": {
+          "from": {
+            "description": "Earliest time of interest in non-revocation interval",
+            "example": 1640995199,
+            "maximum": 18446744073709552000,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "to": {
+            "description": "Latest time of interest in non-revocation interval",
+            "example": 1640995199,
+            "maximum": 18446744073709552000,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "AnoncredsPresentationRequest": {
+        "properties": {
+          "name": {
+            "description": "Proof request name",
+            "example": "Proof request",
+            "type": "string"
+          },
+          "non_revoked": {
+            "$ref": "#/components/schemas/AnoncredsPresentationRequestNonRevoked"
+          },
+          "nonce": {
+            "description": "Nonce",
+            "example": "1",
+            "pattern": "^[1-9][0-9]*$",
+            "type": "string"
+          },
+          "requested_attributes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AnoncredsPresentationReqAttrSpec"
+            },
+            "description": "Requested attribute specifications of proof request",
+            "type": "object"
+          },
+          "requested_predicates": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AnoncredsPresentationReqPredSpec"
+            },
+            "description": "Requested predicate specifications of proof request",
+            "type": "object"
+          },
+          "version": {
+            "description": "Proof request version",
+            "example": "1.0",
+            "pattern": "^[0-9.]+$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "requested_attributes",
+          "requested_predicates"
+        ],
+        "type": "object"
+      },
+      "AnoncredsPresentationRequestNonRevoked": {
+        "properties": {
+          "from": {
+            "description": "Earliest time of interest in non-revocation interval",
+            "example": 1640995199,
+            "maximum": 18446744073709552000,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "to": {
+            "description": "Latest time of interest in non-revocation interval",
+            "example": 1640995199,
+            "maximum": 18446744073709552000,
+            "minimum": 0,
+            "type": "integer"
           }
         },
         "type": "object"
@@ -8546,32 +9584,77 @@
       "ClaimFormat": {
         "properties": {
           "di_vc": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "jwt": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "jwt_vc": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "jwt_vp": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "ldp": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "ldp_vc": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "ldp_vp": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "ClaimsQuery": {
+        "properties": {
+          "claim_name": {
+            "description": "mdoc only:  a string that specifies the data element identifier of the data element within the provided namespace in the mdoc",
+            "type": "string"
+          },
+          "id": {
+            "description": "Identifier for this claims query.",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "mdoc only: a string that specifies the namespace of the data element within the mdoc.",
+            "type": "string"
+          },
+          "path": {
+            "description": "JSON-based claims structure only: a non-empty array representing a claims path pointer that specifies the path to a claim",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "values": {
+            "description": "Values of the claims query.",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -8678,7 +9761,7 @@
           "my_did": {
             "description": "Our DID for connection",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "request_id": {
@@ -8700,7 +9783,7 @@
           "their_did": {
             "description": "Their DID for connection",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "their_label": {
@@ -8751,7 +9834,7 @@
           "did": {
             "description": "DID for connection invitation",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "imageUrl": {
@@ -8812,8 +9895,10 @@
       "ConnectionMetadata": {
         "properties": {
           "results": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Dictionary of metadata associated with connection.",
-            "properties": {},
             "type": "object"
           }
         },
@@ -8822,8 +9907,10 @@
       "ConnectionMetadataSetRequest": {
         "properties": {
           "metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Dictionary of metadata to set for connection.",
-            "properties": {},
             "type": "object"
           }
         },
@@ -8977,6 +10064,43 @@
         },
         "type": "object"
       },
+      "CreateDCQLQueryRequest": {
+        "properties": {
+          "credential_sets": {
+            "description": "A list of Credential Set Queries.",
+            "items": {
+              "$ref": "#/components/schemas/CredentialSetQuery"
+            },
+            "type": "array"
+          },
+          "credentials": {
+            "description": "A list of Credential Queries.",
+            "items": {
+              "$ref": "#/components/schemas/CredentialQuery"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "credentials"
+        ],
+        "type": "object"
+      },
+      "CreateDCQLQueryResponse": {
+        "properties": {
+          "dcql_query": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "The DCQL query.",
+            "type": "object"
+          }
+        },
+        "required": [
+          "dcql_query"
+        ],
+        "type": "object"
+      },
       "CreateDIDJWKRequest": {
         "properties": {
           "key_type": {
@@ -9014,8 +10138,10 @@
             "type": "string"
           },
           "metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Optional metadata to attach to the connection created with the invitation",
-            "properties": {},
             "type": "object"
           },
           "my_label": {
@@ -9059,12 +10185,12 @@
             "type": "string"
           },
           "kid": {
-            "description": "Optional kid to bind to the keypair,                 such as a verificationMethod.",
+            "description": "Optional kid to bind to the keypair, such as a verificationMethod.",
             "example": "did:web:example.com#key-01",
             "type": "string"
           },
           "seed": {
-            "description": "Optional seed to generate the key pair.                 Must enable insecure wallet mode.",
+            "description": "Optional seed to generate the key pair. Must enable insecure wallet mode.",
             "example": "00000000000000000000000000000000",
             "type": "string"
           }
@@ -9089,8 +10215,10 @@
       "CreateOID4VPPresDefRequest": {
         "properties": {
           "pres_def": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "The presentation definition",
-            "properties": {},
             "type": "object"
           }
         },
@@ -9102,24 +10230,37 @@
       "CreateOID4VPPresDefResponse": {
         "properties": {
           "pres_def": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
+          },
+          "pres_def_id": {
+            "description": "Presentation identifier",
+            "type": "string"
           }
         },
         "required": [
-          "pres_def"
+          "pres_def",
+          "pres_def_id"
         ],
         "type": "object"
       },
       "CreateOID4VPReqRequest": {
         "properties": {
+          "dcql_query_id": {
+            "description": "Identifier used to identify DCQL query",
+            "type": "string"
+          },
           "pres_def_id": {
             "description": "Identifier used to identify presentation definition",
             "type": "string"
           },
           "vp_formats": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Expected presentation formats from the holder",
-            "properties": {},
             "type": "object"
           }
         },
@@ -9130,6 +10271,9 @@
       },
       "CreateOID4VPReqResponse": {
         "properties": {
+          "presentation": {
+            "$ref": "#/components/schemas/OID4VPPresentation"
+          },
           "request": {
             "$ref": "#/components/schemas/OID4VPRequest"
           },
@@ -9139,9 +10283,91 @@
           }
         },
         "required": [
+          "presentation",
           "request",
           "request_uri"
         ],
+        "type": "object"
+      },
+      "CreateRequest": {
+        "properties": {
+          "features": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional features to enable for the did.",
+            "example": "{}",
+            "type": "object"
+          },
+          "options": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional configuration options",
+            "example": {
+              "key_type": "ed25519",
+              "method_specific_id_algo": "uuid",
+              "network": "testnet"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "CreateResponse": {
+        "properties": {
+          "did": {
+            "description": "DID created",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "type": "string"
+          },
+          "didState": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "The published didState",
+            "example": {
+              "did": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+              "didDocument": {
+                "authentication": [
+                  "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1"
+                ],
+                "controller": [
+                  "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86"
+                ],
+                "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+                "verificationMethod": [
+                  {
+                    "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
+                    "type": "Ed25519VerificationKey2020",
+                    "controller": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+                    "publicKeyMultibase": "z6Mk..."
+                  }
+                ]
+              },
+              "secret": {
+                "signingResponse": [
+                  {
+                    "kid": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
+                    "signature": "SHFz..."
+                  }
+                ]
+              },
+              "state": "finished"
+            },
+            "type": "object"
+          },
+          "success": {
+            "description": "Flag to denote if the operation was successful",
+            "example": true,
+            "type": "boolean"
+          },
+          "verkey": {
+            "description": "Verification key",
+            "example": "BnSWTUQmdYCewSGFrRUhT6LmKdcCcSzRGqWXMPnEP168",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "CredAttrSpec": {
@@ -9319,11 +10545,47 @@
         ],
         "type": "object"
       },
+      "CredOfferResponseSchemaRef": {
+        "properties": {
+          "credential_offer_uri": {
+            "description": "A URL which references the credential for display.",
+            "example": "openid-credential-offer://...",
+            "type": "string"
+          },
+          "offer": {
+            "$ref": "#/components/schemas/CredOffer"
+          }
+        },
+        "required": [
+          "credential_offer_uri",
+          "offer"
+        ],
+        "type": "object"
+      },
+      "CredOfferResponseSchemaVal": {
+        "properties": {
+          "credential_offer": {
+            "description": "The URL of the credential value for display by QR code.",
+            "example": "openid-credential-offer://...",
+            "type": "string"
+          },
+          "offer": {
+            "$ref": "#/components/schemas/CredOffer"
+          }
+        },
+        "required": [
+          "credential_offer",
+          "offer"
+        ],
+        "type": "object"
+      },
       "CredRevIndyRecordsResult": {
         "properties": {
           "rev_reg_delta": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Indy revocation registry delta",
-            "properties": {},
             "type": "object"
           }
         },
@@ -9542,6 +10804,23 @@
         },
         "type": "object"
       },
+      "CredentialMeta": {
+        "properties": {
+          "doctype_values": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "vct_values": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
       "CredentialOffer": {
         "properties": {
           "@id": {
@@ -9644,6 +10923,76 @@
         },
         "type": "object"
       },
+      "CredentialQuery": {
+        "properties": {
+          "claim_sets": {
+            "description": "",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "claims": {
+            "description": "",
+            "items": {
+              "$ref": "#/components/schemas/ClaimsQuery"
+            },
+            "type": "array"
+          },
+          "format": {
+            "description": "Credential format specified by the credential query.",
+            "example": "jwt_vc_json",
+            "type": "string"
+          },
+          "id": {
+            "description": "Identifier of the credential query.",
+            "type": "string"
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CredentialMeta"
+              }
+            ],
+            "description": "Metadata about the Credential Query",
+            "type": "object"
+          }
+        },
+        "required": [
+          "format",
+          "id"
+        ],
+        "type": "object"
+      },
+      "CredentialSetQuery": {
+        "properties": {
+          "options": {
+            "description": "A non-empty array, where each value in the array is a list of Credential Query identifiers representing one set of Credentials that satisfies the use case. ",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "purpose": {
+            "description": "The purpose for this credential set.",
+            "type": "object"
+          },
+          "required": {
+            "description": "Whether the credential sets being queried are required.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "options"
+        ],
+        "type": "object"
+      },
       "CredentialStatusOptions": {
         "properties": {
           "type": {
@@ -9657,26 +11006,82 @@
         ],
         "type": "object"
       },
+      "DCQLQuery": {
+        "properties": {
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "credential_sets": {
+            "description": "A list of credential set query objects",
+            "items": {
+              "$ref": "#/components/schemas/CredentialSetQuery"
+            },
+            "type": "array"
+          },
+          "credentials": {
+            "description": "A list of credential query objects",
+            "items": {
+              "$ref": "#/components/schemas/CredentialQuery"
+            },
+            "type": "array"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "credentials"
+        ],
+        "type": "object"
+      },
+      "DCQLQueryList": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DCQLQuery"
+              }
+            ],
+            "description": "Presentations",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "DID": {
         "properties": {
           "did": {
             "description": "DID of interest",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "key_type": {
             "description": "Key type associated with the DID",
             "enum": [
               "ed25519",
-              "bls12381g2"
+              "bls12381g2",
+              "p256"
             ],
             "example": "ed25519",
             "type": "string"
           },
           "metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Additional metadata associated with the DID",
-            "properties": {},
             "type": "object"
           },
           "method": {
@@ -9739,14 +11144,15 @@
           "did": {
             "description": "Specify final value of the did (including did:<method>: prefix)if the method supports or requires so.",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "key_type": {
             "description": "Key type to use for the DID keypair. Validated with the chosen DID method's supported key types.",
             "enum": [
               "ed25519",
-              "bls12381g2"
+              "bls12381g2",
+              "p256"
             ],
             "example": "ed25519",
             "type": "string"
@@ -9754,6 +11160,57 @@
         },
         "required": [
           "key_type"
+        ],
+        "type": "object"
+      },
+      "DIDDocument": {
+        "properties": {
+          "assertionMethod": {
+            "description": "Assertion Methods",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "authentication": {
+            "description": "Authentication Methods",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "controller": {
+            "description": "DID Document controllers",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "id": {
+            "description": "DID ID",
+            "example": "did:example:123",
+            "type": "string"
+          },
+          "service": {
+            "description": "Services",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            },
+            "type": "array"
+          },
+          "verificationMethod": {
+            "description": "Verification Methods",
+            "items": {
+              "$ref": "#/components/schemas/VerificationMethod"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "authentication",
+          "controller",
+          "id",
+          "verificationMethod"
         ],
         "type": "object"
       },
@@ -9802,7 +11259,7 @@
             "type": "string"
           },
           "mediation_id": {
-            "description": "Medation ID to use for endpoint information.",
+            "description": "Mediation ID to use for endpoint information.",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
             "type": "string"
@@ -9871,7 +11328,7 @@
           "did": {
             "description": "DID of exchange",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "did_doc~attach": {
@@ -9983,6 +11440,9 @@
             "$ref": "#/components/schemas/PresentationDefinition"
           },
           "record_ids": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Mapping of input_descriptor id to list of stored W3C credential record_id",
             "example": {
               "<input descriptor id_1>": [
@@ -9993,10 +11453,12 @@
                 "<record id>"
               ]
             },
-            "properties": {},
             "type": "object"
           },
           "reveal_doc": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "reveal doc [JSON-LD frame] dict used to derive the credential when selective disclosure is required",
             "example": {
               "@context": [
@@ -10023,7 +11485,6 @@
                 "LabReport"
               ]
             },
-            "properties": {},
             "type": "object"
           }
         },
@@ -10060,47 +11521,47 @@
       "DataIntegrityProofOptions": {
         "properties": {
           "challenge": {
-            "description": "The value is used once for a particular domain and window of time.                     This value is used to mitigate replay attacks.",
+            "description": "The value is used once for a particular domain and window of time. This value is used to mitigate replay attacks.",
             "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "type": "string"
           },
           "created": {
-            "description": "The date and time the proof was created is OPTIONAL and, if                     included, MUST be specified as an [XMLSCHEMA11-2]                         dateTimeStamp string",
+            "description": "The date and time the proof was created is OPTIONAL and, if included, MUST be specified as an [XMLSCHEMA11-2] dateTimeStamp string",
             "example": "2010-01-01T19:23:24Z",
             "type": "string"
           },
           "cryptosuite": {
-            "description": "An identifier for the cryptographic suite that can be used to                     verify the proof.",
+            "description": "An identifier for the cryptographic suite that can be used to verify the proof.",
             "example": "eddsa-jcs-2022",
             "type": "string"
           },
           "domain": {
-            "description": "It conveys one or more security domains in which the proof is                     meant to be used.",
+            "description": "It conveys one or more security domains in which the proof is meant to be used.",
             "example": "example.com",
             "type": "string"
           },
           "expires": {
-            "description": "The expires property is OPTIONAL and, if present, specifies when                     the proof expires. If present, it MUST be an [XMLSCHEMA11-2]                         dateTimeStamp string",
+            "description": "The expires property is OPTIONAL and, if present, specifies when the proof expires. If present, it MUST be an [XMLSCHEMA11-2] dateTimeStamp string",
             "example": "2010-01-01T19:23:24Z",
             "type": "string"
           },
           "id": {
-            "description": "An optional identifier for the proof, which MUST be a URL [URL],                     such as a UUID as a URN",
+            "description": "An optional identifier for the proof, which MUST be a URL [URL], such as a UUID as a URN",
             "example": "urn:uuid:6a1676b8-b51f-11ed-937b-d76685a20ff5",
             "type": "string"
           },
           "nonce": {
-            "description": "One use of this field is to increase privacy by decreasing                 linkability that is the result of deterministically                     generated signatures.",
+            "description": "One use of this field is to increase privacy by decreasing linkability that is the result of deterministically generated signatures.",
             "example": "CF69iO3nfvqRsRBNElE8b4wO39SyJHPM7Gg1nExltW5vSfQA1lvDCR/zXX1To0/4NLo==",
             "type": "string"
           },
           "previousProof": {
-            "description": "Each value identifies another data integrity proof that                 MUST verify before the current proof is processed.",
+            "description": "Each value identifies another data integrity proof that MUST verify before the current proof is processed.",
             "example": "urn:uuid:6a1676b8-b51f-11ed-937b-d76685a20ff5",
             "type": "string"
           },
           "proofPurpose": {
-            "description": "The proof purpose acts as a safeguard to prevent the                 proof from being misused by being applied to a purpose other than                     the one that was intended.",
+            "description": "The proof purpose acts as a safeguard to prevent the proof from being misused by being applied to a purpose other than the one that was intended.",
             "example": "assertionMethod",
             "type": "string"
           },
@@ -10110,12 +11571,12 @@
             "type": "string"
           },
           "type": {
-            "description": "The specific type of proof MUST be specified as a string that maps                     to a URL [URL].",
+            "description": "The specific type of proof MUST be specified as a string that maps to a URL [URL].",
             "example": "DataIntegrityProof",
             "type": "string"
           },
           "verificationMethod": {
-            "description": "A verification method is the means and information                 needed to verify the proof. ",
+            "description": "A verification method is the means and information needed to verify the proof.",
             "example": "did:key:z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
             "pattern": "\\w+:(\\/?\\/?)[^\\s]+",
             "type": "string"
@@ -10140,6 +11601,54 @@
         },
         "required": [
           "expires_time"
+        ],
+        "type": "object"
+      },
+      "DeactivateRequest": {
+        "properties": {
+          "did": {
+            "description": "DID to deactivate",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)/resources/([a-z,0-9,-]{36,36})([?][^#]*)?)$",
+            "type": "string"
+          },
+          "options": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional configuration options",
+            "example": {
+              "network": "testnet"
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "did"
+        ],
+        "type": "object"
+      },
+      "DeactivateResponse": {
+        "properties": {
+          "did": {
+            "description": "DID that has been deactivted",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)/resources/([a-z,0-9,-]{36,36})([?][^#]*)?)$",
+            "type": "string"
+          },
+          "didState": {
+            "description": "State of the did update",
+            "example": "",
+            "type": "string"
+          },
+          "success": {
+            "description": "Flag to denote if the operation was successful",
+            "example": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "didState"
         ],
         "type": "object"
       },
@@ -10196,8 +11705,10 @@
       "Doc": {
         "properties": {
           "credential": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Credential to sign",
-            "properties": {},
             "type": "object"
           },
           "options": {
@@ -10219,7 +11730,9 @@
       "DocumentVerificationResult": {
         "properties": {
           "document": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "errors": {
@@ -10279,14 +11792,16 @@
       "ExchangeRecordCreateRequest": {
         "properties": {
           "credential_subject": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "desired claim and value in credential",
-            "properties": {},
             "type": "object"
           },
           "did": {
             "description": "DID of interest",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "pin": {
@@ -10426,6 +11941,33 @@
         },
         "type": "object"
       },
+      "GetDCQLQueryResponse": {
+        "properties": {
+          "credential_sets": {
+            "description": "A list of credential set query objects",
+            "items": {
+              "$ref": "#/components/schemas/CredentialSetQuery"
+            },
+            "type": "array"
+          },
+          "credentials": {
+            "description": "A list of credential query objects",
+            "items": {
+              "$ref": "#/components/schemas/CredentialQuery"
+            },
+            "type": "array"
+          },
+          "dcql_query_id": {
+            "description": "Query identifier",
+            "type": "string"
+          }
+        },
+        "required": [
+          "credentials",
+          "dcql_query_id"
+        ],
+        "type": "object"
+      },
       "GetDIDEndpointResponse": {
         "properties": {
           "endpoint": {
@@ -10493,8 +12035,10 @@
             "type": "string"
           },
           "verified_claims": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Any claims verified in the presentation.",
-            "properties": {},
             "type": "object"
           }
         },
@@ -10660,13 +12204,17 @@
       "IndyCredRequest": {
         "properties": {
           "blinded_ms": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Blinded master secret",
-            "properties": {},
             "type": "object"
           },
           "blinded_ms_correctness_proof": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Blinded master secret correctness proof",
-            "properties": {},
             "type": "object"
           },
           "cred_def_id": {
@@ -10705,9 +12253,11 @@
             "type": "string"
           },
           "rev_reg": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Revocation registry state",
             "nullable": true,
-            "properties": {},
             "type": "object"
           },
           "rev_reg_id": {
@@ -10724,13 +12274,17 @@
             "type": "string"
           },
           "signature": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Credential signature",
-            "properties": {},
             "type": "object"
           },
           "signature_correctness_proof": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Credential signature correctness proof",
-            "properties": {},
             "type": "object"
           },
           "values": {
@@ -10741,9 +12295,11 @@
             "type": "object"
           },
           "witness": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Witness for revocation proof",
             "nullable": true,
-            "properties": {},
             "type": "object"
           }
         },
@@ -11416,13 +12972,17 @@
             "type": "object"
           },
           "self_attested_attrs": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Proof requested proof self-attested attributes",
-            "properties": {},
             "type": "object"
           },
           "unrevealed_attrs": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Unrevealed attributes",
-            "properties": {},
             "type": "object"
           }
         },
@@ -11668,8 +13228,10 @@
             "type": "string"
           },
           "metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Metadata dictionary",
-            "properties": {},
             "type": "object"
           },
           "name": {
@@ -11771,8 +13333,10 @@
             "type": "string"
           },
           "metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Optional metadata to attach to the connection created with the invitation",
-            "properties": {},
             "type": "object"
           },
           "my_label": {
@@ -12161,15 +13725,19 @@
           "did": {
             "description": "DID of interest",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "headers": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "payload": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "verificationMethod": {
@@ -12201,8 +13769,10 @@
             "type": "string"
           },
           "headers": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Headers from verified JWT.",
-            "properties": {},
             "type": "object"
           },
           "kid": {
@@ -12210,8 +13780,10 @@
             "type": "string"
           },
           "payload": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Payload from verified JWT",
-            "properties": {},
             "type": "object"
           },
           "valid": {
@@ -12239,6 +13811,9 @@
             "type": "array"
           },
           "credentialSubject": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Metadata about the Credential Subject to help with display.",
             "example": {
               "degree": {},
@@ -12266,7 +13841,6 @@
                 ]
               }
             },
-            "properties": {},
             "type": "object"
           },
           "cryptographic_binding_methods_supported": {
@@ -12301,7 +13875,9 @@
               }
             ],
             "items": {
-              "properties": {},
+              "additionalProperties": {
+                "type": "object"
+              },
               "type": "object"
             },
             "type": "array"
@@ -12366,11 +13942,13 @@
             "type": "string"
           },
           "filter": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Query dictionary object",
             "example": {
               "filter": {}
             },
-            "properties": {},
             "type": "object"
           },
           "paginate": {
@@ -12388,8 +13966,10 @@
       "KeylistQueryFilterRequest": {
         "properties": {
           "filter": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Filter for keylist query",
-            "properties": {},
             "type": "object"
           }
         },
@@ -12666,6 +14246,14 @@
         "type": "object"
       },
       "ListCredentialsResponse": {
+        "properties": {
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/VerifiableCredential"
+            },
+            "type": "array"
+          }
+        },
         "type": "object"
       },
       "MediationCreateRequest": {
@@ -12979,8 +14567,10 @@
             "type": "string"
           },
           "credential_subject": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "desired claim and value in credential",
-            "properties": {},
             "type": "object"
           },
           "exchange_id": {
@@ -13032,12 +14622,59 @@
         ],
         "type": "object"
       },
+      "OID4VPPresDef": {
+        "properties": {
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "pres_def": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Presentation definition",
+            "type": "object"
+          },
+          "pres_def_id": {
+            "description": "Presentation definition identifier",
+            "type": "string"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "OID4VPPresDefList": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OID4VPPresDef"
+              }
+            ],
+            "description": "Presentation Definitions",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "OID4VPPresList": {
         "properties": {
           "results": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/OID4VCIExchangeRecord"
+                "$ref": "#/components/schemas/OID4VPPresentation"
               }
             ],
             "description": "Presentations",
@@ -13054,6 +14691,10 @@
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
             "type": "string"
           },
+          "dcql_query_id": {
+            "description": "Identifier used to identify dcql query",
+            "type": "string"
+          },
           "errors": {
             "description": "Errors raised during validation, if present",
             "items": {
@@ -13062,9 +14703,14 @@
             "type": "array"
           },
           "matched_credentials": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Verified claims from the presentation, if present",
-            "properties": {},
             "type": "object"
+          },
+          "nonce": {
+            "type": "string"
           },
           "pres_def_id": {
             "description": "Identifier used to identify presentation defintion",
@@ -13095,7 +14741,6 @@
           }
         },
         "required": [
-          "pres_def_id",
           "request_id"
         ],
         "type": "object"
@@ -13106,6 +14751,10 @@
             "description": "Time of record creation",
             "example": "2021-12-31T23:59:59Z",
             "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "dcql_query_id": {
+            "description": "Identifier used to identify DCQL Query",
             "type": "string"
           },
           "pres_def_id": {
@@ -13128,15 +14777,30 @@
             "type": "string"
           },
           "vp_formats": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Expected presentation formats from the holder",
-            "properties": {},
             "type": "object"
           }
         },
         "required": [
-          "pres_def_id",
           "vp_formats"
         ],
+        "type": "object"
+      },
+      "OID4VPRequestList": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OID4VPPresentation"
+              }
+            ],
+            "description": "Presentation Requests",
+            "type": "object"
+          }
+        },
         "type": "object"
       },
       "OobRecord": {
@@ -13319,7 +14983,9 @@
           },
           "verifiableCredential": {
             "items": {
-              "properties": {},
+              "additionalProperties": {
+                "type": "object"
+              },
               "type": "object"
             },
             "type": "array"
@@ -13449,13 +15115,15 @@
       "ProfileSettings": {
         "properties": {
           "settings": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Profile settings dict",
             "example": {
               "debug.invite_public": true,
               "log.level": "INFO",
               "public_invites": false
             },
-            "properties": {},
             "type": "object"
           }
         },
@@ -13467,7 +15135,9 @@
             "type": "string"
           },
           "proof": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "purpose_result": {
@@ -13540,7 +15210,9 @@
       "PurposeResult": {
         "properties": {
           "controller": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "error": {
@@ -13649,7 +15321,7 @@
           "did": {
             "description": "DID for connection invitation",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "imageUrl": {
@@ -13695,13 +15367,17 @@
       "ResolutionResult": {
         "properties": {
           "did_document": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "DID Document",
-            "properties": {},
             "type": "object"
           },
           "metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Resolution metadata",
-            "properties": {},
             "type": "object"
           }
         },
@@ -13765,18 +15441,24 @@
       "RevRegWalletUpdatedResult": {
         "properties": {
           "accum_calculated": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Calculated accumulator for phantom revocations",
-            "properties": {},
             "type": "object"
           },
           "accum_fixed": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Applied ledger transaction to fix revocations",
-            "properties": {},
             "type": "object"
           },
           "rev_reg_delta": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Indy revocation registry delta",
-            "properties": {},
             "type": "object"
           }
         },
@@ -13920,11 +15602,13 @@
           "did": {
             "description": "DID of interest",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+):([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "headers": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "non_sd_list": {
@@ -13936,7 +15620,9 @@
             "type": "array"
           },
           "payload": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "verificationMethod": {
@@ -13994,8 +15680,10 @@
             "type": "string"
           },
           "headers": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Headers from verified JWT.",
-            "properties": {},
             "type": "object"
           },
           "kid": {
@@ -14003,8 +15691,10 @@
             "type": "string"
           },
           "payload": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Payload from verified JWT",
-            "properties": {},
             "type": "object"
           },
           "valid": {
@@ -14171,6 +15861,9 @@
       "SdJwtSupportedCredCreateReq": {
         "properties": {
           "claims": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Display information about claims.",
             "example": {
               "address": {
@@ -14210,7 +15903,6 @@
               "is_over_65": {},
               "phone_number": {}
             },
-            "properties": {},
             "type": "object"
           },
           "cryptographic_binding_methods_supported": {
@@ -14245,7 +15937,9 @@
               }
             ],
             "items": {
-              "properties": {},
+              "additionalProperties": {
+                "type": "object"
+              },
               "type": "object"
             },
             "type": "array"
@@ -14322,6 +16016,34 @@
         },
         "type": "object"
       },
+      "Service": {
+        "properties": {
+          "id": {
+            "description": "Service ID",
+            "example": "did:example:123#service-1",
+            "type": "string"
+          },
+          "serviceEndpoint": {
+            "description": "Array of Service endpoints",
+            "items": {
+              "description": "Service endpoint URL",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Service Type",
+            "example": "MessagingService",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "serviceEndpoint",
+          "type"
+        ],
+        "type": "object"
+      },
       "ServiceDecorator": {
         "properties": {
           "recipientKeys": {
@@ -14379,8 +16101,10 @@
             "type": "string"
           },
           "signed_doc": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Signed document",
-            "properties": {},
             "type": "object"
           }
         },
@@ -14425,6 +16149,22 @@
         "required": [
           "proof"
         ],
+        "type": "object"
+      },
+      "StoreCredentialRequest": {
+        "properties": {
+          "verifiableCredential": {
+            "$ref": "#/components/schemas/VerifiableCredential"
+          }
+        },
+        "type": "object"
+      },
+      "StoreCredentialResponse": {
+        "properties": {
+          "credentialId": {
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "SubmissionRequirements": {
@@ -14507,7 +16247,9 @@
               }
             ],
             "items": {
-              "properties": {},
+              "additionalProperties": {
+                "type": "object"
+              },
               "type": "object"
             },
             "type": "array"
@@ -14517,6 +16259,9 @@
             "type": "string"
           },
           "format_data": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Data specific to the credential format to be included in issuer metadata.",
             "example": {
               "credentialSubject": {
@@ -14550,7 +16295,6 @@
                 "UniversityDegreeCredential"
               ]
             },
-            "properties": {},
             "type": "object"
           },
           "id": {
@@ -14558,6 +16302,9 @@
             "type": "string"
           },
           "vc_additional_data": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Additional data to be included in each credential of this type. This is for data that is not specific to the subject but required by the credential format and is included in every credential.",
             "example": {
               "@context": [
@@ -14569,7 +16316,6 @@
                 "UniversityDegreeCredential"
               ]
             },
-            "properties": {},
             "type": "object"
           }
         },
@@ -14617,7 +16363,9 @@
               }
             ],
             "items": {
-              "properties": {},
+              "additionalProperties": {
+                "type": "object"
+              },
               "type": "object"
             },
             "type": "array"
@@ -14627,6 +16375,9 @@
             "type": "string"
           },
           "format_data": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "example": {
               "credentialSubject": {
                 "degree": {},
@@ -14655,7 +16406,6 @@
                 }
               }
             },
-            "properties": {},
             "type": "object"
           },
           "identifier": {
@@ -14678,6 +16428,9 @@
             "type": "string"
           },
           "vc_additional_data": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "example": {
               "@context": [
                 "https://www.w3.org/2018/credentials/v1",
@@ -14688,7 +16441,6 @@
                 "UniversityDegreeCredential"
               ]
             },
-            "properties": {},
             "type": "object"
           }
         },
@@ -14860,6 +16612,9 @@
           },
           "messages_attach": {
             "items": {
+              "additionalProperties": {
+                "type": "object"
+              },
               "example": {
                 "@id": "143c458d-1b1c-40c7-ab85-4d16808ddf0a",
                 "data": {
@@ -14867,12 +16622,14 @@
                 },
                 "mime-type": "application/json"
               },
-              "properties": {},
               "type": "object"
             },
             "type": "array"
           },
           "meta_data": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "example": {
               "context": {
                 "param1": "param1_value",
@@ -14885,11 +16642,13 @@
                 }
               ]
             },
-            "properties": {},
             "type": "object"
           },
           "signature_request": {
             "items": {
+              "additionalProperties": {
+                "type": "object"
+              },
               "example": {
                 "author_goal_code": "aries.transaction.ledger.write",
                 "context": "did:sov",
@@ -14897,20 +16656,21 @@
                 "signature_type": "default",
                 "signer_goal_code": "aries.transaction.endorse"
               },
-              "properties": {},
               "type": "object"
             },
             "type": "array"
           },
           "signature_response": {
             "items": {
+              "additionalProperties": {
+                "type": "object"
+              },
               "example": {
                 "context": "did:sov",
                 "message_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 "method": "add-signature",
                 "signer_goal_code": "aries.transaction.refuse"
               },
-              "properties": {},
               "type": "object"
             },
             "type": "array"
@@ -14926,10 +16686,12 @@
             "type": "string"
           },
           "timing": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "example": {
               "expires_time": "2020-12-13T17:29:06+0000"
             },
-            "properties": {},
             "type": "object"
           },
           "trace": {
@@ -15059,7 +16821,7 @@
       "UpdateKeyRequest": {
         "properties": {
           "kid": {
-            "description": "New kid to bind to the key pair,                 such as a verificationMethod.",
+            "description": "New kid to bind to the key pair, such as a verificationMethod.",
             "example": "did:web:example.com#key-02",
             "type": "string"
           },
@@ -15090,19 +16852,139 @@
         },
         "type": "object"
       },
+      "UpdateOID4VPPresDefRequest": {
+        "properties": {
+          "pres_def": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "The presentation definition",
+            "type": "object"
+          }
+        },
+        "required": [
+          "pres_def"
+        ],
+        "type": "object"
+      },
+      "UpdateOID4VPPresDefResponse": {
+        "properties": {
+          "pres_def": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "type": "object"
+          },
+          "pres_def_id": {
+            "description": "Presentation identifier",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pres_def",
+          "pres_def_id"
+        ],
+        "type": "object"
+      },
       "UpdateProfileSettings": {
         "properties": {
           "extra_settings": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Agent config key-value pairs",
             "example": {
               "ACAPY_INVITE_PUBLIC": true,
               "log-level": "INFO",
               "public-invites": false
             },
-            "properties": {},
             "type": "object"
           }
         },
+        "type": "object"
+      },
+      "UpdateRequest": {
+        "properties": {
+          "did": {
+            "description": "DID to update",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)/resources/([a-z,0-9,-]{36,36})([?][^#]*)?)$",
+            "type": "string"
+          },
+          "didDocument": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DIDDocument"
+              }
+            ],
+            "description": "DID Document to update",
+            "example": {
+              "authentication": [
+                "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1"
+              ],
+              "controller": [
+                "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86"
+              ],
+              "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+              "service": [
+                {
+                  "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#service-1",
+                  "type": "MessagingService",
+                  "serviceEndpoint": [
+                    "https://example.com/service"
+                  ]
+                }
+              ],
+              "verificationMethod": [
+                {
+                  "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
+                  "type": "Ed25519VerificationKey2018",
+                  "controller": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+                  "publicKeyMultibase": "z6Mk..."
+                }
+              ]
+            },
+            "type": "object"
+          },
+          "options": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional configuration options",
+            "example": {
+              "network": "testnet"
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "did",
+          "didDocument"
+        ],
+        "type": "object"
+      },
+      "UpdateResponse": {
+        "properties": {
+          "did": {
+            "description": "DID that has been updated",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)/resources/([a-z,0-9,-]{36,36})([?][^#]*)?)$",
+            "type": "string"
+          },
+          "didState": {
+            "description": "State of the did update",
+            "example": "",
+            "type": "string"
+          },
+          "success": {
+            "description": "Flag to denote if the operation was successful",
+            "example": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "didState"
+        ],
         "type": "object"
       },
       "UpgradeResult": {
@@ -15306,8 +17188,10 @@
             "type": "object"
           },
           "credential_request_metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "(Indy) credential request metadata",
-            "properties": {},
             "type": "object"
           },
           "error_msg": {
@@ -16249,19 +18133,27 @@
       "V20CredExRecordByFormat": {
         "properties": {
           "cred_issue": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "cred_offer": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "cred_proposal": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "cred_request": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           }
         },
@@ -16314,8 +18206,10 @@
             "type": "string"
           },
           "cred_request_metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "Credential request metadata for indy holder",
-            "properties": {},
             "type": "object"
           },
           "cred_rev_id": {
@@ -16395,6 +18289,15 @@
       },
       "V20CredFilter": {
         "properties": {
+          "anoncreds": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/V20CredFilterAnoncreds"
+              }
+            ],
+            "description": "Credential filter for anoncreds",
+            "type": "object"
+          },
           "indy": {
             "allOf": [
               {
@@ -16421,6 +18324,41 @@
             ],
             "description": "Credential filter for vc_di",
             "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "V20CredFilterAnoncreds": {
+        "properties": {
+          "cred_def_id": {
+            "description": "Credential definition identifier",
+            "example": "did:(method):3:CL:20:tag",
+            "type": "string"
+          },
+          "issuer_id": {
+            "description": "Credential issuer ID",
+            "example": "did:(method):WgWxqztrNooG92RXvxSTWv",
+            "type": "string"
+          },
+          "schema_id": {
+            "description": "Schema identifier",
+            "example": "did:(method):2:schema_name:1.0",
+            "type": "string"
+          },
+          "schema_issuer_id": {
+            "description": "Schema issuer ID",
+            "example": "did:(method):WgWxqztrNooG92RXvxSTWv",
+            "type": "string"
+          },
+          "schema_name": {
+            "description": "Schema name",
+            "example": "preferences",
+            "type": "string"
+          },
+          "schema_version": {
+            "description": "Schema version",
+            "example": "1.0",
+            "type": "string"
           }
         },
         "type": "object"
@@ -17254,15 +19192,21 @@
       "V20PresExRecordByFormat": {
         "properties": {
           "pres": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "pres_proposal": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           },
           "pres_request": {
-            "properties": {},
+            "additionalProperties": {
+              "type": "object"
+            },
             "type": "object"
           }
         },
@@ -17349,6 +19293,15 @@
       },
       "V20PresProposalByFormat": {
         "properties": {
+          "anoncreds": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AnoncredsPresentationRequest"
+              }
+            ],
+            "description": "Presentation proposal for anoncreds",
+            "type": "object"
+          },
           "dif": {
             "allOf": [
               {
@@ -17448,6 +19401,15 @@
       },
       "V20PresRequestByFormat": {
         "properties": {
+          "anoncreds": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AnoncredsPresentationRequest"
+              }
+            ],
+            "description": "Presentation proposal for anoncreds",
+            "type": "object"
+          },
           "dif": {
             "allOf": [
               {
@@ -17506,6 +19468,15 @@
       },
       "V20PresSpecByFormatRequest": {
         "properties": {
+          "anoncreds": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IndyPresSpec"
+              }
+            ],
+            "description": "Presentation specification for anoncreds",
+            "type": "object"
+          },
           "auto_remove": {
             "description": "Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)",
             "type": "boolean"
@@ -17576,8 +19547,10 @@
             "type": "object"
           },
           "cred_value": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "description": "(JSON-serializable) credential value",
-            "properties": {},
             "type": "object"
           },
           "expanded_types": {
@@ -17774,7 +19747,9 @@
           },
           "verifiableCredential": {
             "items": {
-              "properties": {},
+              "additionalProperties": {
+                "type": "object"
+              },
               "type": "object"
             },
             "type": "array"
@@ -17783,6 +19758,52 @@
         "required": [
           "@context",
           "proof",
+          "type"
+        ],
+        "type": "object"
+      },
+      "VerificationMethod": {
+        "properties": {
+          "controller": {
+            "description": "Verification controller DID",
+            "type": "string"
+          },
+          "id": {
+            "description": "Verification Method ID",
+            "example": "did:example:123#key-1",
+            "type": "string"
+          },
+          "publicKeyBase58": {
+            "description": "Public Key in base58 format",
+            "example": "B12NYF8RZ5Zk..",
+            "type": "string"
+          },
+          "publicKeyJwk": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Public Key in Jwk format",
+            "example": {
+              "crv": "Ed25519",
+              "kty": "OKP",
+              "x": "G6t3iUB8..."
+            },
+            "type": "object"
+          },
+          "publicKeyMultibase": {
+            "description": "Public Key in multibase format",
+            "example": "z6Mk...",
+            "type": "string"
+          },
+          "type": {
+            "description": "Type of Verification Method",
+            "example": "Ed25519VerificationKey2018",
+            "type": "string"
+          }
+        },
+        "required": [
+          "controller",
+          "id",
           "type"
         ],
         "type": "object"
@@ -17809,6 +19830,9 @@
       "VerifyDiRequest": {
         "properties": {
           "securedDocument": {
+            "additionalProperties": {
+              "type": "object"
+            },
             "example": {
               "hello": "world",
               "proof": [
@@ -17821,7 +19845,6 @@
                 }
               ]
             },
-            "properties": {},
             "type": "object"
           }
         },

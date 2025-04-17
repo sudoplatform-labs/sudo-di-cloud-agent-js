@@ -1,6 +1,6 @@
 {
   "name": "@sudoplatform-labs/sudo-di-cloud-agent",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Decentralized Identity Cloud Agent SDK",
   "author": "Anonyome Labs, Inc.",
   "repository": {
@@ -51,7 +51,10 @@
     "all": "yarn build && yarn test"
   },
   "dependencies": {
-    "portable-fetch": "^3.0.0"
+    "@babel/traverse": "^7.23.2",
+    "node-fetch": "^2.6.7",
+    "portable-fetch": "^3.0.0",
+    "semver": "^7.5.3"
   },
   "devDependencies": {
     "@sudoplatform/sudo-common": "^8.10.1",
@@ -81,7 +84,6 @@
     "micromatch": "^4.0.8"
   },
   "outdatedSuppressions": {
-    "major": {
-    }
+    "major": {}
   }
 }

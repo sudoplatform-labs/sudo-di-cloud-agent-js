@@ -1,5 +1,5 @@
 {
-  "acapyImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-acapy:100.0.101",
+  "acapyImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-acapy:100.200.400",
   "tailsServerImageLocation": "public.ecr.aws/y7m9i7h9/decentralized-identity/sudo-di-tails-server:100.100.0",
   "endorserAdminUri": "http://localhost:8201",
   "endorserInboundPort": "8200",
