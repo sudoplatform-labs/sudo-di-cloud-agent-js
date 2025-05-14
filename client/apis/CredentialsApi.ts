@@ -63,14 +63,13 @@ export interface CredentialW3cCredentialIdGetRequest {
 
 export interface CredentialsGetRequest {
   count?: string;
+  limit?: number;
+  offset?: number;
   start?: string;
   wql?: string;
 }
 
 export interface CredentialsW3cPostRequest {
-  count?: string;
-  start?: string;
-  wql?: string;
   body?: W3CCredentialsListRequest;
 }
 
@@ -369,6 +368,14 @@ export class CredentialsApi extends runtime.BaseAPI {
       queryParameters['count'] = requestParameters.count;
     }
 
+    if (requestParameters.limit !== undefined) {
+      queryParameters['limit'] = requestParameters.limit;
+    }
+
+    if (requestParameters.offset !== undefined) {
+      queryParameters['offset'] = requestParameters.offset;
+    }
+
     if (requestParameters.start !== undefined) {
       queryParameters['start'] = requestParameters.start;
     }
@@ -408,18 +415,6 @@ export class CredentialsApi extends runtime.BaseAPI {
     requestParameters: CredentialsW3cPostRequest,
   ): Promise<runtime.ApiResponse<VCRecordList>> {
     const queryParameters: any = {};
-
-    if (requestParameters.count !== undefined) {
-      queryParameters['count'] = requestParameters.count;
-    }
-
-    if (requestParameters.start !== undefined) {
-      queryParameters['start'] = requestParameters.start;
-    }
-
-    if (requestParameters.wql !== undefined) {
-      queryParameters['wql'] = requestParameters.wql;
-    }
 
     const headerParameters: runtime.HTTPHeaders = {};
 

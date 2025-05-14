@@ -12,54 +12,54 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-  AnoncredsPresentationReqAttrSpecNonRevoked,
-  AnoncredsPresentationReqAttrSpecNonRevokedFromJSON,
-  AnoncredsPresentationReqAttrSpecNonRevokedFromJSONTyped,
-  AnoncredsPresentationReqAttrSpecNonRevokedToJSON,
+  AnonCredsPresentationReqAttrSpecNonRevoked,
+  AnonCredsPresentationReqAttrSpecNonRevokedFromJSON,
+  AnonCredsPresentationReqAttrSpecNonRevokedFromJSONTyped,
+  AnonCredsPresentationReqAttrSpecNonRevokedToJSON,
 } from './';
 
 /**
  *
  * @export
- * @interface AnoncredsPresentationReqAttrSpec
+ * @interface AnonCredsPresentationReqAttrSpec
  */
-export interface AnoncredsPresentationReqAttrSpec {
+export interface AnonCredsPresentationReqAttrSpec {
   /**
    * Attribute name
    * @type {string}
-   * @memberof AnoncredsPresentationReqAttrSpec
+   * @memberof AnonCredsPresentationReqAttrSpec
    */
   name?: string;
   /**
    * Attribute name group
    * @type {Array<string>}
-   * @memberof AnoncredsPresentationReqAttrSpec
+   * @memberof AnonCredsPresentationReqAttrSpec
    */
   names?: Array<string>;
   /**
    *
-   * @type {AnoncredsPresentationReqAttrSpecNonRevoked}
-   * @memberof AnoncredsPresentationReqAttrSpec
+   * @type {AnonCredsPresentationReqAttrSpecNonRevoked}
+   * @memberof AnonCredsPresentationReqAttrSpec
    */
-  non_revoked?: AnoncredsPresentationReqAttrSpecNonRevoked;
+  non_revoked?: AnonCredsPresentationReqAttrSpecNonRevoked;
   /**
    * If present, credential must satisfy one of given restrictions: specify schema_id, schema_issuer_did, schema_name, schema_version, issuer_did, cred_def_id, and/or attr::<attribute-name>::value where <attribute-name> represents a credential attribute name
    * @type {Array<{ [key: string]: string; }>}
-   * @memberof AnoncredsPresentationReqAttrSpec
+   * @memberof AnonCredsPresentationReqAttrSpec
    */
   restrictions?: Array<{ [key: string]: string }>;
 }
 
-export function AnoncredsPresentationReqAttrSpecFromJSON(
+export function AnonCredsPresentationReqAttrSpecFromJSON(
   json: any,
-): AnoncredsPresentationReqAttrSpec {
-  return AnoncredsPresentationReqAttrSpecFromJSONTyped(json, false);
+): AnonCredsPresentationReqAttrSpec {
+  return AnonCredsPresentationReqAttrSpecFromJSONTyped(json, false);
 }
 
-export function AnoncredsPresentationReqAttrSpecFromJSONTyped(
+export function AnonCredsPresentationReqAttrSpecFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
-): AnoncredsPresentationReqAttrSpec {
+): AnonCredsPresentationReqAttrSpec {
   if (json === undefined || json === null) {
     return json;
   }
@@ -68,15 +68,15 @@ export function AnoncredsPresentationReqAttrSpecFromJSONTyped(
     names: !exists(json, 'names') ? undefined : json['names'],
     non_revoked: !exists(json, 'non_revoked')
       ? undefined
-      : AnoncredsPresentationReqAttrSpecNonRevokedFromJSON(json['non_revoked']),
+      : AnonCredsPresentationReqAttrSpecNonRevokedFromJSON(json['non_revoked']),
     restrictions: !exists(json, 'restrictions')
       ? undefined
       : json['restrictions'],
   };
 }
 
-export function AnoncredsPresentationReqAttrSpecToJSON(
-  value?: AnoncredsPresentationReqAttrSpec | null,
+export function AnonCredsPresentationReqAttrSpecToJSON(
+  value?: AnonCredsPresentationReqAttrSpec | null,
 ): any {
   if (value === undefined) {
     return undefined;
@@ -87,7 +87,7 @@ export function AnoncredsPresentationReqAttrSpecToJSON(
   return {
     name: value.name,
     names: value.names,
-    non_revoked: AnoncredsPresentationReqAttrSpecNonRevokedToJSON(
+    non_revoked: AnonCredsPresentationReqAttrSpecNonRevokedToJSON(
       value.non_revoked,
     ),
     restrictions: value.restrictions,

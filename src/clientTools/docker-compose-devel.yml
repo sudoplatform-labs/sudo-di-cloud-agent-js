@@ -76,6 +76,7 @@ services:
         --auto-store-credential
         --plugin oid4vc
         --plugin sd_jwt_vc
+        --plugin connections
         --plugin-config-value "oid4vci.host=${ENDORSER_OID4VCI_HOST:-0.0.0.0}"
         --plugin-config-value "oid4vci.port=${ENDORSER_OID4VCI_PORT:-8020}"
         --plugin-config-value "oid4vci.endpoint=${ENDORSER_OID4VCI_ENDPOINT:-}"
@@ -146,6 +147,7 @@ services:
         --endorser-invitation ${ENDORSER_INVITATION:-}
         --auto-store-credential
         --plugin oid4vc
+        --plugin connections
         --plugin sd_jwt_vc
         --plugin-config-value "oid4vci.host=${AUTHOR_OID4VCI_HOST:-0.0.0.0}"
         --plugin-config-value "oid4vci.port=${AUTHOR_OID4VCI_PORT:-8021}"

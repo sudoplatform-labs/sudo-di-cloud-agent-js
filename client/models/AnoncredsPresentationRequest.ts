@@ -12,74 +12,74 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-  AnoncredsPresentationReqAttrSpec,
-  AnoncredsPresentationReqAttrSpecFromJSON,
-  AnoncredsPresentationReqAttrSpecFromJSONTyped,
-  AnoncredsPresentationReqAttrSpecToJSON,
-  AnoncredsPresentationReqPredSpec,
-  AnoncredsPresentationReqPredSpecFromJSON,
-  AnoncredsPresentationReqPredSpecFromJSONTyped,
-  AnoncredsPresentationReqPredSpecToJSON,
-  AnoncredsPresentationRequestNonRevoked,
-  AnoncredsPresentationRequestNonRevokedFromJSON,
-  AnoncredsPresentationRequestNonRevokedFromJSONTyped,
-  AnoncredsPresentationRequestNonRevokedToJSON,
+  AnonCredsPresentationReqAttrSpec,
+  AnonCredsPresentationReqAttrSpecFromJSON,
+  AnonCredsPresentationReqAttrSpecFromJSONTyped,
+  AnonCredsPresentationReqAttrSpecToJSON,
+  AnonCredsPresentationReqPredSpec,
+  AnonCredsPresentationReqPredSpecFromJSON,
+  AnonCredsPresentationReqPredSpecFromJSONTyped,
+  AnonCredsPresentationReqPredSpecToJSON,
+  AnonCredsPresentationRequestNonRevoked,
+  AnonCredsPresentationRequestNonRevokedFromJSON,
+  AnonCredsPresentationRequestNonRevokedFromJSONTyped,
+  AnonCredsPresentationRequestNonRevokedToJSON,
 } from './';
 
 /**
  *
  * @export
- * @interface AnoncredsPresentationRequest
+ * @interface AnonCredsPresentationRequest
  */
-export interface AnoncredsPresentationRequest {
+export interface AnonCredsPresentationRequest {
   /**
    * Proof request name
    * @type {string}
-   * @memberof AnoncredsPresentationRequest
+   * @memberof AnonCredsPresentationRequest
    */
   name?: string;
   /**
    *
-   * @type {AnoncredsPresentationRequestNonRevoked}
-   * @memberof AnoncredsPresentationRequest
+   * @type {AnonCredsPresentationRequestNonRevoked}
+   * @memberof AnonCredsPresentationRequest
    */
-  non_revoked?: AnoncredsPresentationRequestNonRevoked;
+  non_revoked?: AnonCredsPresentationRequestNonRevoked;
   /**
    * Nonce
    * @type {string}
-   * @memberof AnoncredsPresentationRequest
+   * @memberof AnonCredsPresentationRequest
    */
   nonce?: string;
   /**
    * Requested attribute specifications of proof request
-   * @type {{ [key: string]: AnoncredsPresentationReqAttrSpec; }}
-   * @memberof AnoncredsPresentationRequest
+   * @type {{ [key: string]: AnonCredsPresentationReqAttrSpec; }}
+   * @memberof AnonCredsPresentationRequest
    */
-  requested_attributes: { [key: string]: AnoncredsPresentationReqAttrSpec };
+  requested_attributes: { [key: string]: AnonCredsPresentationReqAttrSpec };
   /**
    * Requested predicate specifications of proof request
-   * @type {{ [key: string]: AnoncredsPresentationReqPredSpec; }}
-   * @memberof AnoncredsPresentationRequest
+   * @type {{ [key: string]: AnonCredsPresentationReqPredSpec; }}
+   * @memberof AnonCredsPresentationRequest
    */
-  requested_predicates: { [key: string]: AnoncredsPresentationReqPredSpec };
+  requested_predicates: { [key: string]: AnonCredsPresentationReqPredSpec };
   /**
    * Proof request version
    * @type {string}
-   * @memberof AnoncredsPresentationRequest
+   * @memberof AnonCredsPresentationRequest
    */
   version?: string;
 }
 
-export function AnoncredsPresentationRequestFromJSON(
+export function AnonCredsPresentationRequestFromJSON(
   json: any,
-): AnoncredsPresentationRequest {
-  return AnoncredsPresentationRequestFromJSONTyped(json, false);
+): AnonCredsPresentationRequest {
+  return AnonCredsPresentationRequestFromJSONTyped(json, false);
 }
 
-export function AnoncredsPresentationRequestFromJSONTyped(
+export function AnonCredsPresentationRequestFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
-): AnoncredsPresentationRequest {
+): AnonCredsPresentationRequest {
   if (json === undefined || json === null) {
     return json;
   }
@@ -87,22 +87,22 @@ export function AnoncredsPresentationRequestFromJSONTyped(
     name: !exists(json, 'name') ? undefined : json['name'],
     non_revoked: !exists(json, 'non_revoked')
       ? undefined
-      : AnoncredsPresentationRequestNonRevokedFromJSON(json['non_revoked']),
+      : AnonCredsPresentationRequestNonRevokedFromJSON(json['non_revoked']),
     nonce: !exists(json, 'nonce') ? undefined : json['nonce'],
     requested_attributes: mapValues(
       json['requested_attributes'],
-      AnoncredsPresentationReqAttrSpecFromJSON,
+      AnonCredsPresentationReqAttrSpecFromJSON,
     ),
     requested_predicates: mapValues(
       json['requested_predicates'],
-      AnoncredsPresentationReqPredSpecFromJSON,
+      AnonCredsPresentationReqPredSpecFromJSON,
     ),
     version: !exists(json, 'version') ? undefined : json['version'],
   };
 }
 
-export function AnoncredsPresentationRequestToJSON(
-  value?: AnoncredsPresentationRequest | null,
+export function AnonCredsPresentationRequestToJSON(
+  value?: AnonCredsPresentationRequest | null,
 ): any {
   if (value === undefined) {
     return undefined;
@@ -112,17 +112,17 @@ export function AnoncredsPresentationRequestToJSON(
   }
   return {
     name: value.name,
-    non_revoked: AnoncredsPresentationRequestNonRevokedToJSON(
+    non_revoked: AnonCredsPresentationRequestNonRevokedToJSON(
       value.non_revoked,
     ),
     nonce: value.nonce,
     requested_attributes: mapValues(
       value.requested_attributes,
-      AnoncredsPresentationReqAttrSpecToJSON,
+      AnonCredsPresentationReqAttrSpecToJSON,
     ),
     requested_predicates: mapValues(
       value.requested_predicates,
-      AnoncredsPresentationReqPredSpecToJSON,
+      AnonCredsPresentationReqPredSpecToJSON,
     ),
     version: value.version,
   };

@@ -33,6 +33,10 @@ export interface OutOfBandCreateInvitationPostRequest {
   body?: InvitationCreateRequest;
 }
 
+export interface OutOfBandInvitationsGetRequest {
+  oobId: string;
+}
+
 export interface OutOfBandInvitationsInviMsgIdDeleteRequest {
   inviMsgId: string;
 }
@@ -94,6 +98,50 @@ export class OutOfBandApi extends runtime.BaseAPI {
   ): Promise<InvitationRecord> {
     const response =
       await this.outOfBandCreateInvitationPostRaw(requestParameters);
+    return await response.value();
+  }
+
+  /**
+   * Fetch an existing Out-of-Band invitation.
+   */
+  async outOfBandInvitationsGetRaw(
+    requestParameters: OutOfBandInvitationsGetRequest,
+  ): Promise<runtime.ApiResponse<object>> {
+    if (
+      requestParameters.oobId === null ||
+      requestParameters.oobId === undefined
+    ) {
+      throw new runtime.RequiredError(
+        'oobId',
+        'Required parameter requestParameters.oobId was null or undefined when calling outOfBandInvitationsGet.',
+      );
+    }
+
+    const queryParameters: any = {};
+
+    if (requestParameters.oobId !== undefined) {
+      queryParameters['oob_id'] = requestParameters.oobId;
+    }
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    const response = await this.request({
+      path: `/out-of-band/invitations`,
+      method: 'GET',
+      headers: headerParameters,
+      query: queryParameters,
+    });
+
+    return new runtime.JSONApiResponse<any>(response);
+  }
+
+  /**
+   * Fetch an existing Out-of-Band invitation.
+   */
+  async outOfBandInvitationsGet(
+    requestParameters: OutOfBandInvitationsGetRequest,
+  ): Promise<object> {
+    const response = await this.outOfBandInvitationsGetRaw(requestParameters);
     return await response.value();
   }
 

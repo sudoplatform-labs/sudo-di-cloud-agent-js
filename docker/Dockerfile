@@ -10,7 +10,8 @@ ARG plugin_tag
 RUN pip install "git+${plugin_repo}@${plugin_tag}#subdirectory=oid4vc"
 # Install the `cheqd` plugin
 RUN pip install "git+${plugin_repo}@${plugin_tag}#subdirectory=cheqd"
-
+# Install the `connections` plugin
+RUN pip install "git+${plugin_repo}@${plugin_tag}#subdirectory=connections"
 
 # Install `jsonpointer` which is an extra dependency needed by the `sd_jwt_vc` plugin.
 RUN pip install jsonpointer

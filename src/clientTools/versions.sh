@@ -5,9 +5,9 @@
 # Aries Cloud Agent build config defaults
 ACA_PY_DOCKER_IMAGE_DEFAULT="sudo-di-acapy"
 ACA_PY_GIT_REPO_DEFAULT="https://github.com/anonyome/aries-cloudagent-python.git"
-ACA_PY_GIT_TAG_DEFAULT=100.200.400
+ACA_PY_GIT_TAG_DEFAULT=100.300.000
 ACA_PY_PLUGINS_GIT_REPO_DEFAULT="https://github.com/anonyome/acapy-plugins"
-ACA_PY_PLUGINS_GIT_TAG_DEFAULT=100.200.400.100
+ACA_PY_PLUGINS_GIT_TAG_DEFAULT=100.300.000
 
 # Indy Tails File Server build config defaults
 TAILS_SERVER_GIT_REPO_DEFAULT="https://github.com/anonyome/indy-tails-server.git"

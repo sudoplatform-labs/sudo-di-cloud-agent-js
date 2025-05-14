@@ -1,5 +1,5 @@
 export * from './ActionMenuApi';
-export * from './AnoncredsWalletUpgradeApi';
+export * from './AnonCredsWalletUpgradeApi';
 export * from './BasicmessageApi';
 export * from './ConnectionApi';
 export * from './CredentialDefinitionApi';

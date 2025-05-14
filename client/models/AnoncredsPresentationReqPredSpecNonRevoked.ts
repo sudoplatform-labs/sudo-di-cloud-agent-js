@@ -14,33 +14,33 @@ import { exists, mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface AnoncredsPresentationReqPredSpecNonRevoked
+ * @interface AnonCredsPresentationReqPredSpecNonRevoked
  */
-export interface AnoncredsPresentationReqPredSpecNonRevoked {
+export interface AnonCredsPresentationReqPredSpecNonRevoked {
   /**
    * Earliest time of interest in non-revocation interval
    * @type {number}
-   * @memberof AnoncredsPresentationReqPredSpecNonRevoked
+   * @memberof AnonCredsPresentationReqPredSpecNonRevoked
    */
   from?: number;
   /**
    * Latest time of interest in non-revocation interval
    * @type {number}
-   * @memberof AnoncredsPresentationReqPredSpecNonRevoked
+   * @memberof AnonCredsPresentationReqPredSpecNonRevoked
    */
   to?: number;
 }
 
-export function AnoncredsPresentationReqPredSpecNonRevokedFromJSON(
+export function AnonCredsPresentationReqPredSpecNonRevokedFromJSON(
   json: any,
-): AnoncredsPresentationReqPredSpecNonRevoked {
-  return AnoncredsPresentationReqPredSpecNonRevokedFromJSONTyped(json, false);
+): AnonCredsPresentationReqPredSpecNonRevoked {
+  return AnonCredsPresentationReqPredSpecNonRevokedFromJSONTyped(json, false);
 }
 
-export function AnoncredsPresentationReqPredSpecNonRevokedFromJSONTyped(
+export function AnonCredsPresentationReqPredSpecNonRevokedFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
-): AnoncredsPresentationReqPredSpecNonRevoked {
+): AnonCredsPresentationReqPredSpecNonRevoked {
   if (json === undefined || json === null) {
     return json;
   }
@@ -50,8 +50,8 @@ export function AnoncredsPresentationReqPredSpecNonRevokedFromJSONTyped(
   };
 }
 
-export function AnoncredsPresentationReqPredSpecNonRevokedToJSON(
-  value?: AnoncredsPresentationReqPredSpecNonRevoked | null,
+export function AnonCredsPresentationReqPredSpecNonRevokedToJSON(
+  value?: AnonCredsPresentationReqPredSpecNonRevoked | null,
 ): any {
   if (value === undefined) {
     return undefined;

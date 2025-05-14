@@ -16,10 +16,10 @@ import {
   LDProofVCDetailFromJSON,
   LDProofVCDetailFromJSONTyped,
   LDProofVCDetailToJSON,
-  V20CredFilterAnoncreds,
-  V20CredFilterAnoncredsFromJSON,
-  V20CredFilterAnoncredsFromJSONTyped,
-  V20CredFilterAnoncredsToJSON,
+  V20CredFilterAnonCreds,
+  V20CredFilterAnonCredsFromJSON,
+  V20CredFilterAnonCredsFromJSONTyped,
+  V20CredFilterAnonCredsToJSON,
   V20CredFilterIndy,
   V20CredFilterIndyFromJSON,
   V20CredFilterIndyFromJSONTyped,
@@ -38,10 +38,10 @@ import {
 export interface V20CredFilter {
   /**
    * Credential filter for anoncreds
-   * @type {V20CredFilterAnoncreds}
+   * @type {V20CredFilterAnonCreds}
    * @memberof V20CredFilter
    */
-  anoncreds?: V20CredFilterAnoncreds;
+  anoncreds?: V20CredFilterAnonCreds;
   /**
    * Credential filter for indy
    * @type {V20CredFilterIndy}
@@ -76,7 +76,7 @@ export function V20CredFilterFromJSONTyped(
   return {
     anoncreds: !exists(json, 'anoncreds')
       ? undefined
-      : V20CredFilterAnoncredsFromJSON(json['anoncreds']),
+      : V20CredFilterAnonCredsFromJSON(json['anoncreds']),
     indy: !exists(json, 'indy')
       ? undefined
       : V20CredFilterIndyFromJSON(json['indy']),
@@ -97,7 +97,7 @@ export function V20CredFilterToJSON(value?: V20CredFilter | null): any {
     return null;
   }
   return {
-    anoncreds: V20CredFilterAnoncredsToJSON(value.anoncreds),
+    anoncreds: V20CredFilterAnonCredsToJSON(value.anoncreds),
     indy: V20CredFilterIndyToJSON(value.indy),
     ld_proof: LDProofVCDetailToJSON(value.ld_proof),
     vc_di: V20CredFilterVCDIToJSON(value.vc_di),

@@ -25,11 +25,17 @@ import {
  */
 export interface LedgerConfigList {
   /**
-   *
+   * Non-production ledgers (may be empty)
    * @type {Array<LedgerConfigInstance>}
    * @memberof LedgerConfigList
    */
-  ledger_config_list: Array<LedgerConfigInstance>;
+  non_production_ledgers: Array<LedgerConfigInstance>;
+  /**
+   * Production ledgers (may be empty)
+   * @type {Array<LedgerConfigInstance>}
+   * @memberof LedgerConfigList
+   */
+  production_ledgers: Array<LedgerConfigInstance>;
 }
 
 export function LedgerConfigListFromJSON(json: any): LedgerConfigList {
@@ -44,7 +50,10 @@ export function LedgerConfigListFromJSONTyped(
     return json;
   }
   return {
-    ledger_config_list: (json['ledger_config_list'] as Array<any>).map(
+    non_production_ledgers: (json['non_production_ledgers'] as Array<any>).map(
+      LedgerConfigInstanceFromJSON,
+    ),
+    production_ledgers: (json['production_ledgers'] as Array<any>).map(
       LedgerConfigInstanceFromJSON,
     ),
   };
@@ -58,7 +67,10 @@ export function LedgerConfigListToJSON(value?: LedgerConfigList | null): any {
     return null;
   }
   return {
-    ledger_config_list: (value.ledger_config_list as Array<any>).map(
+    non_production_ledgers: (value.non_production_ledgers as Array<any>).map(
+      LedgerConfigInstanceToJSON,
+    ),
+    production_ledgers: (value.production_ledgers as Array<any>).map(
       LedgerConfigInstanceToJSON,
     ),
   };

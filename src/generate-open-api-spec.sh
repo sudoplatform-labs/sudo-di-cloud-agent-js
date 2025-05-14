@@ -41,6 +41,7 @@ ACA_PY_CMD_OPTIONS=" \
   --wallet-key gen-openapi-key \
   --no-ledger \
   --plugin oid4vc \
+  --plugin connections \
   --plugin sd_jwt_vc \
   --plugin cheqd"
 

@@ -19,9 +19,9 @@ export interface AnoncredsWalletUpgradePostRequest {
 /**
  *
  */
-export class AnoncredsWalletUpgradeApi extends runtime.BaseAPI {
+export class AnonCredsWalletUpgradeApi extends runtime.BaseAPI {
   /**
-   *          Upgrade the wallet from askar to anoncreds - Be very careful with this! You          cannot go back! See migration guide for more information.
+   * Upgrade the wallet from askar to askar-anoncreds. Be very careful with this! You cannot go back! See migration guide for more information.
    */
   async anoncredsWalletUpgradePostRaw(
     requestParameters: AnoncredsWalletUpgradePostRequest,
@@ -55,7 +55,7 @@ export class AnoncredsWalletUpgradeApi extends runtime.BaseAPI {
   }
 
   /**
-   *          Upgrade the wallet from askar to anoncreds - Be very careful with this! You          cannot go back! See migration guide for more information.
+   * Upgrade the wallet from askar to askar-anoncreds. Be very careful with this! You cannot go back! See migration guide for more information.
    */
   async anoncredsWalletUpgradePost(
     requestParameters: AnoncredsWalletUpgradePostRequest,

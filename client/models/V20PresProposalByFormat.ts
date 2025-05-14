@@ -12,10 +12,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-  AnoncredsPresentationRequest,
-  AnoncredsPresentationRequestFromJSON,
-  AnoncredsPresentationRequestFromJSONTyped,
-  AnoncredsPresentationRequestToJSON,
+  AnonCredsPresentationRequest,
+  AnonCredsPresentationRequestFromJSON,
+  AnonCredsPresentationRequestFromJSONTyped,
+  AnonCredsPresentationRequestToJSON,
   DIFProofProposal,
   DIFProofProposalFromJSON,
   DIFProofProposalFromJSONTyped,
@@ -34,10 +34,10 @@ import {
 export interface V20PresProposalByFormat {
   /**
    * Presentation proposal for anoncreds
-   * @type {AnoncredsPresentationRequest}
+   * @type {AnonCredsPresentationRequest}
    * @memberof V20PresProposalByFormat
    */
-  anoncreds?: AnoncredsPresentationRequest;
+  anoncreds?: AnonCredsPresentationRequest;
   /**
    * Presentation proposal for DIF
    * @type {DIFProofProposal}
@@ -68,7 +68,7 @@ export function V20PresProposalByFormatFromJSONTyped(
   return {
     anoncreds: !exists(json, 'anoncreds')
       ? undefined
-      : AnoncredsPresentationRequestFromJSON(json['anoncreds']),
+      : AnonCredsPresentationRequestFromJSON(json['anoncreds']),
     dif: !exists(json, 'dif')
       ? undefined
       : DIFProofProposalFromJSON(json['dif']),
@@ -88,7 +88,7 @@ export function V20PresProposalByFormatToJSON(
     return null;
   }
   return {
-    anoncreds: AnoncredsPresentationRequestToJSON(value.anoncreds),
+    anoncreds: AnonCredsPresentationRequestToJSON(value.anoncreds),
     dif: DIFProofProposalToJSON(value.dif),
     indy: IndyProofRequestToJSON(value.indy),
   };

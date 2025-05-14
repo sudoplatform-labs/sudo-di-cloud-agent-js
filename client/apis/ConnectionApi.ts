@@ -12,33 +12,33 @@
 
 import * as runtime from '../runtime';
 import {
-  ConnRecord,
-  ConnRecordFromJSON,
-  ConnRecordToJSON,
-  ConnectionList,
-  ConnectionListFromJSON,
-  ConnectionListToJSON,
-  ConnectionMetadata,
-  ConnectionMetadataFromJSON,
-  ConnectionMetadataToJSON,
-  ConnectionMetadataSetRequest,
-  ConnectionMetadataSetRequestFromJSON,
-  ConnectionMetadataSetRequestToJSON,
-  ConnectionStaticRequest,
-  ConnectionStaticRequestFromJSON,
-  ConnectionStaticRequestToJSON,
-  ConnectionStaticResult,
-  ConnectionStaticResultFromJSON,
-  ConnectionStaticResultToJSON,
+  ConnectionListV1,
+  ConnectionListV1FromJSON,
+  ConnectionListV1ToJSON,
+  ConnectionMetadataSetRequestV1,
+  ConnectionMetadataSetRequestV1FromJSON,
+  ConnectionMetadataSetRequestV1ToJSON,
+  ConnectionMetadataV1,
+  ConnectionMetadataV1FromJSON,
+  ConnectionMetadataV1ToJSON,
+  ConnectionStaticRequestV1,
+  ConnectionStaticRequestV1FromJSON,
+  ConnectionStaticRequestV1ToJSON,
+  ConnectionStaticResultV1,
+  ConnectionStaticResultV1FromJSON,
+  ConnectionStaticResultV1ToJSON,
   CreateInvitationRequest,
   CreateInvitationRequestFromJSON,
   CreateInvitationRequestToJSON,
-  EndpointsResult,
-  EndpointsResultFromJSON,
-  EndpointsResultToJSON,
+  EndpointsResultV1,
+  EndpointsResultV1FromJSON,
+  EndpointsResultV1ToJSON,
   InvitationResult,
   InvitationResultFromJSON,
   InvitationResultToJSON,
+  MaybeStoredConnectionsRecord,
+  MaybeStoredConnectionsRecordFromJSON,
+  MaybeStoredConnectionsRecordToJSON,
   ReceiveInvitationRequest,
   ReceiveInvitationRequestFromJSON,
   ReceiveInvitationRequestToJSON,
@@ -75,7 +75,7 @@ export interface ConnectionsConnIdMetadataGetRequest {
 
 export interface ConnectionsConnIdMetadataPostRequest {
   connId: string;
-  body?: ConnectionMetadataSetRequest;
+  body?: ConnectionMetadataSetRequestV1;
 }
 
 export interface ConnectionsCreateInvitationPostRequest {
@@ -87,17 +87,19 @@ export interface ConnectionsCreateInvitationPostRequest {
 }
 
 export interface ConnectionsCreateStaticPostRequest {
-  body?: ConnectionStaticRequest;
+  body?: ConnectionStaticRequestV1;
 }
 
 export interface ConnectionsGetRequest {
   alias?: string;
   connectionProtocol?: ConnectionsGetConnectionProtocolEnum;
+  descending?: boolean;
   invitationKey?: string;
   invitationMsgId?: string;
   limit?: number;
   myDid?: string;
   offset?: number;
+  orderBy?: ConnectionsGetOrderByEnum;
   state?: ConnectionsGetStateEnum;
   theirDid?: string;
   theirPublicDid?: string;
@@ -120,7 +122,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdAcceptInvitationPostRaw(
     requestParameters: ConnectionsConnIdAcceptInvitationPostRequest,
-  ): Promise<runtime.ApiResponse<ConnRecord>> {
+  ): Promise<runtime.ApiResponse<MaybeStoredConnectionsRecord>> {
     if (
       requestParameters.connId === null ||
       requestParameters.connId === undefined
@@ -158,7 +160,7 @@ export class ConnectionApi extends runtime.BaseAPI {
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ConnRecordFromJSON(jsonValue),
+      MaybeStoredConnectionsRecordFromJSON(jsonValue),
     );
   }
 
@@ -167,7 +169,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdAcceptInvitationPost(
     requestParameters: ConnectionsConnIdAcceptInvitationPostRequest,
-  ): Promise<ConnRecord> {
+  ): Promise<MaybeStoredConnectionsRecord> {
     const response =
       await this.connectionsConnIdAcceptInvitationPostRaw(requestParameters);
     return await response.value();
@@ -178,7 +180,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdAcceptRequestPostRaw(
     requestParameters: ConnectionsConnIdAcceptRequestPostRequest,
-  ): Promise<runtime.ApiResponse<ConnRecord>> {
+  ): Promise<runtime.ApiResponse<MaybeStoredConnectionsRecord>> {
     if (
       requestParameters.connId === null ||
       requestParameters.connId === undefined
@@ -208,7 +210,7 @@ export class ConnectionApi extends runtime.BaseAPI {
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ConnRecordFromJSON(jsonValue),
+      MaybeStoredConnectionsRecordFromJSON(jsonValue),
     );
   }
 
@@ -217,7 +219,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdAcceptRequestPost(
     requestParameters: ConnectionsConnIdAcceptRequestPostRequest,
-  ): Promise<ConnRecord> {
+  ): Promise<MaybeStoredConnectionsRecord> {
     const response =
       await this.connectionsConnIdAcceptRequestPostRaw(requestParameters);
     return await response.value();
@@ -271,7 +273,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdEndpointsGetRaw(
     requestParameters: ConnectionsConnIdEndpointsGetRequest,
-  ): Promise<runtime.ApiResponse<EndpointsResult>> {
+  ): Promise<runtime.ApiResponse<EndpointsResultV1>> {
     if (
       requestParameters.connId === null ||
       requestParameters.connId === undefined
@@ -297,7 +299,7 @@ export class ConnectionApi extends runtime.BaseAPI {
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      EndpointsResultFromJSON(jsonValue),
+      EndpointsResultV1FromJSON(jsonValue),
     );
   }
 
@@ -306,7 +308,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdEndpointsGet(
     requestParameters: ConnectionsConnIdEndpointsGetRequest,
-  ): Promise<EndpointsResult> {
+  ): Promise<EndpointsResultV1> {
     const response =
       await this.connectionsConnIdEndpointsGetRaw(requestParameters);
     return await response.value();
@@ -317,7 +319,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdGetRaw(
     requestParameters: ConnectionsConnIdGetRequest,
-  ): Promise<runtime.ApiResponse<ConnRecord>> {
+  ): Promise<runtime.ApiResponse<MaybeStoredConnectionsRecord>> {
     if (
       requestParameters.connId === null ||
       requestParameters.connId === undefined
@@ -343,7 +345,7 @@ export class ConnectionApi extends runtime.BaseAPI {
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ConnRecordFromJSON(jsonValue),
+      MaybeStoredConnectionsRecordFromJSON(jsonValue),
     );
   }
 
@@ -352,7 +354,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdGet(
     requestParameters: ConnectionsConnIdGetRequest,
-  ): Promise<ConnRecord> {
+  ): Promise<MaybeStoredConnectionsRecord> {
     const response = await this.connectionsConnIdGetRaw(requestParameters);
     return await response.value();
   }
@@ -362,7 +364,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdMetadataGetRaw(
     requestParameters: ConnectionsConnIdMetadataGetRequest,
-  ): Promise<runtime.ApiResponse<ConnectionMetadata>> {
+  ): Promise<runtime.ApiResponse<ConnectionMetadataV1>> {
     if (
       requestParameters.connId === null ||
       requestParameters.connId === undefined
@@ -392,7 +394,7 @@ export class ConnectionApi extends runtime.BaseAPI {
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ConnectionMetadataFromJSON(jsonValue),
+      ConnectionMetadataV1FromJSON(jsonValue),
     );
   }
 
@@ -401,7 +403,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdMetadataGet(
     requestParameters: ConnectionsConnIdMetadataGetRequest,
-  ): Promise<ConnectionMetadata> {
+  ): Promise<ConnectionMetadataV1> {
     const response =
       await this.connectionsConnIdMetadataGetRaw(requestParameters);
     return await response.value();
@@ -412,7 +414,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdMetadataPostRaw(
     requestParameters: ConnectionsConnIdMetadataPostRequest,
-  ): Promise<runtime.ApiResponse<ConnectionMetadata>> {
+  ): Promise<runtime.ApiResponse<ConnectionMetadataV1>> {
     if (
       requestParameters.connId === null ||
       requestParameters.connId === undefined
@@ -437,11 +439,11 @@ export class ConnectionApi extends runtime.BaseAPI {
       method: 'POST',
       headers: headerParameters,
       query: queryParameters,
-      body: ConnectionMetadataSetRequestToJSON(requestParameters.body),
+      body: ConnectionMetadataSetRequestV1ToJSON(requestParameters.body),
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ConnectionMetadataFromJSON(jsonValue),
+      ConnectionMetadataV1FromJSON(jsonValue),
     );
   }
 
@@ -450,7 +452,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsConnIdMetadataPost(
     requestParameters: ConnectionsConnIdMetadataPostRequest,
-  ): Promise<ConnectionMetadata> {
+  ): Promise<ConnectionMetadataV1> {
     const response =
       await this.connectionsConnIdMetadataPostRaw(requestParameters);
     return await response.value();
@@ -513,7 +515,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsCreateStaticPostRaw(
     requestParameters: ConnectionsCreateStaticPostRequest,
-  ): Promise<runtime.ApiResponse<ConnectionStaticResult>> {
+  ): Promise<runtime.ApiResponse<ConnectionStaticResultV1>> {
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -525,11 +527,11 @@ export class ConnectionApi extends runtime.BaseAPI {
       method: 'POST',
       headers: headerParameters,
       query: queryParameters,
-      body: ConnectionStaticRequestToJSON(requestParameters.body),
+      body: ConnectionStaticRequestV1ToJSON(requestParameters.body),
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ConnectionStaticResultFromJSON(jsonValue),
+      ConnectionStaticResultV1FromJSON(jsonValue),
     );
   }
 
@@ -538,7 +540,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsCreateStaticPost(
     requestParameters: ConnectionsCreateStaticPostRequest,
-  ): Promise<ConnectionStaticResult> {
+  ): Promise<ConnectionStaticResultV1> {
     const response =
       await this.connectionsCreateStaticPostRaw(requestParameters);
     return await response.value();
@@ -549,7 +551,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsGetRaw(
     requestParameters: ConnectionsGetRequest,
-  ): Promise<runtime.ApiResponse<ConnectionList>> {
+  ): Promise<runtime.ApiResponse<ConnectionListV1>> {
     const queryParameters: any = {};
 
     if (requestParameters.alias !== undefined) {
@@ -559,6 +561,10 @@ export class ConnectionApi extends runtime.BaseAPI {
     if (requestParameters.connectionProtocol !== undefined) {
       queryParameters['connection_protocol'] =
         requestParameters.connectionProtocol;
+    }
+
+    if (requestParameters.descending !== undefined) {
+      queryParameters['descending'] = requestParameters.descending;
     }
 
     if (requestParameters.invitationKey !== undefined) {
@@ -579,6 +585,10 @@ export class ConnectionApi extends runtime.BaseAPI {
 
     if (requestParameters.offset !== undefined) {
       queryParameters['offset'] = requestParameters.offset;
+    }
+
+    if (requestParameters.orderBy !== undefined) {
+      queryParameters['order_by'] = requestParameters.orderBy;
     }
 
     if (requestParameters.state !== undefined) {
@@ -607,7 +617,7 @@ export class ConnectionApi extends runtime.BaseAPI {
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ConnectionListFromJSON(jsonValue),
+      ConnectionListV1FromJSON(jsonValue),
     );
   }
 
@@ -616,7 +626,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsGet(
     requestParameters: ConnectionsGetRequest,
-  ): Promise<ConnectionList> {
+  ): Promise<ConnectionListV1> {
     const response = await this.connectionsGetRaw(requestParameters);
     return await response.value();
   }
@@ -626,7 +636,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsReceiveInvitationPostRaw(
     requestParameters: ConnectionsReceiveInvitationPostRequest,
-  ): Promise<runtime.ApiResponse<ConnRecord>> {
+  ): Promise<runtime.ApiResponse<MaybeStoredConnectionsRecord>> {
     const queryParameters: any = {};
 
     if (requestParameters.alias !== undefined) {
@@ -654,7 +664,7 @@ export class ConnectionApi extends runtime.BaseAPI {
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      ConnRecordFromJSON(jsonValue),
+      MaybeStoredConnectionsRecordFromJSON(jsonValue),
     );
   }
 
@@ -663,7 +673,7 @@ export class ConnectionApi extends runtime.BaseAPI {
    */
   async connectionsReceiveInvitationPost(
     requestParameters: ConnectionsReceiveInvitationPostRequest,
-  ): Promise<ConnRecord> {
+  ): Promise<MaybeStoredConnectionsRecord> {
     const response =
       await this.connectionsReceiveInvitationPostRaw(requestParameters);
     return await response.value();
@@ -678,6 +688,13 @@ export enum ConnectionsGetConnectionProtocolEnum {
   Connections10 = 'connections/1.0',
   Didexchange10 = 'didexchange/1.0',
   Didexchange11 = 'didexchange/1.1',
+}
+/**
+ * @export
+ * @enum {string}
+ */
+export enum ConnectionsGetOrderByEnum {
+  Id = 'id',
 }
 /**
  * @export

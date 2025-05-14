@@ -20,16 +20,16 @@
   ],
   "tags": [
     {
-      "description": "Menu interaction over connection",
-      "name": "action-menu"
-    },
-    {
-      "description": "Anoncreds wallet upgrade",
+      "description": "AnonCreds wallet upgrade",
       "externalDocs": {
         "description": "Specification",
         "url": "https://hyperledger.github.io/anoncreds-spec"
       },
-      "name": "anoncreds - wallet upgrade"
+      "name": "AnonCreds - Wallet Upgrade"
+    },
+    {
+      "description": "Menu interaction over connection",
+      "name": "action-menu"
     },
     {
       "description": "Simple messaging",
@@ -38,6 +38,10 @@
         "url": "https://github.com/hyperledger/aries-rfcs/tree/527849ec3aa2a8fd47a7bb6c57f918ff8bcb5e8c/features/0095-basic-message"
       },
       "name": "basicmessage"
+    },
+    {
+      "description": "Connection management",
+      "name": "connection"
     },
     {
       "description": "Connection management",
@@ -62,6 +66,14 @@
         "url": "https://w3c.github.io/vc-data-model/#credentials"
       },
       "name": "credentials"
+    },
+    {
+      "description": "Endpoints for managing dids",
+      "externalDocs": {
+        "description": "Specification",
+        "url": "https://www.w3.org/TR/did-core/"
+      },
+      "name": "did"
     },
     {
       "description": "Endpoints for managing dids",
@@ -447,9 +459,9 @@
             "description": ""
           }
         },
-        "summary": "\n        Upgrade the wallet from askar to anoncreds - Be very careful with this! You \n        cannot go back! See migration guide for more information.\n    ",
+        "summary": "Upgrade the wallet from askar to askar-anoncreds. Be very careful with this! You cannot go back! See migration guide for more information.",
         "tags": [
-          "anoncreds - wallet upgrade"
+          "AnonCreds - Wallet Upgrade"
         ]
       }
     },
@@ -478,6 +490,15 @@
             }
           },
           {
+            "description": "Order results in descending order if true",
+            "in": "query",
+            "name": "descending",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
             "description": "invitation key",
             "in": "query",
             "name": "invitation_key",
@@ -500,6 +521,8 @@
             "name": "limit",
             "schema": {
               "default": 100,
+              "maximum": 10000,
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -508,7 +531,7 @@
             "in": "query",
             "name": "my_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -518,7 +541,20 @@
             "name": "offset",
             "schema": {
               "default": 0,
+              "minimum": 0,
               "type": "integer"
+            }
+          },
+          {
+            "description": "The column to order results by. Only \"id\" is currently supported.",
+            "in": "query",
+            "name": "order_by",
+            "schema": {
+              "default": "id",
+              "enum": [
+                "id"
+              ],
+              "type": "string"
             }
           },
           {
@@ -545,7 +581,7 @@
             "in": "query",
             "name": "their_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -554,7 +590,7 @@
             "in": "query",
             "name": "their_public_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -578,7 +614,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnectionList"
+                  "$ref": "#/components/schemas/ConnectionListV1"
                 }
               }
             },
@@ -593,7 +629,6 @@
     },
     "/connections/create-invitation": {
       "post": {
-        "deprecated": true,
         "parameters": [
           {
             "description": "Alias",
@@ -663,7 +698,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionStaticRequest"
+                "$ref": "#/components/schemas/ConnectionStaticRequestV1"
               }
             }
           },
@@ -674,7 +709,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnectionStaticResult"
+                  "$ref": "#/components/schemas/ConnectionStaticResultV1"
                 }
               }
             },
@@ -690,7 +725,6 @@
     },
     "/connections/receive-invitation": {
       "post": {
-        "deprecated": true,
         "parameters": [
           {
             "description": "Alias",
@@ -733,7 +767,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnRecord"
+                  "$ref": "#/components/schemas/MaybeStoredConnectionsRecord"
                 }
               }
             },
@@ -765,7 +799,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnectionModuleResponse"
+                  "$ref": "#/components/schemas/ConnectionModuleResponseV1"
                 }
               }
             },
@@ -794,7 +828,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnRecord"
+                  "$ref": "#/components/schemas/MaybeStoredConnectionsRecord"
                 }
               }
             },
@@ -809,7 +843,6 @@
     },
     "/connections/{conn_id}/accept-invitation": {
       "post": {
-        "deprecated": true,
         "parameters": [
           {
             "description": "Connection identifier",
@@ -852,7 +885,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnRecord"
+                  "$ref": "#/components/schemas/MaybeStoredConnectionsRecord"
                 }
               }
             },
@@ -867,7 +900,6 @@
     },
     "/connections/{conn_id}/accept-request": {
       "post": {
-        "deprecated": true,
         "parameters": [
           {
             "description": "Connection identifier",
@@ -893,7 +925,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnRecord"
+                  "$ref": "#/components/schemas/MaybeStoredConnectionsRecord"
                 }
               }
             },
@@ -924,7 +956,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EndpointsResult"
+                  "$ref": "#/components/schemas/EndpointsResultV1"
                 }
               }
             },
@@ -963,7 +995,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnectionMetadata"
+                  "$ref": "#/components/schemas/ConnectionMetadataV1"
                 }
               }
             },
@@ -991,7 +1023,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/ConnectionMetadataSetRequest"
+                "$ref": "#/components/schemas/ConnectionMetadataSetRequestV1"
               }
             }
           },
@@ -1002,7 +1034,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ConnectionMetadata"
+                  "$ref": "#/components/schemas/ConnectionMetadataV1"
                 }
               }
             },
@@ -1214,7 +1246,7 @@
             "in": "query",
             "name": "issuer_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
             }
           },
@@ -1232,7 +1264,7 @@
             "in": "query",
             "name": "schema_issuer_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
             }
           },
@@ -1540,19 +1572,40 @@
       "get": {
         "parameters": [
           {
-            "description": "Maximum number to retrieve",
+            "description": "Maximum number to retrieve (DEPRECATED - use limit instead)",
             "in": "query",
             "name": "count",
             "schema": {
+              "default": "10",
               "pattern": "^[1-9][0-9]*$",
               "type": "string"
             }
           },
           {
-            "description": "Start index",
+            "description": "Number of results to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "maximum": 10000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Offset for pagination",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Start index (DEPRECATED - use offset instead)",
             "in": "query",
             "name": "start",
             "schema": {
+              "default": "0",
               "pattern": "^[0-9]*$",
               "type": "string"
             }
@@ -1587,35 +1640,6 @@
     },
     "/credentials/w3c": {
       "post": {
-        "parameters": [
-          {
-            "description": "Maximum number to retrieve",
-            "in": "query",
-            "name": "count",
-            "schema": {
-              "pattern": "^[1-9][0-9]*$",
-              "type": "string"
-            }
-          },
-          {
-            "description": "Start index",
-            "in": "query",
-            "name": "start",
-            "schema": {
-              "pattern": "^[0-9]*$",
-              "type": "string"
-            }
-          },
-          {
-            "description": "(JSON) WQL query",
-            "in": "query",
-            "name": "wql",
-            "schema": {
-              "pattern": "^{.*}$",
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "*/*": {
@@ -1811,6 +1835,37 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/did/indy/create": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDidIndyRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDidIndyResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a did:indy",
+        "tags": [
+          "did"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
     "/did/jwk/create": {
       "post": {
         "requestBody": {
@@ -1851,7 +1906,7 @@
             "name": "their_public_did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -2433,11 +2488,22 @@
             }
           },
           {
+            "description": "Order results in descending order if true",
+            "in": "query",
+            "name": "descending",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Number of results to return",
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 100,
+              "maximum": 10000,
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -2447,7 +2513,20 @@
             "name": "offset",
             "schema": {
               "default": 0,
+              "minimum": 0,
               "type": "integer"
+            }
+          },
+          {
+            "description": "The column to order results by. Only \"id\" is currently supported.",
+            "in": "query",
+            "name": "order_by",
+            "schema": {
+              "default": "id",
+              "enum": [
+                "id"
+              ],
+              "type": "string"
             }
           },
           {
@@ -2988,11 +3067,22 @@
             }
           },
           {
+            "description": "Order results in descending order if true",
+            "in": "query",
+            "name": "descending",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Number of results to return",
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 100,
+              "maximum": 10000,
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -3002,7 +3092,20 @@
             "name": "offset",
             "schema": {
               "default": 0,
+              "minimum": 0,
               "type": "integer"
+            }
+          },
+          {
+            "description": "The column to order results by. Only \"id\" is currently supported.",
+            "in": "query",
+            "name": "order_by",
+            "schema": {
+              "default": "id",
+              "enum": [
+                "id"
+              ],
+              "type": "string"
             }
           },
           {
@@ -3538,7 +3641,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
             }
           },
@@ -3583,7 +3686,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
             }
           }
@@ -3615,7 +3718,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
             }
           }
@@ -3687,7 +3790,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
             }
           },
@@ -5711,6 +5814,38 @@
         "x-codegen-request-body-name": "body"
       }
     },
+    "/out-of-band/invitations": {
+      "get": {
+        "parameters": [
+          {
+            "description": "The Out of Band id to fetch",
+            "in": "query",
+            "name": "oob_id",
+            "required": true,
+            "schema": {
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationRecordResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Fetch an existing Out-of-Band invitation.",
+        "tags": [
+          "out-of-band"
+        ]
+      }
+    },
     "/out-of-band/invitations/{invi_msg_id}": {
       "delete": {
         "parameters": [
@@ -5872,11 +6007,22 @@
             }
           },
           {
+            "description": "Order results in descending order if true",
+            "in": "query",
+            "name": "descending",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Number of results to return",
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 100,
+              "maximum": 10000,
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -5886,7 +6032,20 @@
             "name": "offset",
             "schema": {
               "default": 0,
+              "minimum": 0,
               "type": "integer"
+            }
+          },
+          {
+            "description": "The column to order results by. Only \"id\" is currently supported.",
+            "in": "query",
+            "name": "order_by",
+            "schema": {
+              "default": "id",
+              "enum": [
+                "id"
+              ],
+              "type": "string"
             }
           },
           {
@@ -6022,10 +6181,11 @@
             }
           },
           {
-            "description": "Maximum number to retrieve",
+            "description": "Maximum number to retrieve (DEPRECATED - use limit instead)",
             "in": "query",
             "name": "count",
             "schema": {
+              "default": "10",
               "pattern": "^[1-9][0-9]*$",
               "type": "string"
             }
@@ -6040,6 +6200,25 @@
             }
           },
           {
+            "description": "Number of results to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "maximum": 10000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Offset for pagination",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
             "description": "Proof request referents of interest, comma-separated",
             "in": "query",
             "name": "referent",
@@ -6048,10 +6227,11 @@
             }
           },
           {
-            "description": "Start index",
+            "description": "Start index (DEPRECATED - use offset instead)",
             "in": "query",
             "name": "start",
             "schema": {
+              "default": "0",
               "pattern": "^[0-9]*$",
               "type": "string"
             }
@@ -6346,11 +6526,22 @@
             }
           },
           {
+            "description": "Order results in descending order if true",
+            "in": "query",
+            "name": "descending",
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            }
+          },
+          {
             "description": "Number of results to return",
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 100,
+              "maximum": 10000,
+              "minimum": 1,
               "type": "integer"
             }
           },
@@ -6360,7 +6551,20 @@
             "name": "offset",
             "schema": {
               "default": 0,
+              "minimum": 0,
               "type": "integer"
+            }
+          },
+          {
+            "description": "The column to order results by. Only \"id\" is currently supported.",
+            "in": "query",
+            "name": "order_by",
+            "schema": {
+              "default": "id",
+              "enum": [
+                "id"
+              ],
+              "type": "string"
             }
           },
           {
@@ -6500,10 +6704,11 @@
             }
           },
           {
-            "description": "Maximum number to retrieve",
+            "description": "Maximum number to retrieve (DEPRECATED - use limit instead)",
             "in": "query",
             "name": "count",
             "schema": {
+              "default": "10",
               "pattern": "^[1-9][0-9]*$",
               "type": "string"
             }
@@ -6518,6 +6723,25 @@
             }
           },
           {
+            "description": "Number of results to return",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "maximum": 10000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Offset for pagination",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
             "description": "Proof request referents of interest, comma-separated",
             "in": "query",
             "name": "referent",
@@ -6526,10 +6750,11 @@
             }
           },
           {
-            "description": "Start index",
+            "description": "Start index (DEPRECATED - use offset instead)",
             "in": "query",
             "name": "start",
             "schema": {
+              "default": "0",
               "pattern": "^[0-9]*$",
               "type": "string"
             }
@@ -7660,7 +7885,7 @@
             "in": "query",
             "name": "schema_issuer_did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
               "type": "string"
             }
           },
@@ -8556,7 +8781,7 @@
             "in": "query",
             "name": "did",
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -8662,7 +8887,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           }
@@ -8712,7 +8937,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           },
@@ -8768,7 +8993,7 @@
             "name": "did",
             "required": true,
             "schema": {
-              "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+              "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
               "type": "string"
             }
           }
@@ -9224,7 +9449,45 @@
         },
         "type": "object"
       },
-      "AnoncredsPresentationReqAttrSpec": {
+      "AnonCredsPresSpec": {
+        "properties": {
+          "requested_attributes": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AnonCredsRequestedCredsRequestedAttr"
+            },
+            "description": "Nested object mapping proof request attribute referents to requested-attribute specifiers",
+            "type": "object"
+          },
+          "requested_predicates": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AnonCredsRequestedCredsRequestedPred"
+            },
+            "description": "Nested object mapping proof request predicate referents to requested-predicate specifiers",
+            "type": "object"
+          },
+          "self_attested_attributes": {
+            "additionalProperties": {
+              "description": "Self-attested attribute values to use in requested-credentials structure for proof construction",
+              "example": "self_attested_value",
+              "type": "string"
+            },
+            "description": "Self-attested attributes to build into proof",
+            "type": "object"
+          },
+          "trace": {
+            "description": "Whether to trace event (default false)",
+            "example": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "requested_attributes",
+          "requested_predicates",
+          "self_attested_attributes"
+        ],
+        "type": "object"
+      },
+      "AnonCredsPresentationReqAttrSpec": {
         "properties": {
           "name": {
             "description": "Attribute name",
@@ -9240,7 +9503,7 @@
             "type": "array"
           },
           "non_revoked": {
-            "$ref": "#/components/schemas/AnoncredsPresentationReqAttrSpecNonRevoked"
+            "$ref": "#/components/schemas/AnonCredsPresentationReqAttrSpecNonRevoked"
           },
           "restrictions": {
             "description": "If present, credential must satisfy one of given restrictions: specify schema_id, schema_issuer_did, schema_name, schema_version, issuer_did, cred_def_id, and/or attr::<attribute-name>::value where <attribute-name> represents a credential attribute name",
@@ -9256,7 +9519,7 @@
         },
         "type": "object"
       },
-      "AnoncredsPresentationReqAttrSpecNonRevoked": {
+      "AnonCredsPresentationReqAttrSpecNonRevoked": {
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
@@ -9275,7 +9538,7 @@
         },
         "type": "object"
       },
-      "AnoncredsPresentationReqPredSpec": {
+      "AnonCredsPresentationReqPredSpec": {
         "properties": {
           "name": {
             "description": "Attribute name",
@@ -9283,7 +9546,7 @@
             "type": "string"
           },
           "non_revoked": {
-            "$ref": "#/components/schemas/AnoncredsPresentationReqPredSpecNonRevoked"
+            "$ref": "#/components/schemas/AnonCredsPresentationReqPredSpecNonRevoked"
           },
           "p_type": {
             "description": "Predicate type ('<', '<=', '>=', or '>')",
@@ -9319,7 +9582,7 @@
         ],
         "type": "object"
       },
-      "AnoncredsPresentationReqPredSpecNonRevoked": {
+      "AnonCredsPresentationReqPredSpecNonRevoked": {
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
@@ -9338,7 +9601,7 @@
         },
         "type": "object"
       },
-      "AnoncredsPresentationRequest": {
+      "AnonCredsPresentationRequest": {
         "properties": {
           "name": {
             "description": "Proof request name",
@@ -9346,7 +9609,7 @@
             "type": "string"
           },
           "non_revoked": {
-            "$ref": "#/components/schemas/AnoncredsPresentationRequestNonRevoked"
+            "$ref": "#/components/schemas/AnonCredsPresentationRequestNonRevoked"
           },
           "nonce": {
             "description": "Nonce",
@@ -9356,14 +9619,14 @@
           },
           "requested_attributes": {
             "additionalProperties": {
-              "$ref": "#/components/schemas/AnoncredsPresentationReqAttrSpec"
+              "$ref": "#/components/schemas/AnonCredsPresentationReqAttrSpec"
             },
             "description": "Requested attribute specifications of proof request",
             "type": "object"
           },
           "requested_predicates": {
             "additionalProperties": {
-              "$ref": "#/components/schemas/AnoncredsPresentationReqPredSpec"
+              "$ref": "#/components/schemas/AnonCredsPresentationReqPredSpec"
             },
             "description": "Requested predicate specifications of proof request",
             "type": "object"
@@ -9381,7 +9644,7 @@
         ],
         "type": "object"
       },
-      "AnoncredsPresentationRequestNonRevoked": {
+      "AnonCredsPresentationRequestNonRevoked": {
         "properties": {
           "from": {
             "description": "Earliest time of interest in non-revocation interval",
@@ -9398,6 +9661,43 @@
             "type": "integer"
           }
         },
+        "type": "object"
+      },
+      "AnonCredsRequestedCredsRequestedAttr": {
+        "properties": {
+          "cred_id": {
+            "description": "Wallet credential identifier (typically but not necessarily a UUID)",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "revealed": {
+            "description": "Whether to reveal attribute in proof (default true)",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "cred_id"
+        ],
+        "type": "object"
+      },
+      "AnonCredsRequestedCredsRequestedPred": {
+        "properties": {
+          "cred_id": {
+            "description": "Wallet credential identifier (typically but not necessarily a UUID)",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Epoch timestamp of interest for non-revocation proof",
+            "example": 1640995199,
+            "maximum": 18446744073709552000,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "cred_id"
+        ],
         "type": "object"
       },
       "AttachDecorator": {
@@ -9714,11 +10014,10 @@
           "connection_protocol": {
             "description": "Connection protocol used",
             "enum": [
-              "connections/1.0",
               "didexchange/1.0",
               "didexchange/1.1"
             ],
-            "example": "connections/1.0",
+            "example": "didexchange/1.1",
             "type": "string"
           },
           "created_at": {
@@ -9761,7 +10060,7 @@
           "my_did": {
             "description": "Our DID for connection",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "request_id": {
@@ -9783,7 +10082,7 @@
           "their_did": {
             "description": "Their DID for connection",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "their_label": {
@@ -9834,7 +10133,7 @@
           "did": {
             "description": "DID for connection invitation",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "imageUrl": {
@@ -9892,6 +10191,21 @@
         ],
         "type": "object"
       },
+      "ConnectionListV1": {
+        "properties": {
+          "results": {
+            "description": "List of connection records",
+            "items": {
+              "$ref": "#/components/schemas/MaybeStoredConnectionsRecord"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "results"
+        ],
+        "type": "object"
+      },
       "ConnectionMetadata": {
         "properties": {
           "results": {
@@ -9919,7 +10233,37 @@
         ],
         "type": "object"
       },
+      "ConnectionMetadataSetRequestV1": {
+        "properties": {
+          "metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Dictionary of metadata to set for connection.",
+            "type": "object"
+          }
+        },
+        "required": [
+          "metadata"
+        ],
+        "type": "object"
+      },
+      "ConnectionMetadataV1": {
+        "properties": {
+          "results": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Dictionary of metadata associated with connection.",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "ConnectionModuleResponse": {
+        "type": "object"
+      },
+      "ConnectionModuleResponseV1": {
         "type": "object"
       },
       "ConnectionStaticRequest": {
@@ -9930,8 +10274,8 @@
           },
           "my_did": {
             "description": "Local DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "my_seed": {
@@ -9940,8 +10284,51 @@
           },
           "their_did": {
             "description": "Remote DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "type": "string"
+          },
+          "their_endpoint": {
+            "description": "URL endpoint for other party",
+            "example": "https://myhost:8021",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "type": "string"
+          },
+          "their_label": {
+            "description": "Other party's label for this connection",
+            "type": "string"
+          },
+          "their_seed": {
+            "description": "Seed to use for the remote DID",
+            "type": "string"
+          },
+          "their_verkey": {
+            "description": "Remote verification key",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ConnectionStaticRequestV1": {
+        "properties": {
+          "alias": {
+            "description": "Alias to assign to this connection",
+            "type": "string"
+          },
+          "my_did": {
+            "description": "Local DID",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "type": "string"
+          },
+          "my_seed": {
+            "description": "Seed to use for the local DID",
+            "type": "string"
+          },
+          "their_did": {
+            "description": "Remote DID",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "their_endpoint": {
@@ -9969,8 +10356,8 @@
         "properties": {
           "my_did": {
             "description": "Local DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "my_endpoint": {
@@ -9990,8 +10377,54 @@
           },
           "their_did": {
             "description": "Remote DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "type": "string"
+          },
+          "their_verkey": {
+            "description": "Remote verification key",
+            "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
+            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "my_did",
+          "my_endpoint",
+          "my_verkey",
+          "record",
+          "their_did",
+          "their_verkey"
+        ],
+        "type": "object"
+      },
+      "ConnectionStaticResultV1": {
+        "properties": {
+          "my_did": {
+            "description": "Local DID",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "type": "string"
+          },
+          "my_endpoint": {
+            "description": "My URL endpoint",
+            "example": "https://myhost:8021",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "type": "string"
+          },
+          "my_verkey": {
+            "description": "My verification key",
+            "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
+            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
+            "type": "string"
+          },
+          "record": {
+            "$ref": "#/components/schemas/MaybeStoredConnectionsRecord"
+          },
+          "their_did": {
+            "description": "Remote DID",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "their_verkey": {
@@ -10127,6 +10560,46 @@
         "required": [
           "did"
         ],
+        "type": "object"
+      },
+      "CreateDidIndyRequest": {
+        "properties": {
+          "features": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional features to enable for the did.",
+            "example": "{}",
+            "type": "object"
+          },
+          "options": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional configuration options. Supported options: did, seed, key_type. Default key_type is ed25519.",
+            "example": {
+              "did": "did:indy:WRfXPg8dantKVubE3HX8pw",
+              "key_type": "ed25519",
+              "seed": "000000000000000000000000Trustee1"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "CreateDidIndyResponse": {
+        "properties": {
+          "did": {
+            "description": "DID created",
+            "example": "did:indy:DFZgMggBEXcZFVQ2ZBTwdr",
+            "type": "string"
+          },
+          "verkey": {
+            "description": "Verification key",
+            "example": "BnSWTUQmdYCewSGFrRUhT6LmKdcCcSzRGqWXMPnEP168",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "CreateInvitationRequest": {
@@ -10689,12 +11162,23 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "validFrom": {
+            "description": "The valid from date",
+            "example": "2010-01-01T19:23:24Z",
+            "pattern": "^([0-9]{4})-([0-9]{2})-([0-9]{2})([Tt ]([0-9]{2}):([0-9]{2}):([0-9]{2})(\\.[0-9]+)?)?(([Zz]|([+-])([0-9]{2}):([0-9]{2})))?$",
+            "type": "string"
+          },
+          "validUntil": {
+            "description": "The valid until date",
+            "example": "2010-01-01T19:23:24Z",
+            "pattern": "^([0-9]{4})-([0-9]{2})-([0-9]{2})([Tt ]([0-9]{2}):([0-9]{2}):([0-9]{2})(\\.[0-9]+)?)?(([Zz]|([+-])([0-9]{2}):([0-9]{2})))?$",
+            "type": "string"
           }
         },
         "required": [
           "@context",
           "credentialSubject",
-          "issuanceDate",
           "issuer",
           "type"
         ],
@@ -10898,8 +11382,8 @@
             "$ref": "#/components/schemas/CredentialPreview"
           },
           "issuer_did": {
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_id": {
@@ -10908,8 +11392,8 @@
             "type": "string"
           },
           "schema_issuer_did": {
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_name": {
@@ -11064,7 +11548,7 @@
           "did": {
             "description": "DID of interest",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "key_type": {
@@ -11144,7 +11628,7 @@
           "did": {
             "description": "Specify final value of the did (including did:<method>: prefix)if the method supports or requires so.",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "key_type": {
@@ -11218,8 +11702,8 @@
         "properties": {
           "did": {
             "description": "DID of interest",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "endpoint": {
@@ -11238,8 +11722,8 @@
         "properties": {
           "did": {
             "description": "DID of interest",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "endpoint": {
@@ -11328,7 +11812,7 @@
           "did": {
             "description": "DID of exchange",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "did_doc~attach": {
@@ -11789,6 +12273,23 @@
         },
         "type": "object"
       },
+      "EndpointsResultV1": {
+        "properties": {
+          "my_endpoint": {
+            "description": "My endpoint",
+            "example": "https://myhost:8021",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "type": "string"
+          },
+          "their_endpoint": {
+            "description": "Their endpoint",
+            "example": "https://myhost:8021",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "ExchangeRecordCreateRequest": {
         "properties": {
           "credential_subject": {
@@ -11801,7 +12302,7 @@
           "did": {
             "description": "DID of interest",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "pin": {
@@ -13634,8 +14135,8 @@
           },
           "issuer_did": {
             "description": "Issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "max_cred_num": {
@@ -13725,7 +14226,7 @@
           "did": {
             "description": "DID of interest",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "headers": {
@@ -14148,32 +14649,62 @@
       },
       "LedgerConfigInstance": {
         "properties": {
-          "genesis_file": {
-            "description": "genesis_file",
+          "endorser_alias": {
+            "description": "Endorser service alias (optional)",
             "type": "string"
           },
-          "genesis_transactions": {
-            "description": "genesis_transactions",
-            "type": "string"
-          },
-          "genesis_url": {
-            "description": "genesis_url",
+          "endorser_did": {
+            "description": "Endorser DID (optional)",
             "type": "string"
           },
           "id": {
-            "description": "ledger_id",
+            "description": "Ledger identifier. Auto-generated UUID4 if not provided",
+            "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
             "type": "string"
           },
           "is_production": {
-            "description": "is_production",
+            "description": "Production-grade ledger (true/false)",
             "type": "boolean"
+          },
+          "is_write": {
+            "description": "Write capability enabled (default: False)",
+            "type": "boolean"
+          },
+          "keepalive": {
+            "description": "Keep-alive timeout in seconds for idle connections",
+            "type": "integer"
+          },
+          "pool_name": {
+            "description": "Ledger pool name (defaults to ledger ID if not specified)",
+            "example": "bcovrin-test-pool",
+            "type": "string"
+          },
+          "read_only": {
+            "description": "Read-only access (default: False)",
+            "type": "boolean"
+          },
+          "socks_proxy": {
+            "description": "SOCKS proxy URL (optional)",
+            "type": "string"
           }
         },
+        "required": [
+          "id",
+          "is_production"
+        ],
         "type": "object"
       },
       "LedgerConfigList": {
         "properties": {
-          "ledger_config_list": {
+          "non_production_ledgers": {
+            "description": "Non-production ledgers (may be empty)",
+            "items": {
+              "$ref": "#/components/schemas/LedgerConfigInstance"
+            },
+            "type": "array"
+          },
+          "production_ledgers": {
+            "description": "Production ledgers (may be empty)",
             "items": {
               "$ref": "#/components/schemas/LedgerConfigInstance"
             },
@@ -14181,7 +14712,8 @@
           }
         },
         "required": [
-          "ledger_config_list"
+          "non_production_ledgers",
+          "production_ledgers"
         ],
         "type": "object"
       },
@@ -14252,6 +14784,130 @@
               "$ref": "#/components/schemas/VerifiableCredential"
             },
             "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "MaybeStoredConnectionsRecord": {
+        "properties": {
+          "accept": {
+            "description": "Connection acceptance: manual or auto",
+            "enum": [
+              "manual",
+              "auto"
+            ],
+            "example": "auto",
+            "type": "string"
+          },
+          "alias": {
+            "description": "Optional alias to apply to connection for later use",
+            "example": "Bob, providing quotes",
+            "type": "string"
+          },
+          "connection_id": {
+            "description": "Connection identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "connection_protocol": {
+            "enum": [
+              "connections/1.0",
+              "didexchange/1.0",
+              "didexchange/1.1"
+            ],
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "error_msg": {
+            "description": "Error message",
+            "example": "No DIDDoc provided; cannot connect to public DID",
+            "type": "string"
+          },
+          "inbound_connection_id": {
+            "description": "Inbound routing connection id to use",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "invitation_key": {
+            "description": "Public key for connection",
+            "example": "H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV",
+            "pattern": "^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{43,44}$",
+            "type": "string"
+          },
+          "invitation_mode": {
+            "description": "Invitation mode",
+            "enum": [
+              "once",
+              "multi",
+              "static"
+            ],
+            "example": "once",
+            "type": "string"
+          },
+          "invitation_msg_id": {
+            "description": "ID of out-of-band invitation message",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "my_did": {
+            "description": "Our DID for connection",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "type": "string"
+          },
+          "request_id": {
+            "description": "Connection request identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "rfc23_state": {
+            "description": "State per RFC 23",
+            "example": "invitation-sent",
+            "readOnly": true,
+            "type": "string"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "their_did": {
+            "description": "Their DID for connection",
+            "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "type": "string"
+          },
+          "their_label": {
+            "description": "Their label for connection",
+            "example": "Bob",
+            "type": "string"
+          },
+          "their_public_did": {
+            "description": "Other agent's public DID for connection",
+            "example": "2cpBmR3FqGKWi5EyUbpRY8",
+            "type": "string"
+          },
+          "their_role": {
+            "description": "Their role in the connection protocol",
+            "enum": [
+              "invitee",
+              "requester",
+              "inviter",
+              "responder"
+            ],
+            "example": "requester",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
           }
         },
         "type": "object"
@@ -15321,7 +15977,7 @@
           "did": {
             "description": "DID for connection invitation",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "imageUrl": {
@@ -15602,7 +16258,7 @@
           "did": {
             "description": "DID of interest",
             "example": "did:peer:WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$|^did:([a-zA-Z0-9_]+)(:[a-zA-Z0-9_.%-]+)?:([a-zA-Z0-9_.%-]+(:[a-zA-Z0-9_.%-]+)*)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)(\\/[^#?]*)?([?][^#]*)?(\\#.*)?$$",
             "type": "string"
           },
           "headers": {
@@ -17061,8 +17717,8 @@
           },
           "issuer_did": {
             "description": "Credential issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_id": {
@@ -17073,8 +17729,8 @@
           },
           "schema_issuer_did": {
             "description": "Schema issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_name": {
@@ -17378,8 +18034,8 @@
           },
           "issuer_did": {
             "description": "Credential issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_id": {
@@ -17390,8 +18046,8 @@
           },
           "schema_issuer_did": {
             "description": "Schema issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_name": {
@@ -17443,8 +18099,8 @@
           },
           "issuer_did": {
             "description": "Credential issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_id": {
@@ -17455,8 +18111,8 @@
           },
           "schema_issuer_did": {
             "description": "Schema issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_name": {
@@ -18292,7 +18948,7 @@
           "anoncreds": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/V20CredFilterAnoncreds"
+                "$ref": "#/components/schemas/V20CredFilterAnonCreds"
               }
             ],
             "description": "Credential filter for anoncreds",
@@ -18328,7 +18984,7 @@
         },
         "type": "object"
       },
-      "V20CredFilterAnoncreds": {
+      "V20CredFilterAnonCreds": {
         "properties": {
           "cred_def_id": {
             "description": "Credential definition identifier",
@@ -18373,8 +19029,8 @@
           },
           "issuer_did": {
             "description": "Credential issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_id": {
@@ -18385,8 +19041,8 @@
           },
           "schema_issuer_did": {
             "description": "Schema issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_name": {
@@ -18430,8 +19086,8 @@
           },
           "issuer_did": {
             "description": "Credential issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_id": {
@@ -18442,8 +19098,8 @@
           },
           "schema_issuer_did": {
             "description": "Schema issuer DID",
-            "example": "WgWxqztrNooG92RXvxSTWv",
-            "pattern": "^(did:sov:)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
+            "example": "did:indy:sovrin:WRfXPg8dantKVubE3HX8pw",
+            "pattern": "^(did:(sov|indy):)?[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{21,22}$",
             "type": "string"
           },
           "schema_name": {
@@ -19296,7 +19952,7 @@
           "anoncreds": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/AnoncredsPresentationRequest"
+                "$ref": "#/components/schemas/AnonCredsPresentationRequest"
               }
             ],
             "description": "Presentation proposal for anoncreds",
@@ -19404,7 +20060,7 @@
           "anoncreds": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/AnoncredsPresentationRequest"
+                "$ref": "#/components/schemas/AnonCredsPresentationRequest"
               }
             ],
             "description": "Presentation proposal for anoncreds",
@@ -19471,7 +20127,7 @@
           "anoncreds": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/IndyPresSpec"
+                "$ref": "#/components/schemas/AnonCredsPresSpec"
               }
             ],
             "description": "Presentation specification for anoncreds",
@@ -19684,12 +20340,23 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "validFrom": {
+            "description": "The valid from date",
+            "example": "2010-01-01T19:23:24Z",
+            "pattern": "^([0-9]{4})-([0-9]{2})-([0-9]{2})([Tt ]([0-9]{2}):([0-9]{2}):([0-9]{2})(\\.[0-9]+)?)?(([Zz]|([+-])([0-9]{2}):([0-9]{2})))?$",
+            "type": "string"
+          },
+          "validUntil": {
+            "description": "The valid until date",
+            "example": "2010-01-01T19:23:24Z",
+            "pattern": "^([0-9]{4})-([0-9]{2})-([0-9]{2})([Tt ]([0-9]{2}):([0-9]{2}):([0-9]{2})(\\.[0-9]+)?)?(([Zz]|([+-])([0-9]{2}):([0-9]{2})))?$",
+            "type": "string"
           }
         },
         "required": [
           "@context",
           "credentialSubject",
-          "issuanceDate",
           "issuer",
           "proof",
           "type"

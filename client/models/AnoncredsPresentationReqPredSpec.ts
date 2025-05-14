@@ -12,46 +12,46 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-  AnoncredsPresentationReqPredSpecNonRevoked,
-  AnoncredsPresentationReqPredSpecNonRevokedFromJSON,
-  AnoncredsPresentationReqPredSpecNonRevokedFromJSONTyped,
-  AnoncredsPresentationReqPredSpecNonRevokedToJSON,
+  AnonCredsPresentationReqPredSpecNonRevoked,
+  AnonCredsPresentationReqPredSpecNonRevokedFromJSON,
+  AnonCredsPresentationReqPredSpecNonRevokedFromJSONTyped,
+  AnonCredsPresentationReqPredSpecNonRevokedToJSON,
 } from './';
 
 /**
  *
  * @export
- * @interface AnoncredsPresentationReqPredSpec
+ * @interface AnonCredsPresentationReqPredSpec
  */
-export interface AnoncredsPresentationReqPredSpec {
+export interface AnonCredsPresentationReqPredSpec {
   /**
    * Attribute name
    * @type {string}
-   * @memberof AnoncredsPresentationReqPredSpec
+   * @memberof AnonCredsPresentationReqPredSpec
    */
   name: string;
   /**
    *
-   * @type {AnoncredsPresentationReqPredSpecNonRevoked}
-   * @memberof AnoncredsPresentationReqPredSpec
+   * @type {AnonCredsPresentationReqPredSpecNonRevoked}
+   * @memberof AnonCredsPresentationReqPredSpec
    */
-  non_revoked?: AnoncredsPresentationReqPredSpecNonRevoked;
+  non_revoked?: AnonCredsPresentationReqPredSpecNonRevoked;
   /**
    * Predicate type ('<', '<=', '>=', or '>')
    * @type {string}
-   * @memberof AnoncredsPresentationReqPredSpec
+   * @memberof AnonCredsPresentationReqPredSpec
    */
-  p_type: AnoncredsPresentationReqPredSpecPTypeEnum;
+  p_type: AnonCredsPresentationReqPredSpecPTypeEnum;
   /**
    * Threshold value
    * @type {number}
-   * @memberof AnoncredsPresentationReqPredSpec
+   * @memberof AnonCredsPresentationReqPredSpec
    */
   p_value: number;
   /**
    * If present, credential must satisfy one of given restrictions: specify schema_id, schema_issuer_did, schema_name, schema_version, issuer_did, cred_def_id, and/or attr::<attribute-name>::value where <attribute-name> represents a credential attribute name
    * @type {Array<{ [key: string]: string; }>}
-   * @memberof AnoncredsPresentationReqPredSpec
+   * @memberof AnonCredsPresentationReqPredSpec
    */
   restrictions?: Array<{ [key: string]: string }>;
 }
@@ -60,23 +60,23 @@ export interface AnoncredsPresentationReqPredSpec {
  * @export
  * @enum {string}
  */
-export enum AnoncredsPresentationReqPredSpecPTypeEnum {
+export enum AnonCredsPresentationReqPredSpecPTypeEnum {
   LessThan = '<',
   LessThanOrEqualTo = '<=',
   GreaterThanOrEqualTo = '>=',
   GreaterThan = '>',
 }
 
-export function AnoncredsPresentationReqPredSpecFromJSON(
+export function AnonCredsPresentationReqPredSpecFromJSON(
   json: any,
-): AnoncredsPresentationReqPredSpec {
-  return AnoncredsPresentationReqPredSpecFromJSONTyped(json, false);
+): AnonCredsPresentationReqPredSpec {
+  return AnonCredsPresentationReqPredSpecFromJSONTyped(json, false);
 }
 
-export function AnoncredsPresentationReqPredSpecFromJSONTyped(
+export function AnonCredsPresentationReqPredSpecFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
-): AnoncredsPresentationReqPredSpec {
+): AnonCredsPresentationReqPredSpec {
   if (json === undefined || json === null) {
     return json;
   }
@@ -84,7 +84,7 @@ export function AnoncredsPresentationReqPredSpecFromJSONTyped(
     name: json['name'],
     non_revoked: !exists(json, 'non_revoked')
       ? undefined
-      : AnoncredsPresentationReqPredSpecNonRevokedFromJSON(json['non_revoked']),
+      : AnonCredsPresentationReqPredSpecNonRevokedFromJSON(json['non_revoked']),
     p_type: json['p_type'],
     p_value: json['p_value'],
     restrictions: !exists(json, 'restrictions')
@@ -93,8 +93,8 @@ export function AnoncredsPresentationReqPredSpecFromJSONTyped(
   };
 }
 
-export function AnoncredsPresentationReqPredSpecToJSON(
-  value?: AnoncredsPresentationReqPredSpec | null,
+export function AnonCredsPresentationReqPredSpecToJSON(
+  value?: AnonCredsPresentationReqPredSpec | null,
 ): any {
   if (value === undefined) {
     return undefined;
@@ -104,7 +104,7 @@ export function AnoncredsPresentationReqPredSpecToJSON(
   }
   return {
     name: value.name,
-    non_revoked: AnoncredsPresentationReqPredSpecNonRevokedToJSON(
+    non_revoked: AnonCredsPresentationReqPredSpecNonRevokedToJSON(
       value.non_revoked,
     ),
     p_type: value.p_type,

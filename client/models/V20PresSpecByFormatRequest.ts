@@ -12,6 +12,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+  AnonCredsPresSpec,
+  AnonCredsPresSpecFromJSON,
+  AnonCredsPresSpecFromJSONTyped,
+  AnonCredsPresSpecToJSON,
   DIFPresSpec,
   DIFPresSpecFromJSON,
   DIFPresSpecFromJSONTyped,
@@ -30,10 +34,10 @@ import {
 export interface V20PresSpecByFormatRequest {
   /**
    * Presentation specification for anoncreds
-   * @type {IndyPresSpec}
+   * @type {AnonCredsPresSpec}
    * @memberof V20PresSpecByFormatRequest
    */
-  anoncreds?: IndyPresSpec;
+  anoncreds?: AnonCredsPresSpec;
   /**
    * Whether to remove the presentation exchange record on completion (overrides --preserve-exchange-records configuration setting)
    * @type {boolean}
@@ -76,7 +80,7 @@ export function V20PresSpecByFormatRequestFromJSONTyped(
   return {
     anoncreds: !exists(json, 'anoncreds')
       ? undefined
-      : IndyPresSpecFromJSON(json['anoncreds']),
+      : AnonCredsPresSpecFromJSON(json['anoncreds']),
     auto_remove: !exists(json, 'auto_remove') ? undefined : json['auto_remove'],
     dif: !exists(json, 'dif') ? undefined : DIFPresSpecFromJSON(json['dif']),
     indy: !exists(json, 'indy')
@@ -96,7 +100,7 @@ export function V20PresSpecByFormatRequestToJSON(
     return null;
   }
   return {
-    anoncreds: IndyPresSpecToJSON(value.anoncreds),
+    anoncreds: AnonCredsPresSpecToJSON(value.anoncreds),
     auto_remove: value.auto_remove,
     dif: DIFPresSpecToJSON(value.dif),
     indy: IndyPresSpecToJSON(value.indy),

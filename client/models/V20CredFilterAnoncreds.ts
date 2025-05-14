@@ -14,57 +14,57 @@ import { exists, mapValues } from '../runtime';
 /**
  *
  * @export
- * @interface V20CredFilterAnoncreds
+ * @interface V20CredFilterAnonCreds
  */
-export interface V20CredFilterAnoncreds {
+export interface V20CredFilterAnonCreds {
   /**
    * Credential definition identifier
    * @type {string}
-   * @memberof V20CredFilterAnoncreds
+   * @memberof V20CredFilterAnonCreds
    */
   cred_def_id?: string;
   /**
    * Credential issuer ID
    * @type {string}
-   * @memberof V20CredFilterAnoncreds
+   * @memberof V20CredFilterAnonCreds
    */
   issuer_id?: string;
   /**
    * Schema identifier
    * @type {string}
-   * @memberof V20CredFilterAnoncreds
+   * @memberof V20CredFilterAnonCreds
    */
   schema_id?: string;
   /**
    * Schema issuer ID
    * @type {string}
-   * @memberof V20CredFilterAnoncreds
+   * @memberof V20CredFilterAnonCreds
    */
   schema_issuer_id?: string;
   /**
    * Schema name
    * @type {string}
-   * @memberof V20CredFilterAnoncreds
+   * @memberof V20CredFilterAnonCreds
    */
   schema_name?: string;
   /**
    * Schema version
    * @type {string}
-   * @memberof V20CredFilterAnoncreds
+   * @memberof V20CredFilterAnonCreds
    */
   schema_version?: string;
 }
 
-export function V20CredFilterAnoncredsFromJSON(
+export function V20CredFilterAnonCredsFromJSON(
   json: any,
-): V20CredFilterAnoncreds {
-  return V20CredFilterAnoncredsFromJSONTyped(json, false);
+): V20CredFilterAnonCreds {
+  return V20CredFilterAnonCredsFromJSONTyped(json, false);
 }
 
-export function V20CredFilterAnoncredsFromJSONTyped(
+export function V20CredFilterAnonCredsFromJSONTyped(
   json: any,
   ignoreDiscriminator: boolean,
-): V20CredFilterAnoncreds {
+): V20CredFilterAnonCreds {
   if (json === undefined || json === null) {
     return json;
   }
@@ -82,8 +82,8 @@ export function V20CredFilterAnoncredsFromJSONTyped(
   };
 }
 
-export function V20CredFilterAnoncredsToJSON(
-  value?: V20CredFilterAnoncreds | null,
+export function V20CredFilterAnonCredsToJSON(
+  value?: V20CredFilterAnonCreds | null,
 ): any {
   if (value === undefined) {
     return undefined;

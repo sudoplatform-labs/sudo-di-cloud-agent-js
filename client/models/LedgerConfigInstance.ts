@@ -18,35 +18,59 @@ import { exists, mapValues } from '../runtime';
  */
 export interface LedgerConfigInstance {
   /**
-   * genesis_file
+   * Endorser service alias (optional)
    * @type {string}
    * @memberof LedgerConfigInstance
    */
-  genesis_file?: string;
+  endorser_alias?: string;
   /**
-   * genesis_transactions
+   * Endorser DID (optional)
    * @type {string}
    * @memberof LedgerConfigInstance
    */
-  genesis_transactions?: string;
+  endorser_did?: string;
   /**
-   * genesis_url
+   * Ledger identifier. Auto-generated UUID4 if not provided
    * @type {string}
    * @memberof LedgerConfigInstance
    */
-  genesis_url?: string;
+  id: string;
   /**
-   * ledger_id
-   * @type {string}
-   * @memberof LedgerConfigInstance
-   */
-  id?: string;
-  /**
-   * is_production
+   * Production-grade ledger (true/false)
    * @type {boolean}
    * @memberof LedgerConfigInstance
    */
-  is_production?: boolean;
+  is_production: boolean;
+  /**
+   * Write capability enabled (default: False)
+   * @type {boolean}
+   * @memberof LedgerConfigInstance
+   */
+  is_write?: boolean;
+  /**
+   * Keep-alive timeout in seconds for idle connections
+   * @type {number}
+   * @memberof LedgerConfigInstance
+   */
+  keepalive?: number;
+  /**
+   * Ledger pool name (defaults to ledger ID if not specified)
+   * @type {string}
+   * @memberof LedgerConfigInstance
+   */
+  pool_name?: string;
+  /**
+   * Read-only access (default: False)
+   * @type {boolean}
+   * @memberof LedgerConfigInstance
+   */
+  read_only?: boolean;
+  /**
+   * SOCKS proxy URL (optional)
+   * @type {string}
+   * @memberof LedgerConfigInstance
+   */
+  socks_proxy?: string;
 }
 
 export function LedgerConfigInstanceFromJSON(json: any): LedgerConfigInstance {
@@ -61,17 +85,19 @@ export function LedgerConfigInstanceFromJSONTyped(
     return json;
   }
   return {
-    genesis_file: !exists(json, 'genesis_file')
+    endorser_alias: !exists(json, 'endorser_alias')
       ? undefined
-      : json['genesis_file'],
-    genesis_transactions: !exists(json, 'genesis_transactions')
+      : json['endorser_alias'],
+    endorser_did: !exists(json, 'endorser_did')
       ? undefined
-      : json['genesis_transactions'],
-    genesis_url: !exists(json, 'genesis_url') ? undefined : json['genesis_url'],
-    id: !exists(json, 'id') ? undefined : json['id'],
-    is_production: !exists(json, 'is_production')
-      ? undefined
-      : json['is_production'],
+      : json['endorser_did'],
+    id: json['id'],
+    is_production: json['is_production'],
+    is_write: !exists(json, 'is_write') ? undefined : json['is_write'],
+    keepalive: !exists(json, 'keepalive') ? undefined : json['keepalive'],
+    pool_name: !exists(json, 'pool_name') ? undefined : json['pool_name'],
+    read_only: !exists(json, 'read_only') ? undefined : json['read_only'],
+    socks_proxy: !exists(json, 'socks_proxy') ? undefined : json['socks_proxy'],
   };
 }
 
@@ -85,10 +111,14 @@ export function LedgerConfigInstanceToJSON(
     return null;
   }
   return {
-    genesis_file: value.genesis_file,
-    genesis_transactions: value.genesis_transactions,
-    genesis_url: value.genesis_url,
+    endorser_alias: value.endorser_alias,
+    endorser_did: value.endorser_did,
     id: value.id,
     is_production: value.is_production,
+    is_write: value.is_write,
+    keepalive: value.keepalive,
+    pool_name: value.pool_name,
+    read_only: value.read_only,
+    socks_proxy: value.socks_proxy,
   };
 }

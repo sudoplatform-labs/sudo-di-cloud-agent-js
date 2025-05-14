@@ -145,9 +145,8 @@ export enum ConnRecordAcceptEnum {
  * @enum {string}
  */
 export enum ConnRecordConnectionProtocolEnum {
-  Connections10 = 'connections/1.0',
-  Didexchange10 = 'didexchange/1.0',
-  Didexchange11 = 'didexchange/1.1',
+  _0 = 'didexchange/1.0',
+  _1 = 'didexchange/1.1',
 } /**
  * @export
  * @enum {string}

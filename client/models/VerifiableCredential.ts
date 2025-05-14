@@ -59,7 +59,7 @@ export interface VerifiableCredential {
    * @type {string}
    * @memberof VerifiableCredential
    */
-  issuanceDate: string;
+  issuanceDate?: string;
   /**
    * The JSON-LD Verifiable Credential Issuer. Either string of object with id field.
    * @type {object}
@@ -78,6 +78,18 @@ export interface VerifiableCredential {
    * @memberof VerifiableCredential
    */
   type: Array<string>;
+  /**
+   * The valid from date
+   * @type {string}
+   * @memberof VerifiableCredential
+   */
+  validFrom?: string;
+  /**
+   * The valid until date
+   * @type {string}
+   * @memberof VerifiableCredential
+   */
+  validUntil?: string;
 }
 
 export function VerifiableCredentialFromJSON(json: any): VerifiableCredential {
@@ -101,10 +113,14 @@ export function VerifiableCredentialFromJSONTyped(
       ? undefined
       : json['expirationDate'],
     id: !exists(json, 'id') ? undefined : json['id'],
-    issuanceDate: json['issuanceDate'],
+    issuanceDate: !exists(json, 'issuanceDate')
+      ? undefined
+      : json['issuanceDate'],
     issuer: json['issuer'],
     proof: LinkedDataProofFromJSON(json['proof']),
     type: json['type'],
+    validFrom: !exists(json, 'validFrom') ? undefined : json['validFrom'],
+    validUntil: !exists(json, 'validUntil') ? undefined : json['validUntil'],
   };
 }
 
@@ -127,5 +143,7 @@ export function VerifiableCredentialToJSON(
     issuer: value.issuer,
     proof: LinkedDataProofToJSON(value.proof),
     type: value.type,
+    validFrom: value.validFrom,
+    validUntil: value.validUntil,
   };
 }

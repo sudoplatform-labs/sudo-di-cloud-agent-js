@@ -18,6 +18,12 @@ import {
   CreateDIDJWKResponse,
   CreateDIDJWKResponseFromJSON,
   CreateDIDJWKResponseToJSON,
+  CreateDidIndyRequest,
+  CreateDidIndyRequestFromJSON,
+  CreateDidIndyRequestToJSON,
+  CreateDidIndyResponse,
+  CreateDidIndyResponseFromJSON,
+  CreateDidIndyResponseToJSON,
   CreateRequest,
   CreateRequestFromJSON,
   CreateRequestToJSON,
@@ -48,6 +54,10 @@ export interface DidCheqdDeactivatePostRequest {
 
 export interface DidCheqdUpdatePostRequest {
   body?: UpdateRequest;
+}
+
+export interface DidIndyCreatePostRequest {
+  body?: CreateDidIndyRequest;
 }
 
 export interface DidJwkCreatePostRequest {
@@ -160,6 +170,41 @@ export class DidApi extends runtime.BaseAPI {
     requestParameters: DidCheqdUpdatePostRequest,
   ): Promise<UpdateResponse> {
     const response = await this.didCheqdUpdatePostRaw(requestParameters);
+    return await response.value();
+  }
+
+  /**
+   * Create a did:indy
+   */
+  async didIndyCreatePostRaw(
+    requestParameters: DidIndyCreatePostRequest,
+  ): Promise<runtime.ApiResponse<CreateDidIndyResponse>> {
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    headerParameters['Content-Type'] = 'application/json';
+
+    const response = await this.request({
+      path: `/did/indy/create`,
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: CreateDidIndyRequestToJSON(requestParameters.body),
+    });
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      CreateDidIndyResponseFromJSON(jsonValue),
+    );
+  }
+
+  /**
+   * Create a did:indy
+   */
+  async didIndyCreatePost(
+    requestParameters: DidIndyCreatePostRequest,
+  ): Promise<CreateDidIndyResponse> {
+    const response = await this.didIndyCreatePostRaw(requestParameters);
     return await response.value();
   }
 

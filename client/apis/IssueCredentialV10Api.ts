@@ -93,8 +93,10 @@ export interface IssueCredentialRecordsCredExIdStorePostRequest {
 
 export interface IssueCredentialRecordsGetRequest {
   connectionId?: string;
+  descending?: boolean;
   limit?: number;
   offset?: number;
+  orderBy?: IssueCredentialRecordsGetOrderByEnum;
   role?: IssueCredentialRecordsGetRoleEnum;
   state?: IssueCredentialRecordsGetStateEnum;
   threadId?: string;
@@ -540,12 +542,20 @@ export class IssueCredentialV10Api extends runtime.BaseAPI {
       queryParameters['connection_id'] = requestParameters.connectionId;
     }
 
+    if (requestParameters.descending !== undefined) {
+      queryParameters['descending'] = requestParameters.descending;
+    }
+
     if (requestParameters.limit !== undefined) {
       queryParameters['limit'] = requestParameters.limit;
     }
 
     if (requestParameters.offset !== undefined) {
       queryParameters['offset'] = requestParameters.offset;
+    }
+
+    if (requestParameters.orderBy !== undefined) {
+      queryParameters['order_by'] = requestParameters.orderBy;
     }
 
     if (requestParameters.role !== undefined) {
@@ -692,6 +702,13 @@ export class IssueCredentialV10Api extends runtime.BaseAPI {
   }
 }
 
+/**
+ * @export
+ * @enum {string}
+ */
+export enum IssueCredentialRecordsGetOrderByEnum {
+  Id = 'id',
+}
 /**
  * @export
  * @enum {string}
