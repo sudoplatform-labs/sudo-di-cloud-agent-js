@@ -12,6 +12,12 @@
 
 import * as runtime from '../runtime';
 import {
+  CreateCheqdDIDRequest,
+  CreateCheqdDIDRequestFromJSON,
+  CreateCheqdDIDRequestToJSON,
+  CreateCheqdDIDResponse,
+  CreateCheqdDIDResponseFromJSON,
+  CreateCheqdDIDResponseToJSON,
   CreateDIDJWKRequest,
   CreateDIDJWKRequestFromJSON,
   CreateDIDJWKRequestToJSON,
@@ -24,36 +30,40 @@ import {
   CreateDidIndyResponse,
   CreateDidIndyResponseFromJSON,
   CreateDidIndyResponseToJSON,
-  CreateRequest,
-  CreateRequestFromJSON,
-  CreateRequestToJSON,
-  CreateResponse,
-  CreateResponseFromJSON,
-  CreateResponseToJSON,
-  DeactivateRequest,
-  DeactivateRequestFromJSON,
-  DeactivateRequestToJSON,
-  DeactivateResponse,
-  DeactivateResponseFromJSON,
-  DeactivateResponseToJSON,
-  UpdateRequest,
-  UpdateRequestFromJSON,
-  UpdateRequestToJSON,
-  UpdateResponse,
-  UpdateResponseFromJSON,
-  UpdateResponseToJSON,
+  DIDImport,
+  DIDImportFromJSON,
+  DIDImportToJSON,
+  DIDImportResponse,
+  DIDImportResponseFromJSON,
+  DIDImportResponseToJSON,
+  DeactivateCheqdDIDRequest,
+  DeactivateCheqdDIDRequestFromJSON,
+  DeactivateCheqdDIDRequestToJSON,
+  DeactivateCheqdDIDResponse,
+  DeactivateCheqdDIDResponseFromJSON,
+  DeactivateCheqdDIDResponseToJSON,
+  UpdateCheqdDIDRequest,
+  UpdateCheqdDIDRequestFromJSON,
+  UpdateCheqdDIDRequestToJSON,
+  UpdateCheqdDIDResponse,
+  UpdateCheqdDIDResponseFromJSON,
+  UpdateCheqdDIDResponseToJSON,
 } from '../models';
 
 export interface DidCheqdCreatePostRequest {
-  body?: CreateRequest;
+  body?: CreateCheqdDIDRequest;
 }
 
 export interface DidCheqdDeactivatePostRequest {
-  body?: DeactivateRequest;
+  body?: DeactivateCheqdDIDRequest;
 }
 
 export interface DidCheqdUpdatePostRequest {
-  body?: UpdateRequest;
+  body?: UpdateCheqdDIDRequest;
+}
+
+export interface DidImportPostRequest {
+  body?: DIDImport;
 }
 
 export interface DidIndyCreatePostRequest {
@@ -73,7 +83,7 @@ export class DidApi extends runtime.BaseAPI {
    */
   async didCheqdCreatePostRaw(
     requestParameters: DidCheqdCreatePostRequest,
-  ): Promise<runtime.ApiResponse<CreateResponse>> {
+  ): Promise<runtime.ApiResponse<CreateCheqdDIDResponse>> {
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -85,11 +95,11 @@ export class DidApi extends runtime.BaseAPI {
       method: 'POST',
       headers: headerParameters,
       query: queryParameters,
-      body: CreateRequestToJSON(requestParameters.body),
+      body: CreateCheqdDIDRequestToJSON(requestParameters.body),
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      CreateResponseFromJSON(jsonValue),
+      CreateCheqdDIDResponseFromJSON(jsonValue),
     );
   }
 
@@ -98,7 +108,7 @@ export class DidApi extends runtime.BaseAPI {
    */
   async didCheqdCreatePost(
     requestParameters: DidCheqdCreatePostRequest,
-  ): Promise<CreateResponse> {
+  ): Promise<CreateCheqdDIDResponse> {
     const response = await this.didCheqdCreatePostRaw(requestParameters);
     return await response.value();
   }
@@ -108,7 +118,7 @@ export class DidApi extends runtime.BaseAPI {
    */
   async didCheqdDeactivatePostRaw(
     requestParameters: DidCheqdDeactivatePostRequest,
-  ): Promise<runtime.ApiResponse<DeactivateResponse>> {
+  ): Promise<runtime.ApiResponse<DeactivateCheqdDIDResponse>> {
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -120,11 +130,11 @@ export class DidApi extends runtime.BaseAPI {
       method: 'POST',
       headers: headerParameters,
       query: queryParameters,
-      body: DeactivateRequestToJSON(requestParameters.body),
+      body: DeactivateCheqdDIDRequestToJSON(requestParameters.body),
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      DeactivateResponseFromJSON(jsonValue),
+      DeactivateCheqdDIDResponseFromJSON(jsonValue),
     );
   }
 
@@ -133,7 +143,7 @@ export class DidApi extends runtime.BaseAPI {
    */
   async didCheqdDeactivatePost(
     requestParameters: DidCheqdDeactivatePostRequest,
-  ): Promise<DeactivateResponse> {
+  ): Promise<DeactivateCheqdDIDResponse> {
     const response = await this.didCheqdDeactivatePostRaw(requestParameters);
     return await response.value();
   }
@@ -143,7 +153,7 @@ export class DidApi extends runtime.BaseAPI {
    */
   async didCheqdUpdatePostRaw(
     requestParameters: DidCheqdUpdatePostRequest,
-  ): Promise<runtime.ApiResponse<UpdateResponse>> {
+  ): Promise<runtime.ApiResponse<UpdateCheqdDIDResponse>> {
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
@@ -155,11 +165,11 @@ export class DidApi extends runtime.BaseAPI {
       method: 'POST',
       headers: headerParameters,
       query: queryParameters,
-      body: UpdateRequestToJSON(requestParameters.body),
+      body: UpdateCheqdDIDRequestToJSON(requestParameters.body),
     });
 
     return new runtime.JSONApiResponse(response, (jsonValue) =>
-      UpdateResponseFromJSON(jsonValue),
+      UpdateCheqdDIDResponseFromJSON(jsonValue),
     );
   }
 
@@ -168,8 +178,43 @@ export class DidApi extends runtime.BaseAPI {
    */
   async didCheqdUpdatePost(
     requestParameters: DidCheqdUpdatePostRequest,
-  ): Promise<UpdateResponse> {
+  ): Promise<UpdateCheqdDIDResponse> {
     const response = await this.didCheqdUpdatePostRaw(requestParameters);
+    return await response.value();
+  }
+
+  /**
+   * Import an existing DID into the wallet
+   */
+  async didImportPostRaw(
+    requestParameters: DidImportPostRequest,
+  ): Promise<runtime.ApiResponse<DIDImportResponse>> {
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    headerParameters['Content-Type'] = 'application/json';
+
+    const response = await this.request({
+      path: `/did/import`,
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: DIDImportToJSON(requestParameters.body),
+    });
+
+    return new runtime.JSONApiResponse(response, (jsonValue) =>
+      DIDImportResponseFromJSON(jsonValue),
+    );
+  }
+
+  /**
+   * Import an existing DID into the wallet
+   */
+  async didImportPost(
+    requestParameters: DidImportPostRequest,
+  ): Promise<DIDImportResponse> {
+    const response = await this.didImportPostRaw(requestParameters);
     return await response.value();
   }
 

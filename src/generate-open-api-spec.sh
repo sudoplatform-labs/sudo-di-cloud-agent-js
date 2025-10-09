@@ -27,6 +27,7 @@ ACA_PY_DOCKER_IMAGE_DEFAULT="sudo-di-acapy"
 
 ACA_PY_ADMIN_PORT="8101"
 ACA_PY_INBOUND_PORT="8100"
+ACA_PY_OID4VCI_PORT="8021"
 ACA_PY_DOCKER_PORTS="${ACA_PY_INBOUND_PORT}:${ACA_PY_INBOUND_PORT} ${ACA_PY_ADMIN_PORT}:${ACA_PY_ADMIN_PORT}"
 ACA_PY_CMD_OPTIONS=" \
   -e http \
@@ -43,7 +44,11 @@ ACA_PY_CMD_OPTIONS=" \
   --plugin oid4vc \
   --plugin connections \
   --plugin sd_jwt_vc \
-  --plugin cheqd"
+  --plugin cheqd \
+  --plugin status_list \
+  --plugin-config-value oid4vci.host=0.0.0.0 \
+  --plugin-config-value oid4vci.port=${ACA_PY_OID4VCI_PORT} \
+  --plugin-config-value oid4vci.endpoint=http"
 
 OPEN_API_JSON_CONFIG="openAPIJSON.config"
 OPEN_API_SHARED_DIR="${BUILD_DIR}/open-api"

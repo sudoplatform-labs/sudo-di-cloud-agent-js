@@ -10,6 +10,8 @@ ARG plugin_tag
 RUN pip install "git+${plugin_repo}@${plugin_tag}#subdirectory=oid4vc"
 # Install the `cheqd` plugin
 RUN pip install "git+${plugin_repo}@${plugin_tag}#subdirectory=cheqd"
+# Install the `status_list` plugin
+RUN pip install "git+${plugin_repo}@${plugin_tag}#subdirectory=status_list"
 # Install the `connections` plugin
 RUN pip install "git+${plugin_repo}@${plugin_tag}#subdirectory=connections"
 

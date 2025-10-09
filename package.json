@@ -1,6 +1,6 @@
 {
   "name": "@sudoplatform-labs/sudo-di-cloud-agent",
-  "version": "0.12.0",
+  "version": "0.0.1",
   "description": "Decentralized Identity Cloud Agent SDK",
   "author": "Anonyome Labs, Inc.",
   "repository": {
@@ -20,7 +20,6 @@
   },
   "scripts": {
     "check-env": "node -e 'console.log(process.env)' | grep npm",
-    "bootstrap": "yarn install",
     "clean:build": "rm -Rf build",
     "clean:dist": "rm -Rf lib/ bin/ docs/",
     "clean": "rm -Rf node_modules/ *.js && yarn clean:build && yarn clean:dist",
@@ -47,20 +46,18 @@
     "test:scripts-release": "jest",
     "test:scripts-latest": "TEST_CLOUD_AGENT_IMAGE=sudo-di-acapy:latest TEST_TAILS_SERVER_IMAGE=sudo-di-tails-server:latest jest",
     "test": "yarn test:scripts-latest && yarn test:acapy && yarn test:tails-server",
-    "build": "yarn audit-with-suppressions && yarn build:agent && yarn build:tails-server",
+    "build": "yarn audit && yarn build:agent && yarn build:tails-server",
+    "audit": "./node_modules/@sudoplatform/sudo-common/bin/yarn-audit-with-suppression.sh",
     "all": "yarn build && yarn test"
   },
   "dependencies": {
     "@babel/traverse": "^7.23.2",
-    "node-fetch": "^2.6.7",
-    "portable-fetch": "^3.0.0",
     "semver": "^7.5.3"
   },
   "devDependencies": {
-    "@sudoplatform/sudo-common": "^8.10.1",
+    "@sudoplatform/sudo-common": "^11.0.0",
     "@types/jest": "^29.5.3",
     "@types/lodash": "^4.14.195",
-    "@types/node": "^16.18.38",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.45.0",
@@ -75,15 +72,5 @@
     "typescript": "^5.1.6",
     "yargs": "^17.7.2"
   },
-  "resolutions": {
-    "**/node-fetch": "^2.6.7",
-    "**/minimist": "^1.2.6",
-    "**/semver": "^7.5.3",
-    "@babel/traverse": "^7.23.2",
-    "braces": "^3.0.3",
-    "micromatch": "^4.0.8"
-  },
-  "outdatedSuppressions": {
-    "major": {}
-  }
+  "packageManager": "yarn@4.10.3+sha224.6020b3cdcdfbd7dbc24b7a7b75d58a249ce36068a8bf97d39aa8cc6d"
 }

@@ -77,9 +77,9 @@ services:
         --plugin oid4vc
         --plugin sd_jwt_vc
         --plugin connections
-        --plugin-config-value "oid4vci.host=${ENDORSER_OID4VCI_HOST:-0.0.0.0}"
-        --plugin-config-value "oid4vci.port=${ENDORSER_OID4VCI_PORT:-8020}"
-        --plugin-config-value "oid4vci.endpoint=${ENDORSER_OID4VCI_ENDPOINT:-}"
+        --plugin-config-value oid4vci.host=${ENDORSER_OID4VCI_HOST:-0.0.0.0}
+        --plugin-config-value oid4vci.port=${ENDORSER_OID4VCI_PORT:-8020}
+        --plugin-config-value oid4vci.endpoint=${ENDORSER_OID4VCI_ENDPOINT:-http}
     networks:
       - frontend
     depends_on:
@@ -149,9 +149,9 @@ services:
         --plugin oid4vc
         --plugin connections
         --plugin sd_jwt_vc
-        --plugin-config-value "oid4vci.host=${AUTHOR_OID4VCI_HOST:-0.0.0.0}"
-        --plugin-config-value "oid4vci.port=${AUTHOR_OID4VCI_PORT:-8021}"
-        --plugin-config-value "oid4vci.endpoint=${AUTHOR_OID4VCI_ENDPOINT:-}"
+        --plugin-config-value oid4vci.host=${AUTHOR_OID4VCI_HOST:-0.0.0.0}
+        --plugin-config-value oid4vci.port=${AUTHOR_OID4VCI_PORT:-8021}
+        --plugin-config-value oid4vci.endpoint=${AUTHOR_OID4VCI_ENDPOINT:-http}
     networks:
       - frontend
     depends_on:

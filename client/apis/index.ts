@@ -26,6 +26,7 @@ export * from './RevocationApi';
 export * from './SchemaApi';
 export * from './ServerApi';
 export * from './SettingsApi';
+export * from './StatusListApi';
 export * from './TrustpingApi';
 export * from './VcApi';
 export * from './VcApiApi';

@@ -22,7 +22,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">DidApi</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/DidApi.ts:70</li></ul></aside>
+<li>Defined in client/apis/DidApi.ts:80</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -44,6 +44,8 @@
 <a href="DidApi.html#didCheqdDeactivatePostRaw" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post<wbr/>Raw</span></a>
 <a href="DidApi.html#didCheqdUpdatePost" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Cheqd<wbr/>Update<wbr/>Post</span></a>
 <a href="DidApi.html#didCheqdUpdatePostRaw" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Cheqd<wbr/>Update<wbr/>Post<wbr/>Raw</span></a>
+<a href="DidApi.html#didImportPost" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Import<wbr/>Post</span></a>
+<a href="DidApi.html#didImportPostRaw" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Import<wbr/>Post<wbr/>Raw</span></a>
 <a href="DidApi.html#didIndyCreatePost" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Indy<wbr/>Create<wbr/>Post</span></a>
 <a href="DidApi.html#didIndyCreatePostRaw" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Indy<wbr/>Create<wbr/>Post<wbr/>Raw</span></a>
 <a href="DidApi.html#didJwkCreatePost" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Jwk<wbr/>Create<wbr/>Post</span></a>
@@ -82,7 +84,7 @@
 <section class="tsd-panel tsd-member"><a id="didCheqdCreatePost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Create<wbr/>Post</span><a href="#didCheqdCreatePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="didCheqdCreatePost.didCheqdCreatePost-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Create<wbr/>Post</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateResponse.html" class="tsd-signature-type tsd-kind-interface">CreateResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdCreatePost.didCheqdCreatePost-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="didCheqdCreatePost.didCheqdCreatePost-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Create<wbr/>Post</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">CreateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdCreatePost.didCheqdCreatePost-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Create a did:cheqd</p>
 </div>
@@ -91,90 +93,122 @@
 <ul class="tsd-parameter-list">
 <li>
 <h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdCreatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdCreatePostRequest</a></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateResponse.html" class="tsd-signature-type tsd-kind-interface">CreateResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
-<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
-<ul>
-<li>Defined in client/apis/DidApi.ts:99</li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member"><a id="didCheqdCreatePostRaw" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Create<wbr/>Post<wbr/>Raw</span><a href="#didCheqdCreatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="didCheqdCreatePostRaw.didCheqdCreatePostRaw-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Create<wbr/>Post<wbr/>Raw</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateResponse.html" class="tsd-signature-type tsd-kind-interface">CreateResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdCreatePostRaw.didCheqdCreatePostRaw-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
-<li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Create a did:cheqd</p>
-</div>
-<div class="tsd-parameters">
-<h4 class="tsd-parameters-title">Parameters</h4>
-<ul class="tsd-parameter-list">
-<li>
-<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdCreatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdCreatePostRequest</a></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateResponse.html" class="tsd-signature-type tsd-kind-interface">CreateResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
-<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
-<ul>
-<li>Defined in client/apis/DidApi.ts:74</li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member"><a id="didCheqdDeactivatePost" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post</span><a href="#didCheqdDeactivatePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="didCheqdDeactivatePost.didCheqdDeactivatePost-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DeactivateResponse.html" class="tsd-signature-type tsd-kind-interface">DeactivateResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdDeactivatePost.didCheqdDeactivatePost-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
-<li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Deactivate a did:cheqd</p>
-</div>
-<div class="tsd-parameters">
-<h4 class="tsd-parameters-title">Parameters</h4>
-<ul class="tsd-parameter-list">
-<li>
-<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdDeactivatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdDeactivatePostRequest</a></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DeactivateResponse.html" class="tsd-signature-type tsd-kind-interface">DeactivateResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
-<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
-<ul>
-<li>Defined in client/apis/DidApi.ts:134</li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member"><a id="didCheqdDeactivatePostRaw" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post<wbr/>Raw</span><a href="#didCheqdDeactivatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="didCheqdDeactivatePostRaw.didCheqdDeactivatePostRaw-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post<wbr/>Raw</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DeactivateResponse.html" class="tsd-signature-type tsd-kind-interface">DeactivateResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdDeactivatePostRaw.didCheqdDeactivatePostRaw-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
-<li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Deactivate a did:cheqd</p>
-</div>
-<div class="tsd-parameters">
-<h4 class="tsd-parameters-title">Parameters</h4>
-<ul class="tsd-parameter-list">
-<li>
-<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdDeactivatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdDeactivatePostRequest</a></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DeactivateResponse.html" class="tsd-signature-type tsd-kind-interface">DeactivateResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">CreateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
 <li>Defined in client/apis/DidApi.ts:109</li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member"><a id="didCheqdUpdatePost" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Update<wbr/>Post</span><a href="#didCheqdUpdatePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<section class="tsd-panel tsd-member"><a id="didCheqdCreatePostRaw" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Create<wbr/>Post<wbr/>Raw</span><a href="#didCheqdCreatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="didCheqdUpdatePost.didCheqdUpdatePost-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Update<wbr/>Post</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/UpdateResponse.html" class="tsd-signature-type tsd-kind-interface">UpdateResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdUpdatePost.didCheqdUpdatePost-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="didCheqdCreatePostRaw.didCheqdCreatePostRaw-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Create<wbr/>Post<wbr/>Raw</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">CreateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdCreatePostRaw.didCheqdCreatePostRaw-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Update a did:cheqd</p>
+<div class="tsd-comment tsd-typography"><p>Create a did:cheqd</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdUpdatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdUpdatePostRequest</a></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/UpdateResponse.html" class="tsd-signature-type tsd-kind-interface">UpdateResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdCreatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdCreatePostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">CreateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/DidApi.ts:169</li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member"><a id="didCheqdUpdatePostRaw" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Update<wbr/>Post<wbr/>Raw</span><a href="#didCheqdUpdatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<li>Defined in client/apis/DidApi.ts:84</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="didCheqdDeactivatePost" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post</span><a href="#didCheqdDeactivatePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="didCheqdUpdatePostRaw.didCheqdUpdatePostRaw-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Update<wbr/>Post<wbr/>Raw</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/UpdateResponse.html" class="tsd-signature-type tsd-kind-interface">UpdateResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdUpdatePostRaw.didCheqdUpdatePostRaw-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="didCheqdDeactivatePost.didCheqdDeactivatePost-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DeactivateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">DeactivateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdDeactivatePost.didCheqdDeactivatePost-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Update a did:cheqd</p>
+<div class="tsd-comment tsd-typography"><p>Deactivate a did:cheqd</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdUpdatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdUpdatePostRequest</a></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/UpdateResponse.html" class="tsd-signature-type tsd-kind-interface">UpdateResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdDeactivatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdDeactivatePostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DeactivateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">DeactivateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
 <li>Defined in client/apis/DidApi.ts:144</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="didCheqdDeactivatePostRaw" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post<wbr/>Raw</span><a href="#didCheqdDeactivatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="didCheqdDeactivatePostRaw.didCheqdDeactivatePostRaw-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post<wbr/>Raw</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DeactivateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">DeactivateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdDeactivatePostRaw.didCheqdDeactivatePostRaw-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Deactivate a did:cheqd</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdDeactivatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdDeactivatePostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DeactivateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">DeactivateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in client/apis/DidApi.ts:119</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="didCheqdUpdatePost" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Update<wbr/>Post</span><a href="#didCheqdUpdatePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="didCheqdUpdatePost.didCheqdUpdatePost-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Update<wbr/>Post</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/UpdateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">UpdateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdUpdatePost.didCheqdUpdatePost-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Update a did:cheqd</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdUpdatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdUpdatePostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/UpdateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">UpdateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in client/apis/DidApi.ts:179</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="didCheqdUpdatePostRaw" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>did<wbr/>Cheqd<wbr/>Update<wbr/>Post<wbr/>Raw</span><a href="#didCheqdUpdatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="didCheqdUpdatePostRaw.didCheqdUpdatePostRaw-1"><span class="tsd-kind-call-signature">did<wbr/>Cheqd<wbr/>Update<wbr/>Post<wbr/>Raw</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/UpdateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">UpdateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#didCheqdUpdatePostRaw.didCheqdUpdatePostRaw-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Update a did:cheqd</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidCheqdUpdatePostRequest.html" class="tsd-signature-type tsd-kind-interface">DidCheqdUpdatePostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/UpdateCheqdDIDResponse.html" class="tsd-signature-type tsd-kind-interface">UpdateCheqdDIDResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in client/apis/DidApi.ts:154</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="didImportPost" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>did<wbr/>Import<wbr/>Post</span><a href="#didImportPost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="didImportPost.didImportPost-1"><span class="tsd-kind-call-signature">did<wbr/>Import<wbr/>Post</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DIDImportResponse.html" class="tsd-signature-type tsd-kind-interface">DIDImportResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#didImportPost.didImportPost-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Import an existing DID into the wallet</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidImportPostRequest.html" class="tsd-signature-type tsd-kind-interface">DidImportPostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DIDImportResponse.html" class="tsd-signature-type tsd-kind-interface">DIDImportResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in client/apis/DidApi.ts:214</li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="didImportPostRaw" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>did<wbr/>Import<wbr/>Post<wbr/>Raw</span><a href="#didImportPostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="didImportPostRaw.didImportPostRaw-1"><span class="tsd-kind-call-signature">did<wbr/>Import<wbr/>Post<wbr/>Raw</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">requestParameters</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DIDImportResponse.html" class="tsd-signature-type tsd-kind-interface">DIDImportResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#didImportPostRaw.didImportPostRaw-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Import an existing DID into the wallet</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">requestParameters</span>: <a href="../interfaces/DidImportPostRequest.html" class="tsd-signature-type tsd-kind-interface">DidImportPostRequest</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/DIDImportResponse.html" class="tsd-signature-type tsd-kind-interface">DIDImportResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in client/apis/DidApi.ts:189</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="didIndyCreatePost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>did<wbr/>Indy<wbr/>Create<wbr/>Post</span><a href="#didIndyCreatePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -190,7 +224,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateDidIndyResponse.html" class="tsd-signature-type tsd-kind-interface">CreateDidIndyResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/DidApi.ts:204</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/DidApi.ts:249</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="didIndyCreatePostRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>did<wbr/>Indy<wbr/>Create<wbr/>Post<wbr/>Raw</span><a href="#didIndyCreatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -206,7 +240,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateDidIndyResponse.html" class="tsd-signature-type tsd-kind-interface">CreateDidIndyResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/DidApi.ts:179</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/DidApi.ts:224</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="didJwkCreatePost" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>did<wbr/>Jwk<wbr/>Create<wbr/>Post</span><a href="#didJwkCreatePost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -222,7 +256,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateDIDJWKResponse.html" class="tsd-signature-type tsd-kind-interface">CreateDIDJWKResponse</a><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/DidApi.ts:239</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/DidApi.ts:284</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="didJwkCreatePostRaw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>did<wbr/>Jwk<wbr/>Create<wbr/>Post<wbr/>Raw</span><a href="#didJwkCreatePostRaw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -238,7 +272,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ApiResponse.html" class="tsd-signature-type tsd-kind-interface">ApiResponse</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/CreateDIDJWKResponse.html" class="tsd-signature-type tsd-kind-interface">CreateDIDJWKResponse</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in client/apis/DidApi.ts:214</li></ul></aside></li></ul></section>
+<li>Defined in client/apis/DidApi.ts:259</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-protected tsd-is-inherited"><a id="request" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagProtected">Protected</code> <span>request</span><a href="#request" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-protected tsd-is-inherited">
@@ -342,6 +376,8 @@
 <li><a href="#didCheqdDeactivatePostRaw" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post<wbr/>Raw</span></a></li>
 <li><a href="#didCheqdUpdatePost" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Cheqd<wbr/>Update<wbr/>Post</span></a></li>
 <li><a href="#didCheqdUpdatePostRaw" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Cheqd<wbr/>Update<wbr/>Post<wbr/>Raw</span></a></li>
+<li><a href="#didImportPost" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Import<wbr/>Post</span></a></li>
+<li><a href="#didImportPostRaw" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Import<wbr/>Post<wbr/>Raw</span></a></li>
 <li><a href="#didIndyCreatePost" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Indy<wbr/>Create<wbr/>Post</span></a></li>
 <li><a href="#didIndyCreatePostRaw" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Indy<wbr/>Create<wbr/>Post<wbr/>Raw</span></a></li>
 <li><a href="#didJwkCreatePost" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>did<wbr/>Jwk<wbr/>Create<wbr/>Post</span></a></li>
@@ -368,6 +404,7 @@
 <li><a href="../enums/ConstraintsStatusSuspendedEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Constraints<wbr/>Status<wbr/>Suspended<wbr/>Enum</span></a></li>
 <li><a href="../enums/ConstraintsSubjectIsIssuerEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Constraints<wbr/>Subject<wbr/>Is<wbr/>Issuer<wbr/>Enum</span></a></li>
 <li><a href="../enums/CreateDIDJWKRequestKeyTypeEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>CreateDIDJWKRequest<wbr/>Key<wbr/>Type<wbr/>Enum</span></a></li>
+<li><a href="../enums/CustomDIDEndpointWithTypeEndpointTypeEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>CustomDIDEndpoint<wbr/>With<wbr/>Type<wbr/>Endpoint<wbr/>Type<wbr/>Enum</span></a></li>
 <li><a href="../enums/DIDCreateOptionsKeyTypeEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>DIDCreate<wbr/>Options<wbr/>Key<wbr/>Type<wbr/>Enum</span></a></li>
 <li><a href="../enums/DIDEndpointWithTypeEndpointTypeEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>DIDEndpoint<wbr/>With<wbr/>Type<wbr/>Endpoint<wbr/>Type<wbr/>Enum</span></a></li>
 <li><a href="../enums/DIDKeyTypeEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>DIDKey<wbr/>Type<wbr/>Enum</span></a></li>
@@ -416,6 +453,8 @@
 <li><a href="../enums/RevocationRegistriesCreatedGetStateEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Revocation<wbr/>Registries<wbr/>Created<wbr/>Get<wbr/>State<wbr/>Enum</span></a></li>
 <li><a href="../enums/RevocationRegistryRevRegIdSetStatePatchStateEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Revocation<wbr/>Registry<wbr/>Rev<wbr/>Reg<wbr/>Id<wbr/>Set<wbr/>State<wbr/>Patch<wbr/>State<wbr/>Enum</span></a></li>
 <li><a href="../enums/RevokeRequestNotifyVersionEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Revoke<wbr/>Request<wbr/>Notify<wbr/>Version<wbr/>Enum</span></a></li>
+<li><a href="../enums/StatusListDefsGetStatusPurposeEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Get<wbr/>Status<wbr/>Purpose<wbr/>Enum</span></a></li>
+<li><a href="../enums/StatusListStatusPurposeEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Status<wbr/>List<wbr/>Status<wbr/>Purpose<wbr/>Enum</span></a></li>
 <li><a href="../enums/SubmissionRequirementsRuleEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Submission<wbr/>Requirements<wbr/>Rule<wbr/>Enum</span></a></li>
 <li><a href="../enums/TransactionJobsTransactionMyJobEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Transaction<wbr/>Jobs<wbr/>Transaction<wbr/>My<wbr/>Job<wbr/>Enum</span></a></li>
 <li><a href="../enums/TransactionJobsTransactionTheirJobEnum.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-8"></use></svg><span>Transaction<wbr/>Jobs<wbr/>Transaction<wbr/>Their<wbr/>Job<wbr/>Enum</span></a></li>
@@ -467,6 +506,7 @@
 <li><a href="SchemaApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Schema<wbr/>Api</span></a></li>
 <li><a href="ServerApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Server<wbr/>Api</span></a></li>
 <li><a href="SettingsApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Settings<wbr/>Api</span></a></li>
+<li><a href="StatusListApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Status<wbr/>List<wbr/>Api</span></a></li>
 <li><a href="TextApiResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Text<wbr/>Api<wbr/>Response</span></a></li>
 <li><a href="TrustpingApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Trustping<wbr/>Api</span></a></li>
 <li><a href="VcApi.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg><span>Vc<wbr/>Api</span></a></li>
@@ -498,6 +538,7 @@
 <li><a href="../interfaces/AnonCredsRequestedCredsRequestedPred.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Anon<wbr/>Creds<wbr/>Requested<wbr/>Creds<wbr/>Requested<wbr/>Pred</span></a></li>
 <li><a href="../interfaces/AnoncredsWalletUpgradePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Anoncreds<wbr/>Wallet<wbr/>Upgrade<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/ApiResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Api<wbr/>Response</span></a></li>
+<li><a href="../interfaces/AssignStatusListEntryResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Assign<wbr/>Status<wbr/>List<wbr/>Entry<wbr/>Response</span></a></li>
 <li><a href="../interfaces/AttachDecorator.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Attach<wbr/>Decorator</span></a></li>
 <li><a href="../interfaces/AttachDecoratorData.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Attach<wbr/>Decorator<wbr/>Data</span></a></li>
 <li><a href="../interfaces/AttachDecoratorData1JWS.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Attach<wbr/>Decorator<wbr/>Data1JWS</span></a></li>
@@ -538,6 +579,8 @@
 <li><a href="../interfaces/ConnectionsReceiveInvitationPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Connections<wbr/>Receive<wbr/>Invitation<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/Constraints.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Constraints</span></a></li>
 <li><a href="../interfaces/Consume.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Consume</span></a></li>
+<li><a href="../interfaces/CreateCheqdDIDRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Create<wbr/>CheqdDIDRequest</span></a></li>
+<li><a href="../interfaces/CreateCheqdDIDResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Create<wbr/>CheqdDIDResponse</span></a></li>
 <li><a href="../interfaces/CreateDCQLQueryRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>CreateDCQLQuery<wbr/>Request</span></a></li>
 <li><a href="../interfaces/CreateDCQLQueryResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>CreateDCQLQuery<wbr/>Response</span></a></li>
 <li><a href="../interfaces/CreateDIDJWKRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>CreateDIDJWKRequest</span></a></li>
@@ -551,8 +594,7 @@
 <li><a href="../interfaces/CreateOID4VPPresDefResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>CreateOID4VPPres<wbr/>Def<wbr/>Response</span></a></li>
 <li><a href="../interfaces/CreateOID4VPReqRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>CreateOID4VPReq<wbr/>Request</span></a></li>
 <li><a href="../interfaces/CreateOID4VPReqResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>CreateOID4VPReq<wbr/>Response</span></a></li>
-<li><a href="../interfaces/CreateRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Create<wbr/>Request</span></a></li>
-<li><a href="../interfaces/CreateResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Create<wbr/>Response</span></a></li>
+<li><a href="../interfaces/CreateStatusListDefRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Create<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request</span></a></li>
 <li><a href="../interfaces/CredAttrSpec.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Cred<wbr/>Attr<wbr/>Spec</span></a></li>
 <li><a href="../interfaces/CredDefValue.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Cred<wbr/>Def<wbr/>Value</span></a></li>
 <li><a href="../interfaces/CredDefValuePrimary.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Cred<wbr/>Def<wbr/>Value<wbr/>Primary</span></a></li>
@@ -591,6 +633,7 @@
 <li><a href="../interfaces/CredentialW3cCredentialIdGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Credential<wbr/>W3c<wbr/>Credential<wbr/>Id<wbr/>Get<wbr/>Request</span></a></li>
 <li><a href="../interfaces/CredentialsGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Credentials<wbr/>Get<wbr/>Request</span></a></li>
 <li><a href="../interfaces/CredentialsW3cPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Credentials<wbr/>W3c<wbr/>Post<wbr/>Request</span></a></li>
+<li><a href="../interfaces/CustomDIDEndpointWithType.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>CustomDIDEndpoint<wbr/>With<wbr/>Type</span></a></li>
 <li><a href="../interfaces/DCQLQuery.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DCQLQuery</span></a></li>
 <li><a href="../interfaces/DCQLQueryList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DCQLQuery<wbr/>List</span></a></li>
 <li><a href="../interfaces/DID.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DID</span></a></li>
@@ -599,6 +642,8 @@
 <li><a href="../interfaces/DIDDocument.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIDDocument</span></a></li>
 <li><a href="../interfaces/DIDEndpoint.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIDEndpoint</span></a></li>
 <li><a href="../interfaces/DIDEndpointWithType.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIDEndpoint<wbr/>With<wbr/>Type</span></a></li>
+<li><a href="../interfaces/DIDImport.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIDImport</span></a></li>
+<li><a href="../interfaces/DIDImportResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIDImport<wbr/>Response</span></a></li>
 <li><a href="../interfaces/DIDList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIDList</span></a></li>
 <li><a href="../interfaces/DIDResult.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIDResult</span></a></li>
 <li><a href="../interfaces/DIDRotateRequestJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIDRotate<wbr/>RequestJSON</span></a></li>
@@ -611,11 +656,14 @@
 <li><a href="../interfaces/DIFProofProposal.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIFProof<wbr/>Proposal</span></a></li>
 <li><a href="../interfaces/DIFProofRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>DIFProof<wbr/>Request</span></a></li>
 <li><a href="../interfaces/DataIntegrityProofOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Data<wbr/>Integrity<wbr/>Proof<wbr/>Options</span></a></li>
-<li><a href="../interfaces/DeactivateRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Deactivate<wbr/>Request</span></a></li>
-<li><a href="../interfaces/DeactivateResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Deactivate<wbr/>Response</span></a></li>
+<li><a href="../interfaces/DeactivateCheqdDIDRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Deactivate<wbr/>CheqdDIDRequest</span></a></li>
+<li><a href="../interfaces/DeactivateCheqdDIDResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Deactivate<wbr/>CheqdDIDResponse</span></a></li>
+<li><a href="../interfaces/DeleteStatusListDefRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Delete<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request</span></a></li>
+<li><a href="../interfaces/DeleteStatusListDefResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Delete<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Response</span></a></li>
 <li><a href="../interfaces/DidCheqdCreatePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Did<wbr/>Cheqd<wbr/>Create<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/DidCheqdDeactivatePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Did<wbr/>Cheqd<wbr/>Deactivate<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/DidCheqdUpdatePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Did<wbr/>Cheqd<wbr/>Update<wbr/>Post<wbr/>Request</span></a></li>
+<li><a href="../interfaces/DidImportPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Did<wbr/>Import<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/DidIndyCreatePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Did<wbr/>Indy<wbr/>Create<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/DidJwkCreatePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Did<wbr/>Jwk<wbr/>Create<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/DidRotateConnIdHangupPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Did<wbr/>Rotate<wbr/>Conn<wbr/>Id<wbr/>Hangup<wbr/>Post<wbr/>Request</span></a></li>
@@ -861,10 +909,12 @@
 <li><a href="../interfaces/ProvePresentationRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Prove<wbr/>Presentation<wbr/>Request</span></a></li>
 <li><a href="../interfaces/ProvePresentationResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Prove<wbr/>Presentation<wbr/>Response</span></a></li>
 <li><a href="../interfaces/PublishRevocations.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Publish<wbr/>Revocations</span></a></li>
+<li><a href="../interfaces/PublishStatusListResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Publish<wbr/>Status<wbr/>List<wbr/>Response</span></a></li>
 <li><a href="../interfaces/PurposeResult.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Purpose<wbr/>Result</span></a></li>
 <li><a href="../interfaces/Queries.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Queries</span></a></li>
 <li><a href="../interfaces/Query.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Query</span></a></li>
 <li><a href="../interfaces/QueryItem.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Query<wbr/>Item</span></a></li>
+<li><a href="../interfaces/QueryStatusListDefResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Query<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Response</span></a></li>
 <li><a href="../interfaces/RawEncoded.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Raw<wbr/>Encoded</span></a></li>
 <li><a href="../interfaces/ReceiveInvitationRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Receive<wbr/>Invitation<wbr/>Request</span></a></li>
 <li><a href="../interfaces/RequestContext.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Request<wbr/>Context</span></a></li>
@@ -926,6 +976,20 @@
 <li><a href="../interfaces/SignResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Sign<wbr/>Response</span></a></li>
 <li><a href="../interfaces/SignatureOptions.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Signature<wbr/>Options</span></a></li>
 <li><a href="../interfaces/SignedDoc.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Signed<wbr/>Doc</span></a></li>
+<li><a href="../interfaces/StatusList.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List</span></a></li>
+<li><a href="../interfaces/StatusListAssignSupportedCredIdCredsCredIdPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Assign<wbr/>Supported<wbr/>Cred<wbr/>Id<wbr/>Creds<wbr/>Cred<wbr/>Id<wbr/>Post<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListCred.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Cred</span></a></li>
+<li><a href="../interfaces/StatusListDef.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Def</span></a></li>
+<li><a href="../interfaces/StatusListDefsDefIdCredsCredIdGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Def<wbr/>Id<wbr/>Creds<wbr/>Cred<wbr/>Id<wbr/>Get<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsDefIdCredsCredIdPatchRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Def<wbr/>Id<wbr/>Creds<wbr/>Cred<wbr/>Id<wbr/>Patch<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsDefIdDeleteRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Def<wbr/>Id<wbr/>Delete<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsDefIdEntriesPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Def<wbr/>Id<wbr/>Entries<wbr/>Post<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsDefIdGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Def<wbr/>Id<wbr/>Get<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsDefIdListsListNumGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Def<wbr/>Id<wbr/>Lists<wbr/>List<wbr/>Num<wbr/>Get<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsDefIdPatchRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Def<wbr/>Id<wbr/>Patch<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsDefIdPublishPutRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Def<wbr/>Id<wbr/>Publish<wbr/>Put<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Get<wbr/>Request</span></a></li>
+<li><a href="../interfaces/StatusListDefsPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Status<wbr/>List<wbr/>Defs<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/StoreCredentialRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Store<wbr/>Credential<wbr/>Request</span></a></li>
 <li><a href="../interfaces/StoreCredentialResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Store<wbr/>Credential<wbr/>Response</span></a></li>
 <li><a href="../interfaces/SubmissionRequirements.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Submission<wbr/>Requirements</span></a></li>
@@ -955,13 +1019,15 @@
 <li><a href="../interfaces/TxnOrRegisterLedgerNymResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Txn<wbr/>Or<wbr/>Register<wbr/>Ledger<wbr/>Nym<wbr/>Response</span></a></li>
 <li><a href="../interfaces/TxnOrRevRegResult.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Txn<wbr/>Or<wbr/>Rev<wbr/>Reg<wbr/>Result</span></a></li>
 <li><a href="../interfaces/TxnOrSchemaSendResult.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Txn<wbr/>Or<wbr/>Schema<wbr/>Send<wbr/>Result</span></a></li>
+<li><a href="../interfaces/UpdateCheqdDIDRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>CheqdDIDRequest</span></a></li>
+<li><a href="../interfaces/UpdateCheqdDIDResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>CheqdDIDResponse</span></a></li>
 <li><a href="../interfaces/UpdateKeyRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>Key<wbr/>Request</span></a></li>
 <li><a href="../interfaces/UpdateKeyResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>Key<wbr/>Response</span></a></li>
 <li><a href="../interfaces/UpdateOID4VPPresDefRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>UpdateOID4VPPres<wbr/>Def<wbr/>Request</span></a></li>
 <li><a href="../interfaces/UpdateOID4VPPresDefResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>UpdateOID4VPPres<wbr/>Def<wbr/>Response</span></a></li>
 <li><a href="../interfaces/UpdateProfileSettings.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>Profile<wbr/>Settings</span></a></li>
-<li><a href="../interfaces/UpdateRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>Request</span></a></li>
-<li><a href="../interfaces/UpdateResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>Response</span></a></li>
+<li><a href="../interfaces/UpdateStatusListCredRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>Status<wbr/>List<wbr/>Cred<wbr/>Request</span></a></li>
+<li><a href="../interfaces/UpdateStatusListDefRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Update<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request</span></a></li>
 <li><a href="../interfaces/V10CredentialBoundOfferRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V10<wbr/>Credential<wbr/>Bound<wbr/>Offer<wbr/>Request</span></a></li>
 <li><a href="../interfaces/V10CredentialConnFreeOfferRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V10<wbr/>Credential<wbr/>Conn<wbr/>Free<wbr/>Offer<wbr/>Request</span></a></li>
 <li><a href="../interfaces/V10CredentialCreate.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V10<wbr/>Credential<wbr/>Create</span></a></li>
@@ -988,6 +1054,7 @@
 <li><a href="../interfaces/V20CredBoundOfferRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V20<wbr/>Cred<wbr/>Bound<wbr/>Offer<wbr/>Request</span></a></li>
 <li><a href="../interfaces/V20CredExFree.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Free</span></a></li>
 <li><a href="../interfaces/V20CredExRecord.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record</span></a></li>
+<li><a href="../interfaces/V20CredExRecordAnonCreds.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>Anon<wbr/>Creds</span></a></li>
 <li><a href="../interfaces/V20CredExRecordByFormat.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>By<wbr/>Format</span></a></li>
 <li><a href="../interfaces/V20CredExRecordDetail.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>Detail</span></a></li>
 <li><a href="../interfaces/V20CredExRecordIndy.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>Indy</span></a></li>
@@ -1052,6 +1119,7 @@
 <li><a href="../interfaces/VerifyRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Verify<wbr/>Request</span></a></li>
 <li><a href="../interfaces/VerifyResponse.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Verify<wbr/>Response</span></a></li>
 <li><a href="../interfaces/W3CCredentialsListRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>W3CCredentials<wbr/>List<wbr/>Request</span></a></li>
+<li><a href="../interfaces/WalletCheqdSetDidEndpointPostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Cheqd<wbr/>Set<wbr/>Did<wbr/>Endpoint<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/WalletDidCreatePostRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Did<wbr/>Create<wbr/>Post<wbr/>Request</span></a></li>
 <li><a href="../interfaces/WalletDidGetRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Did<wbr/>Get<wbr/>Request</span></a></li>
 <li><a href="../interfaces/WalletDidLocalRotateKeypairPatchRequest.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-256"></use></svg><span>Wallet<wbr/>Did<wbr/>Local<wbr/>Rotate<wbr/>Keypair<wbr/>Patch<wbr/>Request</span></a></li>
@@ -1129,6 +1197,9 @@
 <li><a href="../functions/AnonCredsRequestedCredsRequestedPredFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Anon<wbr/>Creds<wbr/>Requested<wbr/>Creds<wbr/>Requested<wbr/>Pred<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/AnonCredsRequestedCredsRequestedPredFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Anon<wbr/>Creds<wbr/>Requested<wbr/>Creds<wbr/>Requested<wbr/>Pred<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/AnonCredsRequestedCredsRequestedPredToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Anon<wbr/>Creds<wbr/>Requested<wbr/>Creds<wbr/>Requested<wbr/>Pred<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/AssignStatusListEntryResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Assign<wbr/>Status<wbr/>List<wbr/>Entry<wbr/>Response<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/AssignStatusListEntryResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Assign<wbr/>Status<wbr/>List<wbr/>Entry<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/AssignStatusListEntryResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Assign<wbr/>Status<wbr/>List<wbr/>Entry<wbr/>Response<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/AttachDecoratorData1JWSFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Attach<wbr/>Decorator<wbr/>Data1JWSFromJSON</span></a></li>
 <li><a href="../functions/AttachDecoratorData1JWSFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Attach<wbr/>Decorator<wbr/>Data1JWSFromJSONTyped</span></a></li>
 <li><a href="../functions/AttachDecoratorData1JWSToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Attach<wbr/>Decorator<wbr/>Data1JWSToJSON</span></a></li>
@@ -1201,6 +1272,12 @@
 <li><a href="../functions/ConstraintsFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Constraints<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/ConstraintsFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Constraints<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/ConstraintsToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Constraints<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/CreateCheqdDIDRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>CheqdDIDRequest<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/CreateCheqdDIDRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>CheqdDIDRequest<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/CreateCheqdDIDRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>CheqdDIDRequest<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/CreateCheqdDIDResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>CheqdDIDResponse<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/CreateCheqdDIDResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>CheqdDIDResponse<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/CreateCheqdDIDResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>CheqdDIDResponse<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/CreateDCQLQueryRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CreateDCQLQuery<wbr/>Request<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/CreateDCQLQueryRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CreateDCQLQuery<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/CreateDCQLQueryRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CreateDCQLQuery<wbr/>Request<wbr/>ToJSON</span></a></li>
@@ -1240,12 +1317,9 @@
 <li><a href="../functions/CreateOID4VPReqResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CreateOID4VPReq<wbr/>Response<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/CreateOID4VPReqResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CreateOID4VPReq<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/CreateOID4VPReqResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CreateOID4VPReq<wbr/>Response<wbr/>ToJSON</span></a></li>
-<li><a href="../functions/CreateRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Request<wbr/>FromJSON</span></a></li>
-<li><a href="../functions/CreateRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
-<li><a href="../functions/CreateRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Request<wbr/>ToJSON</span></a></li>
-<li><a href="../functions/CreateResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Response<wbr/>FromJSON</span></a></li>
-<li><a href="../functions/CreateResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
-<li><a href="../functions/CreateResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Response<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/CreateStatusListDefRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/CreateStatusListDefRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/CreateStatusListDefRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Create<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/CredAttrSpecFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Cred<wbr/>Attr<wbr/>Spec<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/CredAttrSpecFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Cred<wbr/>Attr<wbr/>Spec<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/CredAttrSpecToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Cred<wbr/>Attr<wbr/>Spec<wbr/>ToJSON</span></a></li>
@@ -1324,6 +1398,9 @@
 <li><a href="../functions/CredentialStatusOptionsFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Credential<wbr/>Status<wbr/>Options<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/CredentialStatusOptionsToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Credential<wbr/>Status<wbr/>Options<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/CredentialToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Credential<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/CustomDIDEndpointWithTypeFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CustomDIDEndpoint<wbr/>With<wbr/>Type<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/CustomDIDEndpointWithTypeFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CustomDIDEndpoint<wbr/>With<wbr/>Type<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/CustomDIDEndpointWithTypeToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>CustomDIDEndpoint<wbr/>With<wbr/>Type<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/DCQLQueryFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DCQLQuery<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/DCQLQueryFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DCQLQuery<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/DCQLQueryListFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DCQLQuery<wbr/>List<wbr/>FromJSON</span></a></li>
@@ -1347,6 +1424,12 @@
 <li><a href="../functions/DIDEndpointWithTypeToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDEndpoint<wbr/>With<wbr/>Type<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/DIDFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDFromJSON</span></a></li>
 <li><a href="../functions/DIDFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDFromJSONTyped</span></a></li>
+<li><a href="../functions/DIDImportFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDImport<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/DIDImportFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDImport<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/DIDImportResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDImport<wbr/>Response<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/DIDImportResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDImport<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/DIDImportResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDImport<wbr/>Response<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/DIDImportToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDImport<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/DIDListFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDList<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/DIDListFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDList<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/DIDListToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>DIDList<wbr/>ToJSON</span></a></li>
@@ -1384,12 +1467,18 @@
 <li><a href="../functions/DataIntegrityProofOptionsFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Data<wbr/>Integrity<wbr/>Proof<wbr/>Options<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/DataIntegrityProofOptionsFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Data<wbr/>Integrity<wbr/>Proof<wbr/>Options<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/DataIntegrityProofOptionsToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Data<wbr/>Integrity<wbr/>Proof<wbr/>Options<wbr/>ToJSON</span></a></li>
-<li><a href="../functions/DeactivateRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>Request<wbr/>FromJSON</span></a></li>
-<li><a href="../functions/DeactivateRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
-<li><a href="../functions/DeactivateRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>Request<wbr/>ToJSON</span></a></li>
-<li><a href="../functions/DeactivateResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>Response<wbr/>FromJSON</span></a></li>
-<li><a href="../functions/DeactivateResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
-<li><a href="../functions/DeactivateResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>Response<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/DeactivateCheqdDIDRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>CheqdDIDRequest<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/DeactivateCheqdDIDRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>CheqdDIDRequest<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/DeactivateCheqdDIDRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>CheqdDIDRequest<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/DeactivateCheqdDIDResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>CheqdDIDResponse<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/DeactivateCheqdDIDResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>CheqdDIDResponse<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/DeactivateCheqdDIDResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Deactivate<wbr/>CheqdDIDResponse<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/DeleteStatusListDefRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Delete<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/DeleteStatusListDefRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Delete<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/DeleteStatusListDefRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Delete<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/DeleteStatusListDefResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Delete<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Response<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/DeleteStatusListDefResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Delete<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/DeleteStatusListDefResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Delete<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Response<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/DiscloseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Disclose<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/DiscloseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Disclose<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/DiscloseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Disclose<wbr/>ToJSON</span></a></li>
@@ -1747,6 +1836,9 @@
 <li><a href="../functions/PublishRevocationsFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Publish<wbr/>Revocations<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/PublishRevocationsFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Publish<wbr/>Revocations<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/PublishRevocationsToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Publish<wbr/>Revocations<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/PublishStatusListResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Publish<wbr/>Status<wbr/>List<wbr/>Response<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/PublishStatusListResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Publish<wbr/>Status<wbr/>List<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/PublishStatusListResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Publish<wbr/>Status<wbr/>List<wbr/>Response<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/PurposeResultFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Purpose<wbr/>Result<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/PurposeResultFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Purpose<wbr/>Result<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/PurposeResultToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Purpose<wbr/>Result<wbr/>ToJSON</span></a></li>
@@ -1758,6 +1850,9 @@
 <li><a href="../functions/QueryItemFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Query<wbr/>Item<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/QueryItemFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Query<wbr/>Item<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/QueryItemToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Query<wbr/>Item<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/QueryStatusListDefResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Query<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Response<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/QueryStatusListDefResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Query<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/QueryStatusListDefResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Query<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Response<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/QueryToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Query<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/RawEncodedFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Raw<wbr/>Encoded<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/RawEncodedFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Raw<wbr/>Encoded<wbr/>FromJSONTyped</span></a></li>
@@ -1852,6 +1947,15 @@
 <li><a href="../functions/SignedDocFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Signed<wbr/>Doc<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/SignedDocFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Signed<wbr/>Doc<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/SignedDocToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Signed<wbr/>Doc<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/StatusListCredFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>Cred<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/StatusListCredFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>Cred<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/StatusListCredToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>Cred<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/StatusListDefFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>Def<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/StatusListDefFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>Def<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/StatusListDefToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>Def<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/StatusListFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/StatusListFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/StatusListToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Status<wbr/>List<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/StoreCredentialRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Store<wbr/>Credential<wbr/>Request<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/StoreCredentialRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Store<wbr/>Credential<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/StoreCredentialRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Store<wbr/>Credential<wbr/>Request<wbr/>ToJSON</span></a></li>
@@ -1912,6 +2016,12 @@
 <li><a href="../functions/TxnOrSchemaSendResultFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Txn<wbr/>Or<wbr/>Schema<wbr/>Send<wbr/>Result<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/TxnOrSchemaSendResultFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Txn<wbr/>Or<wbr/>Schema<wbr/>Send<wbr/>Result<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/TxnOrSchemaSendResultToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Txn<wbr/>Or<wbr/>Schema<wbr/>Send<wbr/>Result<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/UpdateCheqdDIDRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>CheqdDIDRequest<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/UpdateCheqdDIDRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>CheqdDIDRequest<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/UpdateCheqdDIDRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>CheqdDIDRequest<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/UpdateCheqdDIDResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>CheqdDIDResponse<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/UpdateCheqdDIDResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>CheqdDIDResponse<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/UpdateCheqdDIDResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>CheqdDIDResponse<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/UpdateKeyRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Key<wbr/>Request<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/UpdateKeyRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Key<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/UpdateKeyRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Key<wbr/>Request<wbr/>ToJSON</span></a></li>
@@ -1927,12 +2037,12 @@
 <li><a href="../functions/UpdateProfileSettingsFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Profile<wbr/>Settings<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/UpdateProfileSettingsFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Profile<wbr/>Settings<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/UpdateProfileSettingsToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Profile<wbr/>Settings<wbr/>ToJSON</span></a></li>
-<li><a href="../functions/UpdateRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Request<wbr/>FromJSON</span></a></li>
-<li><a href="../functions/UpdateRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
-<li><a href="../functions/UpdateRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Request<wbr/>ToJSON</span></a></li>
-<li><a href="../functions/UpdateResponseFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Response<wbr/>FromJSON</span></a></li>
-<li><a href="../functions/UpdateResponseFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Response<wbr/>FromJSONTyped</span></a></li>
-<li><a href="../functions/UpdateResponseToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Response<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/UpdateStatusListCredRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Status<wbr/>List<wbr/>Cred<wbr/>Request<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/UpdateStatusListCredRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Status<wbr/>List<wbr/>Cred<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/UpdateStatusListCredRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Status<wbr/>List<wbr/>Cred<wbr/>Request<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/UpdateStatusListDefRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/UpdateStatusListDefRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/UpdateStatusListDefRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>Update<wbr/>Status<wbr/>List<wbr/>Def<wbr/>Request<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/V10CredentialBoundOfferRequestFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V10<wbr/>Credential<wbr/>Bound<wbr/>Offer<wbr/>Request<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/V10CredentialBoundOfferRequestFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V10<wbr/>Credential<wbr/>Bound<wbr/>Offer<wbr/>Request<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/V10CredentialBoundOfferRequestToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V10<wbr/>Credential<wbr/>Bound<wbr/>Offer<wbr/>Request<wbr/>ToJSON</span></a></li>
@@ -2008,6 +2118,9 @@
 <li><a href="../functions/V20CredExFreeFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Free<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/V20CredExFreeFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Free<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/V20CredExFreeToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Free<wbr/>ToJSON</span></a></li>
+<li><a href="../functions/V20CredExRecordAnonCredsFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>Anon<wbr/>Creds<wbr/>FromJSON</span></a></li>
+<li><a href="../functions/V20CredExRecordAnonCredsFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>Anon<wbr/>Creds<wbr/>FromJSONTyped</span></a></li>
+<li><a href="../functions/V20CredExRecordAnonCredsToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>Anon<wbr/>Creds<wbr/>ToJSON</span></a></li>
 <li><a href="../functions/V20CredExRecordByFormatFromJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>By<wbr/>Format<wbr/>FromJSON</span></a></li>
 <li><a href="../functions/V20CredExRecordByFormatFromJSONTyped.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>By<wbr/>Format<wbr/>FromJSONTyped</span></a></li>
 <li><a href="../functions/V20CredExRecordByFormatToJSON.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg><span>V20<wbr/>Cred<wbr/>Ex<wbr/>Record<wbr/>By<wbr/>Format<wbr/>ToJSON</span></a></li>

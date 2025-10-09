@@ -35,7 +35,7 @@
       "description": "Simple messaging",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/527849ec3aa2a8fd47a7bb6c57f918ff8bcb5e8c/features/0095-basic-message"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/527849ec3aa2a8fd47a7bb6c57f918ff8bcb5e8c/features/0095-basic-message"
       },
       "name": "basicmessage"
     },
@@ -55,7 +55,7 @@
       "description": "Credential definition operations",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/indy-node/blob/master/design/anoncreds.md#cred_def"
+        "url": "https://github.com/hyperledger/indy-node/blob/main/design/anoncreds.md#cred_def"
       },
       "name": "credential-definition"
     },
@@ -87,7 +87,7 @@
       "description": "Connection management via DID exchange",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/25464a5c8f8a17b14edaa4310393df6094ace7b0/features/0023-did-exchange"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/25464a5c8f8a17b14edaa4310393df6094ace7b0/features/0023-did-exchange"
       },
       "name": "did-exchange"
     },
@@ -95,7 +95,7 @@
       "description": "Rotate a DID",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/main/features/0794-did-rotate"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/main/features/0794-did-rotate"
       },
       "name": "did-rotate"
     },
@@ -103,7 +103,7 @@
       "description": "Feature discovery",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/b3a3942ef052039e73cd23d847f42947f8287da2/features/0031-discover-features"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/b3a3942ef052039e73cd23d847f42947f8287da2/features/0031-discover-features"
       },
       "name": "discover-features"
     },
@@ -111,7 +111,7 @@
       "description": "Feature discovery v2",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/b3a3942ef052039e73cd23d847f42947f8287da2/features/0557-discover-features-v2"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/b3a3942ef052039e73cd23d847f42947f8287da2/features/0557-discover-features-v2"
       },
       "name": "discover-features v2.0"
     },
@@ -127,7 +127,7 @@
       "description": "Credential issue v1.0",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/bb42a6c35e0d5543718fb36dd099551ab192f7b0/features/0036-issue-credential"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/bb42a6c35e0d5543718fb36dd099551ab192f7b0/features/0036-issue-credential"
       },
       "name": "issue-credential v1.0"
     },
@@ -135,7 +135,7 @@
       "description": "Credential issue v2.0",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/cd27fc64aa2805f756a118043d7c880354353047/features/0453-issue-credential-v2"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/cd27fc64aa2805f756a118043d7c880354353047/features/0453-issue-credential-v2"
       },
       "name": "issue-credential v2.0"
     },
@@ -159,7 +159,7 @@
       "description": "Mediation management",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/fa8dc4ea1e667eb07db8f9ffeaf074a4455697c0/features/0211-route-coordination"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/fa8dc4ea1e667eb07db8f9ffeaf074a4455697c0/features/0211-route-coordination"
       },
       "name": "mediation"
     },
@@ -183,7 +183,7 @@
       "description": "Out-of-band connections",
       "externalDocs": {
         "description": "Design",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/2da7fc4ee043effa3a9960150e7ba8c9a4628b68/features/0434-outofband"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/2da7fc4ee043effa3a9960150e7ba8c9a4628b68/features/0434-outofband"
       },
       "name": "out-of-band"
     },
@@ -191,7 +191,7 @@
       "description": "Proof presentation v1.0",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/4fae574c03f9f1013db30bf2c0c676b1122f7149/features/0037-present-proof"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/4fae574c03f9f1013db30bf2c0c676b1122f7149/features/0037-present-proof"
       },
       "name": "present-proof v1.0"
     },
@@ -199,7 +199,7 @@
       "description": "Proof presentation v2.0",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/eace815c3e8598d4a8dd7881d8c731fdb2bcc0aa/features/0454-present-proof-v2"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/eace815c3e8598d4a8dd7881d8c731fdb2bcc0aa/features/0454-present-proof-v2"
       },
       "name": "present-proof v2.0"
     },
@@ -223,7 +223,7 @@
       "description": "Schema operations",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/indy-node/blob/master/design/anoncreds.md#schema"
+        "url": "https://github.com/hyperledger/indy-node/blob/main/design/anoncreds.md#schema"
       },
       "name": "schema"
     },
@@ -232,10 +232,17 @@
       "name": "settings"
     },
     {
+      "description": "Status list operations",
+      "externalDocs": {
+        "description": "Specification"
+      },
+      "name": "status-list"
+    },
+    {
       "description": "Trust-ping over connection",
       "externalDocs": {
         "description": "Specification",
-        "url": "https://github.com/hyperledger/aries-rfcs/tree/527849ec3aa2a8fd47a7bb6c57f918ff8bcb5e8c/features/0048-trust-ping"
+        "url": "https://github.com/decentralized-identity/aries-rfcs/tree/527849ec3aa2a8fd47a7bb6c57f918ff8bcb5e8c/features/0048-trust-ping"
       },
       "name": "trustping"
     },
@@ -1748,7 +1755,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/CreateRequest"
+                "$ref": "#/components/schemas/CreateCheqdDIDRequest"
               }
             }
           },
@@ -1759,7 +1766,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateResponse"
+                  "$ref": "#/components/schemas/CreateCheqdDIDResponse"
                 }
               }
             },
@@ -1779,7 +1786,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/DeactivateRequest"
+                "$ref": "#/components/schemas/DeactivateCheqdDIDRequest"
               }
             }
           },
@@ -1790,7 +1797,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DeactivateResponse"
+                  "$ref": "#/components/schemas/DeactivateCheqdDIDResponse"
                 }
               }
             },
@@ -1810,7 +1817,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateRequest"
+                "$ref": "#/components/schemas/UpdateCheqdDIDRequest"
               }
             }
           },
@@ -1821,7 +1828,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UpdateResponse"
+                  "$ref": "#/components/schemas/UpdateCheqdDIDResponse"
                 }
               }
             },
@@ -1829,6 +1836,37 @@
           }
         },
         "summary": "Update a did:cheqd",
+        "tags": [
+          "did"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/did/import": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DIDImport"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DIDImportResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Import an existing DID into the wallet",
         "tags": [
           "did"
         ],
@@ -8078,6 +8116,429 @@
         ]
       }
     },
+    "/status-list/assign/{supported_cred_id}/creds/{cred_id}": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Status list credential identifier.",
+            "in": "path",
+            "name": "cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Status list definition identifier.",
+            "in": "path",
+            "name": "supported_cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusListCred"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Bind a credential to a status list entry (ideally, this should be automated)",
+        "tags": [
+          "status-list"
+        ]
+      }
+    },
+    "/status-list/defs": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Filter by status purpose.",
+            "in": "query",
+            "name": "status_purpose",
+            "schema": {
+              "enum": [
+                "refresh",
+                "revocation",
+                "suspension",
+                "message"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Supported credential identifier",
+            "in": "query",
+            "name": "supported_cred_id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryStatusListDefResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Search status list definitions by filters.",
+        "tags": [
+          "status-list"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStatusListDefRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusListDef"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Create a new status list definition",
+        "tags": [
+          "status-list"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/status-list/defs/{def_id}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "status list definition identifier.",
+            "in": "path",
+            "name": "def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteStatusListDefRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteStatusListDefResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Delete a status list definition by identifier",
+        "tags": [
+          "status-list"
+        ],
+        "x-codegen-request-body-name": "body"
+      },
+      "get": {
+        "parameters": [
+          {
+            "description": "status list definition identifier.",
+            "in": "path",
+            "name": "def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusListDef"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Search status list definition by identifier",
+        "tags": [
+          "status-list"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "description": "status list definition identifier.",
+            "in": "path",
+            "name": "def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStatusListDefRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusListDef"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update status list definition by identifier",
+        "tags": [
+          "status-list"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/status-list/defs/{def_id}/creds/{cred_id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Status list credential identifier.",
+            "in": "path",
+            "name": "cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Status list definition identifier.",
+            "in": "path",
+            "name": "def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusListCred"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Search status list credential by definition and credential identifiers",
+        "tags": [
+          "status-list"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "description": "Status list credential identifier.",
+            "in": "path",
+            "name": "cred_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Status list definition identifier.",
+            "in": "path",
+            "name": "def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStatusListCredRequest"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusListCred"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update status list entry by list number and entry index",
+        "tags": [
+          "status-list"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/status-list/defs/{def_id}/entries": {
+      "post": {
+        "parameters": [
+          {
+            "description": "Status list definition identifier.",
+            "in": "path",
+            "name": "def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignStatusListEntryResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Assign a status list entry",
+        "tags": [
+          "status-list"
+        ]
+      }
+    },
+    "/status-list/defs/{def_id}/lists/{list_num}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Status list definition identifier.",
+            "in": "path",
+            "name": "def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Status list number.",
+            "in": "path",
+            "name": "list_num",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Issuer did",
+            "in": "query",
+            "name": "issuer_did",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusList"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Search status list by list number",
+        "tags": [
+          "status-list"
+        ]
+      }
+    },
+    "/status-list/defs/{def_id}/publish": {
+      "put": {
+        "parameters": [
+          {
+            "description": "Status list definition identifier.",
+            "in": "path",
+            "name": "def_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublishStatusListResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Publish all status lists under a status list definition",
+        "tags": [
+          "status-list"
+        ]
+      }
+    },
     "/status/config": {
       "get": {
         "responses": {
@@ -8769,6 +9230,37 @@
         "summary": "Verify a Presentation",
         "tags": [
           "vc-api"
+        ],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/wallet/cheqd/set-did-endpoint": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomDIDEndpointWithType"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletModuleResponse"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "Update the endpoint in the wallet and on ledger if posted",
+        "tags": [
+          "wallet"
         ],
         "x-codegen-request-body-name": "body"
       }
@@ -9700,6 +10192,31 @@
         ],
         "type": "object"
       },
+      "AssignStatusListEntryResponse": {
+        "properties": {
+          "assigned": {
+            "description": "Status assigned",
+            "example": true,
+            "type": "boolean"
+          },
+          "list_index": {
+            "description": "Status index",
+            "example": 3,
+            "type": "integer"
+          },
+          "list_number": {
+            "description": "Status list number",
+            "example": "3",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status bitstring",
+            "example": "10",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "AttachDecorator": {
         "properties": {
           "@id": {
@@ -10497,6 +11014,87 @@
         },
         "type": "object"
       },
+      "CreateCheqdDIDRequest": {
+        "properties": {
+          "features": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional features to enable for the did.",
+            "example": "{}",
+            "type": "object"
+          },
+          "options": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional configuration options",
+            "example": {
+              "key_type": "ed25519",
+              "method_specific_id_algo": "uuid",
+              "network": "testnet"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "CreateCheqdDIDResponse": {
+        "properties": {
+          "did": {
+            "description": "DID created",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "type": "string"
+          },
+          "didState": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "The published didState",
+            "example": {
+              "did": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+              "didDocument": {
+                "authentication": [
+                  "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1"
+                ],
+                "controller": [
+                  "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86"
+                ],
+                "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+                "verificationMethod": [
+                  {
+                    "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
+                    "type": "Ed25519VerificationKey2020",
+                    "controller": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+                    "publicKeyMultibase": "z6Mk..."
+                  }
+                ]
+              },
+              "secret": {
+                "signingResponse": [
+                  {
+                    "kid": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
+                    "signature": "SHFz..."
+                  }
+                ]
+              },
+              "state": "finished"
+            },
+            "type": "object"
+          },
+          "success": {
+            "description": "Flag to denote if the operation was successful",
+            "example": true,
+            "type": "boolean"
+          },
+          "verkey": {
+            "description": "Verification key",
+            "example": "BnSWTUQmdYCewSGFrRUhT6LmKdcCcSzRGqWXMPnEP168",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "CreateDCQLQueryRequest": {
         "properties": {
           "credential_sets": {
@@ -10762,82 +11360,73 @@
         ],
         "type": "object"
       },
-      "CreateRequest": {
+      "CreateStatusListDefRequest": {
         "properties": {
-          "features": {
-            "additionalProperties": {
-              "type": "object"
-            },
-            "description": "Additional features to enable for the did.",
-            "example": "{}",
-            "type": "object"
-          },
-          "options": {
-            "additionalProperties": {
-              "type": "object"
-            },
-            "description": "Additional configuration options",
-            "example": {
-              "key_type": "ed25519",
-              "method_specific_id_algo": "uuid",
-              "network": "testnet"
-            },
-            "type": "object"
-          }
-        },
-        "type": "object"
-      },
-      "CreateResponse": {
-        "properties": {
-          "did": {
-            "description": "DID created",
-            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+          "issuer_did": {
+            "description": "Issuer DID for the status list",
+            "example": "did:web:dev.lab.di.gov.on.ca",
             "type": "string"
           },
-          "didState": {
-            "additionalProperties": {
+          "list_size": {
+            "description": "Number of entries in status list, minimum 131072",
+            "example": 131072,
+            "type": "integer"
+          },
+          "list_type": {
+            "description": "Status list type: 'w3c', 'ietf' or none",
+            "example": "ietf",
+            "type": "string"
+          },
+          "shard_size": {
+            "description": "Number of entries in each shard, between 1 and list_size",
+            "example": 1024,
+            "type": "integer"
+          },
+          "status_message": {
+            "description": "Status List message status",
+            "example": [
+              {
+                "status": "0x00",
+                "message": "active"
+              },
+              {
+                "status": "0x01",
+                "message": "revoked"
+              },
+              {
+                "status": "0x10",
+                "message": "pending"
+              },
+              {
+                "status": "0x11",
+                "message": "suspended"
+              }
+            ],
+            "items": {
+              "additionalProperties": {
+                "type": "object"
+              },
               "type": "object"
             },
-            "description": "The published didState",
-            "example": {
-              "did": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-              "didDocument": {
-                "authentication": [
-                  "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1"
-                ],
-                "controller": [
-                  "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86"
-                ],
-                "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-                "verificationMethod": [
-                  {
-                    "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
-                    "type": "Ed25519VerificationKey2020",
-                    "controller": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-                    "publicKeyMultibase": "z6Mk..."
-                  }
-                ]
-              },
-              "secret": {
-                "signingResponse": [
-                  {
-                    "kid": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
-                    "signature": "SHFz..."
-                  }
-                ]
-              },
-              "state": "finished"
-            },
-            "type": "object"
+            "type": "array"
           },
-          "success": {
-            "description": "Flag to denote if the operation was successful",
-            "example": true,
-            "type": "boolean"
+          "status_purpose": {
+            "description": "Status purpose: revocation, suspension or message",
+            "example": "revocation",
+            "type": "string"
           },
-          "verkey": {
-            "description": "Verification key",
-            "example": "BnSWTUQmdYCewSGFrRUhT6LmKdcCcSzRGqWXMPnEP168",
+          "status_size": {
+            "description": "Status size in bits",
+            "example": 1,
+            "type": "integer"
+          },
+          "supported_cred_id": {
+            "description": "Supported credential identifier",
+            "type": "string"
+          },
+          "verification_method": {
+            "description": "Issuer DID for the status list",
+            "example": "did:web:dev.lab.di.gov.on.ca#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
             "type": "string"
           }
         },
@@ -11490,6 +12079,42 @@
         ],
         "type": "object"
       },
+      "CustomDIDEndpointWithType": {
+        "properties": {
+          "did": {
+            "description": "DID of interest",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)/resources/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})([?][^#]*)?)$",
+            "type": "string"
+          },
+          "endpoint": {
+            "description": "Endpoint to set (omit to delete)",
+            "example": "https://myhost:8021",
+            "pattern": "^[A-Za-z0-9\\.\\-\\+]+://([A-Za-z0-9][.A-Za-z0-9-_]+[A-Za-z0-9])+(:[1-9][0-9]*)?(/[^?&#]+)?$",
+            "type": "string"
+          },
+          "endpoint_type": {
+            "description": "Endpoint type to set (default 'Endpoint'); affects only public or posted DIDs",
+            "enum": [
+              "Endpoint",
+              "Profile",
+              "LinkedDomains"
+            ],
+            "example": "Endpoint",
+            "type": "string"
+          },
+          "mediation_id": {
+            "description": "Mediation ID to use for endpoint information.",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+            "type": "string"
+          }
+        },
+        "required": [
+          "did"
+        ],
+        "type": "object"
+      },
       "DCQLQuery": {
         "properties": {
           "created_at": {
@@ -11752,6 +12377,34 @@
         "required": [
           "did"
         ],
+        "type": "object"
+      },
+      "DIDImport": {
+        "properties": {
+          "did_document": {
+            "description": "The DID document to import",
+            "example": "",
+            "type": "object"
+          },
+          "metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional metadata to associate with the imported DID",
+            "type": "object"
+          }
+        },
+        "required": [
+          "did_document"
+        ],
+        "type": "object"
+      },
+      "DIDImportResponse": {
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/DID"
+          }
+        },
         "type": "object"
       },
       "DIDList": {
@@ -12088,12 +12741,12 @@
         ],
         "type": "object"
       },
-      "DeactivateRequest": {
+      "DeactivateCheqdDIDRequest": {
         "properties": {
           "did": {
             "description": "DID to deactivate",
             "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)/resources/([a-z,0-9,-]{36,36})([?][^#]*)?)$",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)/resources/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})([?][^#]*)?)$",
             "type": "string"
           },
           "options": {
@@ -12112,12 +12765,12 @@
         ],
         "type": "object"
       },
-      "DeactivateResponse": {
+      "DeactivateCheqdDIDResponse": {
         "properties": {
           "did": {
-            "description": "DID that has been deactivted",
+            "description": "DID that has been deactivated",
             "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)/resources/([a-z,0-9,-]{36,36})([?][^#]*)?)$",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)/resources/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})([?][^#]*)?)$",
             "type": "string"
           },
           "didState": {
@@ -12133,6 +12786,36 @@
         },
         "required": [
           "didState"
+        ],
+        "type": "object"
+      },
+      "DeleteStatusListDefRequest": {
+        "properties": {
+          "recursive_delete": {
+            "description": "Delete all underlying status list and entries recursively",
+            "example": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "recursive_delete"
+        ],
+        "type": "object"
+      },
+      "DeleteStatusListDefResponse": {
+        "properties": {
+          "deleted": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "deleted"
         ],
         "type": "object"
       },
@@ -15863,6 +16546,33 @@
         },
         "type": "object"
       },
+      "PublishStatusListResponse": {
+        "properties": {
+          "definition_id": {
+            "description": "Status list definition id.",
+            "type": "string"
+          },
+          "error": {
+            "description": "Error text",
+            "type": "string"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "status_lists": {
+            "description": "Published status lists.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "definition_id",
+          "published"
+        ],
+        "type": "object"
+      },
       "PurposeResult": {
         "properties": {
           "controller": {
@@ -15945,6 +16655,20 @@
           "feature-type",
           "match"
         ],
+        "type": "object"
+      },
+      "QueryStatusListDefResponse": {
+        "properties": {
+          "results": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/StatusListDef"
+              }
+            ],
+            "description": "Status list definitions.",
+            "type": "object"
+          }
+        },
         "type": "object"
       },
       "RawEncoded": {
@@ -16674,18 +17398,42 @@
       },
       "Service": {
         "properties": {
+          "accept": {
+            "description": "Array of supported media types",
+            "items": {
+              "description": "Media types",
+              "type": "string"
+            },
+            "type": "array"
+          },
           "id": {
             "description": "Service ID",
             "example": "did:example:123#service-1",
             "type": "string"
           },
-          "serviceEndpoint": {
-            "description": "Array of Service endpoints",
+          "priority": {
+            "description": "Priority of the service endpoint",
+            "type": "integer"
+          },
+          "recipientKeys": {
+            "description": "Array of did key references to denote the default recipients",
             "items": {
-              "description": "Service endpoint URL",
+              "description": "Did key reference",
               "type": "string"
             },
             "type": "array"
+          },
+          "routingKeys": {
+            "description": "Array of did key references to denote individual routing hops",
+            "items": {
+              "description": "Did key reference",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "serviceEndpoint": {
+            "description": "Service endpoint URL",
+            "type": "string"
           },
           "type": {
             "description": "Service Type",
@@ -16695,6 +17443,7 @@
         },
         "required": [
           "id",
+          "recipientKeys",
           "serviceEndpoint",
           "type"
         ],
@@ -16805,6 +17554,206 @@
         "required": [
           "proof"
         ],
+        "type": "object"
+      },
+      "StatusList": {
+        "properties": {
+          "definition_id": {
+            "description": "Status list definition identifier",
+            "type": "string"
+          },
+          "encoded_list": {
+            "description": "GZIP compressed and base64url encoded status list",
+            "type": "string"
+          },
+          "list_number": {
+            "description": "Status list number.",
+            "type": "string"
+          },
+          "list_size": {
+            "description": "Number of entries in status list, minimum 131072",
+            "example": 131072,
+            "type": "integer"
+          },
+          "status_message": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Status List message status",
+            "example": {
+              "0x00": "active",
+              "0x01": "revoked",
+              "0x10": "pending",
+              "0x11": "suspended"
+            },
+            "type": "object"
+          },
+          "status_purpose": {
+            "description": "Status purpose.",
+            "enum": [
+              "revocation",
+              "suspension",
+              "message"
+            ],
+            "example": "revocation",
+            "type": "string"
+          },
+          "status_size": {
+            "description": "Status size in bits",
+            "example": 1,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "StatusListCred": {
+        "properties": {
+          "assigned": {
+            "description": "Status assigned",
+            "example": true,
+            "type": "boolean"
+          },
+          "index": {
+            "description": "Status list index",
+            "example": 384,
+            "type": "integer"
+          },
+          "list": {
+            "description": "Status list number",
+            "example": 1,
+            "type": "integer"
+          },
+          "status": {
+            "description": "Status bitstring",
+            "example": "10",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "StatusListDef": {
+        "properties": {
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "id": {
+            "description": "Status list definition identifier",
+            "type": "string"
+          },
+          "issuer_did": {
+            "description": "Issuer DID for the status list",
+            "example": "did:web:dev.lab.di.gov.on.ca",
+            "type": "string"
+          },
+          "list_index": {
+            "description": "Current status list index",
+            "example": 10240,
+            "type": "integer"
+          },
+          "list_number": {
+            "description": "Next status list number",
+            "example": "11",
+            "type": "string"
+          },
+          "list_numbers": {
+            "description": "Status list numbers",
+            "example": [
+              1,
+              2,
+              3
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "list_seed": {
+            "description": "Current status list random seed",
+            "example": "abc123",
+            "type": "string"
+          },
+          "list_size": {
+            "description": "Number of entries in the list, must be power of two, minimum 131072",
+            "example": 131072,
+            "type": "integer"
+          },
+          "list_type": {
+            "description": "Status list type: 'w3c', 'ietf' or none",
+            "example": "ietf",
+            "type": "string"
+          },
+          "next_list_number": {
+            "description": "Next status list number",
+            "example": "11",
+            "type": "string"
+          },
+          "shard_size": {
+            "description": "Number of entries in each shard, between 1 and list_size",
+            "example": 1024,
+            "type": "integer"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "status_message": {
+            "description": "Status List message status",
+            "example": [
+              {
+                "status": "0x00",
+                "message": "active"
+              },
+              {
+                "status": "0x01",
+                "message": "revoked"
+              },
+              {
+                "status": "0x10",
+                "message": "pending"
+              },
+              {
+                "status": "0x11",
+                "message": "suspended"
+              }
+            ],
+            "items": {
+              "additionalProperties": {
+                "type": "object"
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "status_purpose": {
+            "description": "Status purpose: 'refresh', 'revocation', 'suspension' or 'message'",
+            "example": "revocation",
+            "type": "string"
+          },
+          "status_size": {
+            "description": "Status size in bits",
+            "example": 1,
+            "type": "integer"
+          },
+          "supported_cred_id": {
+            "description": "Supported credential identifier",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "verification_method": {
+            "description": "Issuer DID for the status list",
+            "example": "did:web:dev.lab.di.gov.on.ca#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "StoreCredentialRequest": {
@@ -17474,6 +18423,90 @@
         },
         "type": "object"
       },
+      "UpdateCheqdDIDRequest": {
+        "properties": {
+          "did": {
+            "description": "DID to update",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)/resources/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})([?][^#]*)?)$",
+            "type": "string"
+          },
+          "didDocument": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DIDDocument"
+              }
+            ],
+            "description": "DID Document to update",
+            "example": {
+              "authentication": [
+                "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1"
+              ],
+              "controller": [
+                "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86"
+              ],
+              "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+              "service": [
+                {
+                  "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#service-1",
+                  "type": "MessagingService",
+                  "serviceEndpoint": [
+                    "https://example.com/service"
+                  ]
+                }
+              ],
+              "verificationMethod": [
+                {
+                  "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
+                  "type": "Ed25519VerificationKey2018",
+                  "controller": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+                  "publicKeyMultibase": "z6Mk..."
+                }
+              ]
+            },
+            "type": "object"
+          },
+          "options": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Additional configuration options",
+            "example": {
+              "network": "testnet"
+            },
+            "type": "object"
+          }
+        },
+        "required": [
+          "did",
+          "didDocument"
+        ],
+        "type": "object"
+      },
+      "UpdateCheqdDIDResponse": {
+        "properties": {
+          "did": {
+            "description": "DID that has been updated",
+            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
+            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))*:)*((?:[a-zA-Z0-9]{21,22}|([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}))+)/resources/([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})([?][^#]*)?)$",
+            "type": "string"
+          },
+          "didState": {
+            "description": "State of the did update",
+            "example": "",
+            "type": "string"
+          },
+          "success": {
+            "description": "Flag to denote if the operation was successful",
+            "example": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "didState"
+        ],
+        "type": "object"
+      },
       "UpdateKeyRequest": {
         "properties": {
           "kid": {
@@ -17559,88 +18592,34 @@
         },
         "type": "object"
       },
-      "UpdateRequest": {
+      "UpdateStatusListCredRequest": {
         "properties": {
-          "did": {
-            "description": "DID to update",
-            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)/resources/([a-z,0-9,-]{36,36})([?][^#]*)?)$",
+          "status": {
+            "description": "Status bitstring",
+            "example": "10",
             "type": "string"
-          },
-          "didDocument": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DIDDocument"
-              }
-            ],
-            "description": "DID Document to update",
-            "example": {
-              "authentication": [
-                "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1"
-              ],
-              "controller": [
-                "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86"
-              ],
-              "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-              "service": [
-                {
-                  "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#service-1",
-                  "type": "MessagingService",
-                  "serviceEndpoint": [
-                    "https://example.com/service"
-                  ]
-                }
-              ],
-              "verificationMethod": [
-                {
-                  "id": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86#key-1",
-                  "type": "Ed25519VerificationKey2018",
-                  "controller": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-                  "publicKeyMultibase": "z6Mk..."
-                }
-              ]
-            },
-            "type": "object"
-          },
-          "options": {
-            "additionalProperties": {
-              "type": "object"
-            },
-            "description": "Additional configuration options",
-            "example": {
-              "network": "testnet"
-            },
-            "type": "object"
           }
         },
-        "required": [
-          "did",
-          "didDocument"
-        ],
         "type": "object"
       },
-      "UpdateResponse": {
+      "UpdateStatusListDefRequest": {
         "properties": {
-          "did": {
-            "description": "DID that has been updated",
-            "example": "did:cheqd:testnet:099be283-4302-40cc-9850-22016bcd1d86",
-            "pattern": "^(did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)((;[a-zA-Z0-9_.:%-]+=[a-zA-Z0-9_.:%-]*)*)([?][^#]*)?|did:cheqd:(testnet|mainnet):(?:(?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))*:)*((?:[a-zA-Z0-9]{21,22}|([a-z,0-9,-]{36,36}))+)/resources/([a-z,0-9,-]{36,36})([?][^#]*)?)$",
+          "issuer_did": {
+            "description": "Issuer DID for the status list",
+            "example": "did:web:dev.lab.di.gov.on.ca",
             "type": "string"
           },
-          "didState": {
-            "description": "State of the did update",
-            "example": "",
+          "list_type": {
+            "description": "Status list type: 'w3c', 'ietf' or none",
+            "example": "ietf",
             "type": "string"
           },
-          "success": {
-            "description": "Flag to denote if the operation was successful",
-            "example": true,
-            "type": "boolean"
+          "verification_method": {
+            "description": "Issuer DID for the status list",
+            "example": "did:web:dev.lab.di.gov.on.ca#z6Mkgg342Ycpuk263R9d8Aq6MUaxPn1DDeHyGo38EefXmgDL",
+            "type": "string"
           }
         },
-        "required": [
-          "didState"
-        ],
         "type": "object"
       },
       "UpgradeResult": {
@@ -18786,6 +19765,60 @@
         },
         "type": "object"
       },
+      "V20CredExRecordAnonCreds": {
+        "properties": {
+          "created_at": {
+            "description": "Time of record creation",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          },
+          "cred_ex_anoncreds_id": {
+            "description": "Record identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "cred_ex_id": {
+            "description": "Corresponding v2.0 credential exchange record identifier",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "cred_id_stored": {
+            "description": "Credential identifier stored in wallet",
+            "example": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "type": "string"
+          },
+          "cred_request_metadata": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Credential request metadata for anoncreds holder",
+            "type": "object"
+          },
+          "cred_rev_id": {
+            "description": "Credential revocation identifier within revocation registry",
+            "example": "did:(method):3:CL:20:tag",
+            "type": "string"
+          },
+          "rev_reg_id": {
+            "description": "Revocation registry identifier",
+            "example": "did:(method):4:did:<method>:3:CL:20:tag:CL_ACCUM:0",
+            "type": "string"
+          },
+          "state": {
+            "description": "Current record state",
+            "example": "active",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Time of last record update",
+            "example": "2021-12-31T23:59:59Z",
+            "pattern": "^\\d{4}-\\d\\d-\\d\\d[T ]\\d\\d:\\d\\d(?:\\:(?:\\d\\d(?:\\.\\d{1,6})?))?(?:[+-]\\d\\d:?\\d\\d|Z|)$",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "V20CredExRecordByFormat": {
         "properties": {
           "cred_issue": {
@@ -18817,6 +19850,9 @@
       },
       "V20CredExRecordDetail": {
         "properties": {
+          "anoncreds": {
+            "$ref": "#/components/schemas/V20CredExRecordAnonCreds"
+          },
           "cred_ex_record": {
             "allOf": [
               {

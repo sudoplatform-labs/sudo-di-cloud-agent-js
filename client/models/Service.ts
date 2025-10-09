@@ -18,17 +18,41 @@ import { exists, mapValues } from '../runtime';
  */
 export interface Service {
   /**
+   * Array of supported media types
+   * @type {Array<string>}
+   * @memberof Service
+   */
+  accept?: Array<string>;
+  /**
    * Service ID
    * @type {string}
    * @memberof Service
    */
   id: string;
   /**
-   * Array of Service endpoints
+   * Priority of the service endpoint
+   * @type {number}
+   * @memberof Service
+   */
+  priority?: number;
+  /**
+   * Array of did key references to denote the default recipients
    * @type {Array<string>}
    * @memberof Service
    */
-  serviceEndpoint: Array<string>;
+  recipientKeys: Array<string>;
+  /**
+   * Array of did key references to denote individual routing hops
+   * @type {Array<string>}
+   * @memberof Service
+   */
+  routingKeys?: Array<string>;
+  /**
+   * Service endpoint URL
+   * @type {string}
+   * @memberof Service
+   */
+  serviceEndpoint: string;
   /**
    * Service Type
    * @type {string}
@@ -49,7 +73,11 @@ export function ServiceFromJSONTyped(
     return json;
   }
   return {
+    accept: !exists(json, 'accept') ? undefined : json['accept'],
     id: json['id'],
+    priority: !exists(json, 'priority') ? undefined : json['priority'],
+    recipientKeys: json['recipientKeys'],
+    routingKeys: !exists(json, 'routingKeys') ? undefined : json['routingKeys'],
     serviceEndpoint: json['serviceEndpoint'],
     type: json['type'],
   };
@@ -63,7 +91,11 @@ export function ServiceToJSON(value?: Service | null): any {
     return null;
   }
   return {
+    accept: value.accept,
     id: value.id,
+    priority: value.priority,
+    recipientKeys: value.recipientKeys,
+    routingKeys: value.routingKeys,
     serviceEndpoint: value.serviceEndpoint,
     type: value.type,
   };

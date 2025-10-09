@@ -16,6 +16,10 @@ import {
   V20CredExRecordFromJSON,
   V20CredExRecordFromJSONTyped,
   V20CredExRecordToJSON,
+  V20CredExRecordAnonCreds,
+  V20CredExRecordAnonCredsFromJSON,
+  V20CredExRecordAnonCredsFromJSONTyped,
+  V20CredExRecordAnonCredsToJSON,
   V20CredExRecordIndy,
   V20CredExRecordIndyFromJSON,
   V20CredExRecordIndyFromJSONTyped,
@@ -32,6 +36,12 @@ import {
  * @interface V20CredExRecordDetail
  */
 export interface V20CredExRecordDetail {
+  /**
+   *
+   * @type {V20CredExRecordAnonCreds}
+   * @memberof V20CredExRecordDetail
+   */
+  anoncreds?: V20CredExRecordAnonCreds;
   /**
    * Credential exchange record
    * @type {V20CredExRecord}
@@ -72,6 +82,9 @@ export function V20CredExRecordDetailFromJSONTyped(
     return json;
   }
   return {
+    anoncreds: !exists(json, 'anoncreds')
+      ? undefined
+      : V20CredExRecordAnonCredsFromJSON(json['anoncreds']),
     cred_ex_record: !exists(json, 'cred_ex_record')
       ? undefined
       : V20CredExRecordFromJSON(json['cred_ex_record']),
@@ -97,6 +110,7 @@ export function V20CredExRecordDetailToJSON(
     return null;
   }
   return {
+    anoncreds: V20CredExRecordAnonCredsToJSON(value.anoncreds),
     cred_ex_record: V20CredExRecordToJSON(value.cred_ex_record),
     indy: V20CredExRecordIndyToJSON(value.indy),
     ld_proof: V20CredExRecordLDProofToJSON(value.ld_proof),

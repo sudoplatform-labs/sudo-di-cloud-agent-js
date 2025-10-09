@@ -46,7 +46,7 @@ of Hyperledger Aries Cloud Agent Python.
 | -------------- | ----------------- |
 | docker desktop | 4.11.0            |
 | docker compose | 2.7.0             |
-| yarn           | 1.22.17           |
+| yarn           | 4+                |
 
 ## Integration Instructions
 

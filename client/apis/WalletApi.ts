@@ -18,6 +18,9 @@ import {
   CreateKeyResponse,
   CreateKeyResponseFromJSON,
   CreateKeyResponseToJSON,
+  CustomDIDEndpointWithType,
+  CustomDIDEndpointWithTypeFromJSON,
+  CustomDIDEndpointWithTypeToJSON,
   DIDCreate,
   DIDCreateFromJSON,
   DIDCreateToJSON,
@@ -61,6 +64,10 @@ import {
   UpdateKeyResponseFromJSON,
   UpdateKeyResponseToJSON,
 } from '../models';
+
+export interface WalletCheqdSetDidEndpointPostRequest {
+  body?: CustomDIDEndpointWithType;
+}
 
 export interface WalletDidCreatePostRequest {
   body?: DIDCreate;
@@ -127,6 +134,40 @@ export interface WalletSetDidEndpointPostRequest {
  *
  */
 export class WalletApi extends runtime.BaseAPI {
+  /**
+   * Update the endpoint in the wallet and on ledger if posted
+   */
+  async walletCheqdSetDidEndpointPostRaw(
+    requestParameters: WalletCheqdSetDidEndpointPostRequest,
+  ): Promise<runtime.ApiResponse<object>> {
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    headerParameters['Content-Type'] = 'application/json';
+
+    const response = await this.request({
+      path: `/wallet/cheqd/set-did-endpoint`,
+      method: 'POST',
+      headers: headerParameters,
+      query: queryParameters,
+      body: CustomDIDEndpointWithTypeToJSON(requestParameters.body),
+    });
+
+    return new runtime.JSONApiResponse<any>(response);
+  }
+
+  /**
+   * Update the endpoint in the wallet and on ledger if posted
+   */
+  async walletCheqdSetDidEndpointPost(
+    requestParameters: WalletCheqdSetDidEndpointPostRequest,
+  ): Promise<object> {
+    const response =
+      await this.walletCheqdSetDidEndpointPostRaw(requestParameters);
+    return await response.value();
+  }
+
   /**
    * Create a local DID
    */
