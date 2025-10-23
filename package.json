@@ -12,9 +12,8 @@
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
-    "bin",
-    "docs"
-  ],
+    "bin"
+],
   "bin": {
     "di-env": "bin/di-env.sh"
   },
